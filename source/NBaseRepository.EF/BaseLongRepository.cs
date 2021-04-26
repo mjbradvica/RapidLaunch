@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace NBaseRepository.EF
+﻿namespace NBaseRepository.EF
 {
+    using System;
+    using System.Linq;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class BaseLongRepository<T> : BaseRepository<T, long>
@@ -12,7 +12,7 @@ namespace NBaseRepository.EF
         {
         }
 
-        protected BaseLongRepository(DbContext context, Func<DbSet<T>, DbSet<T>> includeFunc)
+        protected BaseLongRepository(DbContext context, Func<IQueryable<T>, IQueryable<T>> includeFunc)
             : base(context, includeFunc)
         {
         }

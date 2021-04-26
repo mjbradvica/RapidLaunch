@@ -1,6 +1,7 @@
 ﻿namespace NBaseRepository.EF
 {
     using System;
+    using System.Linq;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class BaseGuidRepository<T> : BaseRepository<T, Guid>
@@ -11,7 +12,7 @@
         {
         }
 
-        protected BaseGuidRepository(DbContext context, Func<DbSet<T>, DbSet<T>> includeFunc)
+        protected BaseGuidRepository(DbContext context, Func<IQueryable<T>, IQueryable<T>> includeFunc)
             : base(context, includeFunc)
         {
         }
