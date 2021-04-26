@@ -3,7 +3,7 @@
     using System;
     using Common;
 
-    public interface IGuidQuery<TEntity> : IQuery<TEntity, Guid>
+    public interface ISearchGuidEntities<TEntity> : ISearchEntities<TEntity, Guid>
         where TEntity : IGuidEntity
     {
     }
