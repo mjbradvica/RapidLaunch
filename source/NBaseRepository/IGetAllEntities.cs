@@ -1,6 +1,9 @@
 ﻿namespace NBaseRepository
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -14,7 +17,10 @@
         /// <summary>
         /// Retrieves all entities of a type from a collection.
         /// </summary>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A Task of List of TEntities.</returns>
-        Task<IReadOnlyList<TEntity>> GetAllEntities();
+        Task<IReadOnlyList<TEntity>> GetAllEntities(CancellationToken cancellationToken);
+
+        Task<IReadOnlyList<TEntity>> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }
 }

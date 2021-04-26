@@ -1,6 +1,7 @@
 ﻿namespace NBaseRepository
 {
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -15,7 +16,8 @@
         /// Adds multiples entities to a collection.
         /// </summary>
         /// <param name="entities">An IEnumerable of the entities to be added.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A Task object.</returns>
-        Task AddEntities(IEnumerable<TEntity> entities);
+        Task<int> AddEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
     }
 }

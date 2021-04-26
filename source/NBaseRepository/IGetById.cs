@@ -1,6 +1,8 @@
 ﻿namespace NBaseRepository
 {
     using System;
+    using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -15,7 +17,10 @@
         /// Retrieves an entity from a collection by its' GUID.
         /// </summary>
         /// <param name="id">The id of the entity.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>An object of type TEntity.</returns>
-        Task<TEntity> GetById(TId id);
+        Task<TEntity> GetById(TId id, CancellationToken cancellationToken);
+
+        Task<TEntity> GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }
 }
