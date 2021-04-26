@@ -1,4 +1,4 @@
-﻿namespace NBaseRepository.EF
+﻿namespace NBaseRepository.Common
 {
     using System.Collections.Generic;
     using System.Threading;

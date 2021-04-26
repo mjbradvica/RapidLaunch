@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using LongPrimary;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class BaseLongRepository<T> : BaseRepository<T, long>

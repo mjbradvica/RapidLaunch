@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using GuidPrimary;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class BaseGuidRepository<T> : BaseRepository<T, Guid>

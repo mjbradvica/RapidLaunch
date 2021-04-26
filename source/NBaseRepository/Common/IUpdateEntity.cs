@@ -1,22 +1,22 @@
-﻿namespace NBaseRepository
+﻿namespace NBaseRepository.Common
 {
     using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// An interface that allows a class to add a single entity.
+    /// An interface used to describe a class that can update an entity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
-    public interface IAddEntity<in TEntity, TId>
+    public interface IUpdateEntity<in TEntity, TId>
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Adds a single entity to a collection.
+        /// Updates an entity in a collection.
         /// </summary>
-        /// <param name="entity">The entity to be added.</param>
+        /// <param name="entity">A new version of the entity.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A Task object.</returns>
-        Task<int> AddEntity(TEntity entity, CancellationToken cancellationToken);
+        Task<int> UpdateEntity(TEntity entity, CancellationToken cancellationToken);
     }
 }

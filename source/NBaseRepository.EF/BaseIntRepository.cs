@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using IntPrimary;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class BaseIntRepository<T> : BaseRepository<T, int>

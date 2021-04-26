@@ -1,4 +1,4 @@
-﻿namespace NBaseRepository
+﻿namespace NBaseRepository.Common
 {
     public interface IEntity<out T>
     {

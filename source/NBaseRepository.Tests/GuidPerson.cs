@@ -1,6 +1,7 @@
 ﻿namespace NBaseRepository.Tests
 {
     using System;
+    using GuidPrimary;
 
     public class GuidPerson : IGuidEntity
     {

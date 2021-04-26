@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class BaseRepository<TEntity, TId> :
@@ -12,12 +13,14 @@
         IAddEntities<TEntity, TId>,
         IGetById<TEntity, TId>,
         IGetAllEntities<TEntity, TId>,
+        IGetAllEntitiesLazy<TEntity, TId>,
         IUpdateEntity<TEntity, TId>,
         IUpdateEntities<TEntity, TId>,
-        IDeleteEntityById<TId>,
+        IDeleteById<TId>,
         IDeleteEntity<TEntity, TId>,
         IDeleteEntities<TEntity, TId>,
-        ISearchEntities<TEntity, TId>
+        ISearchEntities<TEntity, TId>,
+        ISearchEntitiesLazy<TEntity, TId>
         where TEntity : class, IEntity<TId>
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc;
@@ -69,6 +72,16 @@
             return await includeFunc.Invoke(Context.Set<TEntity>()).ToListAsync(cancellationToken);
         }
 
+        public virtual IEnumerable<TEntity> GetAllEntitiesLazy()
+        {
+            return EntityContext();
+        }
+
+        public virtual IEnumerable<TEntity> GetAllEntitiesLazy(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        {
+            return includeFunc.Invoke(Context.Set<TEntity>());
+        }
+
         public virtual async Task<int> UpdateEntity(TEntity entity, CancellationToken cancellationToken = default)
         {
             Context.Update(entity);
@@ -83,7 +96,7 @@
             return await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<int> DeleteEntityById(TId id, CancellationToken cancellationToken = default)
+        public virtual async Task<int> DeleteById(TId id, CancellationToken cancellationToken = default)
         {
             var entity = await GetById(id, cancellationToken);
 
@@ -106,7 +119,22 @@
 
         public virtual async Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
+            return await EntityContext().Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
+        }
+
+        public virtual async Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
+        {
+            return await includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
+        }
+
+        public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject)
+        {
+            return EntityContext().Where(queryObject.SearchExpression);
+        }
+
+        public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        {
+            return includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression);
         }
 
         private IQueryable<TEntity> EntityContext()

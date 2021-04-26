@@ -1,4 +1,4 @@
-﻿namespace NBaseRepository
+﻿namespace NBaseRepository.Common
 {
     using System.Threading;
     using System.Threading.Tasks;
