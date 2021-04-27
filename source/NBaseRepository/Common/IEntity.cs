@@ -1,7 +1,7 @@
 ﻿namespace NBaseRepository.Common
 {
-    public interface IEntity<out T>
+    public interface IEntity<out TId>
     {
-        T Id { get; }
+        TId Id { get; }
     }
 }

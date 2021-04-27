@@ -2,7 +2,7 @@
 {
     using Common;
 
-    public interface IIntAddEntity<in T> : IAddEntity<T, int>
+    public interface IAddIntEntity<in T> : IAddEntity<T, int>
         where T : IIntEntity
     {
     }

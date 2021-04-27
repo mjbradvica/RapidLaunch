@@ -5,15 +5,15 @@
     using GuidPrimary;
     using Microsoft.EntityFrameworkCore;
 
-    public abstract class BaseGuidRepository<T> : BaseRepository<T, Guid>
-        where T : class, IGuidEntity
+    public abstract class BaseGuidRepository<TEntity> : BaseRepository<TEntity, Guid>
+        where TEntity : class, IGuidEntity
     {
         protected BaseGuidRepository(DbContext context)
             : base(context)
         {
         }
 
-        protected BaseGuidRepository(DbContext context, Func<IQueryable<T>, IQueryable<T>> includeFunc)
+        protected BaseGuidRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
             : base(context, includeFunc)
         {
         }
