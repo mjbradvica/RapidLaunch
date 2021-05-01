@@ -12,11 +12,11 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Removes an entity from a collection.
+        /// Removes an <see cref="TEntity"/> from a collection.
         /// </summary>
-        /// <param name="entity">The entity to be deleted.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> DeleteEntity(TEntity entity, CancellationToken cancellationToken);
     }
 }

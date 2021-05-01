@@ -17,16 +17,16 @@
         /// <summary>
         /// Retrieves all entities of type <see cref="TEntity"/> from a collection.
         /// </summary>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A Task of <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="IReadOnlyList{TEntity}"/>.</returns>
         Task<IReadOnlyList<TEntity>> GetAllEntities(CancellationToken cancellationToken);
 
         /// <summary>
         /// Retrieves all entities of type <see cref="TEntity"/> from a collection that accepts a custom include func for eager loading.
         /// </summary>
         /// <param name="includeFunc">An include func used for eager loading.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A Task of <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="IReadOnlyList{TEntity}"/>.</returns>
         Task<IReadOnlyList<TEntity>> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }
 }

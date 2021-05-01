@@ -13,11 +13,11 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Removes multiple entities from a collection.
+        /// Removes multiple <see cref="TEntity"/> from a collection.
         /// </summary>
-        /// <param name="entities">The entities to be deleted.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be deleted.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> DeleteEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
     }
 }

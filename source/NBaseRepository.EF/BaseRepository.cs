@@ -44,11 +44,11 @@
         protected DbContext Context { get; }
 
         /// <summary>
-        /// 
+        /// Adds a single <see cref="TEntity"/> to the database.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entity">The <see cref="TEntity"/> to be added to the database.</param>
+        /// <param name="cancellationToken">A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the a state entry written to the database.</returns>
         public virtual async Task<int> AddEntity(TEntity entity, CancellationToken cancellationToken = default)
         {
             await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
@@ -57,11 +57,11 @@
         }
 
         /// <summary>
-        /// 
+        /// Adds multiple <see cref="TEntity"/>s to the database.
         /// </summary>
-        /// <param name="entities"></param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to add to the database.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         public virtual async Task<int> AddEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
             await Context.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
@@ -70,74 +70,74 @@
         }
 
         /// <summary>
-        /// 
+        /// Retrieves an <see cref="TEntity"/> from the database by Id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns></returns>
+        /// <param name="id">An Id of type <see cref="TId"/>.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the <see cref="TEntity"/>.</returns>
         public virtual async Task<TEntity> GetById(TId id, CancellationToken cancellationToken = default)
         {
             return await EntityContext().FirstAsync(entity => entity.Id.Equals(id), cancellationToken);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves an entity from the database by <see cref="TId"/> that accepts a custom include func for eager loading.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">An Id of type <see cref="TId"/>.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns></returns>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the <see cref="TEntity"/>.</returns>
         public virtual async Task<TEntity> GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await includeFunc.Invoke(Context.Set<TEntity>()).FirstAsync(entity => entity.Id.Equals(id), cancellationToken);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all entities of type <see cref="TEntity"/> from the database.
         /// </summary>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns></returns>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get all operations. The task results contains an <see cref="IReadOnlyList{TEntity}"/>.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntities(CancellationToken cancellationToken = default)
         {
             return await EntityContext().ToListAsync(cancellationToken);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all entities of type <see cref="TEntity"/> from the database that accepts a custom include func for eager loading.
         /// </summary>
         /// <param name="includeFunc">An include func used for eager loading.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns></returns>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get all operations. The task results contains an <see cref="IReadOnlyList{TEntity}"/>.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await includeFunc.Invoke(Context.Set<TEntity>()).ToListAsync(cancellationToken);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all entities of type <see cref="TEntity"/> from the database that may still be queried against.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An <see cref="IEnumerable{TEntity}"/>.</returns>
         public virtual IEnumerable<TEntity> GetAllEntitiesLazy()
         {
             return EntityContext();
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all entities of type <see cref="TEntity"/> from the database that accepts a custom include func for eager loading that may still be queried against.
         /// </summary>
         /// <param name="includeFunc">An include func used for eager loading.</param>
-        /// <returns></returns>
+        /// <returns>An <see cref="IEnumerable{TEntity}"/>.</returns>
         public virtual IEnumerable<TEntity> GetAllEntitiesLazy(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return includeFunc.Invoke(Context.Set<TEntity>());
         }
 
         /// <summary>
-        /// 
+        /// Updates an <see cref="TEntity"/> in the database.
         /// </summary>
-        /// <param name="entity">The entity to be updated.</param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries updated in the database.</returns>
+        /// <param name="entity">The <see cref="TEntity"/> to be updated.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous update operation. The task result contains the state entry updated in the database.</returns>
         public virtual async Task<int> UpdateEntity(TEntity entity, CancellationToken cancellationToken = default)
         {
             Context.Update(entity);
@@ -146,11 +146,11 @@
         }
 
         /// <summary>
-        /// 
+        /// Updates a range <see cref="TEntity"/> in the database..
         /// </summary>
-        /// <param name="entities">The entities to be updated.</param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries updated in the database.</returns>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be updated.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous update operation. The task result contains the number of state entries updated in the database.</returns>
         public virtual async Task<int> UpdateEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().UpdateRange(entities);
@@ -159,11 +159,11 @@
         }
 
         /// <summary>
-        /// 
+        /// Removes an entity from the database by <see cref="TId"/>.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns></returns>
+        /// <param name="id">The <see cref="TId"/> used to delete the entity.</param>
+        /// <param name="cancellationToken">A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the state entry deleted from the database.</returns>
         public virtual async Task<int> DeleteById(TId id, CancellationToken cancellationToken = default)
         {
             var entity = await GetById(id, cancellationToken);
@@ -172,11 +172,11 @@
         }
 
         /// <summary>
-        /// 
+        /// Removes an <see cref="TEntity"/> from the database.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
+        /// <param name="cancellationToken">A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the number of state entries deleted from the database.</returns>
         public virtual async Task<int> DeleteEntity(TEntity entity, CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().Remove(entity);
@@ -185,11 +185,11 @@
         }
 
         /// <summary>
-        /// 
+        /// Removes multiple <see cref="TEntity"/> from the database.
         /// </summary>
-        /// <param name="entities"></param>
-        /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries deleted from the database.</returns>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be deleted.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the number of state entries deleted from the database.</returns>
         public virtual async Task<int> DeleteEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().RemoveRange(entities);
@@ -198,30 +198,30 @@
         }
 
         /// <summary>
-        /// 
+        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database.
         /// </summary>
-        /// <param name="queryObject">A query object that contains a query expression.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns></returns>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get all operations. The task results contains an <see cref="IReadOnlyList{TEntity}"/>.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, CancellationToken cancellationToken = default)
         {
             return await EntityContext().Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
         }
 
         /// <summary>
-        /// 
+        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against the database.
         /// </summary>
-        /// <param name="queryObject">A query object that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns></returns>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get all operations. The task results contains an <see cref="IReadOnlyList{TEntity}"/>.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
         }
 
         /// <summary>
-        /// 
+        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database that has not been executed.
         /// </summary>
         /// <param name="queryObject">A query object that contains a query expression.</param>
         /// <returns>An <see cref="IEnumerable{TEntity}"/> that may be queried against.</returns>
@@ -231,7 +231,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database that accepts a customer include func that has not been executed.
         /// </summary>
         /// <param name="queryObject">A query object of type <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>

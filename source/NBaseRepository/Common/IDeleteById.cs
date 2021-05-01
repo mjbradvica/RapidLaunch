@@ -10,11 +10,11 @@
     public interface IDeleteById<in TId>
     {
         /// <summary>
-        /// Removes an entity from a collection by its Id.
+        /// Removes an entity from a collection by <see cref="TId"/>.
         /// </summary>
-        /// <param name="id">The Id used to delete the entity.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="id">The <see cref="TId"/> used to delete the entity.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> DeleteById(TId id, CancellationToken cancellationToken);
     }
 }

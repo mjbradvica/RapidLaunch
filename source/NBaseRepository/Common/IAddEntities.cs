@@ -13,11 +13,11 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Adds multiples entities to a collection.
+        /// Adds multiple <see cref="TEntity"/>s to a collection.
         /// </summary>
-        /// <param name="entities">An IEnumerable of the entities to be added.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be added.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> AddEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
     }
 }

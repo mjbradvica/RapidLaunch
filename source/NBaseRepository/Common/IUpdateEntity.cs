@@ -12,11 +12,11 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Updates an entity in a collection.
+        /// Updates an <see cref="TEntity"/> in a collection.
         /// </summary>
-        /// <param name="entity">A new version of the entity.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <param name="entity">A new version of the <see cref="TEntity"/>.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> UpdateEntity(TEntity entity, CancellationToken cancellationToken);
     }
 }
