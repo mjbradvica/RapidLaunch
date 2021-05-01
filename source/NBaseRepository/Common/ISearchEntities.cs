@@ -18,7 +18,7 @@
         /// 
         /// </summary>
         /// <param name="queryObject"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns></returns>
         Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, CancellationToken cancellationToken);
 
@@ -26,8 +26,8 @@
         /// 
         /// </summary>
         /// <param name="queryObject"></param>
-        /// <param name="includeFunc"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns></returns>
         Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }

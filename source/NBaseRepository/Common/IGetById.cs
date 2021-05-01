@@ -6,28 +6,28 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// An interface used to describe a class that can retrieve a single entity by GUID.
+    /// An interface used to describe a class that can retrieve a single entity by Id.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the Id.The type of the Id.</typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IGetById<TEntity, in TId>
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Retrieves an entity from a collection by its' GUID.
+        /// Retrieves an entity from a collection by its' Id.
         /// </summary>
-        /// <param name="id">The id of the entity.</param>
+        /// <param name="id">The Id of the entity.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>An object of type TEntity.</returns>
+        /// <returns>An object of type <see cref="TEntity"/>.</returns>
         Task<TEntity> GetById(TId id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
+        /// Retrieves an entity from a collection by its' Id that accepts a custom include func for eager loading.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="includeFunc"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <param name="id">The Id of the entity.</param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <returns>An object of type <see cref="TEntity"/>.</returns>
         Task<TEntity> GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }
 }

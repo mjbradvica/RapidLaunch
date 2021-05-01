@@ -25,7 +25,7 @@
         /// 
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         protected BaseGuidRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
             : base(context, includeFunc)
         {

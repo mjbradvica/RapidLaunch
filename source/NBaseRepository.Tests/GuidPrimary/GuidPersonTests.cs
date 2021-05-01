@@ -1,4 +1,4 @@
-﻿namespace NBaseRepository.Tests
+﻿namespace NBaseRepository.Tests.GuidPrimary
 {
     using System.Threading.Tasks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

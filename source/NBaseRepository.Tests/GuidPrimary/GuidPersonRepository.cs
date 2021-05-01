@@ -1,4 +1,4 @@
-﻿namespace NBaseRepository.Tests
+﻿namespace NBaseRepository.Tests.GuidPrimary
 {
     using EF;
     using Microsoft.EntityFrameworkCore;

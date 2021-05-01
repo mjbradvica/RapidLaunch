@@ -23,7 +23,7 @@
         /// 
         /// </summary>
         /// <param name="queryObject"></param>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <returns></returns>
         IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc);
     }

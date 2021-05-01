@@ -16,7 +16,7 @@
         /// 
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns></returns>
         Task<int> UpdateEntities(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
     }

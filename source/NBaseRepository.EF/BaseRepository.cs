@@ -84,7 +84,7 @@
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
         /// <returns></returns>
         public virtual async Task<TEntity> GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
@@ -105,7 +105,7 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
         /// <returns></returns>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
@@ -125,7 +125,7 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <returns></returns>
         public virtual IEnumerable<TEntity> GetAllEntitiesLazy(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
@@ -212,7 +212,7 @@
         /// 
         /// </summary>
         /// <param name="queryObject"></param>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
         /// <returns></returns>
         public virtual async Task<IReadOnlyList<TEntity>> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
@@ -234,7 +234,7 @@
         /// 
         /// </summary>
         /// <param name="queryObject"></param>
-        /// <param name="includeFunc"></param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <returns></returns>
         public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
