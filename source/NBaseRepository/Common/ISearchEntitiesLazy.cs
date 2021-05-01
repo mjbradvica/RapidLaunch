@@ -7,8 +7,8 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TId"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface ISearchEntitiesLazy<TEntity, TId>
         where TEntity : IEntity<TId>
     {

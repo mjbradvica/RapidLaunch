@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class BaseIntRepository<TEntity> : BaseRepository<TEntity, int>
         where TEntity : class, IIntEntity
     {

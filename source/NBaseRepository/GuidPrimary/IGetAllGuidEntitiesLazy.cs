@@ -6,7 +6,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IGetAllGuidEntitiesLazy<TEntity> : IGetAllEntitiesLazy<TEntity, Guid>
         where TEntity : IGuidEntity
     {

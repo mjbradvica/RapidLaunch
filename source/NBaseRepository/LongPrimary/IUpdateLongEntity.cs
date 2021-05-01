@@ -5,7 +5,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IUpdateLongEntity<in TEntity> : IUpdateEntity<TEntity, long>
         where TEntity : ILongEntity
     {

@@ -6,8 +6,8 @@
     /// <summary>
     /// An interface used to describe a class that can update an entity.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the Id.</typeparam>
+    /// <typeparam name="TEntity">The type of the entity.The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the Id.The type of the Id.</typeparam>
     public interface IUpdateEntity<in TEntity, TId>
         where TEntity : IEntity<TId>
     {

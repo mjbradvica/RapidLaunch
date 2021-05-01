@@ -5,7 +5,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IGetAllIntEntities<TEntity> : IGetAllEntities<TEntity, int>
         where TEntity : IIntEntity
     {

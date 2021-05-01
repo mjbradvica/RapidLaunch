@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class BaseGuidRepository<TEntity> : BaseRepository<TEntity, Guid>
         where TEntity : class, IGuidEntity
     {

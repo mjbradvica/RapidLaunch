@@ -6,7 +6,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IDeleteGuidEntities<in TEntity> : IDeleteEntities<TEntity, Guid>
         where TEntity : IGuidEntity
     {
