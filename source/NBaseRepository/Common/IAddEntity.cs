@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// An interface that allows a class to add a single entity.
+    /// An interface that allows a class to add a single entity of type <see cref="TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>

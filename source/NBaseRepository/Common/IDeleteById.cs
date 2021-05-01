@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// An interface used to describe a class that can delete an entity by Id.
+    /// An interface used to describe a class that can delete an entity by <see cref="TId"/>.
     /// </summary>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IDeleteById<in TId>

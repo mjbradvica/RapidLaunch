@@ -4,7 +4,7 @@
     using System.Linq.Expressions;
 
     /// <summary>
-    /// 
+    /// An interface that describe a class that represents a query object for type <see cref="TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -12,7 +12,7 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// 
+        /// Gets an expression that will be used to form filtering and joins.
         /// </summary>
         Expression<Func<TEntity, bool>> SearchExpression { get; }
     }

@@ -3,11 +3,11 @@
     using Common;
 
     /// <summary>
-    /// 
+    /// An interface that describe a class that represents a query object for type <see cref="ILongEntity"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface ILongQuery<T> : IQuery<T, long>
-        where T : ILongEntity
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    public interface ILongQuery<TEntity> : IQuery<TEntity, long>
+        where TEntity : ILongEntity
     {
     }
 }

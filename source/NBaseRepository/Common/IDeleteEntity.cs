@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// An interface used to describe a class that can delete and entity.
+    /// An interface used to describe a class that can delete an entity of type <see cref="TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -12,7 +12,7 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Removes and entity from a collection.
+        /// Removes an entity from a collection.
         /// </summary>
         /// <param name="entity">The entity to be deleted.</param>
         /// <param name="cancellationToken">A cancellation token.</param>

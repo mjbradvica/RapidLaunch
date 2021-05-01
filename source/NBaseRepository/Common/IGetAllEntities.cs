@@ -18,7 +18,7 @@
         /// Retrieves all entities of type <see cref="TEntity"/> from a collection.
         /// </summary>
         /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A Task of List of <see cref="TEntity"/>.</returns>
+        /// <returns>A Task of <see cref="IReadOnlyList{TEntity}"/>.</returns>
         Task<IReadOnlyList<TEntity>> GetAllEntities(CancellationToken cancellationToken);
 
         /// <summary>
@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A Task of List of <see cref="TEntity"/>.</returns>
+        /// <returns>A Task of <see cref="IReadOnlyList{TEntity}"/>.</returns>
         Task<IReadOnlyList<TEntity>> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }
 }
