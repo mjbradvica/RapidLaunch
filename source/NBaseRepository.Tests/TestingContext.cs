@@ -5,9 +5,9 @@
     using LongPrimary;
     using Microsoft.EntityFrameworkCore;
 
-    public sealed class TestContext : DbContext
+    public sealed class TestingContext : DbContext
     {
-        public TestContext()
+        public TestingContext()
             : base(new DbContextOptionsBuilder().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PaserAirways.Routes;Trusted_Connection=True;MultipleActiveResultSets=true").Options)
         {
             Database.EnsureCreated();

@@ -11,14 +11,14 @@
         {
             var person = new GuidPerson();
 
-            using (var context = new TestContext())
+            using (var context = new TestingContext())
             {
                 var repo = new GuidPersonRepository(context);
 
                 await repo.AddEntity(person);
             }
 
-            using (var context = new TestContext())
+            using (var context = new TestingContext())
             {
                 var repo = new GuidPersonRepository(context);
 
