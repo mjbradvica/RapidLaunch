@@ -21,6 +21,13 @@
         /// <returns>An object of type TEntity.</returns>
         Task<TEntity> GetById(TId id, CancellationToken cancellationToken);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="includeFunc"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<TEntity> GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
     }
 }

@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="entity">The entity to be added.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A Task object.</returns>
+        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> AddEntity(TEntity entity, CancellationToken cancellationToken);
     }
 }

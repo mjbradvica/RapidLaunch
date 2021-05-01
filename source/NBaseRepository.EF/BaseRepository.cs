@@ -8,6 +8,11 @@
     using Common;
     using Microsoft.EntityFrameworkCore;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TId"></typeparam>
     public abstract class BaseRepository<TEntity, TId> :
         IAddEntity<TEntity, TId>,
         IAddEntities<TEntity, TId>,

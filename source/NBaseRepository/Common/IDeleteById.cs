@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="id">The GUID of the entity.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A Task object.</returns>
+        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> DeleteById(TId id, CancellationToken cancellationToken);
     }
 }

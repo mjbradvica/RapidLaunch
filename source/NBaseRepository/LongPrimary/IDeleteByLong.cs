@@ -2,6 +2,9 @@
 {
     using Common;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IDeleteByLong : IDeleteById<long>
     {
     }
