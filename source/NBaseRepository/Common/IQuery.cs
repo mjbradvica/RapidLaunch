@@ -12,7 +12,7 @@
         where TEntity : IEntity<TId>
     {
         /// <summary>
-        /// Gets an expression that will be used to form filtering and joins.
+        /// Gets an expression that will be used to perform filtering and/or joins.
         /// </summary>
         Expression<Func<TEntity, bool>> SearchExpression { get; }
     }
