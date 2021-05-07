@@ -14,7 +14,9 @@
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public abstract class BaseRepository<TEntity, TId> :
+        IAddEntity<TEntity, TId>,
         IAddEntityAsync<TEntity, TId>,
+        IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,
         IGetByIdAsync<TEntity, TId>,
         IGetAllEntitiesAsync<TEntity, TId>,
@@ -47,13 +49,37 @@
         /// Adds a single <see cref="TEntity"/> to the database.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to be added to the database.</param>
-        /// <param name="cancellationToken">A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
+        /// <returns>The result contains the number of state entries written to the database.</returns>
+        public virtual int AddEntity(TEntity entity)
+        {
+            Context.Set<TEntity>().Add(entity);
+
+            return Context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds a single <see cref="TEntity"/> to the database.
+        /// </summary>
+        /// <param name="entity">The <see cref="TEntity"/> to be added to the database.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the a state entry written to the database.</returns>
         public virtual async Task<int> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
 
             return await Context.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Adds multiple <see cref="TEntity"/>s to the database.
+        /// </summary>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to add to the database.</param>
+        /// <returns>The result contains the number of state entries written to the database.</returns>
+        public virtual int AddEntities(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().AddRange(entities);
+
+            return Context.SaveChanges();
         }
 
         /// <summary>
@@ -162,7 +188,7 @@
         /// Removes an entity from the database by <see cref="TId"/>.
         /// </summary>
         /// <param name="id">The <see cref="TId"/> used to delete the entity.</param>
-        /// <param name="cancellationToken">A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the state entry deleted from the database.</returns>
         public virtual async Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
@@ -175,7 +201,7 @@
         /// Removes an <see cref="TEntity"/> from the database.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
-        /// <param name="cancellationToken">A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the number of state entries deleted from the database.</returns>
         public virtual async Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
