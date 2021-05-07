@@ -3,10 +3,10 @@
     using Common;
 
     /// <summary>
-    /// An interface used to describe a class that can retrieve a single entity of type <see cref="TEntity"/> by Id of type <see cref="long"/>.
+    /// An interface used to describe a class that can delete multiple entities of type <see cref="TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public interface IGetByLong<TEntity> : IGetByIdAsync<TEntity, long>
+    public interface IDeleteLongEntitiesAsync<in TEntity> : IDeleteEntitiesAsync<TEntity, long>
         where TEntity : ILongEntity
     {
     }

@@ -15,14 +15,14 @@
             {
                 var repo = new GuidPersonRepository(context);
 
-                await repo.AddEntity(person);
+                await repo.AddEntityAsync(person);
             }
 
             using (var context = new TestingContext())
             {
                 var repo = new GuidPersonRepository(context);
 
-                var result = await repo.GetById(person.Id);
+                var result = await repo.GetByIdAsync(person.Id);
             }
         }
     }
