@@ -18,14 +18,22 @@
         IAddEntityAsync<TEntity, TId>,
         IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,
+        IGetById<TEntity, TId>,
         IGetByIdAsync<TEntity, TId>,
+        IGetAllEntities<TEntity, TId>,
         IGetAllEntitiesAsync<TEntity, TId>,
         IGetAllEntitiesLazy<TEntity, TId>,
+        IUpdateEntity<TEntity, TId>,
         IUpdateEntityAsync<TEntity, TId>,
+        IUpdateEntities<TEntity, TId>,
         IUpdateEntitiesAsync<TEntity, TId>,
+        IDeleteById<TId>,
         IDeleteByIdAsync<TId>,
+        IDeleteEntity<TEntity, TId>,
         IDeleteEntityAsync<TEntity, TId>,
+        IDeleteEntities<TEntity, TId>,
         IDeleteEntitiesAsync<TEntity, TId>,
+        ISearchEntities<TEntity, TId>,
         ISearchEntitiesAsync<TEntity, TId>,
         ISearchEntitiesLazy<TEntity, TId>
         where TEntity : class, IEntity<TId>
@@ -99,6 +107,27 @@
         /// Retrieves an <see cref="TEntity"/> from the database by Id.
         /// </summary>
         /// <param name="id">An Id of type <see cref="TId"/>.</param>
+        /// <returns>A <see cref="TEntity"/>.</returns>
+        public virtual TEntity GetById(TId id)
+        {
+            return EntityContext().First(entity => entity.Id.Equals(id));
+        }
+
+        /// <summary>
+        /// Retrieves an entity from the database by <see cref="TId"/> that accepts a custom include func for eager loading.
+        /// </summary>
+        /// <param name="id">An Id of type <see cref="TId"/>.</param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the <see cref="TEntity"/>.</returns>
+        public virtual TEntity GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        {
+            return includeFunc.Invoke(Context.Set<TEntity>()).First(entity => entity.Id.Equals(id));
+        }
+
+        /// <summary>
+        /// Retrieves an <see cref="TEntity"/> from the database by Id.
+        /// </summary>
+        /// <param name="id">An Id of type <see cref="TId"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the <see cref="TEntity"/>.</returns>
         public virtual async Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
@@ -116,6 +145,25 @@
         public virtual async Task<TEntity> GetByIdAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await includeFunc.Invoke(Context.Set<TEntity>()).FirstAsync(entity => entity.Id.Equals(id), cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves all entities of type <see cref="TEntity"/> from the database.
+        /// </summary>
+        /// <returns>An <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        public virtual IReadOnlyList<TEntity> GetAllEntities()
+        {
+            return Context.Set<TEntity>().ToList();
+        }
+
+        /// <summary>
+        /// Retrieves all entities of type <see cref="TEntity"/> from the database that accepts a custom include func for eager loading.
+        /// </summary>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
+        /// <returns>An <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        public virtual IReadOnlyList<TEntity> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        {
+            return includeFunc.Invoke(Context.Set<TEntity>()).ToList();
         }
 
         /// <summary>
@@ -162,17 +210,41 @@
         /// Updates an <see cref="TEntity"/> in the database.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to be updated.</param>
+        /// <returns>A <see cref="int"/> that contains the number of state entities updated in the database.</returns>
+        public virtual int UpdateEntity(TEntity entity)
+        {
+            Context.Set<TEntity>().Update(entity);
+
+            return Context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Updates an <see cref="TEntity"/> in the database.
+        /// </summary>
+        /// <param name="entity">The <see cref="TEntity"/> to be updated.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous update operation. The task result contains the state entry updated in the database.</returns>
         public virtual async Task<int> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            Context.Update(entity);
+            Context.Set<TEntity>().Update(entity);
 
             return await Context.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary>
-        /// Updates a range <see cref="TEntity"/> in the database..
+        /// Updates a range <see cref="TEntity"/> in the database.
+        /// </summary>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be updated.</param>
+        /// <returns>A <see cref="int"/> that contains the number of state entries updated in the database.</returns>
+        public virtual int UpdateEntities(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().UpdateRange(entities);
+
+            return Context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Updates a range <see cref="TEntity"/> in the database.
         /// </summary>
         /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be updated.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
@@ -182,6 +254,18 @@
             Context.Set<TEntity>().UpdateRange(entities);
 
             return await Context.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Removes an entity from the database by <see cref="TId"/>.
+        /// </summary>
+        /// <param name="id">The <see cref="TId"/> used to delete the entity.</param>
+        /// <returns>An <see cref="int"/> the number of state entries deleted from the database.</returns>
+        public virtual int DeleteById(TId id)
+        {
+            var entity = GetById(id);
+
+            return DeleteEntity(entity);
         }
 
         /// <summary>
@@ -201,6 +285,18 @@
         /// Removes an <see cref="TEntity"/> from the database.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
+        /// <returns>An <see cref="int"/> that contains the number of state entries deleted from the database.</returns>
+        public virtual int DeleteEntity(TEntity entity)
+        {
+            Context.Set<TEntity>().Remove(entity);
+
+            return Context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Removes an <see cref="TEntity"/> from the database.
+        /// </summary>
+        /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the number of state entries deleted from the database.</returns>
         public virtual async Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
@@ -214,6 +310,18 @@
         /// Removes multiple <see cref="TEntity"/> from the database.
         /// </summary>
         /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be deleted.</param>
+        /// <returns>A <see cref="int"/> that contains the number of state entries deleted from the database.</returns>
+        public virtual int DeleteEntities(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().RemoveRange(entities);
+
+            return Context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Removes multiple <see cref="TEntity"/> from the database.
+        /// </summary>
+        /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the number of state entries deleted from the database.</returns>
         public virtual async Task<int> DeleteEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
@@ -221,6 +329,27 @@
             Context.Set<TEntity>().RemoveRange(entities);
 
             return await Context.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database.
+        /// </summary>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <returns>A <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        public virtual IReadOnlyList<TEntity> SearchEntities(IQuery<TEntity, TId> queryObject)
+        {
+            return EntityContext().Where(queryObject.SearchExpression).ToList();
+        }
+
+        /// <summary>
+        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against the database.
+        /// </summary>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="includeFunc">An include func used for eager loading.</param>
+        /// <returns>A <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        public virtual IReadOnlyList<TEntity> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        {
+            return includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression).ToList();
         }
 
         /// <summary>
