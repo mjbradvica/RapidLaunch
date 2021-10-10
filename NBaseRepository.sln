@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository", "source\NBaseRepository\NBaseRepository.csproj", "{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository", "source\NBaseRepository\NBaseRepository.csproj", "{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository.EF", "source\NBaseRepository.EF\NBaseRepository.EF.csproj", "{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.EF", "source\NBaseRepository.EF\NBaseRepository.EF.csproj", "{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository.Tests", "source\NBaseRepository.Tests\NBaseRepository.Tests.csproj", "{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Tests", "source\NBaseRepository.Tests\NBaseRepository.Tests.csproj", "{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.ADO", "NBaseRepository.ADO\NBaseRepository.ADO.csproj", "{2421F9E1-037B-4956-98BB-407F31CEA237}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository.Dapper", "NBaseRepository.Dapper\NBaseRepository.Dapper.csproj", "{4F9619A9-F7A1-4286-936F-0AC0E4488808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository.SQL", "NBaseRepository.SQL\NBaseRepository.SQL.csproj", "{9CCB254E-D24C-409E-93B3-A71AD119430A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2421F9E1-037B-4956-98BB-407F31CEA237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2421F9E1-037B-4956-98BB-407F31CEA237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2421F9E1-037B-4956-98BB-407F31CEA237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2421F9E1-037B-4956-98BB-407F31CEA237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
