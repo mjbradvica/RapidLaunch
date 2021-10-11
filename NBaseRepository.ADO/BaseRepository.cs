@@ -3,15 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
     using SQL;
 
     public abstract class BaseRepository<T, TId> :
-        IGetAllEntities<T, TId>,
-        IGetAllEntitiesAsync<T, TId>
+        IGetAllEntities<T, TId, IEnumerable<object>, T>,
+        IGetAllEntitiesAsync<T, TId, IEnumerable<object>, T>
         where T : IEntity<TId>
     {
         private readonly SqlBuilder<T, TId> _sqlBuilder;
@@ -25,24 +24,24 @@
             _conversionFunc = conversionFunc;
         }
 
-        public IReadOnlyList<T> GetAllEntities()
+        public virtual IReadOnlyList<T> GetAllEntities()
         {
             return ExecuteQuery(_sqlBuilder.SelectAll().Query);
         }
 
-        public IReadOnlyList<T> GetAllEntities(Func<IQueryable<T>, IQueryable<T>> includeFunc)
+        public virtual IReadOnlyList<T> GetAllEntities(Func<IEnumerable<object>, T> includeFunc)
         {
-            throw new NotImplementedException();
+            return ExecuteQuery(_sqlBuilder.SelectAll().Query, includeFunc);
         }
 
-        public async Task<IReadOnlyList<T>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IReadOnlyList<T>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(_sqlBuilder.SelectAll().Query, default, cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> GetAllEntitiesAsync(Func<IQueryable<T>, IQueryable<T>> includeFunc, CancellationToken cancellationToken = default)
+        public virtual async Task<IReadOnlyList<T>> GetAllEntitiesAsync(Func<IEnumerable<object>, T> includeFunc, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await ExecuteQueryAsync(_sqlBuilder.SelectAll().Query, includeFunc, cancellationToken);
         }
 
         protected int ExecuteNonQuery(string command)

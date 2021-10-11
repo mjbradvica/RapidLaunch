@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
-    public interface IGetAllEntitiesAsync<TEntity, TId>
+    public interface IGetAllEntitiesAsync<TEntity, TId, TIn, TOut>
         where TEntity : IEntity<TId>
     {
         /// <summary>
@@ -27,6 +27,6 @@
         /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken);
+        Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<TIn, TOut> includeFunc, CancellationToken cancellationToken);
     }
 }
