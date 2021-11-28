@@ -7,6 +7,7 @@ namespace NBaseRepository.Dapper
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using Common;
+    using NBaseRepository.Common;
     using SQL;
 
     public abstract class BaseRepository<TEntity, TId> :

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository", "source\NBaseRepository\NBaseRepository.csproj", "{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}"
 EndProject
@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.EF", "sourc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Tests", "source\NBaseRepository.Tests\NBaseRepository.Tests.csproj", "{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.ADO", "NBaseRepository.ADO\NBaseRepository.ADO.csproj", "{2421F9E1-037B-4956-98BB-407F31CEA237}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.ADO", "source\NBaseRepository.ADO\NBaseRepository.ADO.csproj", "{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper", "NBaseRepository.Dapper\NBaseRepository.Dapper.csproj", "{4F9619A9-F7A1-4286-936F-0AC0E4488808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper.Base", "source\NBaseRepository.Dapper.Base\NBaseRepository.Dapper.Base.csproj", "{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.SQL", "NBaseRepository.SQL\NBaseRepository.SQL.csproj", "{9CCB254E-D24C-409E-93B3-A71AD119430A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.SQL", "source\NBaseRepository.SQL\NBaseRepository.SQL.csproj", "{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository.Dapper.Base", "NBaseRepository.Dapper.Base\NBaseRepository.Dapper.Base.csproj", "{DDB12F87-8204-46A3-A2BA-7E8C17C00DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper", "source\NBaseRepository.Dapper\NBaseRepository.Dapper.csproj", "{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,22 +35,22 @@ Global
 		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2421F9E1-037B-4956-98BB-407F31CEA237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2421F9E1-037B-4956-98BB-407F31CEA237}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2421F9E1-037B-4956-98BB-407F31CEA237}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2421F9E1-037B-4956-98BB-407F31CEA237}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F9619A9-F7A1-4286-936F-0AC0E4488808}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CCB254E-D24C-409E-93B3-A71AD119430A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDB12F87-8204-46A3-A2BA-7E8C17C00DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDB12F87-8204-46A3-A2BA-7E8C17C00DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDB12F87-8204-46A3-A2BA-7E8C17C00DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDB12F87-8204-46A3-A2BA-7E8C17C00DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
