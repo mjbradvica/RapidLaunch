@@ -8,13 +8,16 @@
         where T : IEntity<TId>
     {
         private readonly string _tableName;
-        private readonly IEnumerable<string> _columns;
         private string _query;
 
-        protected SqlBuilder(string tableName, params string[] columns)
+        protected SqlBuilder()
+        {
+            _tableName = $"ado.{typeof(T).Name}";
+        }
+
+        protected SqlBuilder(string tableName)
         {
             _tableName = tableName;
-            _columns = columns;
         }
 
         public string Query
@@ -27,7 +30,9 @@
             }
         }
 
-        protected Func<T, IReadOnlyList<string>> EntityProperties { get; }
+        protected abstract Func<T, IReadOnlyList<string>> EntityProperties { get; }
+
+        protected virtual string DefaultInclude { get; }
 
         public SqlBuilder<T, TId> SelectAll()
         {
