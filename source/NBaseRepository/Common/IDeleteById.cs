@@ -5,6 +5,7 @@
     /// </summary>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IDeleteById<in TId>
+        where TId : struct
     {
         /// <summary>
         /// Removes an entity from a collection by <see cref="TId"/>.

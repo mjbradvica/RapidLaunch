@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Tests", "so
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.ADO", "source\NBaseRepository.ADO\NBaseRepository.ADO.csproj", "{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper.Base", "source\NBaseRepository.Dapper.Base\NBaseRepository.Dapper.Base.csproj", "{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.SQL", "source\NBaseRepository.SQL\NBaseRepository.SQL.csproj", "{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper", "source\NBaseRepository.Dapper\NBaseRepository.Dapper.csproj", "{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}"
@@ -39,10 +37,6 @@ Global
 		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F79CEF2-7AF1-4E77-83EE-A3C302B82A25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EBFC241-8AEE-49C9-B84A-77CB2FCD6CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -9,7 +9,7 @@
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IQuery<TEntity, TId>
-        where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Gets an expression that will be used to perform filtering and/or joins.

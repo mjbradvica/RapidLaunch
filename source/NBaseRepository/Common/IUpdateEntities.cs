@@ -9,6 +9,7 @@
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IUpdateEntities<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Updates a range <see cref="TEntity"/> in a collection.

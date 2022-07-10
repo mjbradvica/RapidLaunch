@@ -10,6 +10,7 @@
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IAddEntityAsync<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Adds a single <see cref="TEntity"/> to a collection.

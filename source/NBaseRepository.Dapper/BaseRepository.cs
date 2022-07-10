@@ -1,18 +1,18 @@
 ﻿using Dapper;
-using System.Linq;
 
 namespace NBaseRepository.Dapper
 {
     using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
+    using System.Linq;
     using Common;
-    using NBaseRepository.Common;
     using SQL;
 
     public abstract class BaseRepository<TEntity, TId> :
-        IGetAllEntities<TEntity, TId, TEntity, TEntity>
+        IGetAllEntities<TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         private readonly SqlConnection _sqlConnection;
 

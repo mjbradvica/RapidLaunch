@@ -12,6 +12,7 @@
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IGetByIdAsync<TEntity, in TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Retrieves an <see cref="TEntity"/> from a collection by Id.

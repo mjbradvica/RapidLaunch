@@ -10,6 +10,7 @@
     /// <typeparam name="TId">The type of the Id.The type of the Id.</typeparam>
     public interface IUpdateEntityAsync<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Updates an <see cref="TEntity"/> in a collection.

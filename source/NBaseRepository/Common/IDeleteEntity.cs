@@ -7,6 +7,7 @@
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IDeleteEntity<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Removes an <see cref="TEntity"/> from a collection.

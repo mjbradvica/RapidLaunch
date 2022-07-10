@@ -5,7 +5,7 @@
     using Common;
     using NBaseRepository.GuidPrimary;
 
-    public interface IGetAllGuidEntitiesAsync<TEntity> : IGetAllEntitiesAsync<TEntity, Guid, IEnumerable<object>, TEntity>
+    public interface IGetAllGuidEntitiesAsync<TEntity> : IGetAllEntitiesAsync<TEntity, Guid>
         where TEntity : IGuidEntity
     {
     }

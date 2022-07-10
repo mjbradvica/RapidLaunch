@@ -9,9 +9,10 @@
     using SQL;
 
     public abstract class BaseRepository<T, TId> :
-        IGetAllEntities<T, TId, IEnumerable<object>, T>,
-        IGetAllEntitiesAsync<T, TId, IEnumerable<object>, T>
+        IGetAllEntities<T, TId>,
+        IGetAllEntitiesAsync<T, TId>
         where T : IEntity<TId>
+        where TId : struct
     {
         private readonly SqlBuilder<T, TId> _sqlBuilder;
         private readonly SqlConnection _sqlConnection;

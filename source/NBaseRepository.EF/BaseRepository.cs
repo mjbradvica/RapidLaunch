@@ -37,6 +37,7 @@
         ISearchEntitiesAsync<TEntity, TId>,
         ISearchEntitiesLazy<TEntity, TId>
         where TEntity : class, IEntity<TId>
+        where TId : struct
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc;
 

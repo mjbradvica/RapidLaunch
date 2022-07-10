@@ -11,6 +11,7 @@
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface ISearchEntitiesLazy<TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against a collection that has not been executed.

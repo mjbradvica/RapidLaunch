@@ -9,6 +9,7 @@
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IAddEntities<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
         /// Adds multiple <see cref="TEntity"/>s to a collection.

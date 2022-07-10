@@ -6,6 +6,7 @@
 
     public abstract class SqlBuilder<T, TId>
         where T : IEntity<TId>
+        where TId : struct
     {
         private readonly string _tableName;
         private readonly IEnumerable<string> _columns;
