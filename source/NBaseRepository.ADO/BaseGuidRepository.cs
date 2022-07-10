@@ -1,15 +1,14 @@
 ﻿namespace NBaseRepository.ADO
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.SqlClient;
     using GuidPrimary;
     using SQL;
+    using System;
+    using System.Data.SqlClient;
 
     public abstract class BaseGuidRepository<TEntity> : BaseRepository<TEntity, Guid>
         where TEntity : IGuidEntity
     {
-        protected BaseGuidRepository(SqlBuilder<TEntity, Guid> sqlBuilder, SqlConnection sqlConnection, Func<IEnumerable<object>, TEntity> conversionFunc)
+        protected BaseGuidRepository(SqlBuilder<TEntity, Guid> sqlBuilder, SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
             : base(sqlBuilder, sqlConnection, conversionFunc)
         {
         }

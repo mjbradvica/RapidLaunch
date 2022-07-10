@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository", "source\NBaseRepository\NBaseRepository.csproj", "{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.EF", "source\NBaseRepository.EF\NBaseRepository.EF.csproj", "{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Tests", "source\NBaseRepository.Tests\NBaseRepository.Tests.csproj", "{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}"
@@ -15,16 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.SQL", "sour
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper", "source\NBaseRepository.Dapper\NBaseRepository.Dapper.csproj", "{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository", "source\NBaseRepository\NBaseRepository.csproj", "{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43EE014E-02AA-41D9-8E06-26EF1E0F84BC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
