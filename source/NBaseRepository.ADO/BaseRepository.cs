@@ -64,7 +64,7 @@
 
                 await transaction.CommitAsync(cancellationToken);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await transaction.RollbackAsync(cancellationToken);
 

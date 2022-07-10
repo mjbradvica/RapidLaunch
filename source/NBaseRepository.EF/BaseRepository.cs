@@ -335,9 +335,9 @@
         /// <summary>
         /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <returns>A <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        public virtual IReadOnlyList<TEntity> SearchEntities(IQuery<TEntity, TId> queryObject)
+        public virtual IReadOnlyList<TEntity> SearchEntities(IQuery<TEntity> queryObject)
         {
             return EntityContext().Where(queryObject.SearchExpression).ToList();
         }
@@ -345,10 +345,10 @@
         /// <summary>
         /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against the database.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <returns>A <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        public virtual IReadOnlyList<TEntity> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        public virtual IReadOnlyList<TEntity> SearchEntities(IQuery<TEntity> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression).ToList();
         }
@@ -356,10 +356,10 @@
         /// <summary>
         /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous get all operations. The task results contains an <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        public virtual async Task<IReadOnlyList<TEntity>> SearchEntitiesAsync(IQuery<TEntity, TId> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<IReadOnlyList<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken = default)
         {
             return await EntityContext().Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
         }
@@ -367,11 +367,11 @@
         /// <summary>
         /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against the database.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous get all operations. The task results contains an <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        public virtual async Task<IReadOnlyList<TEntity>> SearchEntitiesAsync(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
+        public virtual async Task<IReadOnlyList<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression).ToListAsync(cancellationToken);
         }
@@ -381,7 +381,7 @@
         /// </summary>
         /// <param name="queryObject">A query object that contains a query expression.</param>
         /// <returns>An <see cref="IEnumerable{TEntity}"/> that may be queried against.</returns>
-        public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject)
+        public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity> queryObject)
         {
             return EntityContext().Where(queryObject.SearchExpression);
         }
@@ -389,10 +389,10 @@
         /// <summary>
         /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database that accepts a customer include func that has not been executed.
         /// </summary>
-        /// <param name="queryObject">A query object of type <see cref="IQuery{TEntity,TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A query object of type <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <returns>An <see cref="IEnumerable{TEntity}"/> that may be queried against.</returns>
-        public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        public virtual IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return includeFunc.Invoke(Context.Set<TEntity>()).Where(queryObject.SearchExpression);
         }

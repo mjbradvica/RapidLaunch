@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Common;
 
     public abstract class SqlBuilder<T, TId>
@@ -9,13 +10,11 @@
         where TId : struct
     {
         private readonly string _tableName;
-        private readonly IEnumerable<string> _columns;
         private string _query;
 
-        protected SqlBuilder(string tableName, params string[] columns)
+        protected SqlBuilder(string tableName)
         {
             _tableName = tableName;
-            _columns = columns;
         }
 
         public string Query
@@ -28,7 +27,7 @@
             }
         }
 
-        protected Func<T, IReadOnlyList<string>> EntityProperties { get; }
+        protected abstract Func<T, IReadOnlyList<string>> EntityProperties { get; }
 
         public SqlBuilder<T, TId> SelectAll()
         {
@@ -42,6 +41,20 @@
             _query += $" WHERE Id == \'{id}\'";
 
             return this;
+        }
+
+        public SqlBuilder<T, TId> InsertMultiple(IEnumerable<T> entities)
+        {
+            _query += $" INSERT into {_tableName} VALUES" +
+                      $" {entities.Aggregate(string.Empty, (final, next) => final + $"({InsertStatement(next)}), ")}";
+            _query = _query.Trim().TrimEnd(',');
+
+            return this;
+        }
+
+        private string InsertStatement(T entity)
+        {
+            return EntityProperties.Invoke(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
         }
     }
 }

@@ -7,9 +7,7 @@
     /// An interface that describe a class that represents a query object for type <see cref="TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the Id.</typeparam>
-    public interface IQuery<TEntity, TId>
-        where TId : struct
+    public interface IQuery<TEntity>
     {
         /// <summary>
         /// Gets an expression that will be used to perform filtering and/or joins.

@@ -1,9 +1,9 @@
 ﻿namespace NBaseRepository.ADO
 {
-    using GuidPrimary;
-    using SQL;
     using System;
     using System.Data.SqlClient;
+    using GuidPrimary;
+    using SQL;
 
     public abstract class BaseGuidRepository<TEntity> : BaseRepository<TEntity, Guid>
         where TEntity : IGuidEntity
