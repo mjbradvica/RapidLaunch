@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NBaseRepository.SQL\NBaseRepository.SQL.csproj" />
+    <ProjectReference Include="..\NBaseRepository\NBaseRepository.csproj" />
   </ItemGroup>
 
 </Project>

@@ -30,6 +30,11 @@
             return ExecuteQuery(_sqlBuilder.SelectAll().Query);
         }
 
+        public virtual IReadOnlyList<TEntity> GetAllEntities(Func<SqlDataReader, TEntity> conversionFunc)
+        {
+            return ExecuteQuery(_sqlBuilder.SelectAll().Query, conversionFunc);
+        }
+
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(_sqlBuilder.SelectAll().Query, default, cancellationToken);

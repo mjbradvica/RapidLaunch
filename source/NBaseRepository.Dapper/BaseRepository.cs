@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using NBaseRepository.SQL;
 
 namespace NBaseRepository.Dapper
 {
@@ -10,7 +11,6 @@ namespace NBaseRepository.Dapper
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
-    using SQL;
 
     public abstract class BaseRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
@@ -41,14 +41,14 @@ namespace NBaseRepository.Dapper
             return ExecuteCommand(SqlBuilder.InsertMultiple(entities).Query);
         }
 
-        public virtual IReadOnlyList<TEntity> GetAllEntities(Func<SqlConnection, string, IEnumerable<TEntity>> executionFunc = default)
-        {
-            return ExecuteQuery(SqlBuilder.SelectAll().Query, executionFunc).ToList();
-        }
-
-        public IReadOnlyList<TEntity> GetAllEntities()
+        public virtual IReadOnlyList<TEntity> GetAllEntities()
         {
             return _sqlConnection.Query<TEntity>(SqlBuilder.SelectAll().Query).ToList();
+        }
+
+        public virtual IReadOnlyList<TEntity> GetAllEntities<TFirst, TSecond, TThird>(Func<TFirst, TSecond, TThird, TEntity> mappingFunc)
+        {
+            return ExecuteQuery(SqlBuilder.SelectAll().Query, (connection, s) => connection.Query(s, mappingFunc)).ToList();
         }
 
         private async Task<int> ExecuteCommandAsync(string sql, CancellationToken cancellationToken = default)

@@ -1,34 +1,36 @@
 ﻿using System;
 using System.Data.SqlClient;
-using Dapper;
-using NBaseRepository.Common;
+using NBaseRepository.GuidPrimary;
 using NBaseRepository.SQL;
+using System.Collections.Generic;
 
 namespace NBaseRepository.Dapper
 {
-    internal class Airplane : IEntity<Guid>
+    internal class Airplane : IGuidEntity
     {
         public Guid Id { get; set; }
     }
 
-    internal class MyRepo : BaseRepository<Airplane, Airplane, Guid>
+    internal class Route : IGuidEntity
+    {
+        public Guid Id { get; }
+    }
+
+    internal interface IAirplaneRepo : IGetAllGuidEntities<Airplane>
+    {
+
+    }
+
+    internal class MyRepo : BaseRepository<Airplane, Airplane, Guid>, IAirplaneRepo
     {
         public MyRepo(SqlConnection sqlConnection, SqlBuilder<Airplane, Guid> sqlBuilder)
             : base(sqlConnection, sqlBuilder, airplane => airplane)
         {
         }
-    }
 
-    internal class Testerino
-    {
-        public void DoStuff()
+        public override IReadOnlyList<Airplane> GetAllEntities()
         {
-            var repo = new MyRepo(null, null);
-
-            repo.GetAllEntities((connection, s) =>
-            {
-                return connection.Query<Airplane, Airplane, Airplane>(s, (airplane, airplane1) => airplane);
-            });
+            return GetAllEntities<Airplane, Route, Route>((airplane, route, arg3) => new Airplane());
         }
     }
 }
