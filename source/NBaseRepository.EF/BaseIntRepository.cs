@@ -1,17 +1,16 @@
-﻿using NBaseRepository.Int;
-
-namespace NBaseRepository.EF
+﻿namespace NBaseRepository.EF
 {
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using IntPrimary;
 
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="int"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class BaseIntRepository<TEntity> : BaseRepository<TEntity, int>
-        where TEntity : class, IIntEntity
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseIntRepository{TEntity}"/> class that has no default eager loading.

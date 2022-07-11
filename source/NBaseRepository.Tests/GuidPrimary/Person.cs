@@ -1,8 +1,7 @@
-﻿using NBaseRepository.Guid;
-
-namespace NBaseRepository.Tests.GuidPrimary
+﻿namespace NBaseRepository.Tests.GuidPrimary
 {
     using System;
+    using NBaseRepository.GuidPrimary;
 
     public class Person : IEntity
     {

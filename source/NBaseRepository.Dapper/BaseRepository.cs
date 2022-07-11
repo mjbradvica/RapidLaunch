@@ -1,6 +1,4 @@
-﻿using Dapper;
-
-namespace NBaseRepository.Dapper
+﻿namespace NBaseRepository.Dapper
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +8,7 @@ namespace NBaseRepository.Dapper
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
+    using global::Dapper;
 
     public abstract class BaseRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,

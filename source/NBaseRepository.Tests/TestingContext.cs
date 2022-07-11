@@ -13,17 +13,17 @@
             Database.EnsureCreated();
         }
 
-        public DbSet<Person> GuidPersons { get; set; }
+        public DbSet<GuidPrimary.Person> GuidPersons { get; set; }
 
-        public DbSet<IntPerson> IntPersons { get; set; }
+        public DbSet<IntPrimary.Person> IntPersons { get; set; }
 
-        public DbSet<LongPerson> LongPersons { get; set; }
+        public DbSet<LongPrimary.Person> LongPersons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>().HasKey(guidPerson => guidPerson.Id);
-            modelBuilder.Entity<IntPerson>().HasKey(intPerson => intPerson.Id);
-            modelBuilder.Entity<LongPerson>().HasKey(longPerson => longPerson.Id);
+            modelBuilder.Entity<GuidPrimary.Person>().HasKey(guidPerson => guidPerson.Id);
+            modelBuilder.Entity<IntPrimary.Person>().HasKey(intPerson => intPerson.Id);
+            modelBuilder.Entity<LongPrimary.Person>().HasKey(longPerson => longPerson.Id);
         }
     }
 }

@@ -1,17 +1,16 @@
-﻿using NBaseRepository.Long;
-
-namespace NBaseRepository.EF
+﻿namespace NBaseRepository.EF
 {
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using LongPrimary;
 
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="long"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class BaseLongRepository<TEntity> : BaseRepository<TEntity, long>
-        where TEntity : class, ILongEntity
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseLongRepository{TEntity}"/> class that has no default eager loading.

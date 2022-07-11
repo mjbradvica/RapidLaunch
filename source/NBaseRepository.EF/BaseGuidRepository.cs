@@ -1,10 +1,9 @@
-﻿using NBaseRepository.Guid;
-
-namespace NBaseRepository.EF
+﻿namespace NBaseRepository.EF
 {
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using GuidPrimary;
 
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="Guid"/>.

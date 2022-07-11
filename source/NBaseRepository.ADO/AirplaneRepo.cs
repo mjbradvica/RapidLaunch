@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-
-namespace NBaseRepository.ADO
+﻿namespace NBaseRepository.ADO
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using Common;
+    using GuidPrimary;
+
     internal class Airplane : IEntity
     {
         public Guid Id { get; }
     }
 
-    internal interface IAirplaneRepo : IGetAllGuidEntities<Airplane>
+    internal interface IAirplaneRepo : IGetAllEntities<Airplane>
     {
-
     }
 
     internal class AirplaneRepo : BaseGuidRepository<Airplane>, IAirplaneRepo

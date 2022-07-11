@@ -1,8 +1,11 @@
-﻿using System.Data.SqlClient;
-using System.Collections.Generic;
-
-namespace NBaseRepository.Dapper
+﻿namespace NBaseRepository.Dapper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using Common;
+    using GuidPrimary;
+
     internal class Airplane : IEntity
     {
         public Guid Id { get; set; }
@@ -13,9 +16,8 @@ namespace NBaseRepository.Dapper
         public Guid Id { get; }
     }
 
-    internal interface IAirplaneRepo : IGetAllGuidEntities<Airplane>
+    internal interface IAirplaneRepo : IGetAllEntities<Airplane>
     {
-
     }
 
     internal class MyRepo : BaseRepository<Airplane, Airplane, Guid>, IAirplaneRepo
