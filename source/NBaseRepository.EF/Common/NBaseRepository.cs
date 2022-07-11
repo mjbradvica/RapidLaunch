@@ -14,7 +14,7 @@ namespace NBaseRepository.EF.Common
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
-    public abstract class BaseRepository<TEntity, TId> :
+    public abstract class NBaseRepository<TEntity, TId> :
         IAddEntity<TEntity, TId>,
         IAddEntityAsync<TEntity, TId>,
         IAddEntities<TEntity, TId>,
@@ -42,12 +42,12 @@ namespace NBaseRepository.EF.Common
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc;
 
-        protected BaseRepository(DbContext context)
+        protected NBaseRepository(DbContext context)
         {
             Context = context;
         }
 
-        protected BaseRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        protected NBaseRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             Context = context;
             _includeFunc = includeFunc;
