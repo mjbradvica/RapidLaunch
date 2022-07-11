@@ -3,7 +3,7 @@
     using EF;
     using Microsoft.EntityFrameworkCore;
 
-    internal class GuidPersonRepository : BaseGuidRepository<GuidPerson>
+    internal class GuidPersonRepository : BaseGuidRepository<Person>
     {
         public GuidPersonRepository(DbContext context)
             : base(context)

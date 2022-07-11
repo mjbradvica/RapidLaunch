@@ -8,4 +8,8 @@
     public interface ILongEntity : IEntity<long>
     {
     }
+
+    public interface IEntity : IEntity<long>
+    {
+    }
 }

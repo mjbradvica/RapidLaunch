@@ -3,9 +3,9 @@
     using System;
     using NBaseRepository.GuidPrimary;
 
-    public class GuidPerson : IGuidEntity
+    public class Person : IEntity
     {
-        public GuidPerson()
+        public Person()
         {
             Id = Guid.NewGuid();
         }

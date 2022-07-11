@@ -9,7 +9,7 @@
         [TestMethod]
         public async Task GetByIdWorks()
         {
-            var person = new GuidPerson();
+            var person = new Person();
 
             using (var context = new TestingContext())
             {

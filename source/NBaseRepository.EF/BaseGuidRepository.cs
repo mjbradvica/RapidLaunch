@@ -10,7 +10,7 @@
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class BaseGuidRepository<TEntity> : BaseRepository<TEntity, Guid>
-        where TEntity : class, IGuidEntity
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseGuidRepository{TEntity}"/> class that has no default eager loading.

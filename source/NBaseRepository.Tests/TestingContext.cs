@@ -13,7 +13,7 @@
             Database.EnsureCreated();
         }
 
-        public DbSet<GuidPerson> GuidPersons { get; set; }
+        public DbSet<Person> GuidPersons { get; set; }
 
         public DbSet<IntPerson> IntPersons { get; set; }
 
@@ -21,7 +21,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GuidPerson>().HasKey(guidPerson => guidPerson.Id);
+            modelBuilder.Entity<Person>().HasKey(guidPerson => guidPerson.Id);
             modelBuilder.Entity<IntPerson>().HasKey(intPerson => intPerson.Id);
             modelBuilder.Entity<LongPerson>().HasKey(longPerson => longPerson.Id);
         }

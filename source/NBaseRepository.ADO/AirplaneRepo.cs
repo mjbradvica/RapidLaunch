@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace NBaseRepository.ADO
 {
-    internal class Airplane : IGuidEntity
+    internal class Airplane : IEntity
     {
         public Guid Id { get; }
     }

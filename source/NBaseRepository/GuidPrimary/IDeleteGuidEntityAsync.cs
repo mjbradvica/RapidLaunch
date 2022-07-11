@@ -8,7 +8,7 @@
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IDeleteGuidEntityAsync<in TEntity> : IDeleteEntityAsync<TEntity, Guid>
-        where TEntity : IGuidEntity
+        where TEntity : IEntity
     {
     }
 }

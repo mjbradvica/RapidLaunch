@@ -6,7 +6,7 @@
     /// <summary>
     /// An interface used to describe a class that has an Id of type <see cref="Guid"/>.
     /// </summary>
-    public interface IGuidEntity : IEntity<Guid>
+    public interface IEntity : IEntity<Guid>
     {
     }
 }

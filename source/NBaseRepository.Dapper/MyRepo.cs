@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace NBaseRepository.Dapper
 {
-    internal class Airplane : IGuidEntity
+    internal class Airplane : IEntity
     {
         public Guid Id { get; set; }
     }
 
-    internal class Route : IGuidEntity
+    internal class Route : IEntity
     {
         public Guid Id { get; }
     }
