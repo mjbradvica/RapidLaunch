@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using NBaseRepository.SQL;
 
 namespace NBaseRepository.Dapper
 {

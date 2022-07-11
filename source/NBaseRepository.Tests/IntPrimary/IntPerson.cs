@@ -1,7 +1,7 @@
-﻿namespace NBaseRepository.Tests.IntPrimary
-{
-    using NBaseRepository.IntPrimary;
+﻿using NBaseRepository.Int;
 
+namespace NBaseRepository.Tests.IntPrimary
+{
     public class IntPerson : IIntEntity
     {
         public IntPerson()

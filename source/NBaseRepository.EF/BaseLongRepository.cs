@@ -1,8 +1,9 @@
-﻿namespace NBaseRepository.EF
+﻿using NBaseRepository.Long;
+
+namespace NBaseRepository.EF
 {
     using System;
     using System.Linq;
-    using LongPrimary;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>

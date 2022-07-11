@@ -1,8 +1,9 @@
-﻿namespace NBaseRepository.EF
+﻿using NBaseRepository.Guid;
+
+namespace NBaseRepository.EF
 {
     using System;
     using System.Linq;
-    using GuidPrimary;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>

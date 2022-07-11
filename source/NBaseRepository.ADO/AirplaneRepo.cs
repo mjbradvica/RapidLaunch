@@ -1,7 +1,4 @@
-﻿using NBaseRepository.GuidPrimary;
-using NBaseRepository.SQL;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace NBaseRepository.ADO

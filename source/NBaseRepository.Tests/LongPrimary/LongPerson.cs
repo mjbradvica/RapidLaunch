@@ -1,7 +1,7 @@
-﻿namespace NBaseRepository.Tests.LongPrimary
-{
-    using NBaseRepository.LongPrimary;
+﻿using NBaseRepository.Long;
 
+namespace NBaseRepository.Tests.LongPrimary
+{
     public class LongPerson : ILongEntity
     {
         public LongPerson()

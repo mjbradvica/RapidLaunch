@@ -1,8 +1,9 @@
-﻿namespace NBaseRepository.EF
+﻿using NBaseRepository.Int;
+
+namespace NBaseRepository.EF
 {
     using System;
     using System.Linq;
-    using IntPrimary;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>

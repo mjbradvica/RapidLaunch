@@ -1,10 +1,9 @@
-﻿namespace NBaseRepository.SQL
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace NBaseRepository.Common
+{
     public abstract class SqlBuilder<T, TId>
         where T : IEntity<TId>
         where TId : struct

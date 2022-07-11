@@ -2,8 +2,6 @@
 {
     using System;
     using System.Data.SqlClient;
-    using GuidPrimary;
-    using SQL;
 
     public abstract class BaseGuidRepository<TEntity> : BaseRepository<TEntity, Guid>
         where TEntity : IEntity

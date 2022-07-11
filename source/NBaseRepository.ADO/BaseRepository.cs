@@ -6,7 +6,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
-    using SQL;
 
     public abstract class BaseRepository<TEntity, TId> :
         IGetAllEntities<TEntity, TId>,

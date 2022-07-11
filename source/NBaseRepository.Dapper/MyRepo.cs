@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data.SqlClient;
-using NBaseRepository.GuidPrimary;
-using NBaseRepository.SQL;
+﻿using System.Data.SqlClient;
 using System.Collections.Generic;
 
 namespace NBaseRepository.Dapper
