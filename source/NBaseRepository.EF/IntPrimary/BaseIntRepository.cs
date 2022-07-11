@@ -1,9 +1,20 @@
-﻿namespace NBaseRepository.EF
+﻿namespace NBaseRepository.EF.IntPrimary
 {
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
     using IntPrimary;
+
+    /* Unmerged change from project 'NBaseRepository.EF (net5.0)'
+    Before:
+        using NBaseRepository.EF.Common;
+    After:
+        using NBaseRepository.EF.Common;
+        using NBaseRepository;
+        using NBaseRepository.EF;
+        using NBaseRepository.EF.IntPrimary;
+    */
+    using NBaseRepository.EF.Common;
 
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="int"/>.

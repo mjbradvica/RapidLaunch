@@ -1,9 +1,20 @@
-﻿namespace NBaseRepository.EF
+﻿namespace NBaseRepository.EF.LongPrimary
 {
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
     using LongPrimary;
+
+    /* Unmerged change from project 'NBaseRepository.EF (netcoreapp3.1)'
+    Before:
+        using NBaseRepository.EF.Common;
+    After:
+        using NBaseRepository.EF.Common;
+        using NBaseRepository;
+        using NBaseRepository.EF;
+        using NBaseRepository.EF.LongPrimary;
+    */
+    using NBaseRepository.EF.Common;
 
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="long"/>.

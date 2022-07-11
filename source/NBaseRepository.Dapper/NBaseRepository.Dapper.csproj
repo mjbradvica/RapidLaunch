@@ -13,4 +13,10 @@
     <ProjectReference Include="..\NBaseRepository\NBaseRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GuidPrimary\" />
+    <Folder Include="IntPrimary\" />
+    <Folder Include="LongPrimary\" />
+  </ItemGroup>
+
 </Project>

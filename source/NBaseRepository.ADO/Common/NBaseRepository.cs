@@ -1,13 +1,13 @@
-﻿namespace NBaseRepository.ADO
+﻿namespace NBaseRepository.ADO.Common
 {
     using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using NBaseRepository.Common;
 
-    public abstract class BaseRepository<TEntity, TId> :
+    public abstract class NBaseRepository<TEntity, TId> :
         IGetAllEntities<TEntity, TId>,
         IGetAllEntitiesAsync<TEntity, TId>
         where TEntity : IEntity<TId>
@@ -17,7 +17,7 @@
         private readonly SqlConnection _sqlConnection;
         private readonly Func<SqlDataReader, TEntity> _conversionFunc;
 
-        protected BaseRepository(SqlBuilder<TEntity, TId> sqlBuilder, SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
+        protected NBaseRepository(SqlBuilder<TEntity, TId> sqlBuilder, SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
         {
             _sqlBuilder = sqlBuilder;
             _sqlConnection = sqlConnection;
