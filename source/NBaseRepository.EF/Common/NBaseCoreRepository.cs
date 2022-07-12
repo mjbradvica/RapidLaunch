@@ -1,6 +1,4 @@
-﻿using NBaseRepository.Common;
-
-namespace NBaseRepository.EF.Common
+﻿namespace NBaseRepository.EF.Common
 {
     using System;
     using System.Collections.Generic;
@@ -8,13 +6,14 @@ namespace NBaseRepository.EF.Common
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// A base repository of type <see cref="TEntity"/> with an Id of type <see cref="TId"/> that represents all possible operations.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
-    public abstract class NBaseRepository<TEntity, TId> :
+    public abstract class NBaseCoreRepository<TEntity, TId> :
         IAddEntity<TEntity, TId>,
         IAddEntityAsync<TEntity, TId>,
         IAddEntities<TEntity, TId>,
@@ -42,12 +41,12 @@ namespace NBaseRepository.EF.Common
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc;
 
-        protected NBaseRepository(DbContext context)
+        protected NBaseCoreRepository(DbContext context)
         {
             Context = context;
         }
 
-        protected NBaseRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        protected NBaseCoreRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             Context = context;
             _includeFunc = includeFunc;

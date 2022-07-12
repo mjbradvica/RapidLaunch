@@ -10,7 +10,7 @@
     using global::Dapper;
     using NBaseRepository.Common;
 
-    public abstract class NBaseRepository<TEntity, TId> :
+    public abstract class NBaseCoreRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
         IGetAllEntities<TEntity, TId>
         where TEntity : IEntity<TId>
@@ -20,7 +20,7 @@
         private readonly Func<SqlConnection, string, IEnumerable<TEntity>> _executionFunc;
         private readonly Func<SqlConnection, string, Task<IEnumerable<TEntity>>> _asyncExecutionFunc;
 
-        protected NBaseRepository(
+        protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
             Func<SqlConnection, string, IEnumerable<TEntity>> executionFunc,
@@ -154,29 +154,121 @@
         }
     }
 
-    public abstract class NBaseRepository<TFirst, TEntity, TId> : NBaseRepository<TEntity, TId>
+    public abstract class NBaseCoreRepository<TFirst, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
         where TEntity : IEntity<TId>
         where TId : struct
     {
-        protected NBaseRepository(
+        protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
             Func<TFirst, TEntity> mappingFunc)
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) =>
-                {
-                    var result = connection.Query<TFirst>(sql);
+                (connection, sql) => connection.Query<TFirst>(sql).Select(mappingFunc.Invoke),
+                async (connection, sql) => (await connection.QueryAsync<TFirst>(sql)).Select(mappingFunc.Invoke))
+        {
+        }
+    }
 
-                    return result.Select(mappingFunc.Invoke);
-                },
-                async (connection, sql) =>
-                {
-                    var result = await connection.QueryAsync<TFirst>(sql);
+    public abstract class NBaseCoreRepository<TFirst, TSecond, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
+        where TEntity : IEntity<TId>
+        where TId : struct
+    {
+        protected NBaseCoreRepository(
+            SqlConnection sqlConnection,
+            SqlBuilder<TEntity, TId> sqlBuilder,
+            Func<TFirst, TSecond, TEntity> mappingFunc)
+            : base(
+                sqlConnection,
+                sqlBuilder,
+                (connection, sql) => connection.Query(sql, mappingFunc),
+                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+        {
+        }
+    }
 
-                    return result.Select(mappingFunc.Invoke);
-                })
+    public abstract class NBaseCoreRepository<TFirst, TSecond, TThird, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
+        where TEntity : IEntity<TId>
+        where TId : struct
+    {
+        protected NBaseCoreRepository(
+            SqlConnection sqlConnection,
+            SqlBuilder<TEntity, TId> sqlBuilder,
+            Func<TFirst, TSecond, TThird, TEntity> mappingFunc)
+            : base(
+                sqlConnection,
+                sqlBuilder,
+                (connection, sql) => connection.Query(sql, mappingFunc),
+                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+        {
+        }
+    }
+
+    public abstract class NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
+        where TEntity : IEntity<TId>
+        where TId : struct
+    {
+        protected NBaseCoreRepository(
+            SqlConnection sqlConnection,
+            SqlBuilder<TEntity, TId> sqlBuilder,
+            Func<TFirst, TSecond, TThird, TFourth, TEntity> mappingFunc)
+            : base(
+                sqlConnection,
+                sqlBuilder,
+                (connection, sql) => connection.Query(sql, mappingFunc),
+                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+        {
+        }
+    }
+
+    public abstract class NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TFifth, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
+        where TEntity : IEntity<TId>
+        where TId : struct
+    {
+        protected NBaseCoreRepository(
+            SqlConnection sqlConnection,
+            SqlBuilder<TEntity, TId> sqlBuilder,
+            Func<TFirst, TSecond, TThird, TFourth, TFifth, TEntity> mappingFunc)
+            : base(
+                sqlConnection,
+                sqlBuilder,
+                (connection, sql) => connection.Query(sql, mappingFunc),
+                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+        {
+        }
+    }
+
+    public abstract class NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
+        where TEntity : IEntity<TId>
+        where TId : struct
+    {
+        protected NBaseCoreRepository(
+            SqlConnection sqlConnection,
+            SqlBuilder<TEntity, TId> sqlBuilder,
+            Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity> mappingFunc)
+            : base(
+                sqlConnection,
+                sqlBuilder,
+                (connection, sql) => connection.Query(sql, mappingFunc),
+                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+        {
+        }
+    }
+
+    public abstract class NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity, TId> : NBaseCoreRepository<TEntity, TId>
+        where TEntity : IEntity<TId>
+        where TId : struct
+    {
+        protected NBaseCoreRepository(
+            SqlConnection sqlConnection,
+            SqlBuilder<TEntity, TId> sqlBuilder,
+            Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity> mappingFunc)
+            : base(
+                sqlConnection,
+                sqlBuilder,
+                (connection, sql) => connection.Query(sql, mappingFunc),
+                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
         {
         }
     }

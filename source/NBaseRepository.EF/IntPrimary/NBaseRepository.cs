@@ -10,7 +10,7 @@
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="int"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public abstract class NBaseRepository<TEntity> : NBaseRepository<TEntity, int>
+    public abstract class NBaseRepository<TEntity> : NBaseCoreRepository<TEntity, int>
         where TEntity : class, IEntity
     {
         /// <summary>

@@ -1,8 +1,7 @@
-﻿using NBaseRepository.EF.GuidPrimary;
-
-namespace NBaseRepository.Tests.GuidPrimary
+﻿namespace NBaseRepository.Tests.GuidPrimary
 {
     using Microsoft.EntityFrameworkCore;
+    using NBaseRepository.EF.GuidPrimary;
 
     internal class GuidPersonRepository : NBaseRepository<Person>
     {

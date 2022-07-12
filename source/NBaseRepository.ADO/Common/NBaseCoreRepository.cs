@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using NBaseRepository.Common;
 
-    public abstract class NBaseRepository<TEntity, TId> :
+    public abstract class NBaseCoreRepository<TEntity, TId> :
         IGetAllEntities<TEntity, TId>,
         IGetAllEntitiesAsync<TEntity, TId>
         where TEntity : IEntity<TId>
@@ -17,7 +17,7 @@
         private readonly SqlBuilder<TEntity, TId> _sqlBuilder;
         private readonly Func<SqlDataReader, TEntity> _conversionFunc;
 
-        protected NBaseRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, TId> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
+        protected NBaseCoreRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, TId> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
         {
             _sqlConnection = sqlConnection;
             _sqlBuilder = sqlBuilder;

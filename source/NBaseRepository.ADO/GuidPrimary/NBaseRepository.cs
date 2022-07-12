@@ -6,7 +6,7 @@
     using NBaseRepository.Common;
     using NBaseRepository.GuidPrimary;
 
-    public abstract class NBaseRepository<TEntity> : NBaseRepository<TEntity, Guid>
+    public abstract class NBaseRepository<TEntity> : NBaseCoreRepository<TEntity, Guid>
         where TEntity : IEntity
     {
         protected NBaseRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, Guid> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
