@@ -9,8 +9,8 @@
     public abstract class NBaseRepository<TEntity> : NBaseRepository<TEntity, Guid>
         where TEntity : IEntity
     {
-        protected NBaseRepository(SqlBuilder<TEntity, Guid> sqlBuilder, SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
-            : base(sqlBuilder, sqlConnection, conversionFunc)
+        protected NBaseRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, Guid> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
+            : base(sqlConnection, sqlBuilder, conversionFunc)
         {
         }
     }

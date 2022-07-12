@@ -1,6 +1,4 @@
-﻿using NBaseRepository.Common;
-
-namespace NBaseRepository.Dapper.Common
+﻿namespace NBaseRepository.Dapper.Common
 {
     using System;
     using System.Collections.Generic;
@@ -10,8 +8,9 @@ namespace NBaseRepository.Dapper.Common
     using System.Threading;
     using System.Threading.Tasks;
     using global::Dapper;
+    using NBaseRepository.Common;
 
-    public abstract class BaseRepository<TEntity, TId> :
+    public abstract class NBaseRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
         IGetAllEntities<TEntity, TId>
         where TEntity : IEntity<TId>
@@ -21,7 +20,7 @@ namespace NBaseRepository.Dapper.Common
         private readonly Func<SqlConnection, string, IEnumerable<TEntity>> _executionFunc;
         private readonly Func<SqlConnection, string, Task<IEnumerable<TEntity>>> _asyncExecutionFunc;
 
-        protected BaseRepository(
+        protected NBaseRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
             Func<SqlConnection, string, IEnumerable<TEntity>> executionFunc,
@@ -155,11 +154,11 @@ namespace NBaseRepository.Dapper.Common
         }
     }
 
-    public abstract class BaseRepository<TFirst, TEntity, TId> : BaseRepository<TEntity, TId>
+    public abstract class NBaseRepository<TFirst, TEntity, TId> : NBaseRepository<TEntity, TId>
         where TEntity : IEntity<TId>
         where TId : struct
     {
-        protected BaseRepository(
+        protected NBaseRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
             Func<TFirst, TEntity> mappingFunc)

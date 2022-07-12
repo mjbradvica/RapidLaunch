@@ -13,14 +13,14 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
-        private readonly SqlBuilder<TEntity, TId> _sqlBuilder;
         private readonly SqlConnection _sqlConnection;
+        private readonly SqlBuilder<TEntity, TId> _sqlBuilder;
         private readonly Func<SqlDataReader, TEntity> _conversionFunc;
 
-        protected NBaseRepository(SqlBuilder<TEntity, TId> sqlBuilder, SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
+        protected NBaseRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, TId> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
         {
-            _sqlBuilder = sqlBuilder;
             _sqlConnection = sqlConnection;
+            _sqlBuilder = sqlBuilder;
             _conversionFunc = conversionFunc;
         }
 
@@ -43,11 +43,28 @@
         {
             _sqlConnection.Open();
 
+            var transaction = _sqlConnection.BeginTransaction();
+
             var sqlCommand = new SqlCommand(command, _sqlConnection);
 
-            var result = sqlCommand.ExecuteNonQuery();
+            int result;
 
-            _sqlConnection.Close();
+            try
+            {
+                result = sqlCommand.ExecuteNonQuery();
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+
+                throw;
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
 
             return result;
         }

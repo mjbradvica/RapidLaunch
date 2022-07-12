@@ -20,7 +20,7 @@
     {
     }
 
-    internal class MyRepo : BaseRepository<Airplane, Airplane, Guid>, IAirplaneRepo
+    internal class MyRepo : NBaseRepository<Airplane, Airplane, Guid>, IAirplaneRepo
     {
         public MyRepo(SqlConnection sqlConnection, SqlBuilder<Airplane, Guid> sqlBuilder)
             : base(sqlConnection, sqlBuilder, airplane => airplane)

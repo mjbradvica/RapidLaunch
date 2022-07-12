@@ -2,32 +2,22 @@
 {
     using System;
     using System.Linq;
+    using Common;
     using Microsoft.EntityFrameworkCore;
-    using IntPrimary;
-
-    /* Unmerged change from project 'NBaseRepository.EF (net5.0)'
-    Before:
-        using NBaseRepository.EF.Common;
-    After:
-        using NBaseRepository.EF.Common;
-        using NBaseRepository;
-        using NBaseRepository.EF;
-        using NBaseRepository.EF.IntPrimary;
-    */
-    using NBaseRepository.EF.Common;
+    using NBaseRepository.IntPrimary;
 
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="int"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public abstract class NBaseIntRepository<TEntity> : NBaseRepository<TEntity, int>
+    public abstract class NBaseRepository<TEntity> : NBaseRepository<TEntity, int>
         where TEntity : class, IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NNBaseIntRepository{TEntity}"/> class that has no default eager loading.
         /// </summary>
         /// <param name="context">A <see cref="DbContext"/>.</param>
-        protected NBaseIntRepository(DbContext context)
+        protected NBaseRepository(DbContext context)
             : base(context)
         {
         }
@@ -37,7 +27,7 @@
         /// </summary>
         /// <param name="context">A <see cref="DbContext"/>.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
-        protected NBaseIntRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        protected NBaseRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
             : base(context, includeFunc)
         {
         }
