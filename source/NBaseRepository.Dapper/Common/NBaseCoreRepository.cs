@@ -36,17 +36,17 @@
 
         public virtual int AddEntities(IEnumerable<TEntity> entities)
         {
-            return ExecuteCommand(SqlBuilder.InsertMultiple(entities).Query);
+            return ExecuteCommand(SqlBuilder.InsertMultiple(entities).SqlStatement);
         }
 
         public virtual IReadOnlyList<TEntity> GetAllEntities()
         {
-            return _sqlConnection.Query<TEntity>(SqlBuilder.SelectAll().Query).ToList();
+            return _sqlConnection.Query<TEntity>(SqlBuilder.SelectAll().SqlStatement).ToList();
         }
 
         public virtual IReadOnlyList<TEntity> GetAllEntities<TFirst, TSecond, TThird>(Func<TFirst, TSecond, TThird, TEntity> mappingFunc)
         {
-            return ExecuteQuery(SqlBuilder.SelectAll().Query, (connection, s) => connection.Query(s, mappingFunc)).ToList();
+            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, (connection, s) => connection.Query(s, mappingFunc)).ToList();
         }
 
         private async Task<int> ExecuteCommandAsync(string sql, CancellationToken cancellationToken = default)

@@ -18,6 +18,6 @@
         /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken);
+        Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default);
     }
 }
