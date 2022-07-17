@@ -12,7 +12,21 @@
 
     public abstract class NBaseCoreRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
-        IGetAllEntities<TEntity, TId>
+        IAddEntitiesAsync<TEntity, TId>,
+        IAddEntity<TEntity, TId>,
+        IAddEntityAsync<TEntity, TId>,
+        IDeleteById<TId>,
+        IDeleteByIdAsync<TId>,
+        IDeleteEntities<TEntity, TId>,
+        IDeleteEntitiesAsync<TEntity, TId>,
+        IDeleteEntity<TEntity, TId>,
+        IDeleteEntityAsync<TEntity, TId>,
+        IGetAllEntities<TEntity, TId>,
+        IGetAllEntitiesAsync<TEntity, TId>,
+        IGetById<TEntity, TId>,
+        IGetByIdAsync<TEntity, TId>,
+        IUpdateEntities<TEntity, TId>,
+        IUpdateEntityAsync<TEntity, TId>
         where TEntity : IEntity<TId>
         where TId : struct
     {
@@ -36,20 +50,102 @@
 
         public virtual int AddEntities(IEnumerable<TEntity> entities)
         {
-            return ExecuteCommand(SqlBuilder.InsertMultiple(entities).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.InsertMultiple(entities).SqlStatement);
+        }
+
+        public virtual async Task<int> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.InsertMultiple(entities).SqlStatement, cancellationToken);
+        }
+
+        public virtual int AddEntity(TEntity entity)
+        {
+            return ExecuteNonQuery(SqlBuilder.Insert(entity).SqlStatement);
+        }
+
+        public virtual async Task<int> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.Insert(entity).SqlStatement, cancellationToken);
+        }
+
+        public virtual int DeleteById(TId id)
+        {
+            return ExecuteNonQuery(SqlBuilder.DeleteById(id).SqlStatement);
+        }
+
+        public virtual async Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.DeleteById(id).SqlStatement, cancellationToken);
+        }
+
+        public virtual int DeleteEntities(IEnumerable<TEntity> entities)
+        {
+            return ExecuteNonQuery(SqlBuilder.DeleteMultiple(entities).SqlStatement);
+        }
+
+        public virtual async Task<int> DeleteEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.DeleteMultiple(entities).SqlStatement, cancellationToken);
+        }
+
+        public virtual int DeleteEntity(TEntity entity)
+        {
+            return ExecuteNonQuery(SqlBuilder.Delete(entity).SqlStatement);
+        }
+
+        public virtual async Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.Delete(entity).SqlStatement, cancellationToken);
         }
 
         public virtual IReadOnlyList<TEntity> GetAllEntities()
         {
-            return _sqlConnection.Query<TEntity>(SqlBuilder.SelectAll().SqlStatement).ToList();
+            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement).ToList();
         }
 
-        public virtual IReadOnlyList<TEntity> GetAllEntities<TFirst, TSecond, TThird>(Func<TFirst, TSecond, TThird, TEntity> mappingFunc)
+        public virtual IReadOnlyList<TEntity> GetAllEntities(Func<SqlConnection, string, IEnumerable<TEntity>> conversionFunc)
         {
-            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, (connection, s) => connection.Query(s, mappingFunc)).ToList();
+            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, conversionFunc).ToList();
         }
 
-        private async Task<int> ExecuteCommandAsync(string sql, CancellationToken cancellationToken = default)
+        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
+        {
+            return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, default, cancellationToken)).ToList();
+        }
+
+        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<SqlConnection, string, Task<IEnumerable<TEntity>>> conversionFunc, CancellationToken cancellationToken = default)
+        {
+            return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, conversionFunc, cancellationToken)).ToList();
+        }
+
+        public virtual TEntity GetById(TId id)
+        {
+            return ExecuteQuery(SqlBuilder.GetById(id).SqlStatement).First();
+        }
+
+        public virtual async Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        {
+            return (await ExecuteQueryAsync(SqlBuilder.GetById(id).SqlStatement, default, cancellationToken)).First();
+        }
+
+        public virtual async Task<TEntity> GetByIdAsync(TId id, Func<SqlConnection, string, Task<IEnumerable<TEntity>>> conversionFunc, CancellationToken cancellationToken = default)
+        {
+            return (await ExecuteQueryAsync(SqlBuilder.GetById(id).SqlStatement, conversionFunc, cancellationToken)).First();
+        }
+
+        public virtual int UpdateEntities(IEnumerable<TEntity> entities)
+        {
+            return ExecuteNonQuery(SqlBuilder.UpdateMultiple(entities, GetColumnNames()).SqlStatement);
+        }
+
+        public virtual async Task<int> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            var columnNames = await GetColumnNamesAsync(cancellationToken);
+
+            return await ExecuteNonQueryAsync(SqlBuilder.Update(entity, columnNames).SqlStatement, cancellationToken);
+        }
+
+        private async Task<int> ExecuteNonQueryAsync(string sql, CancellationToken cancellationToken = default)
         {
             int result;
             DbTransaction transaction = null;
@@ -81,7 +177,7 @@
             return result;
         }
 
-        private int ExecuteCommand(string sql)
+        private int ExecuteNonQuery(string sql)
         {
             int result;
             DbTransaction transaction = null;
@@ -110,7 +206,7 @@
             return result;
         }
 
-        private async Task<IEnumerable<TEntity>> ExecuteQueryAsync(string sql, CancellationToken cancellationToken = default)
+        private async Task<IEnumerable<TEntity>> ExecuteQueryAsync(string sql, Func<SqlConnection, string, Task<IEnumerable<TEntity>>> asyncExecutionFunc = default, CancellationToken cancellationToken = default)
         {
             IEnumerable<TEntity> result;
 
@@ -118,7 +214,14 @@
             {
                 await _sqlConnection.OpenAsync(cancellationToken);
 
-                result = await _asyncExecutionFunc.Invoke(_sqlConnection, sql);
+                if (asyncExecutionFunc != null)
+                {
+                    result = await asyncExecutionFunc.Invoke(_sqlConnection, sql);
+                }
+                else
+                {
+                    result = await _asyncExecutionFunc.Invoke(_sqlConnection, sql);
+                }
             }
             finally
             {
@@ -149,6 +252,46 @@
             {
                 _sqlConnection.Close();
             }
+
+            return result;
+        }
+
+        private List<string> GetColumnNames()
+        {
+            var sqlQuery = new SqlCommand(SqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
+
+            _sqlConnection.Open();
+
+            var sqlDataReader = sqlQuery.ExecuteReader();
+
+            var result = new List<string>();
+
+            while (sqlDataReader.Read())
+            {
+                result.Add(sqlDataReader.GetString(0));
+            }
+
+            _sqlConnection.Close();
+
+            return result;
+        }
+
+        private async Task<List<string>> GetColumnNamesAsync(CancellationToken cancellationToken = default)
+        {
+            var sqlQuery = new SqlCommand(SqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
+
+            await _sqlConnection.OpenAsync(cancellationToken);
+
+            var sqlDataReader = await sqlQuery.ExecuteReaderAsync(cancellationToken);
+
+            var result = new List<string>();
+
+            while (await sqlDataReader.ReadAsync(cancellationToken))
+            {
+                result.Add(sqlDataReader.GetString(0));
+            }
+
+            _sqlConnection.Close();
 
             return result;
         }
