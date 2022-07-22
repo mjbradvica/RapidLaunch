@@ -103,9 +103,9 @@
             return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement).ToList();
         }
 
-        public virtual IReadOnlyList<TEntity> GetAllEntities(Func<SqlConnection, string, IEnumerable<TEntity>> conversionFunc)
+        public virtual IReadOnlyList<TEntity> GetAllEntities<TFirst>(Func<TFirst, TEntity> conversionFunc)
         {
-            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, conversionFunc).ToList();
+            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, MappingFuncDefinitions.FirstMappingFunc(conversionFunc)).ToList();
         }
 
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
@@ -113,9 +113,9 @@
             return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, default, cancellationToken)).ToList();
         }
 
-        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<SqlConnection, string, Task<IEnumerable<TEntity>>> conversionFunc, CancellationToken cancellationToken = default)
+        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync<TFirst>(Func<TFirst, TEntity> conversionFunc, CancellationToken cancellationToken = default)
         {
-            return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, conversionFunc, cancellationToken)).ToList();
+            return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, MappingFuncDefinitions.FirstMappingFuncAsync(conversionFunc), cancellationToken)).ToList();
         }
 
         public virtual TEntity GetById(TId id)
@@ -308,8 +308,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query<TFirst>(sql).Select(mappingFunc.Invoke),
-                async (connection, sql) => (await connection.QueryAsync<TFirst>(sql)).Select(mappingFunc.Invoke))
+                MappingFuncDefinitions.FirstMappingFunc(mappingFunc),
+                MappingFuncDefinitions.FirstMappingFuncAsync(mappingFunc))
         {
         }
     }
@@ -325,8 +325,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query(sql, mappingFunc),
-                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+                MappingFuncDefinitions.SecondMappingFunc(mappingFunc),
+                MappingFuncDefinitions.SecondMappingFuncAsync(mappingFunc))
         {
         }
     }
