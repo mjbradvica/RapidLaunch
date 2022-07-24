@@ -342,8 +342,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query(sql, mappingFunc),
-                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+                MappingFuncDefinitions.ThirdMappingFunc(mappingFunc),
+                MappingFuncDefinitions.ThirdMappingFuncAsync(mappingFunc))
         {
         }
     }
@@ -359,8 +359,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query(sql, mappingFunc),
-                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+                MappingFuncDefinitions.FourthMappingFunc(mappingFunc),
+                MappingFuncDefinitions.FourthMappingFuncAsync(mappingFunc))
         {
         }
     }
@@ -376,8 +376,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query(sql, mappingFunc),
-                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+                MappingFuncDefinitions.FifthMappingFunc(mappingFunc),
+                MappingFuncDefinitions.FifthMappingFuncAsync(mappingFunc))
         {
         }
     }
@@ -393,8 +393,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query(sql, mappingFunc),
-                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+                MappingFuncDefinitions.SixthMappingFunc(mappingFunc),
+                MappingFuncDefinitions.SixthMappingFuncAsync(mappingFunc))
         {
         }
     }
@@ -410,8 +410,8 @@
             : base(
                 sqlConnection,
                 sqlBuilder,
-                (connection, sql) => connection.Query(sql, mappingFunc),
-                async (connection, sql) => await connection.QueryAsync(sql, mappingFunc))
+                MappingFuncDefinitions.SeventhMappingFunc(mappingFunc),
+                MappingFuncDefinitions.SeventhMappingFuncAsync(mappingFunc))
         {
         }
     }
