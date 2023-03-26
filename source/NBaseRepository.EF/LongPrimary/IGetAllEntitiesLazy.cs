@@ -1,6 +1,7 @@
-﻿namespace NBaseRepository.LongPrimary
+﻿namespace NBaseRepository.EF.LongPrimary
 {
-    using Common;
+    using NBaseRepository.Common;
+    using NBaseRepository.LongPrimary;
 
     /// <summary>
     /// An interface used to describe a class that can retrieve all entity of type <see cref="TEntity"/> lazily.

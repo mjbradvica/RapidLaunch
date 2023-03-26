@@ -1,7 +1,8 @@
-﻿namespace NBaseRepository.GuidPrimary
+﻿namespace NBaseRepository.EF.GuidPrimary
 {
     using System;
-    using Common;
+    using NBaseRepository.Common;
+    using NBaseRepository.GuidPrimary;
 
     /// <summary>
     /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/> lazily.

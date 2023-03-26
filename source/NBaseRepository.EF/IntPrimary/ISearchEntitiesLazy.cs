@@ -1,6 +1,7 @@
-﻿namespace NBaseRepository.IntPrimary
+﻿namespace NBaseRepository.EF.IntPrimary
 {
-    using Common;
+    using NBaseRepository.Common;
+    using NBaseRepository.IntPrimary;
 
     /// <summary>
     /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/> lazily.

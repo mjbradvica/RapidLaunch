@@ -256,7 +256,7 @@
             return result;
         }
 
-        private List<string> GetColumnNames()
+        private IEnumerable<string> GetColumnNames()
         {
             var sqlQuery = new SqlCommand(SqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
 

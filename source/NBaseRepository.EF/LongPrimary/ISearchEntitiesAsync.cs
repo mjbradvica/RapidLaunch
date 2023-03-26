@@ -1,13 +1,13 @@
-﻿namespace NBaseRepository.GuidPrimary
+﻿namespace NBaseRepository.EF.LongPrimary
 {
-    using System;
-    using Common;
+    using NBaseRepository.Common;
+    using NBaseRepository.LongPrimary;
 
     /// <summary>
     /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public interface ISearchEntities<TEntity> : ISearchEntities<TEntity, Guid>
+    public interface ISearchEntitiesAsync<TEntity> : ISearchEntitiesAsync<TEntity, long>
         where TEntity : IEntity
     {
     }
