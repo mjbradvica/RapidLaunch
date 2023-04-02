@@ -32,4 +32,16 @@
     <ProjectReference Include="..\NBaseRepository.EF\NBaseRepository.EF.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ADO\GuidPrimary\" />
+    <Folder Include="ADO\LongPrimary\" />
+    <Folder Include="ADO\IntPrimary\" />
+    <Folder Include="Dapper\GuidPrimary\" />
+    <Folder Include="Dapper\IntPrimary\" />
+    <Folder Include="Dapper\LongPrimary\" />
+    <Folder Include="EF\GuidPrimary\" />
+    <Folder Include="EF\IntPrimary\" />
+    <Folder Include="EF\LongPrimary\" />
+  </ItemGroup>
+
 </Project>

@@ -242,7 +242,7 @@
             return result;
         }
 
-        private List<string> GetColumnNames()
+        private IEnumerable<string> GetColumnNames()
         {
             var sqlQuery = new SqlCommand(_sqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
 

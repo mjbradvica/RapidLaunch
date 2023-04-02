@@ -41,7 +41,7 @@
 
             if (withInclude && DefaultInclude != string.Empty)
             {
-                _sqlStatement += DefaultInclude;
+                _sqlStatement += $" {DefaultInclude}";
             }
 
             return this;
