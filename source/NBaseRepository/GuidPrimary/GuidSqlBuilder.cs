@@ -1,7 +1,7 @@
 ﻿namespace NBaseRepository.GuidPrimary
 {
     using System;
-    using NBaseRepository.Common;
+    using Common;
 
     public abstract class GuidSqlBuilder<TEntity> : SqlBuilder<TEntity, Guid>
         where TEntity : IEntity
