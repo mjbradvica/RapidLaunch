@@ -1,6 +1,6 @@
-﻿namespace NBaseRepository.EF.IntPrimary
+﻿namespace NBaseRepository.EF.Base.IntPrimary
 {
-    using NBaseRepository.Common;
+    using Common;
     using NBaseRepository.IntPrimary;
 
     /// <summary>

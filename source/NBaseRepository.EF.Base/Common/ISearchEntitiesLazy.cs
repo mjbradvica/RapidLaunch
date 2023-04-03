@@ -1,8 +1,9 @@
-﻿namespace NBaseRepository.Common
+﻿namespace NBaseRepository.EF.Base.Common
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/> lazily.

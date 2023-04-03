@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using NBaseRepository.Common;
+    using NBaseRepository.EF.Base.Common;
 
     /// <summary>
     /// A base repository of type <see cref="TEntity"/> with an Id of type <see cref="TId"/> that represents all possible operations.

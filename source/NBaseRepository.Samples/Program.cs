@@ -11,7 +11,7 @@
         {
             var collection = new ServiceCollection();
 
-            collection.AddScoped(_ => new SqlConnection("Data Source=(LocalDb)\\MSSqlLocalDB;Initial Catalog=NPredicateBuilderTest;Integrated Security=True"));
+            collection.AddScoped(_ => new SqlConnection("Data Source=(LocalDb)\\MSSqlLocalDB;Initial Catalog=NBaseRepositorySample;Integrated Security=True"));
             collection.AddTransient<SqlBuilder<Customer, Guid>, CustomerSqlBuilder>();
             collection.AddTransient<ICustomerRepository, CustomerRepository>();
 
@@ -26,9 +26,11 @@
             //    Console.WriteLine(customer);
             //}
 
-            var newCustomer = new Customer(Guid.Parse("88732EE1-8DD5-4E49-BA55-57BDE7510409"), "Mickey", 160);
+            var newCustomer = new Customer(Guid.NewGuid(), "Mickey", 160);
 
-            var updateCustomer = await customerRepository.UpdateEntityAsync(newCustomer);
+            await customerRepository.AddEntityAsync(newCustomer);
+
+            // var updateCustomer = await customerRepository.UpdateEntityAsync(newCustomer);
 
             var allCustomers = await customerRepository.GetAllEntitiesAsync();
 

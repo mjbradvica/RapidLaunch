@@ -1,4 +1,4 @@
-﻿namespace NBaseRepository.Common
+﻿namespace NBaseRepository.EF.Base.Common
 {
     using System;
     using System.Linq.Expressions;
