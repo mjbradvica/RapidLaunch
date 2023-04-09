@@ -1,4 +1,6 @@
-﻿namespace NBaseRepository.ADO.Common
+﻿using System.Data.Common;
+
+namespace NBaseRepository.ADO.Common
 {
     using System;
     using System.Collections.Generic;
@@ -170,13 +172,13 @@
 
         protected async Task<int> ExecuteNonQueryAsync(string command, CancellationToken cancellationToken = default)
         {
+            int result;
+
             await _sqlConnection.OpenAsync(cancellationToken);
 
             var transaction = _sqlConnection.BeginTransaction();
 
             var sqlCommand = new SqlCommand(command, _sqlConnection, transaction);
-
-            int result;
 
             try
             {
@@ -186,6 +188,10 @@
 #endif
 
 #if NETSTANDARD2_1_OR_GREATER
+                await transaction.CommitAsync(cancellationToken);
+#endif
+
+#if NET5_0_OR_GREATER
                 await transaction.CommitAsync(cancellationToken);
 #endif
             }
@@ -199,6 +205,10 @@
                 await transaction.RollbackAsync(cancellationToken);
 #endif
 
+#if NET5_0_OR_GREATER
+                await transaction.RollbackAsync(cancellationToken);
+#endif
+
                 throw;
             }
             finally
@@ -208,6 +218,10 @@
 #endif
 
 #if NETSTANDARD2_1_OR_GREATER
+                await _sqlConnection.CloseAsync();
+#endif
+
+#if NET5_0_OR_GREATER
                 await _sqlConnection.CloseAsync();
 #endif
             }
@@ -259,6 +273,10 @@
 #endif
 
 #if NETSTANDARD2_1_OR_GREATER
+                await _sqlConnection.CloseAsync();
+#endif
+
+#if NET5_0_OR_GREATER
                 await _sqlConnection.CloseAsync();
 #endif
 

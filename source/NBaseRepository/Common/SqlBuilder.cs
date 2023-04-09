@@ -116,7 +116,7 @@
 
         public SqlBuilder<TEntity, TId> Insert(TEntity entity)
         {
-            _sqlStatement += $" INSERT into {_tableName} VALUES ({EntityProperties.Invoke(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',')})";
+            _sqlStatement += $" INSERT into {_tableName} VALUES ({EntityColumns(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',')})";
 
             return this;
         }
@@ -132,12 +132,12 @@
 
         private IList<string> EntityColumns(TEntity entity)
         {
-            return EntityProperties == null ? typeof(TEntity).GetProperties().Select(property => property.Name).ToList() : EntityProperties.Invoke(entity).ToList();
+            return EntityProperties == null ? typeof(TEntity).GetProperties().Select(property => property.GetValue(entity).ToString()).ToList() : EntityProperties.Invoke(entity).ToList();
         }
 
         private string InsertStatement(TEntity entity)
         {
-            return EntityProperties.Invoke(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
+            return EntityColumns(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
         }
     }
 }

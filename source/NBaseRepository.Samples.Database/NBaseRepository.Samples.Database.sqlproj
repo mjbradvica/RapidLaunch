@@ -61,7 +61,10 @@
     <Folder Include="IntPrimary" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="GuidPrimary\GuidCustomer.sql" />
-    <Build Include="GuidPrimary\GuidPet.sql" />
+    <Build Include="GuidPrimary\GuidPerson.sql" />
+    <Build Include="GuidPrimary\GuidAnimal.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="NBaseRepository.Samples.Database.refactorlog" />
   </ItemGroup>
 </Project>

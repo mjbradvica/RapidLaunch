@@ -15,4 +15,8 @@
     <ProjectReference Include="..\NBaseRepository.ADO\NBaseRepository.ADO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Customers\" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,8 @@
 {
     using System.Data.SqlClient;
     using Common;
-    using Customers;
+    using GuidPrimary.Animal;
+    using GuidPrimary.Person;
     using Microsoft.Extensions.DependencyInjection;
 
     public class Program
@@ -11,32 +12,32 @@
         {
             var collection = new ServiceCollection();
 
-            collection.AddScoped(_ => new SqlConnection("Data Source=(LocalDb)\\MSSqlLocalDB;Initial Catalog=NBaseRepositorySample;Integrated Security=True"));
-            collection.AddTransient<SqlBuilder<Customer, Guid>, CustomerSqlBuilder>();
-            collection.AddTransient<ICustomerRepository, CustomerRepository>();
+            collection.AddScoped(_ => new SqlConnection("Data Source=(LocalDb)\\MSSqlLocalDB;Initial Catalog=NPD;Integrated Security=True"));
+
+            collection.AddTransient<SqlBuilder<GuidPerson, Guid>, PersonSqlBuilder>();
+            collection.AddTransient<SqlBuilder<GuidAnimal, Guid>, AnimalSqlBuilder>();
+
+            collection.AddTransient<IPersonRepository, PersonRepository>();
+            collection.AddTransient<IAnimalRepository, AnimalRepository>();
 
             var serviceProvider = collection.BuildServiceProvider();
 
-            var customerRepository = serviceProvider.GetRequiredService<ICustomerRepository>();
+            var animalRepository = serviceProvider.GetRequiredService<IAnimalRepository>();
+            var customerRepository = serviceProvider.GetRequiredService<IPersonRepository>();
 
-            //var allCustomers = await customerRepository.GetAllEntitiesAsync();
+            var animal = new GuidAnimal("Billy Bob");
 
-            //foreach (var customer in allCustomers)
-            //{
-            //    Console.WriteLine(customer);
-            //}
+            // await animalRepository.AddEntityAsync(animal);
 
-            var newCustomer = new Customer(Guid.NewGuid(), "Mickey", 160);
+            var customer = new GuidPerson("Mike", 32, animal);
 
-            await customerRepository.AddEntityAsync(newCustomer);
+            // await customerRepository.AddEntityAsync(customer);
 
-            // var updateCustomer = await customerRepository.UpdateEntityAsync(newCustomer);
+            var customers = await customerRepository.GetAllEntitiesAsync();
 
-            var allCustomers = await customerRepository.GetAllEntitiesAsync();
-
-            foreach (var customer in allCustomers)
+            foreach (var person in customers)
             {
-                Console.WriteLine(customer);
+                Console.WriteLine(person);
             }
         }
     }

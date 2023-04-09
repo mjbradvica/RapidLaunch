@@ -162,6 +162,10 @@
                 transaction = await _sqlConnection.BeginTransactionAsync(cancellationToken);
 #endif
 
+#if NET5_0_OR_GREATER
+                transaction = await _sqlConnection.BeginTransactionAsync(cancellationToken);
+#endif
+
                 result = await _sqlConnection.ExecuteAsync(sql, null, transaction);
 
 #if NETSTANDARD2_0
@@ -169,6 +173,10 @@
 #endif
 
 #if NETSTANDARD2_1_OR_GREATER
+                await transaction.CommitAsync(cancellationToken);
+#endif
+
+#if NET5_0_OR_GREATER
                 await transaction.CommitAsync(cancellationToken);
 #endif
             }
@@ -183,6 +191,10 @@
 #if NETSTANDARD2_1_OR_GREATER
                     await transaction.RollbackAsync(cancellationToken);
 #endif
+
+#if NET5_0_OR_GREATER
+                    await transaction.RollbackAsync(cancellationToken);
+#endif
                 }
 
                 throw;
@@ -194,6 +206,10 @@
 #endif
 
 #if NETSTANDARD2_1_OR_GREATER
+                await _sqlConnection.CloseAsync();
+#endif
+
+#if NET5_0_OR_GREATER
                 await _sqlConnection.CloseAsync();
 #endif
             }
@@ -249,11 +265,15 @@
             }
             finally
             {
-#if NETCOREAPP2_1
-            _sqlConnection.Close();
+#if NETSTANDARD2_0
+                _sqlConnection.Close();
 #endif
 
-#if NETCOREAPP3_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER
+                await _sqlConnection.CloseAsync();
+#endif
+
+#if NET5_0_OR_GREATER
                 await _sqlConnection.CloseAsync();
 #endif
             }

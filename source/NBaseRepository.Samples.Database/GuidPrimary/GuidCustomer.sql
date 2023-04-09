@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[GuidCustomer]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Name] NVARCHAR(MAX) NOT NULL, 
-    [Age] INT NOT NULL
-)
