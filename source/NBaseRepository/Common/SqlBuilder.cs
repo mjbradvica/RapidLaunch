@@ -31,7 +31,7 @@
             }
         }
 
-        protected abstract Func<TEntity, IReadOnlyList<string>> EntityProperties { get; }
+        protected virtual Func<TEntity, IReadOnlyList<string>> EntityProperties { get; } = null;
 
         protected virtual string DefaultInclude => string.Empty;
 
@@ -93,7 +93,8 @@
 
         public SqlBuilder<TEntity, TId> Update(TEntity entity, IList<string> columnNames)
         {
-            var entityProperties = EntityProperties.Invoke(entity);
+            var entityProperties = EntityColumns(entity);
+
             var setStatement = string.Empty;
 
             for (var i = 0; i < columnNames.Count; i++)
@@ -127,6 +128,11 @@
             _sqlStatement = _sqlStatement.Trim().TrimEnd(',');
 
             return this;
+        }
+
+        private IList<string> EntityColumns(TEntity entity)
+        {
+            return EntityProperties == null ? typeof(TEntity).GetProperties().Select(property => property.Name).ToList() : EntityProperties.Invoke(entity).ToList();
         }
 
         private string InsertStatement(TEntity entity)

@@ -181,18 +181,35 @@
             try
             {
                 result = await sqlCommand.ExecuteNonQueryAsync(cancellationToken);
+#if NETSTANDARD2_0
+                transaction.Commit();
+#endif
 
+#if NETSTANDARD2_1_OR_GREATER
                 await transaction.CommitAsync(cancellationToken);
+#endif
             }
             catch (Exception)
             {
+#if NETSTANDARD2_0
+                transaction.Rollback();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
                 await transaction.RollbackAsync(cancellationToken);
+#endif
 
                 throw;
             }
             finally
             {
+#if NETSTANDARD2_0
+                _sqlConnection.Close();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
                 await _sqlConnection.CloseAsync();
+#endif
             }
 
             return result;
@@ -237,7 +254,13 @@
                 result.Add(conversionFunc.Invoke(sqlDataReader));
             }
 
-            await _sqlConnection.CloseAsync();
+#if NETSTANDARD2_0
+                _sqlConnection.Close();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
+                await _sqlConnection.CloseAsync();
+#endif
 
             return result;
         }

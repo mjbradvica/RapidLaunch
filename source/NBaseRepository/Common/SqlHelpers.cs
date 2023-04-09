@@ -1,7 +1,5 @@
-﻿namespace NBaseRepository
+﻿namespace NBaseRepository.Common
 {
-    using System;
-
     public static class SqlHelpers
     {
         public static string InnerJoin<TPrimary, TDependent>()

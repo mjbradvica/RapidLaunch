@@ -154,24 +154,48 @@
             {
                 await _sqlConnection.OpenAsync(cancellationToken);
 
+#if NETSTANDARD2_0
+                transaction = _sqlConnection.BeginTransaction();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
                 transaction = await _sqlConnection.BeginTransactionAsync(cancellationToken);
+#endif
 
                 result = await _sqlConnection.ExecuteAsync(sql, null, transaction);
 
+#if NETSTANDARD2_0
+                transaction.Commit();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
                 await transaction.CommitAsync(cancellationToken);
+#endif
             }
             catch (Exception)
             {
                 if (transaction != null)
                 {
+#if NETSTANDARD2_0
+                    transaction.Rollback();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
                     await transaction.RollbackAsync(cancellationToken);
+#endif
                 }
 
                 throw;
             }
             finally
             {
+#if NETSTANDARD2_0
+                _sqlConnection.Close();
+#endif
+
+#if NETSTANDARD2_1_OR_GREATER
                 await _sqlConnection.CloseAsync();
+#endif
             }
 
             return result;
@@ -225,7 +249,13 @@
             }
             finally
             {
+#if NETCOREAPP2_1
+            _sqlConnection.Close();
+#endif
+
+#if NETCOREAPP3_1_OR_GREATER
                 await _sqlConnection.CloseAsync();
+#endif
             }
 
             return result;
