@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Customer]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(MAX) NOT NULL, 
+    [Age] INT NOT NULL
+)

@@ -1,8 +1,5 @@
 ﻿namespace NBaseRepository.Common
 {
-    using System;
-    using System.Linq;
-
     /// <summary>
     /// An interface used to describe a class that can retrieve a single entity of type <see cref="TEntity"/> by an Id of type <see cref="TId"/>.
     /// </summary>

@@ -1,14 +1,13 @@
-﻿namespace NBaseRepository.EF.GuidPrimary
+﻿namespace NBaseRepository.EF.Base.LongPrimary
 {
-    using System;
-    using NBaseRepository.Common;
-    using NBaseRepository.GuidPrimary;
+    using Common;
+    using NBaseRepository.LongPrimary;
 
     /// <summary>
     /// An interface used to describe a class that can retrieve all entity of type <see cref="TEntity"/> lazily.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public interface IGetAllEntitiesLazy<TEntity> : IGetAllEntitiesLazy<TEntity, Guid>
+    public interface IGetAllEntitiesLazy<TEntity> : IGetAllEntitiesLazy<TEntity, long>
         where TEntity : IEntity
     {
     }

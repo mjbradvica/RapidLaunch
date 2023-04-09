@@ -1,8 +1,5 @@
 ﻿namespace NBaseRepository.Tests
 {
-    using GuidPrimary;
-    using IntPrimary;
-    using LongPrimary;
     using Microsoft.EntityFrameworkCore;
 
     public sealed class TestingContext : DbContext

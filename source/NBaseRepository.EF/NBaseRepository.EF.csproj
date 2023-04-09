@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NBaseRepository\NBaseRepository.csproj" />
+    <ProjectReference Include="..\NBaseRepository.EF.Base\NBaseRepository.EF.Base.csproj" />
   </ItemGroup>
 
 </Project>
