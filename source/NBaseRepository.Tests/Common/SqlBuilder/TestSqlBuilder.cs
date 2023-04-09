@@ -10,6 +10,6 @@
         protected override Func<Person, IReadOnlyList<string>> EntityProperties { get; } =
             person => new List<string> { person.Id.ToString() };
 
-        protected override string DefaultInclude { get; } = "INNER JOIN dbo.Pets ON dbo.Person.Id = dbo.Pet.PersonId";
+        protected override string DefaultInclude { get; } = SqlHelpers.InnerJoin<Person, Pet>();
     }
 }
