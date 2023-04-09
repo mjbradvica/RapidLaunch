@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{2a6a8e36-c399-4c0a-8fdd-142d78c883d5}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -61,6 +61,7 @@
     <Folder Include="IntPrimary" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="GuidPrimary\Customer.sql" />
+    <Build Include="GuidPrimary\GuidCustomer.sql" />
+    <Build Include="GuidPrimary\GuidPet.sql" />
   </ItemGroup>
 </Project>

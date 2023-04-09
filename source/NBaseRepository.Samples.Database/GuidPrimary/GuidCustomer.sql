@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Customer]
+﻿CREATE TABLE [dbo].[GuidCustomer]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [Name] NVARCHAR(MAX) NOT NULL, 
