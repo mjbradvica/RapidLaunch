@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.EF.Common
+﻿// <copyright file="NBaseCoreRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.Common
 {
     using System;
     using System.Collections.Generic;
@@ -42,11 +46,20 @@
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="context"></param>
         protected NBaseCoreRepository(DbContext context)
         {
             Context = context;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="includeFunc"></param>
         protected NBaseCoreRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             Context = context;

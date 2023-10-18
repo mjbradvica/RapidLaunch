@@ -1,8 +1,12 @@
-﻿namespace NBaseRepository.EF.IntPrimary
+﻿// <copyright file="NBaseRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.IntPrimary
 {
     using System;
     using System.Linq;
-    using Common;
+    using NBaseRepository.EF.Common;
     using Microsoft.EntityFrameworkCore;
     using NBaseRepository.IntPrimary;
 

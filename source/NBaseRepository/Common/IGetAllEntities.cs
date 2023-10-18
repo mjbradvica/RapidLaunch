@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Common
+﻿// <copyright file="IGetAllEntities.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Common
 {
     using System.Collections.Generic;
 

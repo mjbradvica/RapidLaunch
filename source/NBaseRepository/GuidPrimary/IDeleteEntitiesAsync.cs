@@ -1,7 +1,11 @@
-﻿namespace NBaseRepository.GuidPrimary
+﻿// <copyright file="IDeleteEntitiesAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.GuidPrimary
 {
     using System;
-    using Common;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can delete multiple entities of type <see cref="TEntity"/>.

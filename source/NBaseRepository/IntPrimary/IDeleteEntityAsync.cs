@@ -1,6 +1,10 @@
-﻿namespace NBaseRepository.IntPrimary
+﻿// <copyright file="IDeleteEntityAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.IntPrimary
 {
-    using Common;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can delete an entity of type <see cref="TEntity"/>.

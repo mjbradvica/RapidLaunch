@@ -1,7 +1,11 @@
-﻿namespace NBaseRepository.EF.Base.GuidPrimary
+﻿// <copyright file="IGetAllEntitiesLazy.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.Base.GuidPrimary
 {
     using System;
-    using Common;
+    using NBaseRepository.EF.Base.Common;
     using NBaseRepository.GuidPrimary;
 
     /// <summary>

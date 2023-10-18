@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Common
+﻿// <copyright file="IGetByIdAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Common
 {
     using System.Threading;
     using System.Threading.Tasks;

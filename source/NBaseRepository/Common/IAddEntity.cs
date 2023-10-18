@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Common
+﻿// <copyright file="IAddEntity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Common
 {
     /// <summary>
     /// An interface that allows a class to add a single entity of type <see cref="TEntity"/>.

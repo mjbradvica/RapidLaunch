@@ -1,6 +1,10 @@
-﻿namespace NBaseRepository.LongPrimary
+﻿// <copyright file="IAddEntities.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.LongPrimary
 {
-    using Common;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can add multiple entities of type <see cref="TEntity"/> at one time.

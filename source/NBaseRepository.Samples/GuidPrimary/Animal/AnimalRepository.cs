@@ -1,7 +1,11 @@
-﻿namespace NBaseRepository.Samples.GuidPrimary.Animal
+﻿// <copyright file="AnimalRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Samples.GuidPrimary.Animal
 {
     using System.Data.SqlClient;
-    using Common;
+    using NBaseRepository.Common;
     using NBaseRepository.ADO.GuidPrimary;
 
     internal class AnimalRepository : NBaseRepository<GuidAnimal>, IAnimalRepository

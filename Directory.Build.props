@@ -3,11 +3,17 @@
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <AnalysisLevel>latest</AnalysisLevel>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <CheckEolTargetFramework>false</CheckEolTargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
     </ItemGroup>
 </Project>

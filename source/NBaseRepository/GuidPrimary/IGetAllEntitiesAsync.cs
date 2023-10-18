@@ -1,7 +1,11 @@
-﻿namespace NBaseRepository.GuidPrimary
+﻿// <copyright file="IGetAllEntitiesAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.GuidPrimary
 {
     using System;
-    using Common;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can retrieve all entities of type <see cref="TEntity"/>.

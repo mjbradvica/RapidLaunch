@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Common
+﻿// <copyright file="IGetById.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Common
 {
     /// <summary>
     /// An interface used to describe a class that can retrieve a single entity of type <see cref="TEntity"/> by an Id of type <see cref="TId"/>.

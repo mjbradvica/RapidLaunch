@@ -1,6 +1,10 @@
-﻿namespace NBaseRepository.EF.Base.IntPrimary
+﻿// <copyright file="ISearchEntitiesAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.Base.IntPrimary
 {
-    using Common;
+    using NBaseRepository.EF.Base.Common;
     using NBaseRepository.IntPrimary;
 
     /// <summary>

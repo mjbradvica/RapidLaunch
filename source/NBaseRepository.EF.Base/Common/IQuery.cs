@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.EF.Base.Common
+﻿// <copyright file="IQuery.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.Base.Common
 {
     using System;
     using System.Linq.Expressions;

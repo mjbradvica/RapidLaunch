@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Tests.Common.IntPrimary
+﻿// <copyright file="Person.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Tests.Common.IntPrimary
 {
     using NBaseRepository.IntPrimary;
 
@@ -9,6 +13,7 @@
             Id = id;
         }
 
+        /// <inheritdoc/>
         public int Id { get; }
     }
 }

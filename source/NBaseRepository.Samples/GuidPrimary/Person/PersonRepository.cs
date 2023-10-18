@@ -1,12 +1,21 @@
-﻿namespace NBaseRepository.Samples.GuidPrimary.Person
+﻿// <copyright file="PersonRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Samples.GuidPrimary.Person
 {
     using System.Data.SqlClient;
-    using Animal;
-    using Common;
+    using NBaseRepository.Samples.GuidPrimary.Animal;
+    using NBaseRepository.Common;
     using NBaseRepository.ADO.GuidPrimary;
 
     public class PersonRepository : NBaseRepository<GuidPerson>, IPersonRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonRepository"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
         public PersonRepository(SqlConnection sqlConnection, SqlBuilder<GuidPerson, Guid> sqlBuilder)
             : base(
                 sqlConnection,

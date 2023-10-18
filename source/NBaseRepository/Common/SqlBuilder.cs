@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Common
+﻿// <copyright file="SqlBuilder.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Common
 {
     using System;
     using System.Collections.Generic;
@@ -11,11 +15,18 @@
         private readonly string _tableName;
         private string _sqlStatement;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlBuilder{TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="tableName"></param>
         protected SqlBuilder(string tableName)
         {
             _tableName = tableName;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlBuilder{TEntity, TId}"/> class.
+        /// </summary>
         protected SqlBuilder()
         {
             _tableName = $"dbo.{typeof(TEntity).Name}";

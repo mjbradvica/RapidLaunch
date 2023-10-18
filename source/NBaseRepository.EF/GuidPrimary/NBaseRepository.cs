@@ -1,8 +1,12 @@
-﻿namespace NBaseRepository.EF.GuidPrimary
+﻿// <copyright file="NBaseRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.GuidPrimary
 {
     using System;
     using System.Linq;
-    using Common;
+    using NBaseRepository.EF.Common;
     using Microsoft.EntityFrameworkCore;
     using NBaseRepository.GuidPrimary;
 

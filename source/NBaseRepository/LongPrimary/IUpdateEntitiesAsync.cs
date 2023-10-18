@@ -1,6 +1,10 @@
-﻿namespace NBaseRepository.LongPrimary
+﻿// <copyright file="IUpdateEntitiesAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.LongPrimary
 {
-    using Common;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can update a range of entities of type <see cref="TEntity"/>.

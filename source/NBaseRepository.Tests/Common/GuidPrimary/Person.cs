@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Tests.Common.GuidPrimary
+﻿// <copyright file="Person.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Tests.Common.GuidPrimary
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +22,7 @@
             Pets = pets;
         }
 
+        /// <inheritdoc/>
         public Guid Id { get; }
 
         public IEnumerable<Pet> Pets { get; }

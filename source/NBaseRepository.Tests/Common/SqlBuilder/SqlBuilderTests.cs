@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Tests.Common.SqlBuilder
+﻿// <copyright file="SqlBuilderTests.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Tests.Common.SqlBuilder
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -7,6 +11,9 @@
     {
         private readonly TestSqlBuilder _builder;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlBuilderTests"/> class.
+        /// </summary>
         public SqlBuilderTests()
         {
             _builder = new TestSqlBuilder();

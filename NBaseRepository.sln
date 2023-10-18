@@ -17,7 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Samples", "
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NBaseRepository.Samples.Database", "source\NBaseRepository.Samples.Database\NBaseRepository.Samples.Database.sqlproj", "{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBaseRepository.EF.Base", "source\NBaseRepository.EF.Base\NBaseRepository.EF.Base.csproj", "{64C51141-D46F-4311-8611-F147ABF43F9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.EF.Base", "source\NBaseRepository.EF.Base\NBaseRepository.EF.Base.csproj", "{64C51141-D46F-4311-8611-F147ABF43F9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8C5E75D-DC4F-4B97-A17A-C3FE72B3D405}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

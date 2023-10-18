@@ -1,13 +1,22 @@
-﻿namespace NBaseRepository.Samples
+﻿// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Samples
 {
     using System.Data.SqlClient;
-    using Common;
-    using GuidPrimary.Animal;
-    using GuidPrimary.Person;
+    using NBaseRepository.Common;
+    using NBaseRepository.Samples.GuidPrimary.Animal;
+    using NBaseRepository.Samples.GuidPrimary.Person;
     using Microsoft.Extensions.DependencyInjection;
 
     public class Program
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public static async Task Main(string[] args)
         {
             var collection = new ServiceCollection();
@@ -28,11 +37,9 @@
             var animal = new GuidAnimal("Billy Bob");
 
             // await animalRepository.AddEntityAsync(animal);
-
             var customer = new GuidPerson("Mike", 32, animal);
 
             // await customerRepository.AddEntityAsync(customer);
-
             var customers = await customerRepository.GetAllEntitiesAsync();
 
             foreach (var person in customers)

@@ -1,8 +1,12 @@
-﻿namespace NBaseRepository.EF.LongPrimary
+﻿// <copyright file="NBaseRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.EF.LongPrimary
 {
     using System;
     using System.Linq;
-    using Common;
+    using NBaseRepository.EF.Common;
     using Microsoft.EntityFrameworkCore;
     using NBaseRepository.LongPrimary;
 
@@ -14,7 +18,7 @@
         where TEntity : class, IEntity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NNBaseLongRepository{TEntity}"/> class that has no default eager loading.
+        /// Initializes a new instance of the <see cref="NBaseRepository{TEntity}"/> class that has no default eager loading.
         /// </summary>
         /// <param name="context">A <see cref="DbContext"/>.</param>
         protected NBaseRepository(DbContext context)
@@ -23,7 +27,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NNBaseLongRepository{TEntity}"/> class that has eager loading.
+        /// Initializes a new instance of the <see cref="NBaseRepository{TEntity}"/> class that has eager loading.
         /// </summary>
         /// <param name="context">A <see cref="DbContext"/>.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>

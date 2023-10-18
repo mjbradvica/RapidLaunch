@@ -1,4 +1,8 @@
-﻿namespace NBaseRepository.Dapper.Common
+﻿// <copyright file="NBaseCoreRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.Dapper.Common
 {
     using System;
     using System.Collections.Generic;
@@ -34,6 +38,13 @@
         private readonly Func<SqlConnection, string, IEnumerable<TEntity>> _executionFunc;
         private readonly Func<SqlConnection, string, Task<IEnumerable<TEntity>>> _asyncExecutionFunc;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="executionFunc"></param>
+        /// <param name="asyncExecutionFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -48,16 +59,21 @@
 
         protected SqlBuilder<TEntity, TId> SqlBuilder { get; }
 
+        /// <inheritdoc/>
         public virtual int AddEntities(IEnumerable<TEntity> entities)
         {
             return ExecuteNonQuery(SqlBuilder.InsertMultiple(entities).SqlStatement);
         }
 
+        /// <inheritdoc/>
         public virtual async Task<int> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
             return await ExecuteNonQueryAsync(SqlBuilder.InsertMultiple(entities).SqlStatement, cancellationToken);
         }
 
+
+/* Unmerged change from project 'NBaseRepository.Dapper(net6.0)'
+Before:
         public virtual int AddEntity(TEntity entity)
         {
             return ExecuteNonQuery(SqlBuilder.Insert(entity).SqlStatement);
@@ -72,32 +88,76 @@
         {
             return ExecuteNonQuery(SqlBuilder.DeleteById(id).SqlStatement);
         }
+After:
+        /// <inheritdoc/>
+        public virtual int AddEntity(TEntity entity)
+        {
+            return ExecuteNonQuery(SqlBuilder.Insert(entity).SqlStatement);
+        }
 
+        /// <inheritdoc/>
+        public virtual async Task<int> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.Insert(entity).SqlStatement, cancellationToken);
+        }
+
+        /// <inheritdoc/>
+        public virtual int DeleteById(TId id)
+        {
+            return ExecuteNonQuery(SqlBuilder.DeleteById(id).SqlStatement);
+        }
+
+        /// <inheritdoc/>
+*/
+        /// <inheritdoc/>
+        public virtual int AddEntity(TEntity entity)
+        {
+            return ExecuteNonQuery(SqlBuilder.Insert(entity).SqlStatement);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<int> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteNonQueryAsync(SqlBuilder.Insert(entity).SqlStatement, cancellationToken);
+        }
+
+        /// <inheritdoc/>
+        public virtual int DeleteById(TId id)
+        {
+            return ExecuteNonQuery(SqlBuilder.DeleteById(id).SqlStatement);
+        }
+
+        /// <inheritdoc/>
         public virtual async Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return await ExecuteNonQueryAsync(SqlBuilder.DeleteById(id).SqlStatement, cancellationToken);
         }
 
+        /// <inheritdoc/>
         public virtual int DeleteEntities(IEnumerable<TEntity> entities)
         {
             return ExecuteNonQuery(SqlBuilder.DeleteMultiple(entities).SqlStatement);
         }
 
+        /// <inheritdoc/>
         public virtual async Task<int> DeleteEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
         {
             return await ExecuteNonQueryAsync(SqlBuilder.DeleteMultiple(entities).SqlStatement, cancellationToken);
         }
 
+        /// <inheritdoc/>
         public virtual int DeleteEntity(TEntity entity)
         {
             return ExecuteNonQuery(SqlBuilder.Delete(entity).SqlStatement);
         }
 
+        /// <inheritdoc/>
         public virtual async Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             return await ExecuteNonQueryAsync(SqlBuilder.Delete(entity).SqlStatement, cancellationToken);
         }
 
+        /// <inheritdoc/>
         public virtual IReadOnlyList<TEntity> GetAllEntities()
         {
             return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement).ToList();
@@ -108,36 +168,55 @@
             return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, MappingFuncDefinitions.FirstMappingFunc(conversionFunc)).ToList();
         }
 
+        /// <inheritdoc/>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, default, cancellationToken)).ToList();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TFirst"></typeparam>
+        /// <param name="conversionFunc"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync<TFirst>(Func<TFirst, TEntity> conversionFunc, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, MappingFuncDefinitions.FirstMappingFuncAsync(conversionFunc), cancellationToken)).ToList();
         }
 
+        /// <inheritdoc/>
         public virtual TEntity GetById(TId id)
         {
             return ExecuteQuery(SqlBuilder.GetById(id).SqlStatement).First();
         }
 
+        /// <inheritdoc/>
         public virtual async Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(SqlBuilder.GetById(id).SqlStatement, default, cancellationToken)).First();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="conversionFunc"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public virtual async Task<TEntity> GetByIdAsync(TId id, Func<SqlConnection, string, Task<IEnumerable<TEntity>>> conversionFunc, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(SqlBuilder.GetById(id).SqlStatement, conversionFunc, cancellationToken)).First();
         }
 
+        /// <inheritdoc/>
         public virtual int UpdateEntities(IEnumerable<TEntity> entities)
         {
             return ExecuteNonQuery(SqlBuilder.UpdateMultiple(entities, GetColumnNames()).SqlStatement);
         }
 
+        /// <inheritdoc/>
         public virtual async Task<int> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             var columnNames = await GetColumnNamesAsync(cancellationToken);
@@ -148,7 +227,7 @@
         private async Task<int> ExecuteNonQueryAsync(string sql, CancellationToken cancellationToken = default)
         {
             int result;
-            DbTransaction transaction = null;
+            DbTransaction? transaction = null;
 
             try
             {
@@ -220,7 +299,7 @@
         private int ExecuteNonQuery(string sql)
         {
             int result;
-            DbTransaction transaction = null;
+            DbTransaction? transaction = null;
 
             try
             {
@@ -246,7 +325,7 @@
             return result;
         }
 
-        private async Task<IEnumerable<TEntity>> ExecuteQueryAsync(string sql, Func<SqlConnection, string, Task<IEnumerable<TEntity>>> asyncExecutionFunc = default, CancellationToken cancellationToken = default)
+        private async Task<IEnumerable<TEntity>> ExecuteQueryAsync(string sql, Func<SqlConnection, string, Task<IEnumerable<TEntity>>>? asyncExecutionFunc = default, CancellationToken cancellationToken = default)
         {
             IEnumerable<TEntity> result;
 
@@ -281,7 +360,7 @@
             return result;
         }
 
-        private IEnumerable<TEntity> ExecuteQuery(string sql, Func<SqlConnection, string, IEnumerable<TEntity>> executionFunc = default)
+        private IEnumerable<TEntity> ExecuteQuery(string sql, Func<SqlConnection, string, IEnumerable<TEntity>>? executionFunc = default)
         {
             IEnumerable<TEntity> result;
 
@@ -351,6 +430,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -368,6 +453,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TSecond, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -385,6 +476,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TSecond, TThird, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -402,6 +499,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TSecond, TThird, TFourth, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -419,6 +522,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TSecond, TThird, TFourth, TFifth, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -436,6 +545,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -453,6 +568,12 @@
         where TEntity : IEntity<TId>
         where TId : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NBaseCoreRepository{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity, TId}"/> class.
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="mappingFunc"></param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,

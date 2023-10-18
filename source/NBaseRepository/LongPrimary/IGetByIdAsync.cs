@@ -1,6 +1,10 @@
-﻿namespace NBaseRepository.LongPrimary
+﻿// <copyright file="IGetByIdAsync.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace NBaseRepository.LongPrimary
 {
-    using Common;
+    using NBaseRepository.Common;
 
     /// <summary>
     /// An interface used to describe a class that can retrieve a single entity of type <see cref="TEntity"/> by Id of type <see cref="long"/>.
