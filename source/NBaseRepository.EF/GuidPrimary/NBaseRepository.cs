@@ -1,15 +1,15 @@
-﻿// <copyright file="NBaseRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="NBaseRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Linq;
+using NBaseRepository.EF.Common;
+using Microsoft.EntityFrameworkCore;
+using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.EF.GuidPrimary
 {
-    using System;
-    using System.Linq;
-    using NBaseRepository.EF.Common;
-    using Microsoft.EntityFrameworkCore;
-    using NBaseRepository.GuidPrimary;
-
     /// <summary>
     /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="Guid"/>.
     /// </summary>

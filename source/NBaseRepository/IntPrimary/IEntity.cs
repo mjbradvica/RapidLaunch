@@ -1,11 +1,11 @@
-﻿// <copyright file="IEntity.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IEntity.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using NBaseRepository.Common;
 
 namespace NBaseRepository.IntPrimary
 {
-    using NBaseRepository.Common;
-
     /// <summary>
     /// An interface used to describe a class that has an Id of type <see cref="int"/>.
     /// </summary>

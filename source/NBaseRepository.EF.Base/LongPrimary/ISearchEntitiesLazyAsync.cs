@@ -1,12 +1,12 @@
-﻿// <copyright file="ISearchEntitiesLazyAsync.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="ISearchEntitiesLazyAsync.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using NBaseRepository.EF.Base.Common;
+using NBaseRepository.LongPrimary;
 
 namespace NBaseRepository.EF.Base.LongPrimary
 {
-    using NBaseRepository.EF.Base.Common;
-    using NBaseRepository.LongPrimary;
-
     internal interface ISearchEntitiesLazyAsync<TEntity> : ISearchEntitiesLazyAsync<TEntity, long>
         where TEntity : IEntity
     {

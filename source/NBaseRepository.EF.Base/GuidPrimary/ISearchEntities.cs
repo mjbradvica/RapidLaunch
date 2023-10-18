@@ -1,13 +1,13 @@
-﻿// <copyright file="ISearchEntities.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="ISearchEntities.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using NBaseRepository.EF.Base.Common;
+using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.EF.Base.GuidPrimary
 {
-    using System;
-    using NBaseRepository.EF.Base.Common;
-    using NBaseRepository.GuidPrimary;
-
     /// <summary>
     /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/>.
     /// </summary>

@@ -1,14 +1,14 @@
-﻿// <copyright file="PersonRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="PersonRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System.Data.SqlClient;
+using NBaseRepository.Samples.GuidPrimary.Animal;
+using NBaseRepository.Common;
+using NBaseRepository.ADO.GuidPrimary;
 
 namespace NBaseRepository.Samples.GuidPrimary.Person
 {
-    using System.Data.SqlClient;
-    using NBaseRepository.Samples.GuidPrimary.Animal;
-    using NBaseRepository.Common;
-    using NBaseRepository.ADO.GuidPrimary;
-
     public class PersonRepository : NBaseRepository<GuidPerson>, IPersonRepository
     {
         /// <summary>

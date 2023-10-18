@@ -1,13 +1,13 @@
-﻿// <copyright file="IAddEntitiesAsync.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IAddEntitiesAsync.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NBaseRepository.Common
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// An interface used to describe a class that can add multiple entities of type <see cref="TEntity"/> at one time.
     /// </summary>

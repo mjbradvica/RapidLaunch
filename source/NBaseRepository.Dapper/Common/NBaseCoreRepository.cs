@@ -1,19 +1,19 @@
-﻿// <copyright file="NBaseCoreRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="NBaseCoreRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using global::Dapper;
+using NBaseRepository.Common;
 
 namespace NBaseRepository.Dapper.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Common;
-    using System.Data.SqlClient;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using global::Dapper;
-    using NBaseRepository.Common;
-
     public abstract class NBaseCoreRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,

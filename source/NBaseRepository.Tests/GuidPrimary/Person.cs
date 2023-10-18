@@ -1,12 +1,12 @@
-﻿// <copyright file="Person.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="Person.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Tests.GuidPrimary
 {
-    using System;
-    using NBaseRepository.GuidPrimary;
-
     public class Person : IEntity
     {
         /// <summary>

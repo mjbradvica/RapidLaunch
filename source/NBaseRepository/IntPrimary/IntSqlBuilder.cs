@@ -1,11 +1,11 @@
-﻿// <copyright file="IntSqlBuilder.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IntSqlBuilder.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using NBaseRepository.Common;
 
 namespace NBaseRepository.IntPrimary
 {
-    using NBaseRepository.Common;
-
     public abstract class IntSqlBuilder<TEntity> : SqlBuilder<TEntity, int>
         where TEntity : IEntity
     {

@@ -1,13 +1,13 @@
-﻿// <copyright file="AnimalRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="AnimalRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System.Data.SqlClient;
+using NBaseRepository.Common;
+using NBaseRepository.ADO.GuidPrimary;
 
 namespace NBaseRepository.Samples.GuidPrimary.Animal
 {
-    using System.Data.SqlClient;
-    using NBaseRepository.Common;
-    using NBaseRepository.ADO.GuidPrimary;
-
     internal class AnimalRepository : NBaseRepository<GuidAnimal>, IAnimalRepository
     {
         public AnimalRepository(SqlConnection sqlConnection, SqlBuilder<GuidAnimal, Guid> sqlBuilder)

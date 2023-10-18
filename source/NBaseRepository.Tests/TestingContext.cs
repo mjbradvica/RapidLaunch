@@ -1,11 +1,11 @@
-﻿// <copyright file="TestingContext.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="TestingContext.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using Microsoft.EntityFrameworkCore;
 
 namespace NBaseRepository.Tests
 {
-    using Microsoft.EntityFrameworkCore;
-
     public sealed class TestingContext : DbContext
     {
         /// <summary>

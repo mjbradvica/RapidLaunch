@@ -1,15 +1,15 @@
-﻿// <copyright file="IGetAllEntitiesLazyAsync.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IGetAllEntitiesLazyAsync.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using NBaseRepository.Common;
 
 namespace NBaseRepository.EF.Base.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using NBaseRepository.Common;
-
     public interface IGetAllEntitiesLazyAsync<TEntity, TId>
         where TEntity : IEntity<TId>
         where TId : struct

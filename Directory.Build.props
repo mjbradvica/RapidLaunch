@@ -6,7 +6,6 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <ImplicitUsings>disable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <CheckEolTargetFramework>false</CheckEolTargetFramework>
     </PropertyGroup>
     <ItemGroup>
@@ -14,6 +13,6 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
+        <AdditionalFiles Include="../../.stylecop.json" Link=".stylecop.json" />
     </ItemGroup>
 </Project>

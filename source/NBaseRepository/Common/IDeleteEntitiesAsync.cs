@@ -1,13 +1,13 @@
-﻿// <copyright file="IDeleteEntitiesAsync.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IDeleteEntitiesAsync.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NBaseRepository.Common
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// An interface used to describe a class that can delete multiple entities of type <see cref="TEntity"/>.
     /// </summary>

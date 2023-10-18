@@ -1,11 +1,11 @@
-﻿// <copyright file="IAddEntities.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IAddEntities.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using NBaseRepository.Common;
 
 namespace NBaseRepository.IntPrimary
 {
-    using NBaseRepository.Common;
-
     /// <summary>
     /// An interface used to describe a class that can add multiple entities of type <see cref="TEntity"/> at one time.
     /// </summary>

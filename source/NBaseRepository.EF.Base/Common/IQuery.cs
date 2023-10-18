@@ -1,12 +1,12 @@
-﻿// <copyright file="IQuery.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IQuery.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Linq.Expressions;
 
 namespace NBaseRepository.EF.Base.Common
 {
-    using System;
-    using System.Linq.Expressions;
-
     /// <summary>
     /// An interface that describe a class that represents a query object for type <see cref="TEntity"/>.
     /// </summary>

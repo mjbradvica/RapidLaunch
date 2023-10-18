@@ -1,11 +1,11 @@
-﻿// <copyright file="SqlBuilderTests.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="SqlBuilderTests.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NBaseRepository.Tests.Common.SqlBuilder
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     [TestClass]
     public class SqlBuilderTests
     {

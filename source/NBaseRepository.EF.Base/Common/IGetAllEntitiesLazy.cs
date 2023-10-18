@@ -1,14 +1,14 @@
-﻿// <copyright file="IGetAllEntitiesLazy.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IGetAllEntitiesLazy.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NBaseRepository.Common;
 
 namespace NBaseRepository.EF.Base.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using NBaseRepository.Common;
-
     /// <summary>
     /// An interface used to describe a class that can retrieve all entity of type <see cref="TEntity"/> lazily.
     /// </summary>

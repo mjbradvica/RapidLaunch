@@ -1,15 +1,15 @@
-﻿// <copyright file="NBaseRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="NBaseRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Data.SqlClient;
+using NBaseRepository.Dapper.Common;
+using NBaseRepository.Common;
+using NBaseRepository.IntPrimary;
 
 namespace NBaseRepository.Dapper.IntPrimary
 {
-    using System;
-    using System.Data.SqlClient;
-    using NBaseRepository.Dapper.Common;
-    using NBaseRepository.Common;
-    using NBaseRepository.IntPrimary;
-
     public abstract class NBaseRepository<TFirst, TEntity> : NBaseCoreRepository<TFirst, TEntity, int>
         where TEntity : IEntity
     {

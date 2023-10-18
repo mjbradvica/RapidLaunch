@@ -1,14 +1,14 @@
-﻿// <copyright file="TestSqlBuilder.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="TestSqlBuilder.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Collections.Generic;
+using NBaseRepository.Tests.Common.GuidPrimary;
+using NBaseRepository.Common;
 
 namespace NBaseRepository.Tests.Common.SqlBuilder
 {
-    using System;
-    using System.Collections.Generic;
-    using NBaseRepository.Tests.Common.GuidPrimary;
-    using NBaseRepository.Common;
-
     internal class TestSqlBuilder : SqlBuilder<Person, Guid>
     {
         /// <inheritdoc/>

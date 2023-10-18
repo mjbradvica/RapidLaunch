@@ -1,16 +1,16 @@
-﻿// <copyright file="MappingFuncDefinitions.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="MappingFuncDefinitions.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+using global::Dapper;
 
 namespace NBaseRepository.Dapper.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.SqlClient;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using global::Dapper;
-
     internal static class MappingFuncDefinitions
     {
         public static Func<SqlConnection, string, IEnumerable<TEntity>> FirstMappingFunc<TFirst, TEntity>(Func<TFirst, TEntity> mappingFunc)

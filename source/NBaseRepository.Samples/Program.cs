@@ -1,15 +1,15 @@
-﻿// <copyright file="Program.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="Program.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System.Data.SqlClient;
+using NBaseRepository.Common;
+using NBaseRepository.Samples.GuidPrimary.Animal;
+using NBaseRepository.Samples.GuidPrimary.Person;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NBaseRepository.Samples
 {
-    using System.Data.SqlClient;
-    using NBaseRepository.Common;
-    using NBaseRepository.Samples.GuidPrimary.Animal;
-    using NBaseRepository.Samples.GuidPrimary.Person;
-    using Microsoft.Extensions.DependencyInjection;
-
     public class Program
     {
         /// <summary>

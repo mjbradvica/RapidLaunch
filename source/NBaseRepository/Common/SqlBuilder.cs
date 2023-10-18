@@ -1,13 +1,13 @@
-﻿// <copyright file="SqlBuilder.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="SqlBuilder.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NBaseRepository.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     public abstract class SqlBuilder<TEntity, TId>
         where TEntity : IEntity<TId>
         where TId : struct

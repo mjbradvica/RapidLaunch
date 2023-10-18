@@ -1,11 +1,11 @@
-﻿// <copyright file="IAnimalRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="IAnimalRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Samples.GuidPrimary.Animal
 {
-    using NBaseRepository.GuidPrimary;
-
     internal interface IAnimalRepository
         : IAddEntityAsync<GuidAnimal>
     {

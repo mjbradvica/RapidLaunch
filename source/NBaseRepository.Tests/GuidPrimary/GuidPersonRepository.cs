@@ -1,12 +1,12 @@
-﻿// <copyright file="GuidPersonRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="GuidPersonRepository.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
+
+using Microsoft.EntityFrameworkCore;
+using NBaseRepository.EF.GuidPrimary;
 
 namespace NBaseRepository.Tests.GuidPrimary
 {
-    using Microsoft.EntityFrameworkCore;
-    using NBaseRepository.EF.GuidPrimary;
-
     internal class GuidPersonRepository : NBaseRepository<Person>
     {
         public GuidPersonRepository(DbContext context)
