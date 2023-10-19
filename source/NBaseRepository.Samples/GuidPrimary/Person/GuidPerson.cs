@@ -2,8 +2,8 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-using NBaseRepository.Samples.GuidPrimary.Animal;
 using NBaseRepository.GuidPrimary;
+using NBaseRepository.Samples.GuidPrimary.Animal;
 
 namespace NBaseRepository.Samples.GuidPrimary.Person
 {

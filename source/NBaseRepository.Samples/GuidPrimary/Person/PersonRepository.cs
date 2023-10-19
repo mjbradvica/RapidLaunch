@@ -3,9 +3,9 @@
 // </copyright>
 
 using System.Data.SqlClient;
-using NBaseRepository.Samples.GuidPrimary.Animal;
-using NBaseRepository.Common;
 using NBaseRepository.ADO.GuidPrimary;
+using NBaseRepository.Common;
+using NBaseRepository.Samples.GuidPrimary.Animal;
 
 namespace NBaseRepository.Samples.GuidPrimary.Person
 {

@@ -4,8 +4,8 @@
 
 using System;
 using System.Data.SqlClient;
-using NBaseRepository.Dapper.Common;
 using NBaseRepository.Common;
+using NBaseRepository.Dapper.Common;
 using NBaseRepository.IntPrimary;
 
 namespace NBaseRepository.Dapper.IntPrimary

@@ -3,8 +3,8 @@
 // </copyright>
 
 using System.Data.SqlClient;
-using NBaseRepository.Common;
 using NBaseRepository.ADO.GuidPrimary;
+using NBaseRepository.Common;
 
 namespace NBaseRepository.Samples.GuidPrimary.Animal
 {

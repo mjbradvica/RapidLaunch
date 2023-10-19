@@ -4,8 +4,8 @@
 
 using System;
 using System.Linq;
-using NBaseRepository.EF.Common;
 using Microsoft.EntityFrameworkCore;
+using NBaseRepository.EF.Common;
 using NBaseRepository.IntPrimary;
 
 namespace NBaseRepository.EF.IntPrimary

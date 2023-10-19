@@ -3,10 +3,10 @@
 // </copyright>
 
 using System.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 using NBaseRepository.Common;
 using NBaseRepository.Samples.GuidPrimary.Animal;
 using NBaseRepository.Samples.GuidPrimary.Person;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace NBaseRepository.Samples
 {

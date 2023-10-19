@@ -4,8 +4,8 @@
 
 using System;
 using System.Collections.Generic;
-using NBaseRepository.Tests.Common.GuidPrimary;
 using NBaseRepository.Common;
+using NBaseRepository.Tests.Common.GuidPrimary;
 
 namespace NBaseRepository.Tests.Common.SqlBuilder
 {
