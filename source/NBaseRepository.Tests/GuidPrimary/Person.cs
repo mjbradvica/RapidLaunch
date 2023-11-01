@@ -7,6 +7,9 @@ using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Tests.GuidPrimary
 {
+    /// <summary>
+    /// Test class for classes with <see cref="Guid"/> primary keys.
+    /// </summary>
     public class Person : IEntity
     {
         /// <summary>

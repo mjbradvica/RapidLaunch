@@ -8,6 +8,11 @@ using System.Linq;
 
 namespace NBaseRepository.Common
 {
+    /// <summary>
+    /// Builder for SQL statements.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity to build sql statements for.</typeparam>
+    /// <typeparam name="TId">The type of the identifier for the entity.</typeparam>
     public abstract class SqlBuilder<TEntity, TId>
         where TEntity : IEntity<TId>
         where TId : struct
@@ -18,7 +23,7 @@ namespace NBaseRepository.Common
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlBuilder{TEntity, TId}"/> class.
         /// </summary>
-        /// <param name="tableName"></param>
+        /// <param name="tableName">The name of the tableName if different from the default.</param>
         protected SqlBuilder(string tableName)
         {
             _tableName = tableName;
@@ -32,6 +37,9 @@ namespace NBaseRepository.Common
             _tableName = $"dbo.{typeof(TEntity).Name}";
         }
 
+        /// <summary>
+        /// Gets the final sql statement to perform an operation.
+        /// </summary>
         public string SqlStatement
         {
             get
@@ -42,10 +50,36 @@ namespace NBaseRepository.Common
             }
         }
 
-        protected virtual Func<TEntity, IReadOnlyList<string>> EntityProperties { get; } = null;
+        /// <summary>
+        /// Gets the column names for an entities table.
+        /// </summary>
+        public IEnumerable<string> ColumnNames { get; private set; }
 
+        /// <summary>
+        /// Gets a function that extracts the current values from the entity for inserts.
+        /// </summary>
+        protected virtual Func<TEntity, IReadOnlyList<object>> EntityProperties { get; } = null;
+
+        /// <summary>
+        /// Gets the include statement if any to load additional relationships.
+        /// </summary>
         protected virtual string DefaultInclude => string.Empty;
 
+        /// <summary>
+        /// Updates the column names for a table if they do not exist.
+        /// </summary>
+        /// <param name="columnNames">A list of column names to use for updates.</param>
+        public void UpdateColumnNames(IEnumerable<string> columnNames)
+        {
+            // Business logic to check against errant column count.
+            ColumnNames = columnNames;
+        }
+
+        /// <summary>
+        /// Returns a builder with a select all statement.
+        /// </summary>
+        /// <param name="withInclude">Flag to indicate if additional relationships should be loaded.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> SelectAll(bool withInclude = true)
         {
             _sqlStatement = $"SELECT * FROM {_tableName}";
@@ -58,6 +92,12 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with a get by id statement.
+        /// </summary>
+        /// <param name="id">The identifier for the entity.</param>
+        /// <param name="withInclude">Flag to indicate if additional relationships should be loaded.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> GetById(TId id, bool withInclude = true)
         {
             SelectAll(withInclude);
@@ -67,6 +107,11 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with a delete statement.
+        /// </summary>
+        /// <param name="entity">The entity to be deleted.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> Delete(TEntity entity)
         {
             _sqlStatement += $" DELETE FROM {_tableName} WHERE Id = '{entity.Id}' ";
@@ -74,6 +119,11 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with a delete by identifier statement.
+        /// </summary>
+        /// <param name="id">The identifier for the entity to be deleted.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> DeleteById(TId id)
         {
             _sqlStatement += $" DELETE FROM {_tableName} WHERE Id = '{id}' ";
@@ -81,6 +131,11 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with a delete multiple entities statements.
+        /// </summary>
+        /// <param name="entities">A list of entities to be removed.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> DeleteMultiple(IEnumerable<TEntity> entities)
         {
             _sqlStatement += $" DELETE FROM {_tableName} WHERE Id IN (${entities.Aggregate(string.Empty, (final, next) => final + $"{next.Id}, ").Trim().TrimEnd(',')})";
@@ -88,6 +143,10 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with a get column names statement.
+        /// </summary>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> GetColumnNames()
         {
             var tableName = _tableName;
@@ -102,9 +161,15 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="columnNames"></param>
+        /// <returns></returns>
         public SqlBuilder<TEntity, TId> Update(TEntity entity, IList<string> columnNames)
         {
-            var entityProperties = EntityColumns(entity);
+            var entityProperties = EntityValues(entity);
 
             var setStatement = string.Empty;
 
@@ -127,7 +192,7 @@ namespace NBaseRepository.Common
 
         public SqlBuilder<TEntity, TId> Insert(TEntity entity)
         {
-            _sqlStatement += $" INSERT into {_tableName} VALUES ({EntityColumns(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',')})";
+            _sqlStatement += $" INSERT into {_tableName} VALUES ({EntityValues(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',')})";
 
             return this;
         }
@@ -141,14 +206,14 @@ namespace NBaseRepository.Common
             return this;
         }
 
-        private IList<string> EntityColumns(TEntity entity)
+        private IList<object> EntityValues(TEntity entity)
         {
-            return EntityProperties == null ? typeof(TEntity).GetProperties().Select(property => property.GetValue(entity).ToString()).ToList() : EntityProperties.Invoke(entity).ToList();
+            return EntityProperties == null ? typeof(TEntity).GetProperties().Select(property => property.GetValue(entity)).ToList() : EntityProperties.Invoke(entity).ToList();
         }
 
         private string InsertStatement(TEntity entity)
         {
-            return EntityColumns(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
+            return EntityValues(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
         }
     }
 }

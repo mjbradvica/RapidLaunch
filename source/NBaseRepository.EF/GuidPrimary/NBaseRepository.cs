@@ -11,7 +11,7 @@ using NBaseRepository.GuidPrimary;
 namespace NBaseRepository.EF.GuidPrimary
 {
     /// <summary>
-    /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="Guid"/>.
+    /// A repository that accepts and an entity with a primary key of <see cref="Guid"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class NBaseRepository<TEntity> : NBaseCoreRepository<TEntity, Guid>

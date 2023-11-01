@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NBaseRepository.Tests
 {
+    /// <summary>
+    /// Test context.
+    /// </summary>
     public sealed class TestingContext : DbContext
     {
         /// <summary>
@@ -17,10 +20,19 @@ namespace NBaseRepository.Tests
             Database.EnsureCreated();
         }
 
+        /// <summary>
+        /// Gets or sets the Person DbSet with Guid keys.
+        /// </summary>
         public DbSet<GuidPrimary.Person> GuidPersons { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Person DbSet with Int keys.
+        /// </summary>
         public DbSet<IntPrimary.Person> IntPersons { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Person DbSet with Long keys.
+        /// </summary>
         public DbSet<LongPrimary.Person> LongPersons { get; set; }
 
         /// <inheritdoc/>

@@ -14,9 +14,9 @@ namespace NBaseRepository.Common
         where TId : struct
     {
         /// <summary>
-        /// Adds a single <see cref="TEntity"/> to a collection.
+        /// Adds a single entity to a collection.
         /// </summary>
-        /// <param name="entity">The <see cref="TEntity"/> to be added.</param>
+        /// <param name="entity">The entity to be added.</param>
         /// <returns>The result contains the number of state entries written to the database.</returns>
         int AddEntity(TEntity entity);
     }

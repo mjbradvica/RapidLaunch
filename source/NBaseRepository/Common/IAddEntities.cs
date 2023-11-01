@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace NBaseRepository.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can add multiple entities of type <see cref="TEntity"/> at one time.
+    /// An interface used to describe a class that can add multiple entities at one time.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -16,7 +16,7 @@ namespace NBaseRepository.Common
         where TId : struct
     {
         /// <summary>
-        /// Adds multiple <see cref="TEntity"/>s to a collection.
+        /// Adds multiple entities to a collection.
         /// </summary>
         /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be added.</param>
         /// <returns>The result contains the number of state entries written to the database.</returns>

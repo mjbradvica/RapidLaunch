@@ -10,6 +10,11 @@ using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Dapper.GuidPrimary
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TEntity> : NBaseCoreRepository<TFirst, TEntity, Guid>
         where TEntity : IEntity
     {
@@ -25,6 +30,12 @@ namespace NBaseRepository.Dapper.GuidPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TEntity> : NBaseCoreRepository<TFirst, TSecond, TEntity, Guid>
         where TEntity : IEntity
     {

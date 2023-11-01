@@ -14,7 +14,7 @@ namespace NBaseRepository.Samples.GuidPrimary.Person
         protected override string DefaultInclude { get; } = SqlHelpers.InnerJoin<GuidPerson, GuidAnimal>();
 
         /// <inheritdoc/>
-        protected override Func<GuidPerson, IReadOnlyList<string>> EntityProperties { get; } = customer =>
-            new List<string> { customer.Id.ToString(), customer.Name, customer.Age.ToString(), customer.GuidAnimal.Id.ToString() };
+        protected override Func<GuidPerson, IReadOnlyList<object>> EntityProperties { get; } = customer =>
+            new List<object> { customer.Id, customer.Name, customer.Age, customer.GuidAnimal.Id };
     }
 }
