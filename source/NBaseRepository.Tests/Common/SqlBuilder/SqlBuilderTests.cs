@@ -6,6 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NBaseRepository.Tests.Common.SqlBuilder
 {
+    /// <summary>
+    /// Tests for the sql builder class.
+    /// </summary>
     [TestClass]
     public class SqlBuilderTests
     {
@@ -19,6 +22,9 @@ namespace NBaseRepository.Tests.Common.SqlBuilder
             _builder = new TestSqlBuilder();
         }
 
+        /// <summary>
+        /// Ensures the default get all is correct.
+        /// </summary>
         [TestMethod]
         public void SelectAll_NoDefaultInclude_IsCorrect()
         {
@@ -29,6 +35,9 @@ namespace NBaseRepository.Tests.Common.SqlBuilder
             Assert.AreEqual(expected, sql);
         }
 
+        /// <summary>
+        /// Ensure the get all with include statements is correct.
+        /// </summary>
         [TestMethod]
         public void SelectAll_WithDefaultInclude_IsCorrect()
         {

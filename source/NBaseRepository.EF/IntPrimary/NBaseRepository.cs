@@ -11,7 +11,7 @@ using NBaseRepository.IntPrimary;
 namespace NBaseRepository.EF.IntPrimary
 {
     /// <summary>
-    /// A repository that accepts and <see cref="TEntity"/> with a primary key of <see cref="int"/>.
+    /// A repository that accepts and entity with a primary key of <see cref="int"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class NBaseRepository<TEntity> : NBaseCoreRepository<TEntity, int>

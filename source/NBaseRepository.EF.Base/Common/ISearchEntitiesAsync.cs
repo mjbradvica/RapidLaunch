@@ -12,7 +12,7 @@ using NBaseRepository.Common;
 namespace NBaseRepository.EF.Base.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/>.
+    /// An interface used to describe a class that can perform basic filters and/or joins.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -21,7 +21,7 @@ namespace NBaseRepository.EF.Base.Common
         where TId : struct
     {
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against a collection.
+        /// Performs a series of filters and/or joins on an entity against a collection.
         /// </summary>
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
@@ -29,7 +29,7 @@ namespace NBaseRepository.EF.Base.Common
         Task<IReadOnlyList<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against a collection.
+        /// Performs a series of filters and/or joins on an entity that accepts a customer include func for eager loading against a collection.
         /// </summary>
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>

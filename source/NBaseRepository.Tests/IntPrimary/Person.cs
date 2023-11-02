@@ -6,6 +6,9 @@ using NBaseRepository.IntPrimary;
 
 namespace NBaseRepository.Tests.IntPrimary
 {
+    /// <summary>
+    /// Test entity for classes with <see cref="int"/> primary keys.
+    /// </summary>
     public class Person : IEntity
     {
         /// <summary>

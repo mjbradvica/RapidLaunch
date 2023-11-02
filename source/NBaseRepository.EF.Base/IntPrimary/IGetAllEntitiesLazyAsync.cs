@@ -7,7 +7,11 @@ using NBaseRepository.IntPrimary;
 
 namespace NBaseRepository.EF.Base.IntPrimary
 {
-    internal interface IGetAllEntitiesLazyAsync<TEntity> : IGetAllEntitiesLazyAsync<TEntity, int>
+    /// <summary>
+    /// An interface used to describe a class that retrieves all entities both lazily and asynchronously.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    public interface IGetAllEntitiesLazyAsync<TEntity> : IGetAllEntitiesLazyAsync<TEntity, int>
         where TEntity : IEntity
     {
     }

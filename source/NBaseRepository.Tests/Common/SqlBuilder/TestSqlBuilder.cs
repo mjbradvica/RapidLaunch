@@ -9,11 +9,14 @@ using NBaseRepository.Tests.Common.GuidPrimary;
 
 namespace NBaseRepository.Tests.Common.SqlBuilder
 {
+    /// <summary>
+    /// SqlBuilder for testing.
+    /// </summary>
     internal class TestSqlBuilder : SqlBuilder<Person, Guid>
     {
         /// <inheritdoc/>
-        protected override Func<Person, IReadOnlyList<string>> EntityProperties { get; } =
-            person => new List<string> { person.Id.ToString() };
+        protected override Func<Person, IReadOnlyList<object>> EntityProperties { get; } =
+            person => new List<object> { person.Id };
 
         /// <inheritdoc/>
         protected override string DefaultInclude { get; } = SqlHelpers.InnerJoin<Person, Pet>();

@@ -9,7 +9,7 @@ using NBaseRepository.GuidPrimary;
 namespace NBaseRepository.EF.Base.GuidPrimary
 {
     /// <summary>
-    /// An interface used to describe a class that can perform basic filters and/or joins for type <see cref="TEntity"/>.
+    /// An interface used to describe a class that can perform basic filters and/or joins asynchronously.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface ISearchEntitiesAsync<TEntity> : ISearchEntitiesAsync<TEntity, Guid>

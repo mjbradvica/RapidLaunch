@@ -9,13 +9,16 @@ using NBaseRepository.Samples.GuidPrimary.Animal;
 
 namespace NBaseRepository.Samples.GuidPrimary.Person
 {
+    /// <summary>
+    /// Sample person repository.
+    /// </summary>
     public class PersonRepository : NBaseRepository<GuidPerson>, IPersonRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonRepository"/> class.
         /// </summary>
-        /// <param name="sqlConnection"></param>
-        /// <param name="sqlBuilder"></param>
+        /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
+        /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
         public PersonRepository(SqlConnection sqlConnection, SqlBuilder<GuidPerson, Guid> sqlBuilder)
             : base(
                 sqlConnection,

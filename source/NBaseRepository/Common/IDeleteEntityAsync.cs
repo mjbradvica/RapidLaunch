@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NBaseRepository.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can delete an entity of type <see cref="TEntity"/>.
+    /// An interface used to describe a class that can delete an entity asynchronously.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -17,9 +17,9 @@ namespace NBaseRepository.Common
         where TId : struct
     {
         /// <summary>
-        /// Removes an <see cref="TEntity"/> from a collection.
+        /// Removes an entity from a collection asynchronously.
         /// </summary>
-        /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
+        /// <param name="entity">The entity to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
         Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken);

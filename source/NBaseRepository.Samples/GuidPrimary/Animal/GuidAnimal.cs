@@ -6,12 +6,15 @@ using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Samples.GuidPrimary.Animal
 {
+    /// <summary>
+    /// Sample entity.
+    /// </summary>
     public class GuidAnimal : IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GuidAnimal"/> class.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The animal name.</param>
         public GuidAnimal(string name)
             : this(Guid.NewGuid(), name)
         {
@@ -20,8 +23,8 @@ namespace NBaseRepository.Samples.GuidPrimary.Animal
         /// <summary>
         /// Initializes a new instance of the <see cref="GuidAnimal"/> class.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
+        /// <param name="id">The pet identifier.</param>
+        /// <param name="name">The pet name.</param>
         public GuidAnimal(Guid id, string name)
         {
             Id = id;
@@ -31,6 +34,9 @@ namespace NBaseRepository.Samples.GuidPrimary.Animal
         /// <inheritdoc/>
         public Guid Id { get; }
 
+        /// <summary>
+        /// Gets the pets name.
+        /// </summary>
         public string Name { get; }
     }
 }

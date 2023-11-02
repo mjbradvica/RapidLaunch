@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0;</TargetFrameworks>
-
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;</TargetFrameworks>
     <IsPackable>false</IsPackable>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,10 +14,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">

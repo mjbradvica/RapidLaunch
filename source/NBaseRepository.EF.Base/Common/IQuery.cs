@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 namespace NBaseRepository.EF.Base.Common
 {
     /// <summary>
-    /// An interface that describe a class that represents a query object for type <see cref="TEntity"/>.
+    /// An interface that describe a class that represents a query object for the entity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IQuery<TEntity>

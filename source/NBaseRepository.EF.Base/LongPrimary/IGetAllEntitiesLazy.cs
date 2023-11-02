@@ -8,7 +8,7 @@ using NBaseRepository.LongPrimary;
 namespace NBaseRepository.EF.Base.LongPrimary
 {
     /// <summary>
-    /// An interface used to describe a class that can retrieve all entity of type <see cref="TEntity"/> lazily.
+    /// An interface used to describe a class that can retrieve all entities lazily.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IGetAllEntitiesLazy<TEntity> : IGetAllEntitiesLazy<TEntity, long>
