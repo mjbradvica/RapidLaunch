@@ -27,6 +27,7 @@ namespace NBaseRepository.Common
         protected SqlBuilder(string tableName)
         {
             _tableName = tableName;
+            _sqlStatement = string.Empty;
         }
 
         /// <summary>
@@ -35,6 +36,7 @@ namespace NBaseRepository.Common
         protected SqlBuilder()
         {
             _tableName = $"dbo.{typeof(TEntity).Name}";
+            _sqlStatement = string.Empty;
         }
 
         /// <summary>
@@ -53,12 +55,12 @@ namespace NBaseRepository.Common
         /// <summary>
         /// Gets the column names for an entities table.
         /// </summary>
-        public IEnumerable<string> ColumnNames { get; private set; }
+        public IEnumerable<string>? ColumnNames { get; private set; }
 
         /// <summary>
         /// Gets a function that extracts the current values from the entity for inserts.
         /// </summary>
-        protected virtual Func<TEntity, IReadOnlyList<object>> EntityProperties { get; } = null;
+        protected virtual Func<TEntity, IReadOnlyList<object?>>? EntityProperties { get; } = null;
 
         /// <summary>
         /// Gets the include statement if any to load additional relationships.
@@ -222,9 +224,18 @@ namespace NBaseRepository.Common
             return this;
         }
 
-        private IList<object> EntityValues(TEntity entity)
+        private IList<object?> EntityValues(TEntity entity)
         {
-            return EntityProperties == null ? typeof(TEntity).GetProperties().Select(property => property.GetValue(entity)).ToList() : EntityProperties.Invoke(entity).ToList();
+            if (EntityProperties != null)
+            {
+                return EntityProperties.Invoke(entity).ToList();
+            }
+
+            var values = new List<object?>();
+
+            values.AddRange(typeof(TEntity).GetProperties().Select(property => property.GetValue(entity)));
+
+            return values;
         }
 
         private string InsertStatement(TEntity entity)
