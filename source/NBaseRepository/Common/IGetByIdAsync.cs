@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NBaseRepository.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can retrieve a single entity of type <see cref="TEntity"/> by an Id of type <see cref="TId"/>.
+    /// An interface used to describe a class that can retrieve a single entity by an identifier.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -17,11 +17,11 @@ namespace NBaseRepository.Common
         where TId : struct
     {
         /// <summary>
-        /// Retrieves an <see cref="TEntity"/> from a collection by Id.
+        /// Retrieves an entity from a collection by an identifier.
         /// </summary>
-        /// <param name="id">The Id of type <see cref="TId"/>.</param>
+        /// <param name="id">The identifier for the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>An object of type <see cref="TEntity"/>.</returns>
+        /// <returns>The desired entity.</returns>
         Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken);
     }
 }

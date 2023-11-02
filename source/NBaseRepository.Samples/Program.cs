@@ -10,12 +10,15 @@ using NBaseRepository.Samples.GuidPrimary.Person;
 
 namespace NBaseRepository.Samples
 {
+    /// <summary>
+    /// Sample application main entry point.
+    /// </summary>
     public class Program
     {
         /// <summary>
         ///
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">Command line arguments.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public static async Task Main(string[] args)
         {

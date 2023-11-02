@@ -137,7 +137,7 @@ namespace NBaseRepository.Dapper.Common
         /// Retrieves all entities using a custom conversion func.
         /// </summary>
         /// <typeparam name="TFirst">The type of object dapper is mapping to.</typeparam>
-        /// <param name="conversionFunc">A conversion func from <see cref="TFirst"/> to <see cref="TEntity"/>.</param>
+        /// <param name="conversionFunc">A conversion func from an object to an entity.</param>
         /// <returns>A <see cref="IReadOnlyList{TEntity}"/>.</returns>
         public virtual IReadOnlyList<TEntity> GetAllEntities<TFirst>(Func<TFirst, TEntity> conversionFunc)
         {
@@ -367,7 +367,7 @@ namespace NBaseRepository.Dapper.Common
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
-        /// <param name="mappingFunc">A mapping function that converts a series of objects into a <see cref="TEntity"/>.</param>
+        /// <param name="mappingFunc">A mapping function that converts a series of objects into a entity.</param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -397,7 +397,7 @@ namespace NBaseRepository.Dapper.Common
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
-        /// <param name="mappingFunc">A mapping function that converts a series of objects into a <see cref="TEntity"/>.</param>
+        /// <param name="mappingFunc">A mapping function that converts a series of objects into an entity.</param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -460,7 +460,7 @@ namespace NBaseRepository.Dapper.Common
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
-        /// <param name="mappingFunc">A mapping function that converts a series of objects into a <see cref="TEntity"/>.</param>
+        /// <param name="mappingFunc">A mapping function that converts a series of objects into an entity.</param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -493,7 +493,7 @@ namespace NBaseRepository.Dapper.Common
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
-        /// <param name="mappingFunc">A mapping function that converts a series of objects into a <see cref="TEntity"/>.</param>
+        /// <param name="mappingFunc">A mapping function that converts a series of objects into an entity.</param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -527,7 +527,7 @@ namespace NBaseRepository.Dapper.Common
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
-        /// <param name="mappingFunc">A mapping function that converts a series of objects into a <see cref="TEntity"/>.</param>
+        /// <param name="mappingFunc">A mapping function that converts a series of objects into an entity.</param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,
@@ -562,7 +562,7 @@ namespace NBaseRepository.Dapper.Common
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> base class.</param>
-        /// <param name="mappingFunc">A mapping function that converts a series of objects into a <see cref="TEntity"/>.</param>
+        /// <param name="mappingFunc">A mapping function that converts a series of objects into an entity.</param>
         protected NBaseCoreRepository(
             SqlConnection sqlConnection,
             SqlBuilder<TEntity, TId> sqlBuilder,

@@ -8,6 +8,9 @@ using NBaseRepository.Samples.GuidPrimary.Animal;
 
 namespace NBaseRepository.Samples.GuidPrimary.Person
 {
+    /// <summary>
+    /// Sample sql builder.
+    /// </summary>
     public class PersonSqlBuilder : GuidSqlBuilder<GuidPerson>
     {
         /// <inheritdoc/>

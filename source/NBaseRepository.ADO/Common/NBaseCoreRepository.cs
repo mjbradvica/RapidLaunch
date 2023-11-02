@@ -12,6 +12,11 @@ using NBaseRepository.Common;
 
 namespace NBaseRepository.ADO.Common
 {
+    /// <summary>
+    /// The core base repository for ado based commands.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity to issue commands against.</typeparam>
+    /// <typeparam name="TId">The type of the identifier for the entity.</typeparam>
     public abstract class NBaseCoreRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,
@@ -116,10 +121,10 @@ namespace NBaseRepository.ADO.Common
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all entities from a collection.
         /// </summary>
-        /// <param name="conversionFunc"></param>
-        /// <returns></returns>
+        /// <param name="conversionFunc">A custom conversion func to create an entity from a <see cref="SqlDataReader"/> result set.</param>
+        /// <returns>A <see cref="IReadOnlyList{T}"/> of entities.</returns>
         public virtual IReadOnlyList<TEntity> GetAllEntities(Func<SqlDataReader, TEntity> conversionFunc)
         {
             return ExecuteQuery(_sqlBuilder.SelectAll().SqlStatement, conversionFunc);
@@ -132,11 +137,11 @@ namespace NBaseRepository.ADO.Common
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all entities from a collection asynchronously using a custom conversion func.
         /// </summary>
-        /// <param name="conversionFunc"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <param name="conversionFunc">A conversion func used to create an entity from a <see cref="SqlDataReader"/> result set.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of type <see cref="IReadOnlyList{T}"/> representing the asynchronous operation.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<SqlDataReader, TEntity> conversionFunc, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(_sqlBuilder.SelectAll().SqlStatement, conversionFunc, cancellationToken);
@@ -155,12 +160,12 @@ namespace NBaseRepository.ADO.Common
         }
 
         /// <summary>
-        ///
+        /// Retrieves an entity from a collection by an identifier asynchronously.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="conversionFunc"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        /// <param name="id">The identifier used to retrieve an entity.</param>
+        /// <param name="conversionFunc">A conversion func used to create the entity from an <see cref="SqlDataReader"/> result set.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task{TResult}"/> of the entity type representing the result of the asynchronous operation.</returns>
         public virtual async Task<TEntity> GetByIdAsync(TId id, Func<SqlDataReader, TEntity> conversionFunc, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(_sqlBuilder.GetById(id).SqlStatement, conversionFunc, cancellationToken)).First();

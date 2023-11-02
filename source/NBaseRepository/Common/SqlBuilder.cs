@@ -162,11 +162,11 @@ namespace NBaseRepository.Common
         }
 
         /// <summary>
-        /// 
+        /// Returns a builder with an update statement.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="columnNames"></param>
-        /// <returns></returns>
+        /// <param name="entity">The entity being updated in persistence.</param>
+        /// <param name="columnNames">The names of the columns used for the entity.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> Update(TEntity entity, IList<string> columnNames)
         {
             var entityProperties = EntityValues(entity);
@@ -185,11 +185,22 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with an update multiple statement.
+        /// </summary>
+        /// <param name="entities">The entities being updated in persistence.</param>
+        /// <param name="columnNames">The names of the columns used for the entity.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> UpdateMultiple(IEnumerable<TEntity> entities, IEnumerable<string> columnNames)
         {
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with an insert statement.
+        /// </summary>
+        /// <param name="entity">The entity being inserted in persistence.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> Insert(TEntity entity)
         {
             _sqlStatement += $" INSERT into {_tableName} VALUES ({EntityValues(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',')})";
@@ -197,6 +208,11 @@ namespace NBaseRepository.Common
             return this;
         }
 
+        /// <summary>
+        /// Returns a builder with an insert multiple statement.
+        /// </summary>
+        /// <param name="entities">A collection of entities to be updated.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> InsertMultiple(IEnumerable<TEntity> entities)
         {
             _sqlStatement += $" INSERT into {_tableName} VALUES" +

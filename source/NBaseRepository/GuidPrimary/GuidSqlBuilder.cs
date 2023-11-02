@@ -7,6 +7,10 @@ using NBaseRepository.Common;
 
 namespace NBaseRepository.GuidPrimary
 {
+    /// <summary>
+    /// An abstract base class for sql builders with <see cref="Guid"/> keys.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class GuidSqlBuilder<TEntity> : SqlBuilder<TEntity, Guid>
         where TEntity : IEntity
     {
@@ -20,7 +24,7 @@ namespace NBaseRepository.GuidPrimary
         /// <summary>
         /// Initializes a new instance of the <see cref="GuidSqlBuilder{TEntity}"/> class.
         /// </summary>
-        /// <param name="tableName"></param>
+        /// <param name="tableName">The name of the table if different from the entity name.</param>
         protected GuidSqlBuilder(string tableName)
             : base(tableName)
         {

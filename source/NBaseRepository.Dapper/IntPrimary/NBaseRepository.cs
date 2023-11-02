@@ -10,6 +10,11 @@ using NBaseRepository.IntPrimary;
 
 namespace NBaseRepository.Dapper.IntPrimary
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TEntity> : NBaseCoreRepository<TFirst, TEntity, int>
         where TEntity : IEntity
     {
@@ -25,6 +30,12 @@ namespace NBaseRepository.Dapper.IntPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TEntity> : NBaseCoreRepository<TFirst, TSecond, TEntity, int>
         where TEntity : IEntity
     {
@@ -40,6 +51,13 @@ namespace NBaseRepository.Dapper.IntPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TThird"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TThird, TEntity> : NBaseCoreRepository<TFirst, TSecond, TThird, TEntity, int>
         where TEntity : IEntity
     {
@@ -55,6 +73,14 @@ namespace NBaseRepository.Dapper.IntPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TThird"></typeparam>
+    /// <typeparam name="TFourth"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TThird, TFourth, TEntity> : NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TEntity, int>
         where TEntity : IEntity
     {
@@ -70,6 +96,15 @@ namespace NBaseRepository.Dapper.IntPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TThird"></typeparam>
+    /// <typeparam name="TFourth"></typeparam>
+    /// <typeparam name="TFifth"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TThird, TFourth, TFifth, TEntity> : NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TFifth, TEntity, int>
         where TEntity : IEntity
     {
@@ -85,6 +120,16 @@ namespace NBaseRepository.Dapper.IntPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TThird"></typeparam>
+    /// <typeparam name="TFourth"></typeparam>
+    /// <typeparam name="TFifth"></typeparam>
+    /// <typeparam name="TSixth"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity> : NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity, int>
         where TEntity : IEntity
     {
@@ -100,6 +145,17 @@ namespace NBaseRepository.Dapper.IntPrimary
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TFirst"></typeparam>
+    /// <typeparam name="TSecond"></typeparam>
+    /// <typeparam name="TThird"></typeparam>
+    /// <typeparam name="TFourth"></typeparam>
+    /// <typeparam name="TFifth"></typeparam>
+    /// <typeparam name="TSixth"></typeparam>
+    /// <typeparam name="TSeventh"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class NBaseRepository<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity> : NBaseCoreRepository<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity, int>
         where TEntity : IEntity
     {

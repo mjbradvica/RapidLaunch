@@ -6,6 +6,9 @@ using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Samples.GuidPrimary.Person
 {
+    /// <summary>
+    /// Sample repository interface.
+    /// </summary>
     public interface IPersonRepository :
         IAddEntityAsync<GuidPerson>,
         IUpdateEntityAsync<GuidPerson>,

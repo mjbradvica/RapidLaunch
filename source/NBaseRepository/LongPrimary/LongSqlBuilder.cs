@@ -6,6 +6,10 @@ using NBaseRepository.Common;
 
 namespace NBaseRepository.LongPrimary
 {
+    /// <summary>
+    /// An abstract base class for sql builders with <see cref="long"/> keys.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public abstract class LongSqlBuilder<TEntity> : SqlBuilder<TEntity, long>
         where TEntity : IEntity
     {
@@ -19,7 +23,7 @@ namespace NBaseRepository.LongPrimary
         /// <summary>
         /// Initializes a new instance of the <see cref="LongSqlBuilder{TEntity}"/> class.
         /// </summary>
-        /// <param name="tableName"></param>
+        /// <param name="tableName">The name of the table if different from the entity name.</param>
         protected LongSqlBuilder(string tableName)
         : base(tableName)
         {
