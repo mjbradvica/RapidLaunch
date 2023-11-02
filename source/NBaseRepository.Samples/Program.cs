@@ -16,7 +16,7 @@ namespace NBaseRepository.Samples
     public class Program
     {
         /// <summary>
-        ///
+        /// Main entry point for the sample application.
         /// </summary>
         /// <param name="args">Command line arguments.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>

@@ -7,8 +7,14 @@ using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Tests.Common.GuidPrimary
 {
+    /// <summary>
+    /// Test entity for <see cref="Guid"/> relationships.
+    /// </summary>
     internal class Pet : IEntity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pet"/> class.
+        /// </summary>
         public Pet()
         {
             Id = Guid.NewGuid();

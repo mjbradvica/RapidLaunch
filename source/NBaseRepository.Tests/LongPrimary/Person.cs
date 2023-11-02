@@ -6,6 +6,9 @@ using NBaseRepository.LongPrimary;
 
 namespace NBaseRepository.Tests.LongPrimary
 {
+    /// <summary>
+    /// Test entity for <see cref="long"/> entities.
+    /// </summary>
     public class Person : IEntity
     {
         /// <summary>

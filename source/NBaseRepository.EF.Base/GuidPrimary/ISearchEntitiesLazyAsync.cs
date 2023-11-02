@@ -8,7 +8,8 @@ using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.EF.Base.GuidPrimary
 {
-    internal interface ISearchEntitiesLazyAsync<TEntity> : ISearchEntitiesLazyAsync<TEntity, Guid>
+    /// <inheritdoc />
+    public interface ISearchEntitiesLazyAsync<TEntity> : ISearchEntitiesLazyAsync<TEntity, Guid>
         where TEntity : IEntity
     {
     }

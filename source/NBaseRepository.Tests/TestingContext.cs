@@ -23,17 +23,17 @@ namespace NBaseRepository.Tests
         /// <summary>
         /// Gets or sets the Person DbSet with Guid keys.
         /// </summary>
-        public DbSet<GuidPrimary.Person> GuidPersons { get; set; }
+        public DbSet<GuidPrimary.Person>? GuidPersons { get; set; }
 
         /// <summary>
         /// Gets or sets the Person DbSet with Int keys.
         /// </summary>
-        public DbSet<IntPrimary.Person> IntPersons { get; set; }
+        public DbSet<IntPrimary.Person>? IntPersons { get; set; }
 
         /// <summary>
         /// Gets or sets the Person DbSet with Long keys.
         /// </summary>
-        public DbSet<LongPrimary.Person> LongPersons { get; set; }
+        public DbSet<LongPrimary.Person>? LongPersons { get; set; }
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)

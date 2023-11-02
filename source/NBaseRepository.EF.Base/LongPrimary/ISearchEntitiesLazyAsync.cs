@@ -7,7 +7,8 @@ using NBaseRepository.LongPrimary;
 
 namespace NBaseRepository.EF.Base.LongPrimary
 {
-    internal interface ISearchEntitiesLazyAsync<TEntity> : ISearchEntitiesLazyAsync<TEntity, long>
+    /// <inheritdoc />
+    public interface ISearchEntitiesLazyAsync<TEntity> : ISearchEntitiesLazyAsync<TEntity, long>
         where TEntity : IEntity
     {
     }

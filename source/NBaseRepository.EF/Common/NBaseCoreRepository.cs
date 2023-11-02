@@ -14,7 +14,7 @@ using NBaseRepository.EF.Base.Common;
 namespace NBaseRepository.EF.Common
 {
     /// <summary>
-    /// A base repository with an Id of type <see cref="TId"/> that represents all possible operations.
+    /// A base repository that represents all possible operations.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
@@ -72,7 +72,7 @@ namespace NBaseRepository.EF.Common
         protected DbContext Context { get; }
 
         /// <summary>
-        /// Adds a single <see cref="TEntity"/> to the database.
+        /// Adds a single entity to the database.
         /// </summary>
         /// <param name="entity">The entity to be added to the database.</param>
         /// <returns>The result contains the number of state entries written to the database.</returns>
@@ -143,7 +143,7 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Retrieves an <see cref="TEntity"/> from the database by Id.
+        /// Retrieves an entity from the database by an identifier.
         /// </summary>
         /// <param name="id">The identifier for the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
@@ -156,7 +156,7 @@ namespace NBaseRepository.EF.Common
         /// <summary>
         /// Retrieves an entity from the database by its identifier. Accepts a custom include func for eager loading.
         /// </summary>
-        /// <param name="id">An Id of type <see cref="TId"/>.</param>
+        /// <param name="id">The identifier used to retrieve an entity.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the entity.</returns>
@@ -227,7 +227,7 @@ namespace NBaseRepository.EF.Common
         /// <summary>
         /// Updates an entity in the database.
         /// </summary>
-        /// <param name="entity">The <see cref="TEntity"/> to be updated.</param>
+        /// <param name="entity">The entity to be updated.</param>
         /// <returns>A <see cref="int"/> that contains the number of state entities updated in the database.</returns>
         public virtual int UpdateEntity(TEntity entity)
         {
@@ -239,7 +239,7 @@ namespace NBaseRepository.EF.Common
         /// <summary>
         /// Updates an entity in the database asynchronously.
         /// </summary>
-        /// <param name="entity">The <see cref="TEntity"/> to be updated.</param>
+        /// <param name="entity">The entity to be updated.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous update operation. The task result contains the state entry updated in the database.</returns>
         public virtual async Task<int> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
@@ -275,9 +275,9 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Removes an entity from the database by <see cref="TId"/>.
+        /// Removes an entity from the database by an identifier.
         /// </summary>
-        /// <param name="id">The <see cref="TId"/> used to delete the entity.</param>
+        /// <param name="id">The identifier used to delete the entity.</param>
         /// <returns>An <see cref="int"/> the number of state entries deleted from the database.</returns>
         public virtual int DeleteById(TId id)
         {
@@ -289,7 +289,7 @@ namespace NBaseRepository.EF.Common
         /// <summary>
         /// Removes an entity from the database by its identifier.
         /// </summary>
-        /// <param name="id">The <see cref="TId"/> used to delete the entity.</param>
+        /// <param name="id">The identifier used to delete the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the state entry deleted from the database.</returns>
         public virtual async Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken = default)
@@ -302,7 +302,7 @@ namespace NBaseRepository.EF.Common
         /// <summary>
         /// Removes an entity from the database.
         /// </summary>
-        /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
+        /// <param name="entity">The entity to be deleted.</param>
         /// <returns>An <see cref="int"/> that contains the number of state entries deleted from the database.</returns>
         public virtual int DeleteEntity(TEntity entity)
         {
@@ -314,7 +314,7 @@ namespace NBaseRepository.EF.Common
         /// <summary>
         /// Removes an entity from the database asynchronously.
         /// </summary>
-        /// <param name="entity">The <see cref="TEntity"/> to be deleted.</param>
+        /// <param name="entity">The entity to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous delete operation. The task result contains the number of state entries deleted from the database.</returns>
         public virtual async Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
@@ -350,7 +350,7 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database.
+        /// Performs a series of filters and/or joins on an entity against the database.
         /// </summary>
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <returns>A <see cref="IReadOnlyList{TEntity}"/>.</returns>
@@ -360,7 +360,7 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against the database.
+        /// Performs a series of filters and/or joins on an entity that accepts a customer include func for eager loading against the database.
         /// </summary>
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
@@ -371,7 +371,7 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database.
+        /// Performs a series of filters and/or joins on an entity against the database.
         /// </summary>
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
@@ -382,7 +382,7 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> that accepts a customer include func for eager loading against the database.
+        /// Performs a series of filters and/or joins on an entity that accepts a customer include func for eager loading against the database.
         /// </summary>
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
@@ -404,7 +404,7 @@ namespace NBaseRepository.EF.Common
         }
 
         /// <summary>
-        /// Performs a series of filters and/or joins on a <see cref="TEntity"/> against the database that accepts a customer include func that has not been executed.
+        /// Performs a series of filters and/or joins on an entity against the database that accepts a customer include func that has not been executed.
         /// </summary>
         /// <param name="queryObject">A query object of type <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="includeFunc">An include func used for eager loading.</param>
