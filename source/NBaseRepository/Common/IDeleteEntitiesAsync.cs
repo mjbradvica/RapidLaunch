@@ -1,19 +1,24 @@
-﻿namespace NBaseRepository.Common
-{
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿// <copyright file="IDeleteEntitiesAsync.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
+// </copyright>
 
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace NBaseRepository.Common
+{
     /// <summary>
-    /// An interface used to describe a class that can delete multiple entities of type <see cref="TEntity"/>.
+    /// An interface used to describe a class that can delete multiple entities asynchronously.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IDeleteEntitiesAsync<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
-        /// Removes multiple <see cref="TEntity"/> from a collection.
+        /// Removes multiple entities from a collection asynchronously.
         /// </summary>
         /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>

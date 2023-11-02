@@ -1,19 +1,24 @@
-﻿namespace NBaseRepository.Common
-{
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿// <copyright file="IAddEntitiesAsync.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
+// </copyright>
 
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace NBaseRepository.Common
+{
     /// <summary>
-    /// An interface used to describe a class that can add multiple entities of type <see cref="TEntity"/> at one time.
+    /// An interface used to describe a class that can add multiple entities at one time.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IAddEntitiesAsync<in TEntity, TId>
         where TEntity : IEntity<TId>
+        where TId : struct
     {
         /// <summary>
-        /// Adds multiple <see cref="TEntity"/>s to a collection.
+        /// Adds multiple entities to a collection.
         /// </summary>
         /// <param name="entities">An <see cref="IEnumerable{TEntity}"/> to be added.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
