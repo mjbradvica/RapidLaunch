@@ -33,12 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NBaseRepository.ADO\NBaseRepository.ADO.csproj" />
-    <ProjectReference Include="..\NBaseRepository.Dapper\NBaseRepository.Dapper.csproj" />
-    <ProjectReference Include="..\NBaseRepository.EF\NBaseRepository.EF.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="ADO\GuidPrimary\" />
     <Folder Include="ADO\LongPrimary\" />
     <Folder Include="ADO\IntPrimary\" />
@@ -48,6 +42,11 @@
     <Folder Include="EF\GuidPrimary\" />
     <Folder Include="EF\IntPrimary\" />
     <Folder Include="EF\LongPrimary\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\NBaseRepository.ADO\NBaseRepository.ADO.csproj" />
+    <ProjectReference Include="..\..\source\NBaseRepository.EF\NBaseRepository.EF.csproj" />
   </ItemGroup>
 
 </Project>

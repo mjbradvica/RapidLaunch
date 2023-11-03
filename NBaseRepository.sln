@@ -5,17 +5,11 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.EF", "source\NBaseRepository.EF\NBaseRepository.EF.csproj", "{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Tests", "source\NBaseRepository.Tests\NBaseRepository.Tests.csproj", "{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.ADO", "source\NBaseRepository.ADO\NBaseRepository.ADO.csproj", "{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Dapper", "source\NBaseRepository.Dapper\NBaseRepository.Dapper.csproj", "{D4560299-2BE1-4032-A64E-CFEE3E8F6DE0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository", "source\NBaseRepository\NBaseRepository.csproj", "{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Samples", "source\NBaseRepository.Samples\NBaseRepository.Samples.csproj", "{AA9C490C-592B-4A91-B9F3-135C9D27AB85}"
-EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NBaseRepository.Samples.Database", "source\NBaseRepository.Samples.Database\NBaseRepository.Samples.Database.sqlproj", "{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.EF.Base", "source\NBaseRepository.EF.Base\NBaseRepository.EF.Base.csproj", "{64C51141-D46F-4311-8611-F147ABF43F9F}"
 EndProject
@@ -23,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Tests", "tests\NBaseRepository.Tests\NBaseRepository.Tests.csproj", "{D98BB5A8-9B07-44E4-B6CC-BC05165D734A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBaseRepository.Samples", "samples\NBaseRepository.Samples\NBaseRepository.Samples.csproj", "{EF2F8723-DF93-43B5-9523-47FEDD235D4E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NBaseRepository.Samples.Database", "samples\NBaseRepository.Samples.Database\NBaseRepository.Samples.Database.sqlproj", "{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,6 @@ Global
 		{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D9B6726-AA6A-4C3E-8648-7ECB79D95BB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D0F8150-99CD-4A72-8B74-25DCD31FA6E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CF7180E-8365-4C19-9F16-B366CF8DEAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,20 +46,24 @@ Global
 		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCAB43CD-67E4-4331-AAB7-11A0475AC0D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA9C490C-592B-4A91-B9F3-135C9D27AB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA9C490C-592B-4A91-B9F3-135C9D27AB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA9C490C-592B-4A91-B9F3-135C9D27AB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA9C490C-592B-4A91-B9F3-135C9D27AB85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C51141-D46F-4311-8611-F147ABF43F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C51141-D46F-4311-8611-F147ABF43F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C51141-D46F-4311-8611-F147ABF43F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C51141-D46F-4311-8611-F147ABF43F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98BB5A8-9B07-44E4-B6CC-BC05165D734A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98BB5A8-9B07-44E4-B6CC-BC05165D734A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98BB5A8-9B07-44E4-B6CC-BC05165D734A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98BB5A8-9B07-44E4-B6CC-BC05165D734A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2F8723-DF93-43B5-9523-47FEDD235D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2F8723-DF93-43B5-9523-47FEDD235D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2F8723-DF93-43B5-9523-47FEDD235D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2F8723-DF93-43B5-9523-47FEDD235D4E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A6A8E36-C399-4C0A-8FDD-142D78C883D5}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{64C51141-D46F-4311-8611-F147ABF43F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64C51141-D46F-4311-8611-F147ABF43F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64C51141-D46F-4311-8611-F147ABF43F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64C51141-D46F-4311-8611-F147ABF43F9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,12 +11,14 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NBaseRepository.ADO\NBaseRepository.ADO.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Customers\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\NBaseRepository.ADO\NBaseRepository.ADO.csproj" />
   </ItemGroup>
 
 </Project>
