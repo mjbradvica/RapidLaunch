@@ -104,7 +104,7 @@ namespace NBaseRepository.Common
         {
             SelectAll(withInclude);
 
-            _sqlStatement += $" WHERE Id == \'{id}\'";
+            _sqlStatement += $" WHERE {_tableName}.Id = \'{id}\'";
 
             return this;
         }

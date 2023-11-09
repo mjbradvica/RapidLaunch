@@ -12,7 +12,9 @@ namespace NBaseRepository.Samples.GuidPrimary.Person
     public interface IPersonRepository :
         IAddEntityAsync<GuidPerson>,
         IUpdateEntityAsync<GuidPerson>,
-        IGetAllEntitiesAsync<GuidPerson>
+        IGetAllEntitiesAsync<GuidPerson>,
+        IGetByIdAsync<GuidPerson>,
+        IDeleteByIdAsync
     {
     }
 }

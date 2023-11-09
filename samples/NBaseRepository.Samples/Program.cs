@@ -2,9 +2,9 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-using System.Data.SqlClient;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using NBaseRepository.Common;
+using NBaseRepository.ADO.Registrations;
 using NBaseRepository.Samples.GuidPrimary.Animal;
 using NBaseRepository.Samples.GuidPrimary.Person;
 
@@ -24,13 +24,9 @@ namespace NBaseRepository.Samples
         {
             var collection = new ServiceCollection();
 
-            collection.AddScoped(_ => new SqlConnection("Data Source=(LocalDb)\\MSSqlLocalDB;Initial Catalog=NPD;Integrated Security=True"));
-
-            collection.AddTransient<SqlBuilder<GuidPerson, Guid>, PersonSqlBuilder>();
-            collection.AddTransient<SqlBuilder<GuidAnimal, Guid>, AnimalSqlBuilder>();
-
-            collection.AddTransient<IPersonRepository, PersonRepository>();
-            collection.AddTransient<IAnimalRepository, AnimalRepository>();
+            collection.AddNBaseRepository(
+                "Data Source=(LocalDb)\\MSSqlLocalDB;Initial Catalog=NBaseRepository.Samples;Integrated Security=True",
+                Assembly.GetExecutingAssembly());
 
             var serviceProvider = collection.BuildServiceProvider();
 
@@ -49,6 +45,12 @@ namespace NBaseRepository.Samples
             {
                 Console.WriteLine(person);
             }
+
+            var custom = await customerRepository.GetByIdAsync(Guid.Parse("073C2C9D-16F6-43F6-85FD-6450FCAD53CC"));
+
+            var resultSet = await customerRepository.DeleteByIdAsync(Guid.Parse("073C2C9D-16F6-43F6-85FD-6450FCAD53CC"));
+
+            Console.WriteLine(resultSet);
         }
     }
 }

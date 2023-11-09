@@ -22,6 +22,6 @@ namespace NBaseRepository.Common
         /// <param name="entity">The entity to be deleted.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
-        Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken);
+        Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default);
     }
 }

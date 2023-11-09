@@ -20,6 +20,6 @@ namespace NBaseRepository.Common
         /// <param name="id">The identifier used to delete the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
-        Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken);
+        Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken = default);
     }
 }

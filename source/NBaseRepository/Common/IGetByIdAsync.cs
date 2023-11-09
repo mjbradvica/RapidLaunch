@@ -22,6 +22,6 @@ namespace NBaseRepository.Common
         /// <param name="id">The identifier for the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>The desired entity.</returns>
-        Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken);
+        Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
     }
 }
