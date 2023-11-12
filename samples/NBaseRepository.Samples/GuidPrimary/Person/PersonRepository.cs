@@ -32,5 +32,16 @@ namespace NBaseRepository.Samples.GuidPrimary.Person
                         reader.GetString(5))))
         {
         }
+
+        /// <inheritdoc/>
+        public async Task<IReadOnlyList<GuidPerson>> GetAllByName(string name)
+        {
+            return await ExecuteQueryAsync(
+                SqlBuilder
+                    .SelectAll()
+                    .WhereEqual(x => x.Name, name)
+                    .OrderBy(x => x.Age)
+                    .SqlStatement);
+        }
     }
 }

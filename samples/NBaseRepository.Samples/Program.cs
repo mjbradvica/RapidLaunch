@@ -35,22 +35,16 @@ namespace NBaseRepository.Samples
 
             var animal = new GuidAnimal("Billy Bob");
 
-            // await animalRepository.AddEntityAsync(animal);
-            var customer = new GuidPerson("Mike", 32, animal);
+            await animalRepository.AddEntityAsync(animal);
+            var customer = new GuidPerson("Mike", 15, animal);
 
-            // await customerRepository.AddEntityAsync(customer);
-            var customers = await customerRepository.GetAllEntitiesAsync();
+            await customerRepository.AddEntityAsync(customer);
+            var customers = await customerRepository.GetAllByName("Mike");
 
             foreach (var person in customers)
             {
                 Console.WriteLine(person);
             }
-
-            var custom = await customerRepository.GetByIdAsync(Guid.Parse("073C2C9D-16F6-43F6-85FD-6450FCAD53CC"));
-
-            var resultSet = await customerRepository.DeleteByIdAsync(Guid.Parse("073C2C9D-16F6-43F6-85FD-6450FCAD53CC"));
-
-            Console.WriteLine(resultSet);
         }
     }
 }

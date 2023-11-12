@@ -7,46 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
-    <PackageReference Include="coverlet.collector" Version="3.1.2">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.15" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ADO\GuidPrimary\" />
     <Folder Include="ADO\LongPrimary\" />
     <Folder Include="ADO\IntPrimary\" />
-    <Folder Include="Dapper\GuidPrimary\" />
-    <Folder Include="Dapper\IntPrimary\" />
-    <Folder Include="Dapper\LongPrimary\" />
-    <Folder Include="EF\GuidPrimary\" />
-    <Folder Include="EF\IntPrimary\" />
-    <Folder Include="EF\LongPrimary\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\source\NBaseRepository.ADO\NBaseRepository.ADO.csproj" />
-    <ProjectReference Include="..\..\source\NBaseRepository.EF\NBaseRepository.EF.csproj" />
   </ItemGroup>
 
 </Project>

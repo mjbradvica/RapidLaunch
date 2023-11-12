@@ -26,7 +26,7 @@ namespace NBaseRepository.Tests.Common.SqlBuilder
         /// Ensures the default get all is correct.
         /// </summary>
         [TestMethod]
-        public void SelectAll_NoDefaultInclude_IsCorrect()
+        public void SelectAllNoDefaultIncludeIsCorrect()
         {
             var sql = _builder.SelectAll(false).SqlStatement;
 
@@ -39,7 +39,7 @@ namespace NBaseRepository.Tests.Common.SqlBuilder
         /// Ensure the get all with include statements is correct.
         /// </summary>
         [TestMethod]
-        public void SelectAll_WithDefaultInclude_IsCorrect()
+        public void SelectAllWithDefaultIncludeIsCorrect()
         {
             var sql = _builder.SelectAll().SqlStatement;
 

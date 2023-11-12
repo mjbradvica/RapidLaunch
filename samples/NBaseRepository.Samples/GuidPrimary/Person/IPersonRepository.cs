@@ -16,5 +16,11 @@ namespace NBaseRepository.Samples.GuidPrimary.Person
         IGetByIdAsync<GuidPerson>,
         IDeleteByIdAsync
     {
+        /// <summary>
+        /// Returns all people by name.
+        /// </summary>
+        /// <param name="name">The name fo query against.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task<IReadOnlyList<GuidPerson>> GetAllByName(string name);
     }
 }

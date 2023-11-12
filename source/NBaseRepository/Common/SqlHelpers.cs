@@ -2,6 +2,9 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
+using System;
+using System.Linq.Expressions;
+
 namespace NBaseRepository.Common
 {
     /// <summary>
@@ -20,6 +23,21 @@ namespace NBaseRepository.Common
             where TPrimary : class
         {
             return $"INNER JOIN dbo.{typeof(TDependent).Name} ON dbo.{typeof(TDependent).Name}.Id = dbo.{typeof(TPrimary).Name}.{typeof(TDependent).Name}Id";
+        }
+
+        /// <summary>
+        /// Helper for an inner join. Mainly to eager load relationships.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the primary entity.</typeparam>
+        /// <typeparam name="TKey">The type of the object ot load alongside.</typeparam>
+        /// <param name="entity">Entity selector.</param>
+        /// <param name="selector">A selector func.</param>
+        /// <returns>An <see cref="string"/> that represents an sql join statement.</returns>
+        public static string InnerJoin<TEntity, TKey>(this TEntity entity, Expression<Func<TEntity, TKey>> selector)
+            where TEntity : class
+            where TKey : class
+        {
+            return $"INNER JOIN dbo.{((MemberExpression)selector.Body).Member.Name} ON dbo.{((MemberExpression)selector.Body).Member.Name}.Id = dbo.{typeof(TEntity).Name}.{((MemberExpression)selector.Body).Member.Name}Id";
         }
     }
 }

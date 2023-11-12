@@ -38,7 +38,6 @@ namespace NBaseRepository.ADO.Common
         where TId : struct
     {
         private readonly SqlConnection _sqlConnection;
-        private readonly SqlBuilder<TEntity, TId> _sqlBuilder;
         private readonly Func<SqlDataReader, TEntity> _conversionFunc;
 
         /// <summary>
@@ -50,74 +49,79 @@ namespace NBaseRepository.ADO.Common
         protected NBaseCoreRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, TId> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
         {
             _sqlConnection = sqlConnection;
-            _sqlBuilder = sqlBuilder;
+            SqlBuilder = sqlBuilder;
             _conversionFunc = conversionFunc;
         }
+
+        /// <summary>
+        /// Gets the SQL builder.
+        /// </summary>
+        protected SqlBuilder<TEntity, TId> SqlBuilder { get; }
 
         /// <inheritdoc/>
         public virtual int AddEntities(IEnumerable<TEntity> entities)
         {
-            return ExecuteNonQuery(_sqlBuilder.InsertMultiple(entities).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.InsertMultiple(entities).SqlStatement);
         }
 
         /// <inheritdoc/>
         public virtual async Task<int> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            return await ExecuteNonQueryAsync(_sqlBuilder.InsertMultiple(entities).SqlStatement, cancellationToken);
+            return await ExecuteNonQueryAsync(SqlBuilder.InsertMultiple(entities).SqlStatement, cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual int AddEntity(TEntity entity)
         {
-            return ExecuteNonQuery(_sqlBuilder.Insert(entity).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.Insert(entity).SqlStatement);
         }
 
         /// <inheritdoc/>
         public virtual async Task<int> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            return await ExecuteNonQueryAsync(_sqlBuilder.Insert(entity).SqlStatement, cancellationToken);
+            return await ExecuteNonQueryAsync(SqlBuilder.Insert(entity).SqlStatement, cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual int DeleteById(TId id)
         {
-            return ExecuteNonQuery(_sqlBuilder.DeleteById(id).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.DeleteById(id).SqlStatement);
         }
 
         /// <inheritdoc/>
         public virtual async Task<int> DeleteByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
-            return await ExecuteNonQueryAsync(_sqlBuilder.DeleteById(id).SqlStatement, cancellationToken);
+            return await ExecuteNonQueryAsync(SqlBuilder.DeleteById(id).SqlStatement, cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual int DeleteEntities(IEnumerable<TEntity> entities)
         {
-            return ExecuteNonQuery(_sqlBuilder.DeleteMultiple(entities).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.DeleteMultiple(entities).SqlStatement);
         }
 
         /// <inheritdoc/>
         public virtual async Task<int> DeleteEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
         {
-            return await ExecuteNonQueryAsync(_sqlBuilder.DeleteMultiple(entities).SqlStatement, cancellationToken);
+            return await ExecuteNonQueryAsync(SqlBuilder.DeleteMultiple(entities).SqlStatement, cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual int DeleteEntity(TEntity entity)
         {
-            return ExecuteNonQuery(_sqlBuilder.Delete(entity).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.Delete(entity).SqlStatement);
         }
 
         /// <inheritdoc/>
         public virtual async Task<int> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            return await ExecuteNonQueryAsync(_sqlBuilder.Delete(entity).SqlStatement, cancellationToken);
+            return await ExecuteNonQueryAsync(SqlBuilder.Delete(entity).SqlStatement, cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual IReadOnlyList<TEntity> GetAllEntities()
         {
-            return ExecuteQuery(_sqlBuilder.SelectAll().SqlStatement);
+            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement);
         }
 
         /// <summary>
@@ -127,13 +131,13 @@ namespace NBaseRepository.ADO.Common
         /// <returns>A <see cref="IReadOnlyList{T}"/> of entities.</returns>
         public virtual IReadOnlyList<TEntity> GetAllEntities(Func<SqlDataReader, TEntity> conversionFunc)
         {
-            return ExecuteQuery(_sqlBuilder.SelectAll().SqlStatement, conversionFunc);
+            return ExecuteQuery(SqlBuilder.SelectAll().SqlStatement, conversionFunc);
         }
 
         /// <inheritdoc/>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
         {
-            return await ExecuteQueryAsync(_sqlBuilder.SelectAll().SqlStatement, default, cancellationToken);
+            return await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, default, cancellationToken);
         }
 
         /// <summary>
@@ -144,19 +148,19 @@ namespace NBaseRepository.ADO.Common
         /// <returns>A <see cref="Task"/> of type <see cref="IReadOnlyList{T}"/> representing the asynchronous operation.</returns>
         public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<SqlDataReader, TEntity> conversionFunc, CancellationToken cancellationToken = default)
         {
-            return await ExecuteQueryAsync(_sqlBuilder.SelectAll().SqlStatement, conversionFunc, cancellationToken);
+            return await ExecuteQueryAsync(SqlBuilder.SelectAll().SqlStatement, conversionFunc, cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual TEntity GetById(TId id)
         {
-            return ExecuteQuery(_sqlBuilder.GetById(id).SqlStatement).First();
+            return ExecuteQuery(SqlBuilder.GetById(id).SqlStatement).First();
         }
 
         /// <inheritdoc/>
         public virtual async Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
-            return (await ExecuteQueryAsync(_sqlBuilder.GetById(id).SqlStatement, default, cancellationToken)).First();
+            return (await ExecuteQueryAsync(SqlBuilder.GetById(id).SqlStatement, default, cancellationToken)).First();
         }
 
         /// <summary>
@@ -168,13 +172,13 @@ namespace NBaseRepository.ADO.Common
         /// <returns>A <see cref="Task{TResult}"/> of the entity type representing the result of the asynchronous operation.</returns>
         public virtual async Task<TEntity> GetByIdAsync(TId id, Func<SqlDataReader, TEntity> conversionFunc, CancellationToken cancellationToken = default)
         {
-            return (await ExecuteQueryAsync(_sqlBuilder.GetById(id).SqlStatement, conversionFunc, cancellationToken)).First();
+            return (await ExecuteQueryAsync(SqlBuilder.GetById(id).SqlStatement, conversionFunc, cancellationToken)).First();
         }
 
         /// <inheritdoc/>
         public virtual int UpdateEntities(IEnumerable<TEntity> entities)
         {
-            return ExecuteNonQuery(_sqlBuilder.UpdateMultiple(entities, GetColumnNames()).SqlStatement);
+            return ExecuteNonQuery(SqlBuilder.UpdateMultiple(entities, GetColumnNames()).SqlStatement);
         }
 
         /// <inheritdoc/>
@@ -182,7 +186,7 @@ namespace NBaseRepository.ADO.Common
         {
             var columnNames = await GetColumnNamesAsync(cancellationToken);
 
-            return await ExecuteNonQueryAsync(_sqlBuilder.Update(entity, columnNames).SqlStatement, cancellationToken);
+            return await ExecuteNonQueryAsync(SqlBuilder.Update(entity, columnNames).SqlStatement, cancellationToken);
         }
 
         /// <summary>
@@ -317,12 +321,12 @@ namespace NBaseRepository.ADO.Common
 
         private IEnumerable<string> GetColumnNames()
         {
-            if (_sqlBuilder.ColumnNames != null)
+            if (SqlBuilder.ColumnNames != null)
             {
-                return _sqlBuilder.ColumnNames.ToList();
+                return SqlBuilder.ColumnNames.ToList();
             }
 
-            var sqlQuery = new SqlCommand(_sqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
+            var sqlQuery = new SqlCommand(SqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
 
             _sqlConnection.Open();
 
@@ -337,19 +341,19 @@ namespace NBaseRepository.ADO.Common
 
             _sqlConnection.Close();
 
-            _sqlBuilder.UpdateColumnNames(result);
+            SqlBuilder.UpdateColumnNames(result);
 
             return result;
         }
 
         private async Task<IList<string>> GetColumnNamesAsync(CancellationToken cancellationToken = default)
         {
-            if (_sqlBuilder.ColumnNames != null)
+            if (SqlBuilder.ColumnNames != null)
             {
-                return _sqlBuilder.ColumnNames.ToList();
+                return SqlBuilder.ColumnNames.ToList();
             }
 
-            var sqlQuery = new SqlCommand(_sqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
+            var sqlQuery = new SqlCommand(SqlBuilder.GetColumnNames().SqlStatement, _sqlConnection);
 
             await _sqlConnection.OpenAsync(cancellationToken);
 
@@ -364,7 +368,7 @@ namespace NBaseRepository.ADO.Common
 
             _sqlConnection.Close();
 
-            _sqlBuilder.UpdateColumnNames(result);
+            SqlBuilder.UpdateColumnNames(result);
 
             return result;
         }

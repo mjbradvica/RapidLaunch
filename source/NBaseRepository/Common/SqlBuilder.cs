@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace NBaseRepository.Common
 {
@@ -220,6 +221,34 @@ namespace NBaseRepository.Common
             _sqlStatement += $" INSERT into {_tableName} VALUES" +
                       $" {entities.Aggregate(string.Empty, (final, next) => final + $"({InsertStatement(next)}), ")}";
             _sqlStatement = _sqlStatement.Trim().TrimEnd(',');
+
+            return this;
+        }
+
+        /// <summary>
+        /// Applies a Where Equal statement.
+        /// </summary>
+        /// <typeparam name="TKey">The key to query against.</typeparam>
+        /// <param name="selector">The selector func.</param>
+        /// <param name="value">The value to compare against.</param>
+        /// <param name="normalize">Normalize the value to upper.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated statement.</returns>
+        public SqlBuilder<TEntity, TId> WhereEqual<TKey>(Expression<Func<TEntity, TKey>> selector, object value, bool normalize = true)
+        {
+            _sqlStatement += $" WHERE {_tableName}.{((MemberExpression)selector.Body).Member.Name} = '{value}'";
+
+            return this;
+        }
+
+        /// <summary>
+        /// Applies a Order By statement.
+        /// </summary>
+        /// <typeparam name="TKey">The key to query against.</typeparam>
+        /// <param name="selector">The selector func.</param>
+        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated statement.</returns>
+        public SqlBuilder<TEntity, TId> OrderBy<TKey>(Expression<Func<TEntity, TKey>> selector)
+        {
+            _sqlStatement += $"ORDER BY {_tableName}.{((MemberExpression)selector.Body).Member.Name}";
 
             return this;
         }

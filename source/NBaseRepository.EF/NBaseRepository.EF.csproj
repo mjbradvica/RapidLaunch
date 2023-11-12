@@ -21,8 +21,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NBaseRepository.EF.Base\NBaseRepository.EF.Base.csproj" />
-  </ItemGroup>
-
 </Project>
