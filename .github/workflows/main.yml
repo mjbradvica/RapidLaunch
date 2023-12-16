@@ -27,9 +27,6 @@ jobs:
         with:
           install: sqlengine, sqlclient, sqlpackage, localdb
 
-      - name: Setup SSIS devops tools
-        uses: jonlabelle/setup-ssis-devops-tools@v1.4
-
       - name: Restore
         run: dotnet restore
 
