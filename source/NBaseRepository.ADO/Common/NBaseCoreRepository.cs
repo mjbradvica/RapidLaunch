@@ -266,7 +266,7 @@ namespace NBaseRepository.ADO.Common
         /// Executes a query synchronously.
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
-        /// <param name="overloadDefaultConversion">An overload to use a custom custom function.</param>
+        /// <param name="overloadDefaultConversion">An overload to use a custom function.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
         protected List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default)
         {
