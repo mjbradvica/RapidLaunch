@@ -43,7 +43,7 @@ namespace NBaseRepository.Tests.Common.SqlBuilder
         {
             var sql = _builder.SelectAll().SqlStatement;
 
-            const string expected = "SELECT * FROM dbo.Person INNER JOIN dbo.Pets ON dbo.Person.Id = dbo.Pet.PersonId";
+            const string expected = "SELECT * FROM dbo.Person INNER JOIN dbo.Pet ON dbo.Person.Id = dbo.Pet.PersonId";
 
             Assert.AreEqual(expected, sql);
         }

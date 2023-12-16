@@ -17,7 +17,7 @@ namespace NBaseRepository.Common
         /// </summary>
         /// <typeparam name="TPrimary">The type of the primary entity.</typeparam>
         /// <typeparam name="TDependent">The type of the object to load alongside.</typeparam>
-        /// <returns>An <see cref="string"/> that represents an sql join statement.</returns>
+        /// <returns>A <see cref="string"/> that represents a sql join statement.</returns>
         public static string InnerJoin<TPrimary, TDependent>()
             where TDependent : class
             where TPrimary : class
@@ -32,7 +32,7 @@ namespace NBaseRepository.Common
         /// <typeparam name="TKey">The type of the object ot load alongside.</typeparam>
         /// <param name="entity">Entity selector.</param>
         /// <param name="selector">A selector func.</param>
-        /// <returns>An <see cref="string"/> that represents an sql join statement.</returns>
+        /// <returns>A <see cref="string"/> that represents a sql join statement.</returns>
         public static string InnerJoin<TEntity, TKey>(this TEntity entity, Expression<Func<TEntity, TKey>> selector)
             where TEntity : class
             where TKey : class
