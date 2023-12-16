@@ -27,6 +27,9 @@ jobs:
         with:
           install: sqlengine, sqlclient, sqlpackage, localdb
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
       - name: Restore
         run: dotnet restore
 
@@ -36,11 +39,11 @@ jobs:
       - name: Build
         run: dotnet build --no-restore -c Release
 
+      - name: Test
+        run: dotnet test --no-build -c Release --verbosity normal
+
       - name: Pack
         run: dotnet pack --no-build -c Release -o .
-
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
 
     #   - name: Publish
     #     run: dotnet nuget push NBaseRepository.*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_KEY }} --skip-duplicate
