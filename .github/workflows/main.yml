@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,6 +29,9 @@ jobs:
 
       - name: Restore
         run: dotnet restore
+
+      - name: Format
+        run: dotnet format --no-restore
 
       - name: Build
         run: dotnet build --no-restore -c Release
