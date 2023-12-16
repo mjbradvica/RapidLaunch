@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
-            3.1.x
             5.0.x
             6.0.x
             7.0.x
@@ -32,10 +31,10 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore -c Release
 
       - name: Pack
-        run: dotnet pack --no-build -o .
+        run: dotnet pack --no-build -c Release -o .
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
