@@ -9,7 +9,6 @@ namespace NBaseRepository.Common
     /// </summary>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IEntity<out TId>
-        where TId : struct
     {
         /// <summary>
         /// Gets the Id of the entity.

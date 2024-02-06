@@ -42,7 +42,6 @@ namespace NBaseRepository.EF.Common
         ISearchEntitiesAsync<TEntity, TId>,
         ISearchEntitiesLazy<TEntity, TId>
         where TEntity : class, IEntity<TId>
-        where TId : struct
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>>? _includeFunc;
 
@@ -128,7 +127,7 @@ namespace NBaseRepository.EF.Common
         /// <returns>The desired entity being queried.</returns>
         public virtual TEntity GetById(TId id)
         {
-            return EntityContext().First(entity => entity.Id.Equals(id));
+            return EntityContext().First(entity => entity.Id!.Equals(id));
         }
 
         /// <summary>
@@ -139,7 +138,7 @@ namespace NBaseRepository.EF.Common
         /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the entity.</returns>
         public virtual TEntity GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
-            return includeFunc.Invoke(Context.Set<TEntity>()).First(entity => entity.Id.Equals(id));
+            return includeFunc.Invoke(Context.Set<TEntity>()).First(entity => entity.Id!.Equals(id));
         }
 
         /// <summary>
@@ -150,7 +149,7 @@ namespace NBaseRepository.EF.Common
         /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the entity.</returns>
         public virtual async Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
-            return await EntityContext().FirstAsync(entity => entity.Id.Equals(id), cancellationToken);
+            return await EntityContext().FirstAsync(entity => entity.Id!.Equals(id), cancellationToken);
         }
 
         /// <summary>
@@ -162,7 +161,7 @@ namespace NBaseRepository.EF.Common
         /// <returns>A <see cref="Task"/> that represents the asynchronous get operation. The task results contains the entity.</returns>
         public virtual async Task<TEntity> GetByIdAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
-            return await includeFunc.Invoke(Context.Set<TEntity>()).FirstAsync(entity => entity.Id.Equals(id), cancellationToken);
+            return await includeFunc.Invoke(Context.Set<TEntity>()).FirstAsync(entity => entity.Id!.Equals(id), cancellationToken);
         }
 
         /// <summary>

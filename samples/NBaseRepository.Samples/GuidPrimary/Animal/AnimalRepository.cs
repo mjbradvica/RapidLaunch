@@ -5,7 +5,6 @@
 using System.Data.SqlClient;
 using NBaseRepository.ADO.GuidPrimary;
 using NBaseRepository.Common;
-using NBaseRepository.GuidPrimary;
 
 namespace NBaseRepository.Samples.GuidPrimary.Animal
 {

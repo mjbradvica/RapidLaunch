@@ -11,7 +11,6 @@ namespace NBaseRepository.Common
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IGetById<out TEntity, in TId>
         where TEntity : IEntity<TId>
-        where TId : struct
     {
         /// <summary>
         /// Retrieves an entity from a collection by an identifier.

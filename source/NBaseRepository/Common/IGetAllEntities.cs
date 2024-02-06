@@ -13,7 +13,6 @@ namespace NBaseRepository.Common
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IGetAllEntities<out TEntity, TId>
         where TEntity : IEntity<TId>
-        where TId : struct
     {
         /// <summary>
         /// Retrieves all entities of type from a collection.

@@ -16,7 +16,6 @@ namespace NBaseRepository.EF.Base.Common
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IGetAllEntitiesLazy<TEntity, TId>
         where TEntity : IEntity<TId>
-        where TId : struct
     {
         /// <summary>
         /// Retrieves all entities from a collection that may still be queried against.

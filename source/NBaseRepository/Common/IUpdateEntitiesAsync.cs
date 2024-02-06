@@ -15,7 +15,6 @@ namespace NBaseRepository.Common
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IUpdateEntitiesAsync<in TEntity, TId>
         where TEntity : IEntity<TId>
-        where TId : struct
     {
         /// <summary>
         /// Updates a range of entities in a collection.

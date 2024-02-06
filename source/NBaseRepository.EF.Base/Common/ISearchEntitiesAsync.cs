@@ -18,7 +18,6 @@ namespace NBaseRepository.EF.Base.Common
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface ISearchEntitiesAsync<TEntity, TId>
         where TEntity : IEntity<TId>
-        where TId : struct
     {
         /// <summary>
         /// Performs a series of filters and/or joins on an entity against a collection.

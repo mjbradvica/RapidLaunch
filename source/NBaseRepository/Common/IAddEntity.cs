@@ -11,7 +11,6 @@ namespace NBaseRepository.Common
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IAddEntity<in TEntity, TId>
         where TEntity : IEntity<TId>
-        where TId : struct
     {
         /// <summary>
         /// Adds a single entity to a collection.
