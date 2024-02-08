@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E369933-C0C1-4908-8CF1-F04BA498F078}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch", "source\RapidLaunch\RapidLaunch.csproj", "{3C1DEC03-A883-421F-9E36-B7276D404BC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B245B570-59D8-435C-AE35-FC90D5F7ADCC}
+	EndGlobalSection
+EndGlobal
