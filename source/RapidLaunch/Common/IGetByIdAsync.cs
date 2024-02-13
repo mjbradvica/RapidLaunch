@@ -13,7 +13,7 @@ namespace RapidLaunch.Common
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the Id.</typeparam>
     public interface IGetByIdAsync<TEntity, in TId>
-        where TEntity : IEntity<TId>
+        where TEntity : class, IEntity<TId>
     {
         /// <summary>
         /// Retrieves an entity from a collection by an identifier.
@@ -21,6 +21,6 @@ namespace RapidLaunch.Common
         /// <param name="id">The identifier for the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>The desired entity.</returns>
-        Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
+        Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
     }
 }

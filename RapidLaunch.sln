@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch", "source\RapidLaunch\RapidLaunch.csproj", "{3C1DEC03-A883-421F-9E36-B7276D404BC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.EF", "source\RapidLaunch.EF\RapidLaunch.EF.csproj", "{9A3C3737-01B6-4E59-9FC1-E268E6E323FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1DEC03-A883-421F-9E36-B7276D404BC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A3C3737-01B6-4E59-9FC1-E268E6E323FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A3C3737-01B6-4E59-9FC1-E268E6E323FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A3C3737-01B6-4E59-9FC1-E268E6E323FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A3C3737-01B6-4E59-9FC1-E268E6E323FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
