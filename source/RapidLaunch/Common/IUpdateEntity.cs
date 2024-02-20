@@ -2,6 +2,8 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
+using ClearDomain.Common;
+
 namespace RapidLaunch.Common
 {
     /// <summary>

@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
