@@ -13,13 +13,13 @@ namespace RapidLaunch.Common
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IAddEntities<in TEntity, TId>
-        where TEntity : IEntity<TId>
+        where TEntity : IAggregateRoot<TId>
     {
         /// <summary>
         /// Adds multiple entities to a collection.
         /// </summary>
         /// <param name="entities">A <see cref="IEnumerable{TEntity}"/> to be added.</param>
         /// <returns>The result contains the number of state entries written to the database.</returns>
-        int AddEntities(IEnumerable<TEntity> entities);
+        RapidLaunchStatus AddEntities(IEnumerable<TEntity> entities);
     }
 }

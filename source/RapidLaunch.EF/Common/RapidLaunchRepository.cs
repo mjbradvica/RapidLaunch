@@ -1,4 +1,4 @@
-﻿// <copyright file="RapidLaunchBaseRepository.cs" company="Michael Bradvica LLC">
+﻿// <copyright file="RapidLaunchRepository.cs" company="Michael Bradvica LLC">
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 
@@ -17,7 +18,7 @@ namespace RapidLaunch.EF.Common
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchBaseRepository<TEntity, TId> :
+    public abstract class RapidLaunchRepository<TEntity, TId> :
         IAddEntitiesAsync<TEntity, TId>,
         IGetByIdAsync<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
@@ -25,11 +26,11 @@ namespace RapidLaunch.EF.Common
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>>? _includeFunc;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchBaseRepository{TEntity, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity,TId}"/> class.
         /// </summary>
         /// <param name="dbContext">An instance of the <see cref="DbContext"/> class.</param>
         /// <param name="includeFunc">Optional include <see cref="Func{TResult}"/> for eager loading.</param>
-        protected RapidLaunchBaseRepository(DbContext dbContext, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
+        protected RapidLaunchRepository(DbContext dbContext, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
         {
             DbContext = dbContext;
             _includeFunc = includeFunc;
