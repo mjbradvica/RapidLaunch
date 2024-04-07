@@ -4,7 +4,7 @@
 
 using System;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// Empty exception only to be used as a temporary value.

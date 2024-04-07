@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
-using RapidLaunch.Common;
 using RapidLaunch.EF.Exceptions;
 
 namespace RapidLaunch.EF.Common

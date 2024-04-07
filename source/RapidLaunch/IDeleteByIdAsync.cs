@@ -5,7 +5,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// An interface used to describe a class that can delete an entity by an identifier asynchronously.

@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// Placeholder interface for a publishing bus.

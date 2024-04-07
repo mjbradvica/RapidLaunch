@@ -4,7 +4,7 @@
 
 using ClearDomain.Common;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// An interface used to describe a class that can delete an entity.

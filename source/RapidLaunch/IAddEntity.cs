@@ -4,7 +4,7 @@
 
 using ClearDomain.Common;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// An interface that allows a class to add a single entity.

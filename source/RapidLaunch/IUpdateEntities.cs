@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using ClearDomain.Common;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// An interface used to describe a class that can update a range of entities.

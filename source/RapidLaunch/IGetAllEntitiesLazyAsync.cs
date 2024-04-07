@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// An interface used to describe a class that can retrieve all entities lazily and asynchronously.

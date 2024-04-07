@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ClearDomain.Common;
 
-namespace RapidLaunch.Common
+namespace RapidLaunch
 {
     /// <summary>
     /// An interface used to describe a class that can perform basic filters and/or joins.
