@@ -11,10 +11,11 @@ namespace RapidLaunch
     /// </summary>
     public class RapidLaunchStatus
     {
-        private RapidLaunchStatus(bool isFailure, Exception exception)
+        private RapidLaunchStatus(bool isFailure, Exception exception, int rowCount)
         {
             IsFailure = isFailure;
             Exception = exception;
+            RowCount = rowCount;
         }
 
         /// <summary>
@@ -28,12 +29,18 @@ namespace RapidLaunch
         public Exception Exception { get; }
 
         /// <summary>
+        /// Gets the rows touched by the operation.
+        /// </summary>
+        public int RowCount { get; }
+
+        /// <summary>
         /// Returns a <see cref="RapidLaunchStatus"/> with a success value.
         /// </summary>
+        /// <param name="rowCount">The number of rows affected by the operation.</param>
         /// <returns>A new instance of a <see cref="RapidLaunchStatus"/>.</returns>
-        public static RapidLaunchStatus Success()
+        public static RapidLaunchStatus Success(int rowCount)
         {
-            return new RapidLaunchStatus(false, new EmptyException());
+            return new RapidLaunchStatus(false, new EmptyException(), rowCount);
         }
 
         /// <summary>
@@ -43,7 +50,9 @@ namespace RapidLaunch
         /// <returns>A new instance of a <see cref="RapidLaunchStatus"/>.</returns>
         public static RapidLaunchStatus Failed(Exception exception)
         {
-            return new RapidLaunchStatus(true, exception);
+            const int failedRows = 0;
+
+            return new RapidLaunchStatus(true, exception, failedRows);
         }
     }
 }

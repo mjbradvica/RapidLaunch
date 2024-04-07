@@ -22,7 +22,10 @@ namespace RapidLaunch.EF.Common
         IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,
         IAddEntity<TEntity, TId>,
-        IAddEntityAsync<TEntity, TId>
+        IAddEntityAsync<TEntity, TId>,
+        IGetAllEntities<TEntity, TId>,
+        IGetAllEntitiesAsync<TEntity, TId>,
+        IGetByIdAsync<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly DbContext _dbContext;
@@ -45,7 +48,7 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> entities)
         {
-            return ExecuteOperation(() =>
+            return ExecuteCommand(() =>
             {
                 var aggregateRoots = entities.ToList();
 
@@ -60,7 +63,7 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            return await ExecuteOperationAsync(
+            return await ExecuteCommandAsync(
                 async () =>
             {
                 var aggregateRoots = entities.ToList();
@@ -77,7 +80,7 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual RapidLaunchStatus AddEntity(TEntity entity)
         {
-            return ExecuteOperation(() =>
+            return ExecuteCommand(() =>
             {
                 _dbContext.Set<TEntity>().Add(entity);
 
@@ -90,7 +93,7 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            return await ExecuteOperationAsync(
+            return await ExecuteCommandAsync(
                 async () =>
             {
                 await _dbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
@@ -102,21 +105,65 @@ namespace RapidLaunch.EF.Common
                 cancellationToken);
         }
 
+        /// <inheritdoc />
+        public virtual List<TEntity> GetAllEntities()
+        {
+            return ExecuteQuery(queryable => queryable).ToList();
+        }
+
         /// <summary>
-        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
+        /// Retrieves all entities from the persistence.
+        /// </summary>
+        /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that overrides the default include statement.</param>
+        /// <returns>A <see cref="List{T}"/>.</returns>
+        public virtual List<TEntity> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> overrideFunc)
+        {
+            return ExecuteQuery(queryable => queryable, overrideFunc).ToList();
+        }
+
+        /// <inheritdoc />
+        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
+        {
+            return await ExecuteQueryAsync(queryable => queryable.ToListAsync(cancellationToken));
+        }
+
+        /// <summary>
+        /// Retrieves all entities from the persistence.
+        /// </summary>
+        /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that overrides the default include statement.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="List{T}"/>.</returns>
+        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(Func<IQueryable<TEntity>, IQueryable<TEntity>> overrideFunc, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteQueryAsync(queryable => queryable.ToListAsync(cancellationToken), overrideFunc);
+        }
+
+        /// <inheritdoc />
+        public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteQuery(queryable => queryable.Where(entity => entity.Id!.Equals(id)))
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Executes a command against the persistence.
         /// </summary>
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> ExecuteOperationAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken)
+        public virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken)
         {
             IDomainEvent currentEvent = new EmptyDomainEvent();
+
+            int rowsAffected;
 
             await using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
             {
                 try
                 {
                     var (rowCount, aggregateRoots) = await executionFunc.Invoke();
+
+                    rowsAffected = rowCount;
 
                     const int zeroRowsAffected = 0;
 
@@ -154,23 +201,27 @@ namespace RapidLaunch.EF.Common
                 }
             }
 
-            return RapidLaunchStatus.Success();
+            return RapidLaunchStatus.Success(rowsAffected);
         }
 
         /// <summary>
-        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
+        /// Executes a command against the persistence.
         /// </summary>
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteOperation(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc)
         {
             IDomainEvent currentEvent = new EmptyDomainEvent();
+
+            int rowsAffected;
 
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
                     var (rowCount, aggregateRoots) = executionFunc.Invoke();
+
+                    rowsAffected = rowCount;
 
                     const int zeroRowsAffected = 0;
 
@@ -208,12 +259,41 @@ namespace RapidLaunch.EF.Common
                 }
             }
 
-            return RapidLaunchStatus.Success();
+            return RapidLaunchStatus.Success(rowsAffected);
         }
 
-        private IQueryable<TEntity> IncludedContext()
+        /// <summary>
+        /// Executes a query against the persistence.
+        /// </summary>
+        /// <param name="query">A <see cref="Func{TResult}"/> that contains the query.</param>
+        /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that may override the default include statement.</param>
+        /// <returns>A <see cref="List{T}"/> from the query operation.</returns>
+        protected virtual IQueryable<TEntity> ExecuteQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
         {
-            return _includeFunc == null ? _dbContext.Set<TEntity>() : _includeFunc.Invoke(_dbContext.Set<TEntity>());
+            var includeFunc = _includeFunc ?? overrideFunc;
+
+            IQueryable<TEntity> queryable = _dbContext.Set<TEntity>();
+
+            includeFunc?.Invoke(_dbContext.Set<TEntity>());
+
+            return query.Invoke(queryable);
+        }
+
+        /// <summary>
+        /// Executes a query against the persistence.
+        /// </summary>
+        /// <param name="query">A <see cref="Func{TResult}"/> that contains the query.</param>
+        /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that may override the default include statement.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> from the query operation.</returns>
+        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(Func<IQueryable<TEntity>, Task<List<TEntity>>> query,  Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
+        {
+            var includeFunc = _includeFunc ?? overrideFunc;
+
+            IQueryable<TEntity> queryable = _dbContext.Set<TEntity>();
+
+            includeFunc?.Invoke(_dbContext.Set<TEntity>());
+
+            return await query.Invoke(queryable);
         }
     }
 }

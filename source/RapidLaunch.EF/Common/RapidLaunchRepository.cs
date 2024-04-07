@@ -43,24 +43,40 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                await DbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
+            return await ExecuteOperationAsync(
+                async () =>
+                {
+                    await DbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
 
-                await DbContext.SaveChangesAsync(cancellationToken);
-            }
-            catch (Exception exception)
-            {
-                return RapidLaunchStatus.Failed(exception);
-            }
-
-            return RapidLaunchStatus.Success();
+                    return await DbContext.SaveChangesAsync(cancellationToken);
+                });
         }
 
         /// <inheritdoc />
         public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return await EntityContext().FirstOrDefaultAsync(entity => entity.Id!.Equals(id), cancellationToken);
+        }
+
+        /// <summary>
+        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
+        /// </summary>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        protected async Task<RapidLaunchStatus> ExecuteOperationAsync(Func<Task<int>> executionFunc)
+        {
+            int rowCount;
+
+            try
+            {
+                rowCount = await executionFunc.Invoke();
+            }
+            catch (Exception exception)
+            {
+                return RapidLaunchStatus.Failed(exception);
+            }
+
+            return RapidLaunchStatus.Success(rowCount);
         }
 
         private IQueryable<TEntity> EntityContext()
