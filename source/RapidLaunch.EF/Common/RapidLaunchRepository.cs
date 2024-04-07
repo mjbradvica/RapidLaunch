@@ -42,11 +42,20 @@ namespace RapidLaunch.EF.Common
         protected DbContext DbContext { get; }
 
         /// <inheritdoc />
-        public virtual async Task<int> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            await DbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
+            try
+            {
+                await DbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
 
-            return await DbContext.SaveChangesAsync(cancellationToken);
+                await DbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception exception)
+            {
+                return RapidLaunchStatus.Failed(exception);
+            }
+
+            return RapidLaunchStatus.Success();
         }
 
         /// <inheritdoc />

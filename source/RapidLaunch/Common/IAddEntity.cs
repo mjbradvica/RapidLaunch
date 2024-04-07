@@ -19,6 +19,6 @@ namespace RapidLaunch.Common
         /// </summary>
         /// <param name="entity">The entity to be added.</param>
         /// <returns>The result contains the number of state entries written to the database.</returns>
-        int AddEntity(TEntity entity);
+        RapidLaunchStatus AddEntity(TEntity entity);
     }
 }

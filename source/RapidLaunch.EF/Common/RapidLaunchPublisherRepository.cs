@@ -21,7 +21,9 @@ namespace RapidLaunch.EF.Common
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchPublisherRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
-        IAddEntitiesAsync<TEntity, TId>
+        IAddEntitiesAsync<TEntity, TId>,
+        IAddEntity<TEntity, TId>,
+        IAddEntityAsync<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly DbContext _dbContext;
@@ -44,19 +46,154 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> entities)
         {
+            return ExecuteOperation(() =>
+            {
+                var aggregateRoots = entities.ToList();
+
+                _dbContext.Set<TEntity>().AddRange(aggregateRoots);
+
+                var rowCount = _dbContext.SaveChanges();
+
+                return (rowCount, aggregateRoots);
+            });
+        }
+
+        /// <inheritdoc />
+        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteOperationAsync(
+                async () =>
+            {
+                var aggregateRoots = entities.ToList();
+
+                await _dbContext.Set<TEntity>().AddRangeAsync(aggregateRoots, cancellationToken);
+
+                var rowCount = await _dbContext.SaveChangesAsync(cancellationToken);
+
+                return (rowCount, aggregateRoots);
+            },
+                cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public virtual RapidLaunchStatus AddEntity(TEntity entity)
+        {
+            return ExecuteOperation(() =>
+            {
+                _dbContext.Set<TEntity>().Add(entity);
+
+                var rowCount = _dbContext.SaveChanges();
+
+                return (rowCount, new List<TEntity> { entity });
+            });
+        }
+
+        /// <inheritdoc />
+        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteOperationAsync(
+                async () =>
+            {
+                await _dbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
+
+                var rowCount = await _dbContext.SaveChangesAsync(cancellationToken);
+
+                return (rowCount, new List<TEntity> { entity });
+            },
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
+        /// </summary>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual async Task<RapidLaunchStatus> ExecuteOperationAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken)
+        {
+            IDomainEvent currentEvent = new EmptyDomainEvent();
+
+            await using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
+            {
+                try
+                {
+                    var (rowCount, aggregateRoots) = await executionFunc.Invoke();
+
+                    const int zeroRowsAffected = 0;
+
+                    try
+                    {
+                        if (rowCount > zeroRowsAffected)
+                        {
+                            foreach (var aggregateRoot in aggregateRoots)
+                            {
+                                foreach (var domainEvent in aggregateRoot.DomainEvents)
+                                {
+                                    currentEvent = domainEvent;
+
+                                    await _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new EventPublishingException(exception, currentEvent);
+                    }
+                }
+                catch (EventPublishingException eventPublishingException)
+                {
+                    await transaction.RollbackAsync(cancellationToken);
+
+                    return RapidLaunchStatus.Failed(eventPublishingException);
+                }
+                catch (Exception exception)
+                {
+                    await transaction.RollbackAsync(cancellationToken);
+
+                    return RapidLaunchStatus.Failed(exception);
+                }
+            }
+
+            return RapidLaunchStatus.Success();
+        }
+
+        /// <summary>
+        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
+        /// </summary>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
+        /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
+        protected virtual RapidLaunchStatus ExecuteOperation(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc)
+        {
+            IDomainEvent currentEvent = new EmptyDomainEvent();
+
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var aggregateRoots = entities.ToList();
+                    var (rowCount, aggregateRoots) = executionFunc.Invoke();
 
-                    _dbContext.Set<TEntity>().AddRange(aggregateRoots);
+                    const int zeroRowsAffected = 0;
 
-                    var rowCount = _dbContext.SaveChanges();
+                    try
+                    {
+                        if (rowCount > zeroRowsAffected)
+                        {
+                            foreach (var aggregateRoot in aggregateRoots)
+                            {
+                                foreach (var domainEvent in aggregateRoot.DomainEvents)
+                                {
+                                    currentEvent = domainEvent;
 
-                    transaction.Commit();
-
-                    PublishDomainEvents(rowCount, aggregateRoots);
+                                    _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None).RunSynchronously();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new EventPublishingException(exception, currentEvent);
+                    }
                 }
                 catch (EventPublishingException eventPublishingException)
                 {
@@ -73,75 +210,6 @@ namespace RapidLaunch.EF.Common
             }
 
             return RapidLaunchStatus.Success();
-        }
-
-        /// <inheritdoc />
-        public virtual async Task<int> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-        {
-            var aggregateRoots = entities.ToList();
-
-            await _dbContext.Set<TEntity>().AddRangeAsync(aggregateRoots, cancellationToken);
-
-            var rowCount = await _dbContext.SaveChangesAsync(cancellationToken);
-
-            await PublishDomainEventsAsync(rowCount, aggregateRoots, cancellationToken);
-
-            return rowCount;
-        }
-
-        /// <summary>
-        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
-        /// </summary>
-        /// <param name="rowCount">The number of rows touched by the operation.</param>
-        /// <param name="aggregateRoots">A <see cref="IEnumerable{T}"/> of <see cref="IAggregateRoot{TId}"/> to publish events from.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task PublishDomainEventsAsync(int rowCount, IEnumerable<TEntity> aggregateRoots, CancellationToken cancellationToken)
-        {
-            IDomainEvent currentEvent = new EmptyDomainEvent();
-
-            try
-            {
-                const int zeroRowsAffected = 0;
-
-                if (rowCount > zeroRowsAffected)
-                {
-                    foreach (var aggregateRoot in aggregateRoots)
-                    {
-                        foreach (var domainEvent in aggregateRoot.DomainEvents)
-                        {
-                            currentEvent = domainEvent;
-
-                            await _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None);
-                        }
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                throw new EventPublishingException(exception, currentEvent);
-            }
-        }
-
-        /// <summary>
-        /// Publishes all events for a <see cref="IAggregateRoot{TId}"/>.
-        /// </summary>
-        /// <param name="rowCount">The number of rows touched by the operation.</param>
-        /// <param name="aggregateRoots">A <see cref="IEnumerable{T}"/> of <see cref="IAggregateRoot{TId}"/> to publish events from.</param>
-        protected virtual void PublishDomainEvents(int rowCount, IEnumerable<TEntity> aggregateRoots)
-        {
-            const int zeroRowsAffected = 0;
-
-            if (rowCount > zeroRowsAffected)
-            {
-                foreach (var aggregateRoot in aggregateRoots)
-                {
-                    foreach (var domainEvent in aggregateRoot.DomainEvents)
-                    {
-                        _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None).RunSynchronously();
-                    }
-                }
-            }
         }
 
         private IQueryable<TEntity> IncludedContext()

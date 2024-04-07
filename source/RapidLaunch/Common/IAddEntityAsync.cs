@@ -22,6 +22,6 @@ namespace RapidLaunch.Common
         /// <param name="entity">The entity to be added.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
-        Task<int> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task<RapidLaunchStatus> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default);
     }
 }
