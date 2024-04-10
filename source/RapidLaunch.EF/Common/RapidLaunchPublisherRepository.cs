@@ -285,7 +285,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="query">A <see cref="Func{TResult}"/> that contains the query.</param>
         /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that may override the default include statement.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> from the query operation.</returns>
-        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(Func<IQueryable<TEntity>, Task<List<TEntity>>> query,  Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
+        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(Func<IQueryable<TEntity>, Task<List<TEntity>>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
