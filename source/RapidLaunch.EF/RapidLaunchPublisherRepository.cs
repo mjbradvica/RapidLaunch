@@ -11,7 +11,7 @@ using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.Exceptions;
 
-namespace RapidLaunch.EF.Common
+namespace RapidLaunch.EF
 {
     /// <summary>
     /// Base publishing repository for EF.

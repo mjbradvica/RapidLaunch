@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace RapidLaunch.EF.Common
+namespace RapidLaunch.EF
 {
     /// <summary>
     /// Base repository for EF.
@@ -43,7 +43,7 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            return await ExecuteOperationAsync(
+            return await ExecuteCommandAsync(
                 async () =>
                 {
                     await DbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
@@ -55,7 +55,19 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
-            return await EntityContext().FirstOrDefaultAsync(entity => entity.Id!.Equals(id), cancellationToken);
+            return await ExecuteQuery(query => query.Where(entity => entity.Id!.Equals(id))).FirstOrDefaultAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves an <see cref="IEntity{T}"/> by an identifier with an overload for loading related entities.
+        /// </summary>
+        /// <param name="id">The identifier for the entity.</param>
+        /// <param name="includeFunc">A <see cref="Func{TResult}"/> to include navigation properties.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual async Task<TEntity?> GetByIdAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteQuery(query => query.Where(entity => entity.Id!.Equals(id)), includeFunc).FirstOrDefaultAsync(cancellationToken);
         }
 
         /// <summary>
@@ -63,7 +75,7 @@ namespace RapidLaunch.EF.Common
         /// </summary>
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected async Task<RapidLaunchStatus> ExecuteOperationAsync(Func<Task<int>> executionFunc)
+        protected async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<int>> executionFunc)
         {
             int rowCount;
 
@@ -79,9 +91,21 @@ namespace RapidLaunch.EF.Common
             return RapidLaunchStatus.Success(rowCount);
         }
 
-        private IQueryable<TEntity> EntityContext()
+        /// <summary>
+        /// Executes a query against the persistence.
+        /// </summary>
+        /// <param name="query">A <see cref="Func{TResult}"/> that contains the query.</param>
+        /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that may override the default include statement.</param>
+        /// <returns>A <see cref="List{T}"/> from the query operation.</returns>
+        protected IQueryable<TEntity> ExecuteQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
         {
-            return _includeFunc == null ? DbContext.Set<TEntity>() : _includeFunc.Invoke(DbContext.Set<TEntity>());
+            var includeFunc = _includeFunc ?? overrideFunc;
+
+            IQueryable<TEntity> queryable = DbContext.Set<TEntity>();
+
+            includeFunc?.Invoke(DbContext.Set<TEntity>());
+
+            return query.Invoke(queryable);
         }
     }
 }

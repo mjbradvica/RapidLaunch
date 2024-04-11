@@ -16,9 +16,11 @@ namespace RapidLaunch
         /// <summary>
         /// Publishes a domain event to the application.
         /// </summary>
+        /// <typeparam name="TDomainEvent">The type of the domain event.</typeparam>
         /// <param name="domainEvent">The <see cref="IDomainEvent"/> to be published.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task PublishDomainEvent(IDomainEvent domainEvent, CancellationToken cancellationToken = default);
+        Task PublishDomainEvent<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken = default)
+            where TDomainEvent : IDomainEvent;
     }
 }
