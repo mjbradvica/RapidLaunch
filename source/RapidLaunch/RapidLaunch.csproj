@@ -6,7 +6,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="ClearDomain">
-      <Version>0.9.1</Version>
+      <Version>0.9.3</Version>
     </PackageReference>
   </ItemGroup>
 
