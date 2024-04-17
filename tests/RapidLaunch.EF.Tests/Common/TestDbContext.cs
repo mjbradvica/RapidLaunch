@@ -1,0 +1,28 @@
+﻿// <copyright file="TestDbContext.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
+// </copyright>
+
+using Microsoft.EntityFrameworkCore;
+
+namespace RapidLaunch.EF.Tests.Common
+{
+    /// <summary>
+    /// Test db context.
+    /// </summary>
+    internal sealed class TestDbContext : DbContext
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestDbContext"/> class.
+        /// </summary>
+        public TestDbContext()
+        {
+            Database.EnsureCreated();
+        }
+
+        /// <inheritdoc />
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(TestHelpers.ConnectionString());
+        }
+    }
+}

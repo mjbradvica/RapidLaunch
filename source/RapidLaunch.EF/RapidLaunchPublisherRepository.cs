@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
-using RapidLaunch.EF.Exceptions;
 
 namespace RapidLaunch.EF
 {
@@ -154,8 +153,6 @@ namespace RapidLaunch.EF
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken)
         {
-            IDomainEvent currentEvent = new EmptyDomainEvent();
-
             int rowsAffected;
 
             await using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
@@ -168,31 +165,16 @@ namespace RapidLaunch.EF
 
                     const int zeroRowsAffected = 0;
 
-                    try
+                    if (rowCount > zeroRowsAffected)
                     {
-                        if (rowCount > zeroRowsAffected)
+                        foreach (var aggregateRoot in aggregateRoots)
                         {
-                            foreach (var aggregateRoot in aggregateRoots)
+                            foreach (var domainEvent in aggregateRoot.DomainEvents)
                             {
-                                foreach (var domainEvent in aggregateRoot.DomainEvents)
-                                {
-                                    currentEvent = domainEvent;
-
-                                    await _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None);
-                                }
+                                await _publishingBus.PublishDomainEvent(domainEvent, cancellationToken);
                             }
                         }
                     }
-                    catch (Exception exception)
-                    {
-                        throw new EventPublishingException(exception, currentEvent);
-                    }
-                }
-                catch (EventPublishingException eventPublishingException)
-                {
-                    await transaction.RollbackAsync(cancellationToken);
-
-                    return RapidLaunchStatus.Failed(eventPublishingException);
                 }
                 catch (Exception exception)
                 {
@@ -212,8 +194,6 @@ namespace RapidLaunch.EF
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc)
         {
-            IDomainEvent currentEvent = new EmptyDomainEvent();
-
             int rowsAffected;
 
             using (var transaction = _dbContext.Database.BeginTransaction())
@@ -226,31 +206,16 @@ namespace RapidLaunch.EF
 
                     const int zeroRowsAffected = 0;
 
-                    try
+                    if (rowCount > zeroRowsAffected)
                     {
-                        if (rowCount > zeroRowsAffected)
+                        foreach (var aggregateRoot in aggregateRoots)
                         {
-                            foreach (var aggregateRoot in aggregateRoots)
+                            foreach (var domainEvent in aggregateRoot.DomainEvents)
                             {
-                                foreach (var domainEvent in aggregateRoot.DomainEvents)
-                                {
-                                    currentEvent = domainEvent;
-
-                                    _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None).RunSynchronously();
-                                }
+                                _publishingBus.PublishDomainEvent(domainEvent, CancellationToken.None).RunSynchronously();
                             }
                         }
                     }
-                    catch (Exception exception)
-                    {
-                        throw new EventPublishingException(exception, currentEvent);
-                    }
-                }
-                catch (EventPublishingException eventPublishingException)
-                {
-                    transaction.Rollback();
-
-                    return RapidLaunchStatus.Failed(eventPublishingException);
                 }
                 catch (Exception exception)
                 {
