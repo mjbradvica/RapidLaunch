@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using RapidLaunch.Common;
+using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.Registration
 {

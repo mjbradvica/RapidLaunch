@@ -11,7 +11,7 @@ using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 
-namespace RapidLaunch.EF
+namespace RapidLaunch.EF.Common
 {
     /// <summary>
     /// Base publishing repository for EF.
@@ -31,6 +31,17 @@ namespace RapidLaunch.EF
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> that will return a <see cref="IQueryable{T}"/> used to eagerly load related aggregateRoots.</param>
         protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
             : base(context, includeFunc)
+        {
+            _publishingBus = publishingBus;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TEntity,TId}"/> class.
+        /// </summary>
+        /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
+        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus)
+            : base(context)
         {
             _publishingBus = publishingBus;
         }

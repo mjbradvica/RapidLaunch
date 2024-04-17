@@ -11,7 +11,7 @@ using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 
-namespace RapidLaunch.EF
+namespace RapidLaunch.EF.Common
 {
     /// <summary>
     /// Common functions for all EF RapidLaunch repositories.
