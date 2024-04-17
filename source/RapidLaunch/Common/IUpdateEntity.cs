@@ -3,9 +3,8 @@
 // </copyright>
 
 using ClearDomain.Common;
-using RapidLaunch.Common;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface used to describe a class that can update an entity.
