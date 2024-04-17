@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Linq;
 using ClearDomain.Common;
 
 namespace RapidLaunch.Common
@@ -19,6 +20,6 @@ namespace RapidLaunch.Common
         /// Retrieves all entities from a collection that may still be queried against.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{TEntity}"/>.</returns>
-        IEnumerable<TEntity> GetAllEntitiesLazy();
+        IQueryable<TEntity> GetAllEntitiesLazy();
     }
 }

@@ -2,7 +2,7 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-using System.Collections.Generic;
+using System.Linq;
 using ClearDomain.Common;
 
 namespace RapidLaunch.Common
@@ -19,7 +19,7 @@ namespace RapidLaunch.Common
         /// Performs a series of filters and/or joins on an entity against a collection that has not been executed.
         /// </summary>
         /// <param name="queryObject">A query object of type <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
-        /// <returns>An <see cref="IEnumerable{TEntity}"/>.</returns>
-        IEnumerable<TEntity> SearchEntitiesLazy(IQuery<TEntity> queryObject);
+        /// <returns>An <see cref="IQueryable{TEntity}"/>.</returns>
+        IQueryable<TEntity> SearchEntitiesLazy(IQuery<TEntity> queryObject);
     }
 }
