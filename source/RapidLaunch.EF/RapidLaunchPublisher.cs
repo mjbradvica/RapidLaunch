@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.Extensions.DependencyInjection;
+using RapidLaunch.Common;
 
 namespace RapidLaunch.EF
 {

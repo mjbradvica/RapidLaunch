@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
+using RapidLaunch.Common;
 using RapidLaunch.EF.Exceptions;
 
 namespace RapidLaunch.EF
@@ -122,7 +123,7 @@ namespace RapidLaunch.EF
         }
 
         /// <inheritdoc />
-        public virtual async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.ToListAsync(cancellationToken));
         }

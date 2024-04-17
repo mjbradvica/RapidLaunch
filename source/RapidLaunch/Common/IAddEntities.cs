@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using ClearDomain.Common;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface used to describe a class that can add multiple entities at one time.

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// Status class to indicate the result of a persistence operation.

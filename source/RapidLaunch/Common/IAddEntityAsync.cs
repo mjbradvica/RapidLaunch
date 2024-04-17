@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface that allows a class to add a single entity asynchronously.
@@ -14,14 +14,14 @@ namespace RapidLaunch
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IAddEntityAsync<in TEntity, TId>
-        where TEntity : IEntity<TId>
+        where TEntity : IAggregateRoot<TId>
     {
         /// <summary>
         /// Adds a single entity to a collection.
         /// </summary>
         /// <param name="entity">The entity to be added.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> that represents the asynchronous operation.</returns>
         Task<RapidLaunchStatus> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default);
     }
 }

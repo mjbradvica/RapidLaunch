@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using ClearDomain.Common;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface used to describe a class that can retrieve all entities.
@@ -13,12 +13,12 @@ namespace RapidLaunch
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IGetAllEntities<TEntity, TId>
-        where TEntity : IEntity<TId>
+        where TEntity : IAggregateRoot<TId>
     {
         /// <summary>
         /// Retrieves all entities of type from a collection.
         /// </summary>
-        /// <returns>An of <see cref="IReadOnlyList{TEntity}"/>.</returns>
+        /// <returns>An of <see cref="List{TEntity}"/>.</returns>
         List<TEntity> GetAllEntities();
     }
 }

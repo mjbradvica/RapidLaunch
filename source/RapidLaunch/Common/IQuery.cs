@@ -5,7 +5,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface that describe a class that represents a query object for the entity.

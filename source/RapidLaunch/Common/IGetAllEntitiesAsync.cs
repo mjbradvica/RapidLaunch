@@ -7,21 +7,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface used to describe a class that can retrieve all entities asynchronously.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the Id.</typeparam>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IGetAllEntitiesAsync<TEntity, TId>
-        where TEntity : IEntity<TId>
+        where TEntity : IAggregateRoot<TId>
     {
         /// <summary>
         /// Retrieves all entities from a collection.
         /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="IReadOnlyList{TEntity}"/>.</returns>
-        Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default);
+        /// <returns>A <see cref="Task"/> of <see cref="List{TEntity}"/>.</returns>
+        Task<List<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// Interface to define a handler class for a domain event.

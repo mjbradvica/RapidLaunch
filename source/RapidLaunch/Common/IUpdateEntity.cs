@@ -3,6 +3,7 @@
 // </copyright>
 
 using ClearDomain.Common;
+using RapidLaunch.Common;
 
 namespace RapidLaunch
 {
@@ -10,15 +11,15 @@ namespace RapidLaunch
     /// An interface used to describe a class that can update an entity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the Id.The type of the Id.</typeparam>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IUpdateEntity<in TEntity, TId>
-        where TEntity : IEntity<TId>
+        where TEntity : IAggregateRoot<TId>
     {
         /// <summary>
         /// Updates an entity in a collection.
         /// </summary>
         /// <param name="entity">An updated version of the entity.</param>
-        /// <returns>A <see cref="int"/> that contains the number of state entries updated in the database.</returns>
-        int UpdateEntity(TEntity entity);
+        /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
+        RapidLaunchStatus UpdateEntity(TEntity entity);
     }
 }

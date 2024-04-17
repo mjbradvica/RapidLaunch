@@ -4,12 +4,12 @@
 
 using System;
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// Empty exception only to be used as a temporary value.
     /// </summary>
-    internal class EmptyException : Exception
+    public class EmptyException : Exception
     {
     }
 }

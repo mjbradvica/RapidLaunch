@@ -2,7 +2,7 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-namespace RapidLaunch
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// An interface used to describe a class that can delete an entity by an identifier.
@@ -14,7 +14,7 @@ namespace RapidLaunch
         /// Removes an entity from a collection by an identifier.
         /// </summary>
         /// <param name="id">The identifier used to delete the entity.</param>
-        /// <returns>A <see cref="int"/> result containing the number of state entries deleted from the database.</returns>
-        int DeleteById(TId id);
+        /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status fo the operation.</returns>
+        RapidLaunchStatus DeleteById(TId id);
     }
 }
