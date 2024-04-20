@@ -2,6 +2,7 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
 namespace RapidLaunch.EF.Tests.Common
@@ -17,12 +18,25 @@ namespace RapidLaunch.EF.Tests.Common
         public TestDbContext()
         {
             Database.EnsureCreated();
+
+            Entities = Set<TestEntity>();
         }
+
+        /// <summary>
+        /// Gets the test entity set.
+        /// </summary>
+        public DbSet<TestEntity> Entities { get; }
 
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(TestHelpers.ConnectionString());
+        }
+
+        /// <inheritdoc/>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

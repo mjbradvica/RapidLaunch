@@ -405,6 +405,8 @@ namespace RapidLaunch.EF.Common
                     rowsAffected = rowCount;
 
                     postOperationFunc?.Invoke(rowsAffected, aggregateRoots).RunSynchronously();
+
+                    transaction.Commit();
                 }
                 catch (Exception exception)
                 {
@@ -440,6 +442,8 @@ namespace RapidLaunch.EF.Common
                     {
                         await postOperationFunc.Invoke(rowsAffected, aggregateRoots);
                     }
+
+                    await transaction.CommitAsync(cancellationToken);
                 }
                 catch (Exception exception)
                 {
