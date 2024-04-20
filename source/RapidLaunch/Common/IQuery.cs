@@ -12,6 +12,7 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IQuery<TEntity>
+        where TEntity : class
     {
         /// <summary>
         /// Gets an expression that will be used to perform filtering and/or joins.

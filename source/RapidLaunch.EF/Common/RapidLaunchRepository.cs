@@ -404,10 +404,7 @@ namespace RapidLaunch.EF.Common
 
                     rowsAffected = rowCount;
 
-                    if (postOperationFunc != null)
-                    {
-                        postOperationFunc.Invoke(rowsAffected, aggregateRoots).RunSynchronously();
-                    }
+                    postOperationFunc?.Invoke(rowsAffected, aggregateRoots).RunSynchronously();
                 }
                 catch (Exception exception)
                 {

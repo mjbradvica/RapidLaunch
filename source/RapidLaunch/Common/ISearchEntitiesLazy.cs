@@ -13,7 +13,7 @@ namespace RapidLaunch.Common
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface ISearchEntitiesLazy<TEntity, TId>
-        where TEntity : IAggregateRoot<TId>
+        where TEntity : class, IAggregateRoot<TId>
     {
         /// <summary>
         /// Performs a series of filters and/or joins on an entity against a collection that has not been executed.
