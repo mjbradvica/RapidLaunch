@@ -10,16 +10,23 @@ A quick and simple way to catapult your application's persistence.
 
 The advantages of RapidLaunch are:
 
-- :rocket: Add and remove methods with just an interface
+- :rocket: Add and remove functionality with just an interface
 - :gear: Modify and override almost anything
 - :dvd: EF, ADO.NET, Mongo, and Dapper support
 - :bento: Full Interface Segregation
 - :purse: Cancellation Token support
 
+## Purpose
+
+RapidLaunch is supposed to be an [80/20](https://en.wikipedia.org/wiki/Pareto_principle) way of giving you the simplest and fastest way to get data access bootstrapped for your application. Whatever RapidLaunch is unable to provide out of the box, the end-user should be able to easily implement on their own accord.
+
+If you have a suggestion for improving RapidLaunch, please open an issue.
+
 ## Table of Contents
 
 - [RapidLaunch](#rapidlaunch)
   - [Overview](#overview)
+  - [Purpose](#purpose)
   - [Samples](#samples)
   - [Dependencies](#dependencies)
   - [Installation](#installation)
@@ -38,7 +45,7 @@ This is required because RapidLaunch needs a constraint for an entity identifier
 
 If you are new to ClearDomain I recommend using it as the core foundation for your domain. It only takes 5 minutes to learn.
 
-Each respective RapidLaunch package for a specific persistence method has a dependency on the said framework.
+RapidDomain.EF has a dependency on [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).
 
 ## Installation
 
@@ -53,7 +60,7 @@ Install-Package ChainStrategy
 Install the persistence-specific package in your infrastructure layer with:
 
 ```bash
-Install-Package ChainStrategy."PackageType"
+Install-Package ChainStrategy.EF or Mongo or Dapper or ADO.NET
 ```
 
 ## Setup
@@ -86,7 +93,7 @@ builder.Services.AddRapidLaunch(Assembly.Load("FirstProject"), Assembly.Load("Se
 
 By default, RapidLaunch will automatically register the standard domain event publisher.
 
-If you would like to use a different publisher, simply pass the type of the customer publisher to the registration method.
+If you would like to use a different publisher, simply pass the type of the custom publisher to the registration method.
 
 Your customer publisher must inherit from the [IPublishingBus](https://github.com/mjbradvica/RapidLaunch/blob/master/source/RapidLaunch/Common/IPublishingBus.cs) interface.
 
@@ -181,6 +188,70 @@ public class MyEventHandler : IDomainEventHandler<MyDomainEvent>
 
 ### Quick Start for Defining Data Access for Entity Framework
 
+> Before you start ensure that you have the correct specific implementation of EntityFramework installed.
+
+For most, this will mean installing the [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/) package in your data access layer.
+
+If you are using another database other than SqlServer, ensure that you have installed the correct package.
+
+> RapidLaunch only uses the base EntityFrameworkCore package to give you a database provider agnostic solution.
+
+You will need to register your DbContext class separately:
+
+```csharp
+collection.AddDbContext<DbContext, MyDbContext>(builder => builder.UseSqlServer("myConnectionString"));
+```
+
+Define a repository class for each aggregate root you are defining a repository for. Inherit from both the base RapidLaunch repository and the interface you defined. Once again, please note the namespace you are importing.
+
+```csharp
+using RapidLaunch.GuidPrimary;
+
+public class MyModelRepository : RapidLaunchRepository<MyModel>, IMyModelRepository
+{
+}
+```
+
+You have two options for a constructor:
+
+1. No default include-statement
+2. A default include-statement for eager loading
+
+```csharp
+using RapidLaunch.GuidPrimary;
+
+public class MyModelRepository : RapidLaunchRepository<MyModel>, IMyModelRepository
+{
+    public MyModelRepository(DbContext context)
+        : base(context)
+    {
+    }
+}
+```
+
+or...
+
+```csharp
+using RapidLaunch.GuidPrimary;
+
+public class MyModelRepository : RapidLaunchRepository<MyModel>, IMyModelRepository
+{
+    private readonly static Func<IQueryable<MyModel>, IQueryable<MyModel>> IncludeFunc =
+        myModel => myModel.Include(x => x.NavigationProperty);
+
+    public MyModelRepository(DbContext context)
+        : base(context, IncludeFunc)
+    {
+    }
+}
+```
+
+If you choose to use a default include-statement, pass a "Func" that accepts and returns an "IQueryable of T" where T is your entity type.
+
 ### Quick Start for Defining Data Access for ADO.NET
 
+Coming Soon!
+
 ### Quick Start for Defining Data Access for MongoDB
+
+Coming Soon!
