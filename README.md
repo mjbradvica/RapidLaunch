@@ -60,7 +60,7 @@ Install-Package ChainStrategy."PackageType"
 
 RapidLaunch provides a built-in method for easy Dependency Injection with any DI container that is Microsoft compatible.
 
-RapidLaunch automatically registers any repository that uses a base rapid launch repository class.
+RapidLaunch automatically registers any repository that uses a base rapid launch repository class as well as any domain event handlers you define if you choose to use the default publisher.
 
 ```csharp
 public class Program
