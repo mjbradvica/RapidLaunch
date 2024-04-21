@@ -32,6 +32,15 @@ namespace RapidLaunch.EF.Registration
                 RegisterRepositories(services, assembly, typeof(RapidLaunchRepository<,>));
                 RegisterRepositories(services, assembly, typeof(RapidLaunchPublisherRepository<,>));
                 RegisterRapidLaunchHandlers(services, assembly);
+
+                RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchRepository<>));
+                RegisterRepositories(services, assembly, typeof(StringPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(StringPrimary.RapidLaunchRepository<>));
+                RegisterRepositories(services, assembly, typeof(LongPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(LongPrimary.RapidLaunchRepository<>));
+                RegisterRepositories(services, assembly, typeof(IntPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(IntPrimary.RapidLaunchRepository<>));
             }
 
             return services;
@@ -53,6 +62,15 @@ namespace RapidLaunch.EF.Registration
             {
                 RegisterRepositories(services, assembly, typeof(RapidLaunchRepository<,>));
                 RegisterRepositories(services, assembly, typeof(RapidLaunchPublisherRepository<,>));
+
+                RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchRepository<>));
+                RegisterRepositories(services, assembly, typeof(StringPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(StringPrimary.RapidLaunchRepository<>));
+                RegisterRepositories(services, assembly, typeof(LongPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(LongPrimary.RapidLaunchRepository<>));
+                RegisterRepositories(services, assembly, typeof(IntPrimary.RapidLaunchPublisherRepository<>));
+                RegisterRepositories(services, assembly, typeof(IntPrimary.RapidLaunchRepository<>));
             }
 
             return services;
@@ -60,11 +78,12 @@ namespace RapidLaunch.EF.Registration
 
         private static void RegisterRepositories(IServiceCollection services, Assembly assembly, Type baseType)
         {
-            assembly.GetTypes()
+            var types = assembly.GetTypes()
                 .Where(type => !type.IsAbstract && !type.IsInterface)
                 .Where(type => type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() == baseType)
-                .ToList()
-                .ForEach(concreteType =>
+                .ToList();
+
+            types.ForEach(concreteType =>
                 {
                     if (concreteType.BaseType != null)
                     {
