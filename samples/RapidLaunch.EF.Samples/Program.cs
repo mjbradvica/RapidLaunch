@@ -5,6 +5,7 @@
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RapidLaunch.EF.Registration;
 using RapidLaunch.EF.Samples.Airplanes;
@@ -26,14 +27,13 @@ namespace RapidLaunch.EF.Samples
 
             collection.AddRapidLaunch(Assembly.GetExecutingAssembly());
 
-            collection.AddSqlServer<SampleContext>("Server=.\\SQLExpress;Database=RapidLaunch.Samples.EF;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True;TrustServerCertificate=true");
+            collection.AddDbContext<DbContext, SampleContext>(builder => builder.UseSqlServer("Server=.\\SQLExpress;Database=RapidLaunch.Samples.EF;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True;TrustServerCertificate=true"));
 
             var provider = collection.BuildServiceProvider();
 
             var airplaneRepo = provider.GetRequiredService<IAirplaneRepository>();
 
-            await airplaneRepo.AddEntityAsync(new Airplane());
-
+            // await airplaneRepo.AddEntityAsync(new Airplane(new AircraftType()));
             var airplanes = await airplaneRepo.GetAllEntitiesAsync();
 
             foreach (var airplane in airplanes)

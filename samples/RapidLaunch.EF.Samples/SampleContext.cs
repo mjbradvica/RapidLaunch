@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using RapidLaunch.EF.Samples.AircraftTypes;
 using RapidLaunch.EF.Samples.Airplanes;
 
 namespace RapidLaunch.EF.Samples
@@ -21,12 +22,18 @@ namespace RapidLaunch.EF.Samples
             Database.EnsureCreated();
 
             Airplanes = Set<Airplane>();
+            AircraftTypes = Set<AircraftType>();
         }
 
         /// <summary>
         /// Gets the airplane set.
         /// </summary>
         public DbSet<Airplane> Airplanes { get; }
+
+        /// <summary>
+        /// Gets the aircraft types set.
+        /// </summary>
+        public DbSet<AircraftType> AircraftTypes { get; }
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)

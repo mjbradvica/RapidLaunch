@@ -466,11 +466,11 @@ namespace RapidLaunch.EF.Common
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
-            IQueryable<TEntity> queryable = Context.Set<TEntity>();
+            var queryable = Context.Set<TEntity>();
 
-            includeFunc?.Invoke(queryable);
+            var afterInclude = includeFunc?.Invoke(queryable);
 
-            return query.Invoke(queryable);
+            return afterInclude != null ? query.Invoke(afterInclude) : query.Invoke(queryable);
         }
 
         /// <summary>
@@ -483,11 +483,11 @@ namespace RapidLaunch.EF.Common
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
-            IQueryable<TEntity> queryable = Context.Set<TEntity>();
+            var queryable = Context.Set<TEntity>();
 
-            includeFunc?.Invoke(queryable);
+            var afterInclude = includeFunc?.Invoke(queryable);
 
-            return await query.Invoke(queryable);
+            return afterInclude != null ? await query.Invoke(afterInclude) : await query.Invoke(queryable);
         }
     }
 }
