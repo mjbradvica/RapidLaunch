@@ -4,4 +4,19 @@
     <TargetFrameworks>net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="GuidPrimary\" />
+    <Folder Include="IntPrimary\" />
+    <Folder Include="LongPrimary\" />
+    <Folder Include="StringPrimary\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RapidLaunch\RapidLaunch.csproj" />
+  </ItemGroup>
+
 </Project>

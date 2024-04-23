@@ -1,5 +1,5 @@
-﻿// <copyright file="Program.cs" company="Michael Bradvica LLC">
-// Copyright (c) Michael Bradvica LLC. All rights reserved.
+﻿// <copyright file="Program.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using System;
