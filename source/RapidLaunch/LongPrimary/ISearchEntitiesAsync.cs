@@ -1,5 +1,5 @@
-﻿// <copyright file="ISearchEntitiesAsync.cs" company="Michael Bradvica LLC">
-// Copyright (c) Michael Bradvica LLC. All rights reserved.
+﻿// <copyright file="ISearchEntitiesAsync.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using ClearDomain.LongPrimary;
