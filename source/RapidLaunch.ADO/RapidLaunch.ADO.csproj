@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GuidPrimary\" />
     <Folder Include="IntPrimary\" />
     <Folder Include="LongPrimary\" />
     <Folder Include="StringPrimary\" />

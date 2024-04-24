@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
+using RapidLaunch.Common;
 
 namespace RapidLaunch.ADO.Common
 {
@@ -41,8 +42,9 @@ namespace RapidLaunch.ADO.Common
         /// Executes a non-query synchronously.
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
-        /// <returns>An <see cref="int"/> that indicates the number of rows affected.</returns>
-        protected int ExecuteNonQuery(string command)
+        /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
+        /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the number of rows affected.</returns>
+        protected virtual RapidLaunchStatus ExecuteCommand(string command, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
             int result;
 
@@ -60,18 +62,18 @@ namespace RapidLaunch.ADO.Common
 
                 transaction.Commit();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 transaction?.Rollback();
 
-                throw;
+                return RapidLaunchStatus.Failed(exception);
             }
             finally
             {
                 _sqlConnection.Close();
             }
 
-            return result;
+            return RapidLaunchStatus.Success(result);
         }
 
         /// <summary>
@@ -79,8 +81,9 @@ namespace RapidLaunch.ADO.Common
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task{TResult}"/> of type <see cref="int"/> representing the result of the asynchronous operation.</returns>
-        protected async Task<int> ExecuteNonQueryAsync(string command, CancellationToken cancellationToken = default)
+        /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
+        /// <returns>A <see cref="Task{TResult}"/> of type <see cref="RapidLaunchStatus"/> representing the result of the asynchronous operation.</returns>
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(string command, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
             int result;
 
@@ -96,18 +99,18 @@ namespace RapidLaunch.ADO.Common
 
                 await transaction.CommitAsync(cancellationToken);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 await transaction.RollbackAsync(cancellationToken);
 
-                throw;
+                return RapidLaunchStatus.Failed(exception);
             }
             finally
             {
                 await _sqlConnection.CloseAsync();
             }
 
-            return result;
+            return RapidLaunchStatus.Success(result);
         }
 
         /// <summary>
@@ -116,7 +119,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="command">The sql command to execute.</param>
         /// <param name="overloadDefaultConversion">An overload to use a custom function.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
-        protected List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default)
+        protected virtual List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default)
         {
             var sqlQuery = new SqlCommand(command, _sqlConnection);
 
@@ -145,7 +148,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="overloadDefaultConversion">An overload to use a custom conversion function.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
-        protected async Task<List<TEntity>> ExecuteQueryAsync(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default, CancellationToken cancellationToken = default)
+        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default, CancellationToken cancellationToken = default)
         {
             var sqlQuery = new SqlCommand(command, _sqlConnection);
 
