@@ -7,9 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.Extensions.DependencyInjection;
-using RapidLaunch.Common;
 
-namespace RapidLaunch.EF.Common
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// Default publisher for RapidLaunch.

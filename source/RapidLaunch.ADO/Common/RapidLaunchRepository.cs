@@ -14,7 +14,7 @@ using RapidLaunch.Common;
 namespace RapidLaunch.ADO.Common
 {
     /// <summary>
-    /// Common functions for all EF RapidLaunch repositories.
+    /// Common functions for all base RapidLaunch repositories.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
