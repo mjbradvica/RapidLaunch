@@ -118,8 +118,9 @@ namespace RapidLaunch.ADO.Common
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
         /// <param name="overloadDefaultConversion">An overload to use a custom function.</param>
+        /// <param name="postExecutionFunc">A <see cref="Func{TResult}"/> to modify the result set if required.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
-        protected virtual List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default)
+        protected virtual List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default, Func<List<TEntity>, List<TEntity>>? postExecutionFunc = default)
         {
             var sqlQuery = new SqlCommand(command, _sqlConnection);
 
@@ -138,6 +139,11 @@ namespace RapidLaunch.ADO.Common
 
             _sqlConnection.Close();
 
+            if (postExecutionFunc != null)
+            {
+                return postExecutionFunc.Invoke(result);
+            }
+
             return result;
         }
 
@@ -146,9 +152,10 @@ namespace RapidLaunch.ADO.Common
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
         /// <param name="overloadDefaultConversion">An overload to use a custom conversion function.</param>
+        /// /// <param name="postExecutionFunc">A <see cref="Func{TResult}"/> to modify the result set if required.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
-        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default, CancellationToken cancellationToken = default)
+        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default, Func<List<TEntity>, List<TEntity>>? postExecutionFunc = default, CancellationToken cancellationToken = default)
         {
             var sqlQuery = new SqlCommand(command, _sqlConnection);
 
@@ -167,9 +174,15 @@ namespace RapidLaunch.ADO.Common
 
             await _sqlConnection.CloseAsync();
 
+            if (postExecutionFunc != null)
+            {
+                return postExecutionFunc.Invoke(result);
+            }
+
             return result;
         }
 
+        // TODO: Condense using the ExecuteQuery method.
         private List<string> GetColumnNames()
         {
             if (_sqlBuilder.ColumnNames != null)
@@ -197,6 +210,7 @@ namespace RapidLaunch.ADO.Common
             return result;
         }
 
+        // TODO: Condense using the ExecuteQuery method.
         private async Task<List<string>> GetColumnNamesAsync(CancellationToken cancellationToken = default)
         {
             if (_sqlBuilder.ColumnNames != null)
