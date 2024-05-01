@@ -15,7 +15,7 @@ namespace RapidLaunch.EF.Samples.Airplanes
     public class AirplaneRepository : RapidLaunchRepository<Airplane>, IAirplaneRepository
     {
         private static readonly Func<IQueryable<Airplane>, IQueryable<Airplane>> IncludeFunc =
-            airplane => airplane.Include(x => x.AircraftType);
+            airplanes => airplanes.Include(airplane => airplane.AircraftType);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AirplaneRepository"/> class.
