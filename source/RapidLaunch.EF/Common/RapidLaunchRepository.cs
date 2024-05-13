@@ -32,6 +32,7 @@ namespace RapidLaunch.EF.Common
         IGetAllEntitiesLazy<TEntity, TId>,
         IGetById<TEntity, TId>,
         IGetByIdAsync<TEntity, TId>,
+        IGetEntitiesById<TEntity, TId>,
         ISearchEntities<TEntity, TId>,
         ISearchEntitiesAsync<TEntity, TId>,
         ISearchEntitiesLazy<TEntity, TId>,
@@ -272,6 +273,23 @@ namespace RapidLaunch.EF.Common
         {
             return await ExecuteQuery(queryable => queryable, includeFunc)
                 .FirstOrDefaultAsync(entity => entity.Id!.Equals(id), cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public virtual List<TEntity> GetEntitiesById(IEnumerable<TId> identifiers)
+        {
+            return ExecuteQuery(queryable => queryable.Where(entity => identifiers.Contains(entity.Id))).ToList();
+        }
+
+        /// <summary>
+        /// Retrieves a list of entities that match a parameter of identifiers.
+        /// </summary>
+        /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifiers.</param>
+        /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
+        /// <returns>A <see cref="List{T}"/> of entities.</returns>
+        public virtual List<TEntity> GetEntitiesById(IEnumerable<TId> identifiers, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        {
+            return ExecuteQuery(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)), includeFunc).ToList();
         }
 
         /// <inheritdoc/>
