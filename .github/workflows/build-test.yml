@@ -39,4 +39,4 @@ jobs:
         run: dotnet build --no-restore -c Release
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal -c Release /p:CollectCoverage=true /p:Threshold=100 /p:ThresholdType=branch /p:Exclude=RapidLaunch.ADO
+        run: dotnet test --no-build --verbosity normal -c Release /p:CollectCoverage=true /p:Threshold=100 /p:ThresholdType=branch
