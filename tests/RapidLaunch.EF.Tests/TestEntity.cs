@@ -11,5 +11,9 @@ namespace RapidLaunch.EF.Tests
     /// </summary>
     public class TestEntity : AggregateRoot
     {
+        /// <summary>
+        /// Gets or sets the navigation property.
+        /// </summary>
+        public TestRelationship? Relationship { get; set; }
     }
 }

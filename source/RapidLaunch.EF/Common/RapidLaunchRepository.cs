@@ -33,6 +33,7 @@ namespace RapidLaunch.EF.Common
         IGetById<TEntity, TId>,
         IGetByIdAsync<TEntity, TId>,
         IGetEntitiesById<TEntity, TId>,
+        IGetEntitiesByIdAsync<TEntity, TId>,
         ISearchEntities<TEntity, TId>,
         ISearchEntitiesAsync<TEntity, TId>,
         ISearchEntitiesLazy<TEntity, TId>,
@@ -290,6 +291,24 @@ namespace RapidLaunch.EF.Common
         public virtual List<TEntity> GetEntitiesById(IEnumerable<TId> identifiers, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)), includeFunc).ToList();
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<List<TEntity>> GetEntitiesByIdAsync(IEnumerable<TId> identifiers, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteQueryAsync(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)).ToListAsync(cancellationToken));
+        }
+
+        /// <summary>
+        /// Retrieves an entity by an identifier with an include override.
+        /// </summary>
+        /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifiers.</param>
+        /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual async Task<List<TEntity>> GetEntitiesByIdAsync(IEnumerable<TId> identifiers, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteQueryAsync(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)).ToListAsync(cancellationToken), includeFunc);
         }
 
         /// <inheritdoc/>
