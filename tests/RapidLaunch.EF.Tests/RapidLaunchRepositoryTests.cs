@@ -24,18 +24,19 @@ namespace RapidLaunch.EF.Tests
         /// <summary>
         /// Can query with default include statement correctly.
         /// </summary>
+        [TestMethod]
         public void Repo_WithDefaultInclude_IsCorrect()
         {
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { new TestEntity(), new TestEntity() });
+                repo.AddEntities(new List<TestEntity> { new TestEntity { Relationship = new TestRelationship() }, new TestEntity { Relationship = new TestRelationship() } });
             }
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context);
+                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
                 var result = repo.GetAllEntities();
 
@@ -1090,6 +1091,65 @@ namespace RapidLaunch.EF.Tests
             }
 
             Assert.IsNull(result?.Relationship);
+        }
+
+        /// <summary>
+        /// Exception handling is correct.
+        /// </summary>
+        [TestMethod]
+        public void ExecuteCommand_OnException_IsCorrect()
+        {
+            RapidLaunchStatus status;
+
+            using (var context = new TestDbContext())
+            {
+                var repo = new TestRepository(context);
+
+                status = repo.TestExceptionHandler(new TestEntity());
+            }
+
+            Assert.IsTrue(status.IsFailure);
+
+            List<TestEntity> results;
+
+            using (var context = new TestDbContext())
+            {
+                var repo = new TestRepository(context);
+
+                results = repo.GetAllEntities();
+            }
+
+            Assert.AreEqual(0, results.Count);
+        }
+
+        /// <summary>
+        /// Exception handling async is correct.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [TestMethod]
+        public async Task ExecuteCommandAsync_OnException_IsCorrect()
+        {
+            RapidLaunchStatus status;
+
+            await using (var context = new TestDbContext())
+            {
+                var repo = new TestRepository(context);
+
+                status = await repo.TestExceptionHandlerAsync(new TestEntity());
+            }
+
+            Assert.IsTrue(status.IsFailure);
+
+            List<TestEntity> results;
+
+            await using (var context = new TestDbContext())
+            {
+                var repo = new TestRepository(context);
+
+                results = await repo.GetAllEntitiesAsync();
+            }
+
+            Assert.AreEqual(0, results.Count);
         }
 
         /// <summary>
