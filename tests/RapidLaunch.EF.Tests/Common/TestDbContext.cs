@@ -20,12 +20,18 @@ namespace RapidLaunch.EF.Tests.Common
             Database.EnsureCreated();
 
             Entities = Set<TestEntity>();
+            Relationships = Set<TestRelationship>();
         }
 
         /// <summary>
         /// Gets the test entity set.
         /// </summary>
         public DbSet<TestEntity> Entities { get; }
+
+        /// <summary>
+        /// Gets the test relationships.
+        /// </summary>
+        public DbSet<TestRelationship> Relationships { get; }
 
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

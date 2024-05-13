@@ -14,12 +14,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         protected BaseIntegrationTest()
         {
-            using (var context = new TestDbContext())
-            {
-                context.Set<TestEntity>().RemoveRange(context.Set<TestEntity>());
-
-                context.SaveChanges();
-            }
+            TestHelpers.ClearDatabase();
         }
     }
 }

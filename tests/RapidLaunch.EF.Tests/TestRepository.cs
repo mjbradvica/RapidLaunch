@@ -2,6 +2,8 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
+using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.GuidPrimary;
 
@@ -15,6 +17,12 @@ namespace RapidLaunch.EF.Tests
         /// <inheritdoc />
         public TestRepository(DbContext context)
             : base(context)
+        {
+        }
+
+        /// <inheritdoc />
+        public TestRepository(DbContext context, Func<IQueryable<TestEntity>, IQueryable<TestEntity>> includeFunc)
+            : base(context, includeFunc)
         {
         }
     }

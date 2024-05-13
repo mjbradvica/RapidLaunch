@@ -23,6 +23,6 @@ namespace RapidLaunch.Common
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a query expression.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/>.</returns>
-        Task<List<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken);
+        Task<List<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken = default);
     }
 }

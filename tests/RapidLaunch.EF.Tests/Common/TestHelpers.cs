@@ -16,6 +16,13 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         public static void ClearDatabase()
         {
+            using (var context = new TestDbContext())
+            {
+                context.Entities.RemoveRange(context.Entities);
+                context.Relationships.RemoveRange(context.Relationships);
+
+                context.SaveChanges();
+            }
         }
 
         /// <summary>
