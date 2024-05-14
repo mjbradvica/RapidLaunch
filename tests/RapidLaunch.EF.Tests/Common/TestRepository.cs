@@ -9,14 +9,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
-using RapidLaunch.EF.GuidPrimary;
+using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
     /// Test repository.
     /// </summary>
-    public class TestRepository : RapidLaunchRepository<TestEntity>
+    public class TestRepository : RapidLaunchRepository<TestEntity, Guid>
     {
         /// <inheritdoc />
         public TestRepository(DbContext context)
