@@ -2,7 +2,7 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-namespace RapidLaunch.EF.Tests.Common
+namespace RapidLaunch.EF.Tests.Helpers
 {
     /// <summary>
     /// Base class for all integration tests.

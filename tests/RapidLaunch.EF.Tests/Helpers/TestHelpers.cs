@@ -4,7 +4,7 @@
 
 using System;
 
-namespace RapidLaunch.EF.Tests.Common
+namespace RapidLaunch.EF.Tests.Helpers
 {
     /// <summary>
     /// Utilities for tests.

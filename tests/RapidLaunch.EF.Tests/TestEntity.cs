@@ -15,5 +15,13 @@ namespace RapidLaunch.EF.Tests
         /// Gets or sets the navigation property.
         /// </summary>
         public TestRelationship? Relationship { get; set; }
+
+        /// <summary>
+        /// Adds a domain event to collection.
+        /// </summary>
+        public void AddEvent()
+        {
+            AppendDomainEvent(new TestNotification());
+        }
     }
 }

@@ -5,7 +5,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace RapidLaunch.EF.Tests.Common
+namespace RapidLaunch.EF.Tests.Helpers
 {
     /// <summary>
     /// Test db context.

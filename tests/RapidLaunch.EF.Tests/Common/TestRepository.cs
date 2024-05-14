@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 using RapidLaunch.EF.GuidPrimary;
 
-namespace RapidLaunch.EF.Tests
+namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
     /// Test repository.

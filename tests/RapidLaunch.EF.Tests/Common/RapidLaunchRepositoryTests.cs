@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.Common;
 using RapidLaunch.EF.GuidPrimary;
-using RapidLaunch.EF.Tests.Common;
+using RapidLaunch.EF.Tests.Helpers;
 
-namespace RapidLaunch.EF.Tests
+namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
     /// Tests for the <see cref="RapidLaunchRepository{TEntity}"/> class.
