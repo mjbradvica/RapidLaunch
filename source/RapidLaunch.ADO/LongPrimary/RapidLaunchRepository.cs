@@ -6,6 +6,7 @@ using System;
 using System.Data.SqlClient;
 using ClearDomain.LongPrimary;
 using RapidLaunch.ADO.Common;
+using RapidLaunch.Common;
 
 namespace RapidLaunch.ADO.LongPrimary
 {

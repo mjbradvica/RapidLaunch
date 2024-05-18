@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ClearDomain.Common;
 
-namespace RapidLaunch.ADO.Common
+namespace RapidLaunch.Common
 {
     /// <summary>
     /// SQL Builder for basic queries and commands.
