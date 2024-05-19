@@ -1,17 +1,17 @@
-﻿// <copyright file="TestIntEntityConfiguration.cs" company="Wayne John Whistler LLC">
+﻿// <copyright file="TestLongEntityConfiguration.cs" company="Wayne John Whistler LLC">
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace RapidLaunch.EF.Tests.IntPrimary
+namespace RapidLaunch.EF.Tests.LongPrimary
 {
     /// <inheritdoc />
-    public class TestIntEntityConfiguration : IEntityTypeConfiguration<TestIntEntity>
+    public class TestLongEntityConfiguration : IEntityTypeConfiguration<TestLongEntity>
     {
         /// <inheritdoc/>
-        public void Configure(EntityTypeBuilder<TestIntEntity> builder)
+        public void Configure(EntityTypeBuilder<TestLongEntity> builder)
         {
             builder.HasKey(entity => entity.Id);
             builder.HasOne(entity => entity.Relationship).WithMany();

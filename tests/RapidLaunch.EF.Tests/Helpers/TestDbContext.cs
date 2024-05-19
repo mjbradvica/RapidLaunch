@@ -6,6 +6,8 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.IntPrimary;
+using RapidLaunch.EF.Tests.LongPrimary;
+using RapidLaunch.EF.Tests.StringPrimary;
 
 namespace RapidLaunch.EF.Tests.Helpers
 {
@@ -23,7 +25,8 @@ namespace RapidLaunch.EF.Tests.Helpers
 
             GuidEntities = Set<TestGuidEntity>();
             IntEntities = Set<TestIntEntity>();
-            Relationships = Set<TestRelationship>();
+            LongEntities = Set<TestLongEntity>();
+            StringEntities = Set<TestStringEntity>();
         }
 
         /// <summary>
@@ -37,9 +40,14 @@ namespace RapidLaunch.EF.Tests.Helpers
         public DbSet<TestIntEntity> IntEntities { get; }
 
         /// <summary>
-        /// Gets the test relationships.
+        /// Gets the test long entity set.
         /// </summary>
-        public DbSet<TestRelationship> Relationships { get; }
+        public DbSet<TestLongEntity> LongEntities { get; }
+
+        /// <summary>
+        /// Gets the test string entity set.
+        /// </summary>
+        public DbSet<TestStringEntity> StringEntities { get; }
 
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

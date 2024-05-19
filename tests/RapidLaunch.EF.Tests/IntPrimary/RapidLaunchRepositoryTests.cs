@@ -55,20 +55,20 @@ namespace RapidLaunch.EF.Tests.IntPrimary
             {
                 var repo = new RapidLaunchIntTestRepository(context);
 
-                await repo.AddEntityAsync(new TestIntEntity { TestRelationship = new TestRelationship() });
+                await repo.AddEntityAsync(new TestIntEntity { Relationship = new TestRelationship() });
             }
 
             List<TestIntEntity> results;
 
             await using (var context = new TestDbContext())
             {
-                var repo = new RapidLaunchIntTestRepository(context, queryable => queryable.Include(entity => entity.TestRelationship));
+                var repo = new RapidLaunchIntTestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
                 results = await repo.GetAllEntitiesAsync();
             }
 
             Assert.AreEqual(1, results.Count);
-            Assert.IsTrue(results.All(entity => entity.TestRelationship != null));
+            Assert.IsTrue(results.All(entity => entity.Relationship != null));
         }
     }
 }

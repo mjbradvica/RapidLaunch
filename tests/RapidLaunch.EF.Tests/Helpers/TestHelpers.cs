@@ -19,8 +19,9 @@ namespace RapidLaunch.EF.Tests.Helpers
             using (var context = new TestDbContext())
             {
                 context.GuidEntities.RemoveRange(context.GuidEntities);
-                context.Relationships.RemoveRange(context.Relationships);
                 context.IntEntities.RemoveRange(context.IntEntities);
+                context.LongEntities.RemoveRange(context.LongEntities);
+                context.StringEntities.RemoveRange(context.StringEntities);
 
                 context.SaveChanges();
             }

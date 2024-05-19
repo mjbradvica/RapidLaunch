@@ -14,6 +14,6 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         /// <summary>
         /// Gets or sets the navigation property.
         /// </summary>
-        public TestRelationship? TestRelationship { get; set; }
+        public TestRelationship? Relationship { get; set; }
     }
 }
