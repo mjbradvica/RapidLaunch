@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,10 +43,10 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidPublisherTestRepository(context, _publisher);
 
-                await repo.AddEntityAsync(new TestEntity());
+                await repo.AddEntityAsync(new TestGuidEntity());
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -68,10 +69,10 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidPublisherTestRepository(context, _publisher, queryable => queryable.Include(entity => entity.Relationship));
 
-                await repo.AddEntityAsync(new TestEntity());
+                await repo.AddEntityAsync(new TestGuidEntity { Relationship = new TestRelationship() });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -81,6 +82,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             }
 
             Assert.AreEqual(1, results.Count);
+            Assert.IsTrue(results.All(entity => entity.Relationship != null));
         }
     }
 }

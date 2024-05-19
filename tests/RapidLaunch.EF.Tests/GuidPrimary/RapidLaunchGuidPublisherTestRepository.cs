@@ -11,10 +11,10 @@ using RapidLaunch.EF.GuidPrimary;
 namespace RapidLaunch.EF.Tests.GuidPrimary
 {
     /// <inheritdoc />
-    public class RapidLaunchGuidPublisherTestRepository : RapidLaunchPublisherRepository<TestEntity>
+    public class RapidLaunchGuidPublisherTestRepository : RapidLaunchPublisherRepository<TestGuidEntity>
     {
         /// <inheritdoc />
-        public RapidLaunchGuidPublisherTestRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestEntity>, IQueryable<TestEntity>>? includeFunc = default)
+        public RapidLaunchGuidPublisherTestRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>>? includeFunc = default)
             : base(context, publishingBus, includeFunc)
         {
         }

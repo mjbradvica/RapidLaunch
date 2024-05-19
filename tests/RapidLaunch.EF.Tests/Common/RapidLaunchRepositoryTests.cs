@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.Common;
 using RapidLaunch.EF.GuidPrimary;
+using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.Helpers;
 
 namespace RapidLaunch.EF.Tests.Common
@@ -31,7 +32,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { new TestEntity { Relationship = new TestRelationship() }, new TestEntity { Relationship = new TestRelationship() } });
+                repo.AddEntities(new List<TestGuidEntity> { new TestGuidEntity { Relationship = new TestRelationship() }, new TestGuidEntity { Relationship = new TestRelationship() } });
             }
 
             using (var context = new TestDbContext())
@@ -51,10 +52,10 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void AddEntities_IsCorrect()
         {
-            var entities = new List<TestEntity>
+            var entities = new List<TestGuidEntity>
             {
-                new TestEntity(),
-                new TestEntity(),
+                new TestGuidEntity(),
+                new TestGuidEntity(),
             };
 
             using (var context = new TestDbContext())
@@ -81,10 +82,10 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task AddEntitiesAsync_IsCorrect()
         {
-            var entities = new List<TestEntity>
+            var entities = new List<TestGuidEntity>
             {
-                new TestEntity(),
-                new TestEntity(),
+                new TestGuidEntity(),
+                new TestGuidEntity(),
             };
 
             await using (var context = new TestDbContext())
@@ -114,7 +115,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntity(new TestEntity());
+                repo.AddEntity(new TestGuidEntity());
             }
 
             using (var context = new TestDbContext())
@@ -138,7 +139,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntityAsync(new TestEntity());
+                await repo.AddEntityAsync(new TestGuidEntity());
             }
 
             await using (var context = new TestDbContext())
@@ -161,7 +162,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { new TestEntity(), new TestEntity() });
+                repo.AddEntities(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
             using (var context = new TestDbContext())
@@ -173,7 +174,7 @@ namespace RapidLaunch.EF.Tests.Common
                 repo.DeleteEntities(entities);
             }
 
-            List<TestEntity> result;
+            List<TestGuidEntity> result;
 
             using (var context = new TestDbContext())
             {
@@ -196,7 +197,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { new TestEntity(), new TestEntity() });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
             await using (var context = new TestDbContext())
@@ -208,7 +209,7 @@ namespace RapidLaunch.EF.Tests.Common
                 await repo.DeleteEntitiesAsync(entities);
             }
 
-            List<TestEntity> result;
+            List<TestGuidEntity> result;
 
             await using (var context = new TestDbContext())
             {
@@ -226,7 +227,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void DeleteEntity_IsCorrect()
         {
-            var entity = new TestEntity();
+            var entity = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
@@ -247,7 +248,7 @@ namespace RapidLaunch.EF.Tests.Common
                 }
             }
 
-            List<TestEntity> result;
+            List<TestGuidEntity> result;
 
             using (var context = new TestDbContext())
             {
@@ -266,7 +267,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task DeleteEntityAsync_IsCorrect()
         {
-            var entity = new TestEntity();
+            var entity = new TestGuidEntity();
 
             await using (var context = new TestDbContext())
             {
@@ -287,7 +288,7 @@ namespace RapidLaunch.EF.Tests.Common
                 }
             }
 
-            List<TestEntity> result;
+            List<TestGuidEntity> result;
 
             await using (var context = new TestDbContext())
             {
@@ -309,10 +310,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { new TestEntity(), new TestEntity() });
+                repo.AddEntities(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -334,13 +335,13 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity>
+                repo.AddEntities(new List<TestGuidEntity>
                 {
-                    new TestEntity { Relationship = new TestRelationship() }, new TestEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() }, new TestGuidEntity { Relationship = new TestRelationship() },
                 });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -364,10 +365,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { new TestEntity(), new TestEntity() });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -390,13 +391,13 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity>
+                await repo.AddEntitiesAsync(new List<TestGuidEntity>
                 {
-                    new TestEntity { Relationship = new TestRelationship() }, new TestEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() }, new TestGuidEntity { Relationship = new TestRelationship() },
                 });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -419,16 +420,16 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { new TestEntity(), new TestEntity() });
+                repo.AddEntities(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestEntity> results = repo.GetAllEntitiesLazy();
+                IEnumerable<TestGuidEntity> results = repo.GetAllEntitiesLazy();
 
-                Assert.IsInstanceOfType<IQueryable<TestEntity>>(results);
+                Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
 
                 var asList = results.ToList();
 
@@ -446,10 +447,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity>
+                repo.AddEntities(new List<TestGuidEntity>
                 {
-                    new TestEntity { Relationship = new TestRelationship() },
-                    new TestEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
                 });
             }
 
@@ -457,9 +458,9 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestEntity> results = repo.GetAllEntitiesLazy(queryable => queryable.Include(entity => entity.Relationship));
+                IEnumerable<TestGuidEntity> results = repo.GetAllEntitiesLazy(queryable => queryable.Include(entity => entity.Relationship));
 
-                Assert.IsInstanceOfType<IQueryable<TestEntity>>(results);
+                Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
 
                 var asList = results.ToList();
 
@@ -474,14 +475,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetById_IsCorrect()
         {
-            var entity = new TestEntity();
-            var incorrect = new TestEntity();
+            var entity = new TestGuidEntity();
+            var incorrect = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { entity, incorrect });
+                repo.AddEntities(new List<TestGuidEntity> { entity, incorrect });
             }
 
             using (var context = new TestDbContext())
@@ -500,14 +501,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetByIdWithIncludeFunc_IsCorrect()
         {
-            var entity = new TestEntity { Relationship = new TestRelationship() };
-            var incorrect = new TestEntity { Relationship = new TestRelationship() };
+            var entity = new TestGuidEntity { Relationship = new TestRelationship() };
+            var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { entity, incorrect });
+                repo.AddEntities(new List<TestGuidEntity> { entity, incorrect });
             }
 
             using (var context = new TestDbContext())
@@ -528,14 +529,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetByIdAsync_IsCorrectAsync()
         {
-            var entity = new TestEntity();
-            var incorrect = new TestEntity();
+            var entity = new TestGuidEntity();
+            var incorrect = new TestGuidEntity();
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { entity, incorrect });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { entity, incorrect });
             }
 
             await using (var context = new TestDbContext())
@@ -555,14 +556,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetByIdWithIncludeFuncAsync_IsCorrect()
         {
-            var entity = new TestEntity { Relationship = new TestRelationship() };
-            var incorrect = new TestEntity { Relationship = new TestRelationship() };
+            var entity = new TestGuidEntity { Relationship = new TestRelationship() };
+            var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { entity, incorrect });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { entity, incorrect });
             }
 
             await using (var context = new TestDbContext())
@@ -582,18 +583,18 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetEntitiesById_IsCorrect()
         {
-            var first = new TestEntity();
-            var second = new TestEntity();
-            var third = new TestEntity();
+            var first = new TestGuidEntity();
+            var second = new TestGuidEntity();
+            var third = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { first, second, third });
+                repo.AddEntities(new List<TestGuidEntity> { first, second, third });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -617,18 +618,18 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetEntitiesByIdWithIncludeFunc_IsCorrect()
         {
-            var first = new TestEntity { Relationship = new TestRelationship() };
-            var second = new TestEntity { Relationship = new TestRelationship() };
-            var third = new TestEntity { Relationship = new TestRelationship() };
+            var first = new TestGuidEntity { Relationship = new TestRelationship() };
+            var second = new TestGuidEntity { Relationship = new TestRelationship() };
+            var third = new TestGuidEntity { Relationship = new TestRelationship() };
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { first, second, third });
+                repo.AddEntities(new List<TestGuidEntity> { first, second, third });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -656,18 +657,18 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetEntitiesByIdAsync_IsCorrect()
         {
-            var first = new TestEntity();
-            var second = new TestEntity();
-            var third = new TestEntity();
+            var first = new TestGuidEntity();
+            var second = new TestGuidEntity();
+            var third = new TestGuidEntity();
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { first, second, third });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { first, second, third });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -692,18 +693,18 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetEntitiesByIdAsyncWithIncludeFunc_IsCorrect()
         {
-            var first = new TestEntity { Relationship = new TestRelationship() };
-            var second = new TestEntity { Relationship = new TestRelationship() };
-            var third = new TestEntity { Relationship = new TestRelationship() };
+            var first = new TestGuidEntity { Relationship = new TestRelationship() };
+            var second = new TestGuidEntity { Relationship = new TestRelationship() };
+            var third = new TestGuidEntity { Relationship = new TestRelationship() };
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { first, second, third });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { first, second, third });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -730,21 +731,21 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void SearchEntities_IsCorrect()
         {
-            var first = new TestEntity
+            var first = new TestGuidEntity
             {
                 Id = Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af"),
             };
 
-            var second = new TestEntity();
+            var second = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { first, second });
+                repo.AddEntities(new List<TestGuidEntity> { first, second });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -762,22 +763,22 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void SearchEntitiesWithIncludeFunc_IsCorrect()
         {
-            var first = new TestEntity
+            var first = new TestGuidEntity
             {
                 Id = Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af"),
                 Relationship = new TestRelationship(),
             };
 
-            var second = new TestEntity { Relationship = new TestRelationship() };
+            var second = new TestGuidEntity { Relationship = new TestRelationship() };
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { first, second });
+                repo.AddEntities(new List<TestGuidEntity> { first, second });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -797,21 +798,21 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task SearchEntitiesAsync_IsCorrect()
         {
-            var first = new TestEntity
+            var first = new TestGuidEntity
             {
                 Id = Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af"),
             };
 
-            var second = new TestEntity();
+            var second = new TestGuidEntity();
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { first, second });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { first, second });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -830,22 +831,22 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task SearchEntitiesAsyncWithIncludeFunc_IsCorrect()
         {
-            var first = new TestEntity
+            var first = new TestGuidEntity
             {
                 Id = Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af"),
                 Relationship = new TestRelationship(),
             };
 
-            var second = new TestEntity { Relationship = new TestRelationship() };
+            var second = new TestGuidEntity { Relationship = new TestRelationship() };
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { first, second });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { first, second });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -864,27 +865,27 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void SearchEntitiesLazy_IsCorrect()
         {
-            var first = new TestEntity
+            var first = new TestGuidEntity
             {
                 Id = Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af"),
             };
 
-            var second = new TestEntity();
+            var second = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { first, second });
+                repo.AddEntities(new List<TestGuidEntity> { first, second });
             }
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestEntity> results = repo.SearchEntitiesLazy(new TestQuery());
+                IEnumerable<TestGuidEntity> results = repo.SearchEntitiesLazy(new TestQuery());
 
-                Assert.IsInstanceOfType<IQueryable<TestEntity>>(results);
+                Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
 
                 Assert.AreEqual(first, results.Single());
             }
@@ -896,28 +897,28 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void SearchEntitiesLazyWithIncludeFunc_IsCorrect()
         {
-            var first = new TestEntity
+            var first = new TestGuidEntity
             {
                 Id = Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af"),
                 Relationship = new TestRelationship(),
             };
 
-            var second = new TestEntity { Relationship = new TestRelationship() };
+            var second = new TestGuidEntity { Relationship = new TestRelationship() };
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddEntities(new List<TestEntity> { first, second });
+                repo.AddEntities(new List<TestGuidEntity> { first, second });
             }
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestEntity> results = repo.SearchEntitiesLazy(new TestQuery(), queryable => queryable.Include(entity => entity.Relationship));
+                IEnumerable<TestGuidEntity> results = repo.SearchEntitiesLazy(new TestQuery(), queryable => queryable.Include(entity => entity.Relationship));
 
-                Assert.IsInstanceOfType<IQueryable<TestEntity>>(results);
+                Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
                 Assert.AreEqual(first, results.Single());
                 Assert.IsNotNull(results.Single().Relationship);
             }
@@ -933,10 +934,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                repo.AddEntities(new List<TestEntity>
+                repo.AddEntities(new List<TestGuidEntity>
                 {
-                    new TestEntity { Relationship = new TestRelationship() },
-                    new TestEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
                 });
             }
 
@@ -954,7 +955,7 @@ namespace RapidLaunch.EF.Tests.Common
                 repo.UpdateEntities(entities);
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -977,10 +978,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                await repo.AddEntitiesAsync(new List<TestEntity>
+                await repo.AddEntitiesAsync(new List<TestGuidEntity>
                 {
-                    new TestEntity { Relationship = new TestRelationship() },
-                    new TestEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
                 });
             }
 
@@ -998,7 +999,7 @@ namespace RapidLaunch.EF.Tests.Common
                 await repo.UpdateEntitiesAsync(entities);
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -1016,7 +1017,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void UpdateEntity_IsCorrect()
         {
-            var testEntity = new TestEntity { Relationship = new TestRelationship() };
+            var testEntity = new TestGuidEntity { Relationship = new TestRelationship() };
 
             using (var context = new TestDbContext())
             {
@@ -1039,7 +1040,7 @@ namespace RapidLaunch.EF.Tests.Common
                 }
             }
 
-            TestEntity? result;
+            TestGuidEntity? result;
 
             using (var context = new TestDbContext())
             {
@@ -1058,7 +1059,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task UpdateEntityAsync_IsCorrect()
         {
-            var testEntity = new TestEntity { Relationship = new TestRelationship() };
+            var testEntity = new TestGuidEntity { Relationship = new TestRelationship() };
 
             await using (var context = new TestDbContext())
             {
@@ -1081,7 +1082,7 @@ namespace RapidLaunch.EF.Tests.Common
                 }
             }
 
-            TestEntity? result;
+            TestGuidEntity? result;
 
             await using (var context = new TestDbContext())
             {
@@ -1105,12 +1106,12 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                status = repo.TestExceptionHandler(new TestEntity());
+                status = repo.TestExceptionHandler(new TestGuidEntity());
             }
 
             Assert.IsTrue(status.IsFailure);
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
@@ -1135,12 +1136,12 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                status = await repo.TestExceptionHandlerAsync(new TestEntity());
+                status = await repo.TestExceptionHandlerAsync(new TestGuidEntity());
             }
 
             Assert.IsTrue(status.IsFailure);
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -1155,10 +1156,10 @@ namespace RapidLaunch.EF.Tests.Common
         /// <summary>
         /// Test query.
         /// </summary>
-        internal class TestQuery : IQuery<TestEntity>
+        internal class TestQuery : IQuery<TestGuidEntity>
         {
             /// <inheritdoc/>
-            public Expression<Func<TestEntity, bool>> SearchExpression => entity => entity.Id == Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af");
+            public Expression<Func<TestGuidEntity, bool>> SearchExpression => entity => entity.Id == Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af");
         }
     }
 }

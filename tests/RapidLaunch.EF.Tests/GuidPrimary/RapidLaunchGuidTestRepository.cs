@@ -12,10 +12,10 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
     /// <summary>
     /// Test class for guid primary.
     /// </summary>
-    public class RapidLaunchGuidTestRepository : RapidLaunchRepository<TestEntity>
+    public class RapidLaunchGuidTestRepository : RapidLaunchRepository<TestGuidEntity>
     {
         /// <inheritdoc />
-        public RapidLaunchGuidTestRepository(DbContext context, Func<IQueryable<TestEntity>, IQueryable<TestEntity>>? includeFunc = default)
+        public RapidLaunchGuidTestRepository(DbContext context, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>>? includeFunc = default)
             : base(context, includeFunc)
         {
         }

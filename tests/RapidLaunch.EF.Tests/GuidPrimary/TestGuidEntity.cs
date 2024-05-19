@@ -1,15 +1,15 @@
-﻿// <copyright file="TestEntity.cs" company="Wayne John Whistler LLC">
+﻿// <copyright file="TestGuidEntity.cs" company="Wayne John Whistler LLC">
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
 using ClearDomain.GuidPrimary;
 
-namespace RapidLaunch.EF.Tests
+namespace RapidLaunch.EF.Tests.GuidPrimary
 {
     /// <summary>
     /// Test aggregate root.
     /// </summary>
-    public class TestEntity : AggregateRoot
+    public class TestGuidEntity : AggregateRoot
     {
         /// <summary>
         /// Gets or sets the navigation property.

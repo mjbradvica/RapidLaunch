@@ -4,6 +4,8 @@
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using RapidLaunch.EF.Tests.GuidPrimary;
+using RapidLaunch.EF.Tests.IntPrimary;
 
 namespace RapidLaunch.EF.Tests.Helpers
 {
@@ -19,14 +21,20 @@ namespace RapidLaunch.EF.Tests.Helpers
         {
             Database.EnsureCreated();
 
-            Entities = Set<TestEntity>();
+            GuidEntities = Set<TestGuidEntity>();
+            IntEntities = Set<TestIntEntity>();
             Relationships = Set<TestRelationship>();
         }
 
         /// <summary>
-        /// Gets the test entity set.
+        /// Gets the test guid entity set.
         /// </summary>
-        public DbSet<TestEntity> Entities { get; }
+        public DbSet<TestGuidEntity> GuidEntities { get; }
+
+        /// <summary>
+        /// Gets the test int entity set.
+        /// </summary>
+        public DbSet<TestIntEntity> IntEntities { get; }
 
         /// <summary>
         /// Gets the test relationships.

@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
+using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.Helpers;
 
 namespace RapidLaunch.EF.Tests.Common
@@ -55,14 +56,14 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                await repo.AddEntitiesAsync(new List<TestEntity>
+                await repo.AddEntitiesAsync(new List<TestGuidEntity>
                 {
-                    new TestEntity { Relationship = new TestRelationship() },
-                    new TestEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
+                    new TestGuidEntity { Relationship = new TestRelationship() },
                 });
             }
 
-            List<TestEntity> results;
+            List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
@@ -85,10 +86,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                var entity = new TestEntity();
+                var entity = new TestGuidEntity();
                 entity.AddEvent();
 
-                repo.AddEntities(new List<TestEntity> { entity });
+                repo.AddEntities(new List<TestGuidEntity> { entity });
             }
 
             _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -105,10 +106,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                var entity = new TestEntity();
+                var entity = new TestGuidEntity();
                 entity.AddEvent();
 
-                await repo.AddEntitiesAsync(new List<TestEntity> { entity });
+                await repo.AddEntitiesAsync(new List<TestGuidEntity> { entity });
             }
 
             _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);

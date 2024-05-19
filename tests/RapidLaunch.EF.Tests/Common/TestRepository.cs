@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
+using RapidLaunch.EF.Tests.GuidPrimary;
 
 namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
     /// Test repository.
     /// </summary>
-    public class TestRepository : RapidLaunchRepository<TestEntity, Guid>
+    public class TestRepository : RapidLaunchRepository<TestGuidEntity, Guid>
     {
         /// <inheritdoc />
         public TestRepository(DbContext context)
@@ -25,7 +26,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <inheritdoc />
-        public TestRepository(DbContext context, Func<IQueryable<TestEntity>, IQueryable<TestEntity>> includeFunc)
+        public TestRepository(DbContext context, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>> includeFunc)
             : base(context, includeFunc)
         {
         }
@@ -33,19 +34,19 @@ namespace RapidLaunch.EF.Tests.Common
         /// <summary>
         /// Test method for exception handling.
         /// </summary>
-        /// <param name="entity">The entity to add.</param>
+        /// <param name="guidEntity">The guidEntity to add.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> class.</returns>
         /// <exception cref="Exception">The exception being thrown.</exception>
-        public RapidLaunchStatus TestExceptionHandler(TestEntity entity)
+        public RapidLaunchStatus TestExceptionHandler(TestGuidEntity guidEntity)
         {
             return ExecuteCommand(
                 () =>
             {
-                Context.Set<TestEntity>().Add(entity);
+                Context.Set<TestGuidEntity>().Add(guidEntity);
 
                 var rowCount = Context.SaveChanges();
 
-                return (rowCount, new List<TestEntity> { entity });
+                return (rowCount, new List<TestGuidEntity> { guidEntity });
             },
                 (_, _) => throw new Exception());
         }
@@ -53,19 +54,19 @@ namespace RapidLaunch.EF.Tests.Common
         /// <summary>
         /// Test method for exception handling.
         /// </summary>
-        /// <param name="entity">The entity to add.</param>
+        /// <param name="guidEntity">The guidEntity to add.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> class.</returns>
         /// <exception cref="Exception">The exception being thrown.</exception>
-        public async Task<RapidLaunchStatus> TestExceptionHandlerAsync(TestEntity entity)
+        public async Task<RapidLaunchStatus> TestExceptionHandlerAsync(TestGuidEntity guidEntity)
         {
             return await ExecuteCommandAsync(
                 async () =>
                 {
-                    await Context.Set<TestEntity>().AddAsync(entity);
+                    await Context.Set<TestGuidEntity>().AddAsync(guidEntity);
 
                     var rowCount = await Context.SaveChangesAsync();
 
-                    return (rowCount, new List<TestEntity> { entity });
+                    return (rowCount, new List<TestGuidEntity> { guidEntity });
                 },
                 CancellationToken.None,
                 (_, _) => throw new Exception());
