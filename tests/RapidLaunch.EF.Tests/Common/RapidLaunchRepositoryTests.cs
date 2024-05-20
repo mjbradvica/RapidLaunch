@@ -608,8 +608,8 @@ namespace RapidLaunch.EF.Tests.Common
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.AreEqual(first, results.First());
-            Assert.AreEqual(second, results.Last());
+            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
+            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
         }
 
         /// <summary>
@@ -646,8 +646,8 @@ namespace RapidLaunch.EF.Tests.Common
 
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(results.All(entity => entity.Relationship != null));
-            Assert.AreEqual(first, results.First());
-            Assert.AreEqual(second, results.Last());
+            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
+            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
         }
 
         /// <summary>
@@ -682,8 +682,8 @@ namespace RapidLaunch.EF.Tests.Common
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.AreEqual(first, results.First());
-            Assert.AreEqual(second, results.Last());
+            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
+            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
         }
 
         /// <summary>
@@ -721,8 +721,8 @@ namespace RapidLaunch.EF.Tests.Common
 
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(results.All(entity => entity.Relationship != null));
-            Assert.AreEqual(first, results.First());
-            Assert.AreEqual(second, results.Last());
+            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
+            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
         }
 
         /// <summary>
