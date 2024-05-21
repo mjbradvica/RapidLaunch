@@ -60,7 +60,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Gets a function that extracts the current values from the entity for inserts.
         /// </summary>
-        protected virtual Func<TEntity, IEnumerable<object?>>? EntityProperties { get; } = null;
+        protected abstract Func<TEntity, List<object>> EntityProperties { get; }
 
         /// <summary>
         /// Gets the include statement if any to load additional relationships.
@@ -122,18 +122,6 @@ namespace RapidLaunch.Common
         }
 
         /// <summary>
-        /// Returns a builder with a delete by identifier statement.
-        /// </summary>
-        /// <param name="id">The identifier for the entity to be deleted.</param>
-        /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
-        public SqlBuilder<TEntity, TId> DeleteById(TId id)
-        {
-            _sqlStatement += $" DELETE FROM {_tableName} WHERE Id = '{id}' ";
-
-            return this;
-        }
-
-        /// <summary>
         /// Returns a builder with a delete multiple entities statements.
         /// </summary>
         /// <param name="entities">A list of entities to be removed.</param>
@@ -155,8 +143,7 @@ namespace RapidLaunch.Common
 
             if (_tableName.Contains("dbo."))
             {
-                const int tablePreFixLength = 4;
-                tableName = _tableName.Substring(tablePreFixLength);
+                tableName = tableName.Replace("dbo.", string.Empty);
             }
 
             _sqlStatement += $"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}'";
@@ -172,7 +159,7 @@ namespace RapidLaunch.Common
         /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> Update(TEntity entity, IList<string> columnNames)
         {
-            var entityProperties = EntityValues(entity);
+            var entityProperties = EntityProperties(entity);
 
             var setStatement = string.Empty;
 
@@ -206,7 +193,7 @@ namespace RapidLaunch.Common
         /// <returns>The <see cref="SqlBuilder{TEntity,TId}"/> instance with an updated sql statement.</returns>
         public SqlBuilder<TEntity, TId> Insert(TEntity entity)
         {
-            _sqlStatement += $" INSERT into {_tableName} VALUES ({EntityValues(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',')})";
+            _sqlStatement += $" INSERT into {_tableName} VALUES ({InsertStatement(entity)})";
 
             return this;
         }
@@ -225,23 +212,9 @@ namespace RapidLaunch.Common
             return this;
         }
 
-        private List<object?> EntityValues(TEntity entity)
-        {
-            if (EntityProperties != null)
-            {
-                return EntityProperties.Invoke(entity).ToList();
-            }
-
-            var values = new List<object?>();
-
-            values.AddRange(typeof(TEntity).GetProperties().Select(property => property.GetValue(entity)));
-
-            return values;
-        }
-
         private string InsertStatement(TEntity entity)
         {
-            return EntityValues(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
+            return EntityProperties(entity).Aggregate(string.Empty, (final, next) => final + $"'{next}', ").Trim().TrimEnd(',');
         }
     }
 }
