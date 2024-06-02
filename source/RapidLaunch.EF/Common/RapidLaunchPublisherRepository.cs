@@ -47,7 +47,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc />
-        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
             {
@@ -61,8 +61,6 @@ namespace RapidLaunch.EF.Common
                         }
                     }
                 }
-
-                return Task.CompletedTask;
             });
         }
 

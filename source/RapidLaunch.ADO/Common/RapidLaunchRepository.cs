@@ -44,7 +44,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="command">The sql command to execute.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the number of rows affected.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(string command, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(string command, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             int result;
 
@@ -59,6 +59,9 @@ namespace RapidLaunch.ADO.Common
                 var sqlCommand = new SqlCommand(command, _sqlConnection);
 
                 result = sqlCommand.ExecuteNonQuery();
+
+                // TODO: Figure out how to push entities to publisher.
+                postOperationFunc?.Invoke(result, new List<IAggregateRoot<TId>>());
 
                 transaction.Commit();
             }

@@ -32,7 +32,7 @@ namespace RapidLaunch.ADO.Common
         }
 
         /// <inheritdoc />
-        protected override RapidLaunchStatus ExecuteCommand(string command, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected override RapidLaunchStatus ExecuteCommand(string command, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             return base.ExecuteCommand(command, (rowCount, aggregateRoots) =>
             {
@@ -46,8 +46,6 @@ namespace RapidLaunch.ADO.Common
                         }
                     }
                 }
-
-                return Task.CompletedTask;
             });
         }
 

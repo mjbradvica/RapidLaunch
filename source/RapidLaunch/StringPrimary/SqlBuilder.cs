@@ -8,17 +8,17 @@ using RapidLaunch.Common;
 namespace RapidLaunch.StringPrimary
 {
     /// <inheritdoc />
-    public class SqlBuilder<TEntity> : SqlBuilder<TEntity, string>
+    public abstract class SqlBuilder<TEntity> : SqlBuilder<TEntity, string>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />
-        public SqlBuilder(string tableName)
+        protected SqlBuilder(string tableName)
             : base(tableName)
         {
         }
 
         /// <inheritdoc />
-        public SqlBuilder()
+        protected SqlBuilder()
         {
         }
     }
