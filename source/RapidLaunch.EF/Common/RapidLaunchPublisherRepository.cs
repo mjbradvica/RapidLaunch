@@ -57,7 +57,7 @@ namespace RapidLaunch.EF.Common
                     {
                         foreach (var domainEvent in aggregateRoot.DomainEvents)
                         {
-                            _publishingBus.PublishDomainEvent(domainEvent).RunSynchronously();
+                            _publishingBus.PublishDomainEvent(domainEvent).GetAwaiter().GetResult();
                         }
                     }
                 }

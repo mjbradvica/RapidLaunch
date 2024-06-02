@@ -122,7 +122,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             int rowsAffected;
 
@@ -136,7 +136,7 @@ namespace RapidLaunch.Mongo.Common
 
                     if (postOperationFunc != null)
                     {
-                        postOperationFunc.Invoke(rowsAffected, aggregateRoots).RunSynchronously();
+                        postOperationFunc.Invoke(rowsAffected, aggregateRoots);
                     }
 
                     transaction.CommitTransaction();

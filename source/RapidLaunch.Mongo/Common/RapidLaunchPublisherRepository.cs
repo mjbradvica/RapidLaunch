@@ -2,6 +2,10 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using ClearDomain.Common;
 using MongoDB.Driver;
 using RapidLaunch.Common;
@@ -25,6 +29,42 @@ namespace RapidLaunch.Mongo.Common
             : base(mongoClient, databaseName, collectionName)
         {
             _publishingBus = publishingBus;
+        }
+
+        /// <inheritdoc/>
+        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        {
+            return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
+            {
+                if (rowCount > 0)
+                {
+                    foreach (var aggregateRoot in aggregateRoots)
+                    {
+                        foreach (var domainEvent in aggregateRoot.DomainEvents)
+                        {
+                            _publishingBus.PublishDomainEvent(domainEvent).GetAwaiter().GetResult();
+                        }
+                    }
+                }
+            });
+        }
+
+        /// <inheritdoc />
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        {
+            return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
+            {
+                if (rowCount > 0)
+                {
+                    foreach (var aggregateRoot in aggregateRoots)
+                    {
+                        foreach (var domainEvent in aggregateRoot.DomainEvents)
+                        {
+                            await _publishingBus.PublishDomainEvent(domainEvent, cancellationToken);
+                        }
+                    }
+                }
+            });
         }
     }
 }

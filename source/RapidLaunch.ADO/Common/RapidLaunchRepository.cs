@@ -18,7 +18,8 @@ namespace RapidLaunch.ADO.Common
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TEntity, TId>
+    public abstract class RapidLaunchRepository<TEntity, TId> :
+        IAddEntitiesAsync<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly SqlConnection _sqlConnection;
@@ -38,14 +39,26 @@ namespace RapidLaunch.ADO.Common
             _conversionFunc = conversionFunc;
         }
 
+/// <inheritdoc/>
+        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            return await ExecuteCommandAsync(
+                () =>
+                {
+                    var asList = entities.ToList();
+
+                    return (_sqlBuilder.InsertMultiple(asList).SqlStatement, asList);
+                },
+                cancellationToken);
+        }
+
         /// <summary>
         /// Executes a non-query synchronously.
         /// </summary>
-        /// <param name="command">The sql command to execute.</param>
-        /// <param name="entities">A list of the entities for publishing.</param>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the entities to execute again.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the number of rows affected.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(string command, IEnumerable<IAggregateRoot<TId>> entities,  Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc,  Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             int result;
 
@@ -56,6 +69,8 @@ namespace RapidLaunch.ADO.Common
                 _sqlConnection.Open();
 
                 transaction = _sqlConnection.BeginTransaction();
+
+                var (command, entities) = executionFunc.Invoke();
 
                 var sqlCommand = new SqlCommand(command, _sqlConnection);
 
@@ -82,12 +97,11 @@ namespace RapidLaunch.ADO.Common
         /// <summary>
         /// Execute a non-query asynchronously.
         /// </summary>
-        /// <param name="command">The sql command to execute.</param>
-        /// <param name="entities">A list of entities to publish events.</param>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the entities to execute again.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="RapidLaunchStatus"/> representing the result of the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(string command, IEnumerable<IAggregateRoot<TId>> entities, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
             int result;
 
@@ -98,6 +112,8 @@ namespace RapidLaunch.ADO.Common
                 await _sqlConnection.OpenAsync(cancellationToken);
 
                 transaction = _sqlConnection.BeginTransaction();
+
+                var (command, entities) = executionFunc.Invoke();
 
                 var sqlCommand = new SqlCommand(command, _sqlConnection, transaction);
 

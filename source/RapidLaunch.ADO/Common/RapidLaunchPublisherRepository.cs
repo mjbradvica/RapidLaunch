@@ -32,9 +32,9 @@ namespace RapidLaunch.ADO.Common
         }
 
         /// <inheritdoc />
-        protected override RapidLaunchStatus ExecuteCommand(string command, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected override RapidLaunchStatus ExecuteCommand(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
-            return base.ExecuteCommand(command, (rowCount, aggregateRoots) =>
+            return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
             {
                 if (rowCount > 0)
                 {
@@ -42,7 +42,7 @@ namespace RapidLaunch.ADO.Common
                     {
                         foreach (var domainEvent in aggregateRoot.DomainEvents)
                         {
-                            _publishingBus.PublishDomainEvent(domainEvent).RunSynchronously();
+                            _publishingBus.PublishDomainEvent(domainEvent).GetAwaiter().GetResult();
                         }
                     }
                 }
@@ -50,9 +50,9 @@ namespace RapidLaunch.ADO.Common
         }
 
         /// <inheritdoc />
-        protected override Task<RapidLaunchStatus> ExecuteCommandAsync(string command, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
-            return base.ExecuteCommandAsync(command, cancellationToken, async (rowCount, aggregateRoots) =>
+            return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
             {
                 if (rowCount > 0)
                 {
