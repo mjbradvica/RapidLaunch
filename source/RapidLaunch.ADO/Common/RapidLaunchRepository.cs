@@ -42,9 +42,10 @@ namespace RapidLaunch.ADO.Common
         /// Executes a non-query synchronously.
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
+        /// <param name="entities">A list of the entities for publishing.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the number of rows affected.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(string command, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(string command, IEnumerable<IAggregateRoot<TId>> entities,  Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             int result;
 
@@ -60,8 +61,7 @@ namespace RapidLaunch.ADO.Common
 
                 result = sqlCommand.ExecuteNonQuery();
 
-                // TODO: Figure out how to push entities to publisher.
-                postOperationFunc?.Invoke(result, new List<IAggregateRoot<TId>>());
+                postOperationFunc?.Invoke(result, entities);
 
                 transaction.Commit();
             }
@@ -83,28 +83,39 @@ namespace RapidLaunch.ADO.Common
         /// Execute a non-query asynchronously.
         /// </summary>
         /// <param name="command">The sql command to execute.</param>
+        /// <param name="entities">A list of entities to publish events.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="RapidLaunchStatus"/> representing the result of the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(string command, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(string command, IEnumerable<IAggregateRoot<TId>> entities, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
             int result;
 
-            await _sqlConnection.OpenAsync(cancellationToken);
-
-            var transaction = _sqlConnection.BeginTransaction();
-
-            var sqlCommand = new SqlCommand(command, _sqlConnection, transaction);
+            SqlTransaction? transaction = null;
 
             try
             {
+                await _sqlConnection.OpenAsync(cancellationToken);
+
+                transaction = _sqlConnection.BeginTransaction();
+
+                var sqlCommand = new SqlCommand(command, _sqlConnection, transaction);
+
                 result = await sqlCommand.ExecuteNonQueryAsync(cancellationToken);
+
+                if (postOperationFunc != null)
+                {
+                    await postOperationFunc.Invoke(result, entities);
+                }
 
                 await transaction.CommitAsync(cancellationToken);
             }
             catch (Exception exception)
             {
-                await transaction.RollbackAsync(cancellationToken);
+                if (transaction != null)
+                {
+                    await transaction.RollbackAsync(cancellationToken);
+                }
 
                 return RapidLaunchStatus.Failed(exception);
             }
