@@ -45,6 +45,7 @@ namespace RapidLaunch.Mongo.Common
         private readonly MongoClient _mongoClient;
         private readonly string _databaseName;
         private readonly string? _collectionName;
+        private readonly bool _useTransactions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
@@ -52,11 +53,13 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="mongoClient">An instance of the <see cref="MongoClient"/> class.</param>
         /// <param name="databaseName">The name of the database to use.</param>
         /// <param name="collectionName">Optional collection name.</param>
-        public RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null)
+        /// <param name="useTransactions">A flag to toggle transactions on and off.</param>
+        public RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
         {
             _mongoClient = mongoClient;
             _databaseName = databaseName;
             _collectionName = collectionName;
+            _useTransactions = useTransactions;
         }
 
         /// <inheritdoc />
@@ -735,7 +738,9 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<IClientSessionHandle, (int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(
+            Func<IClientSessionHandle, (int RowCount, IEnumerable<TEntity> Entities)> executionFunc,
+            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             int rowsAffected;
 
@@ -743,7 +748,10 @@ namespace RapidLaunch.Mongo.Common
             {
                 try
                 {
-                    session.StartTransaction();
+                    if (_useTransactions)
+                    {
+                        session.StartTransaction();
+                    }
 
                     var (rowCount, aggregateRoots) = executionFunc.Invoke(session);
 
@@ -751,11 +759,17 @@ namespace RapidLaunch.Mongo.Common
 
                     postOperationFunc?.Invoke(rowsAffected, aggregateRoots);
 
-                    session.CommitTransaction();
+                    if (_useTransactions)
+                    {
+                        session.CommitTransaction();
+                    }
                 }
                 catch (Exception exception)
                 {
-                    session.AbortTransaction();
+                    if (_useTransactions)
+                    {
+                        session.AbortTransaction();
+                    }
 
                     return RapidLaunchStatus.Failed(exception);
                 }
@@ -779,7 +793,10 @@ namespace RapidLaunch.Mongo.Common
             {
                 try
                 {
-                    session.StartTransaction();
+                    if (_useTransactions)
+                    {
+                        session.StartTransaction();
+                    }
 
                     var (rowCount, aggregateRoots) = await executionFunc.Invoke(session);
 
@@ -790,11 +807,17 @@ namespace RapidLaunch.Mongo.Common
                         await postOperationFunc.Invoke(rowsAffected, aggregateRoots);
                     }
 
-                    await session.CommitTransactionAsync(cancellationToken);
+                    if (_useTransactions)
+                    {
+                        await session.CommitTransactionAsync(cancellationToken);
+                    }
                 }
                 catch (Exception exception)
                 {
-                    await session.AbortTransactionAsync(cancellationToken);
+                    if (_useTransactions)
+                    {
+                        await session.AbortTransactionAsync(cancellationToken);
+                    }
 
                     return RapidLaunchStatus.Failed(exception);
                 }
@@ -812,9 +835,9 @@ namespace RapidLaunch.Mongo.Common
         {
             var results = new List<TEntity>();
 
-            using (var transaction = _mongoClient.StartSession())
+            using (var session = _mongoClient.StartSession())
             {
-                var cursor = query.Invoke(transaction);
+                var cursor = query.Invoke(session);
 
                 if (cursor.MoveNext())
                 {
@@ -835,9 +858,9 @@ namespace RapidLaunch.Mongo.Common
         {
             var results = new List<TEntity>();
 
-            using (var transaction = await _mongoClient.StartSessionAsync(cancellationToken: cancellationToken))
+            using (var session = await _mongoClient.StartSessionAsync(cancellationToken: cancellationToken))
             {
-                var cursor = await query.Invoke(transaction);
+                var cursor = await query.Invoke(session);
 
                 if (await cursor.MoveNextAsync(cancellationToken))
                 {

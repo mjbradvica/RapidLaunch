@@ -25,8 +25,9 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
         /// <param name="databaseName">The name of the database to use.</param>
         /// <param name="collectionName">Optional collection name.</param>
-        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName,  string? collectionName = null)
-            : base(mongoClient, databaseName, collectionName)
+        /// <param name="useTransactions">A flag to toggle transactions on and off.</param>
+        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName,  string? collectionName = null, bool useTransactions = true)
+            : base(mongoClient, databaseName, collectionName, useTransactions)
         {
             _publishingBus = publishingBus;
         }

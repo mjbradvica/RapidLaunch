@@ -14,8 +14,8 @@ namespace RapidLaunch.Mongo.GuidPrimary
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null)
-            : base(mongoClient, databaseName, collectionName)
+        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
+            : base(mongoClient, databaseName, collectionName, useTransactions)
         {
         }
     }
