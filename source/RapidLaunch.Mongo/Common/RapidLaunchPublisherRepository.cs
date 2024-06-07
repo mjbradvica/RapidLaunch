@@ -32,7 +32,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected override RapidLaunchStatus ExecuteCommand(Func<IClientSessionHandle, (int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
             {
@@ -50,7 +50,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
             return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
             {

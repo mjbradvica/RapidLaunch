@@ -2,6 +2,9 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
+using MongoDB.Driver;
+using RapidLaunch.Mongo.Tests.GuidPrimary;
+
 namespace RapidLaunch.Mongo.Tests.Helpers
 {
     /// <summary>
@@ -15,7 +18,18 @@ namespace RapidLaunch.Mongo.Tests.Helpers
         /// <returns>The correct connection string.</returns>
         public static string MongoConnectionString()
         {
-            return "mongodb://localhost:27017";
+            return "mongodb+srv://mjbradvica:82M5CPj70S6jUL3g@cluster0.anhunbz.mongodb.net/";
+        }
+
+        /// <summary>
+        /// Clears all database entries.
+        /// </summary>
+        public static void ClearDatabase()
+        {
+            var client = new MongoClient(MongoConnectionString());
+
+            client.GetDatabase("rapid_launch").GetCollection<TestGuidEntity>(nameof(TestGuidEntity))
+                .DeleteMany(Builders<TestGuidEntity>.Filter.Empty);
         }
     }
 }

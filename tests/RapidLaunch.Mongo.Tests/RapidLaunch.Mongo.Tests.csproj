@@ -15,4 +15,8 @@
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\RapidLaunch.Mongo\RapidLaunch.Mongo.csproj" />
+  </ItemGroup>
 </Project>

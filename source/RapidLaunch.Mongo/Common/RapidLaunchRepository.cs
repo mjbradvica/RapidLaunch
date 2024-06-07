@@ -739,21 +739,23 @@ namespace RapidLaunch.Mongo.Common
         {
             int rowsAffected;
 
-            using (var transaction = _mongoClient.StartSession())
+            using (var session = _mongoClient.StartSession())
             {
                 try
                 {
-                    var (rowCount, aggregateRoots) = executionFunc.Invoke(transaction);
+                    session.StartTransaction();
+
+                    var (rowCount, aggregateRoots) = executionFunc.Invoke(session);
 
                     rowsAffected = rowCount;
 
                     postOperationFunc?.Invoke(rowsAffected, aggregateRoots);
 
-                    transaction.CommitTransaction();
+                    session.CommitTransaction();
                 }
                 catch (Exception exception)
                 {
-                    transaction.AbortTransaction();
+                    session.AbortTransaction();
 
                     return RapidLaunchStatus.Failed(exception);
                 }
@@ -773,11 +775,13 @@ namespace RapidLaunch.Mongo.Common
         {
             int rowsAffected;
 
-            using (var transaction = await _mongoClient.StartSessionAsync(cancellationToken: cancellationToken))
+            using (var session = await _mongoClient.StartSessionAsync(cancellationToken: cancellationToken))
             {
                 try
                 {
-                    var (rowCount, aggregateRoots) = await executionFunc.Invoke(transaction);
+                    session.StartTransaction();
+
+                    var (rowCount, aggregateRoots) = await executionFunc.Invoke(session);
 
                     rowsAffected = rowCount;
 
@@ -786,11 +790,11 @@ namespace RapidLaunch.Mongo.Common
                         await postOperationFunc.Invoke(rowsAffected, aggregateRoots);
                     }
 
-                    await transaction.CommitTransactionAsync(cancellationToken);
+                    await session.CommitTransactionAsync(cancellationToken);
                 }
                 catch (Exception exception)
                 {
-                    await transaction.AbortTransactionAsync(cancellationToken);
+                    await session.AbortTransactionAsync(cancellationToken);
 
                     return RapidLaunchStatus.Failed(exception);
                 }
