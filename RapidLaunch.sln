@@ -24,17 +24,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.Mongo.Samples",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.Mongo.Tests", "tests\RapidLaunch.Mongo.Tests\RapidLaunch.Mongo.Tests.csproj", "{04103A72-A071-4A68-A75F-97FCADD418EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.ADO", "source\RapidLaunch.ADO\RapidLaunch.ADO.csproj", "{124DDCB6-AFFB-4FDD-BC7D-ECC49D04564D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.ADO", "source\RapidLaunch.ADO\RapidLaunch.ADO.csproj", "{124DDCB6-AFFB-4FDD-BC7D-ECC49D04564D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.ADO.Samples", "samples\RapidLaunch.ADO.Samples\RapidLaunch.ADO.Samples.csproj", "{6E28AAD9-B63D-4D13-A4E8-E1E2627C0956}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.ADO.Samples", "samples\RapidLaunch.ADO.Samples\RapidLaunch.ADO.Samples.csproj", "{6E28AAD9-B63D-4D13-A4E8-E1E2627C0956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.ADO.Tests", "tests\RapidLaunch.ADO.Tests\RapidLaunch.ADO.Tests.csproj", "{C693D95C-3167-4C52-8C01-6BDF80D4FB2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.ADO.Tests", "tests\RapidLaunch.ADO.Tests\RapidLaunch.ADO.Tests.csproj", "{C693D95C-3167-4C52-8C01-6BDF80D4FB2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.Dapper", "source\RapidLaunch.Dapper\RapidLaunch.Dapper.csproj", "{4BBE49FE-DE82-4225-839F-7F3FE508DBC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.Dapper", "source\RapidLaunch.Dapper\RapidLaunch.Dapper.csproj", "{4BBE49FE-DE82-4225-839F-7F3FE508DBC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.Dapper.Tests", "tests\RapidLaunch.Dapper.Tests\RapidLaunch.Dapper.Tests.csproj", "{AD114324-15E1-4EB8-92A1-6A1CF3A1AC2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.Dapper.Tests", "tests\RapidLaunch.Dapper.Tests\RapidLaunch.Dapper.Tests.csproj", "{AD114324-15E1-4EB8-92A1-6A1CF3A1AC2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.Dapper.Samples", "samples\RapidLaunch.Dapper.Samples\RapidLaunch.Dapper.Samples.csproj", "{3D9282E8-919C-4937-902C-BA9A950DF340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidLaunch.Dapper.Samples", "samples\RapidLaunch.Dapper.Samples\RapidLaunch.Dapper.Samples.csproj", "{3D9282E8-919C-4937-902C-BA9A950DF340}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{DF45A62E-F819-4D73-B974-72B5691F667A}"
 EndProject
@@ -45,6 +45,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADO", "ADO", "{616AE0F8-4FEB-42CD-99C1-CA4DF987EDD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dapper", "Dapper", "{0379BCD1-8E9F-469C-89D0-71EF20865F43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{67F4DEB5-0971-40D8-9586-CDD66D5345F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidLaunch.Redis", "source\RapidLaunch.Redis\RapidLaunch.Redis.csproj", "{FF7CFF83-D673-49E3-A744-14881C100595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +112,10 @@ Global
 		{3D9282E8-919C-4937-902C-BA9A950DF340}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D9282E8-919C-4937-902C-BA9A950DF340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D9282E8-919C-4937-902C-BA9A950DF340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF7CFF83-D673-49E3-A744-14881C100595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF7CFF83-D673-49E3-A744-14881C100595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF7CFF83-D673-49E3-A744-14881C100595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF7CFF83-D673-49E3-A744-14881C100595}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +135,7 @@ Global
 		{4BBE49FE-DE82-4225-839F-7F3FE508DBC3} = {0379BCD1-8E9F-469C-89D0-71EF20865F43}
 		{AD114324-15E1-4EB8-92A1-6A1CF3A1AC2B} = {0379BCD1-8E9F-469C-89D0-71EF20865F43}
 		{3D9282E8-919C-4937-902C-BA9A950DF340} = {0379BCD1-8E9F-469C-89D0-71EF20865F43}
+		{FF7CFF83-D673-49E3-A744-14881C100595} = {67F4DEB5-0971-40D8-9586-CDD66D5345F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B245B570-59D8-435C-AE35-FC90D5F7ADCC}
