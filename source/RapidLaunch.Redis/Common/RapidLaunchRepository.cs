@@ -22,8 +22,9 @@ namespace RapidLaunch.Redis.Common
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
-        IAddEntitiesAsync<TEntity, TId>
-        where TEntity : IAggregateRoot<TId>
+        IAddEntitiesAsync<TEntity, TId>,
+        IGetById<TEntity, TId>
+        where TEntity : class, IAggregateRoot<TId>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
@@ -80,12 +81,28 @@ namespace RapidLaunch.Redis.Common
                 cancellationToken);
         }
 
+        /// <inheritdoc />
+        public TEntity? GetById(TId id)
+        {
+            try
+            {
+                return Database.JSON().Get<TEntity>(id!.ToString());
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
         /// <summary>
         /// Executes a command against the persistence.
         /// </summary>
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
+        /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc)
+        protected virtual RapidLaunchStatus ExecuteCommand(
+            Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc,
+            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
         {
             int rowsAffected;
 
@@ -94,6 +111,8 @@ namespace RapidLaunch.Redis.Common
                 var (rowCount, entities) = executionFunc.Invoke();
 
                 rowsAffected = rowCount;
+
+                postOperationFunc?.Invoke(rowsAffected, entities);
             }
             catch (Exception exception)
             {
