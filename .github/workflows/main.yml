@@ -15,13 +15,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
-            5.0.x
-            6.0.x
-            7.0.x
             8.0.x
+            9.0.x
 
       - name: Install SQL Server
-        uses: Particular/install-sql-server-action@v1.1.0
+        uses: Particular/install-sql-server-action@v1.2.0
         with:
           connection-string-env-var: TEST_CONNECTION_STRING
           catalog: RapidLaunch
@@ -34,13 +32,13 @@ jobs:
         run: dotnet format --no-restore
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore -c Release
 
       - name: Pack
-        run: dotnet pack --no-build -o .
+        run: dotnet pack --no-restore --no-build -c Release -o .
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-restore --no-build --verbosity normal
 
     #   - name: Publish
     #     run: dotnet nuget push RapidLaunch.*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_KEY }} --skip-duplicate

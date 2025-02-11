@@ -1,12 +1,13 @@
 <Project>
     <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <AnalysisLevel>latest</AnalysisLevel>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-        <ImplicitUsings>disable</ImplicitUsings>
-        <CheckEolTargetFramework>false</CheckEolTargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <CheckEolTargetFramework>true</CheckEolTargetFramework>
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
