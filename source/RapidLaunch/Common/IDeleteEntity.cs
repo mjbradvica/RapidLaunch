@@ -15,7 +15,7 @@ namespace RapidLaunch.Common
         where TRoot : IAggregateRoot<TId>
     {
         /// <summary>
-        /// Removes an root from a collection.
+        /// Removes a root from a collection.
         /// </summary>
         /// <param name="root">The root to be deleted.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the status of the operation.</returns>

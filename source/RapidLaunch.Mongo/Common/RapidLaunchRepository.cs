@@ -566,11 +566,11 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> entities)
+        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(session =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
@@ -586,16 +586,16 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Updates a range of entities in a collection.
+        /// Updates a range of roots in a collection.
         /// </summary>
-        /// <param name="entities">A <see cref="IEnumerable{T}"/> of entities to be updated.</param>
+        /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots to be updated.</param>
         /// <param name="options">A <see cref="BulkWriteOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> entities, BulkWriteOptions options)
+        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> roots, BulkWriteOptions options)
         {
             return ExecuteCommand(session =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
@@ -611,12 +611,12 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
@@ -633,18 +633,18 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Updates a range of entities in a collection.
+        /// Updates a range of roots in a collection.
         /// </summary>
-        /// <param name="entities">A <see cref="IEnumerable{T}"/> of entities to be updated.</param>
+        /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots to be updated.</param>
         /// <param name="options">A <see cref="BulkWriteOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> entities, BulkWriteOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> roots, BulkWriteOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var aggregateRoots = entities.ToList();
+                    var aggregateRoots = roots.ToList();
 
                     var requests = aggregateRoots.Select(replacement =>
                     {
@@ -661,68 +661,68 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus UpdateEntity(TEntity entity)
+        public virtual RapidLaunchStatus UpdateEntity(TEntity root)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, entity.Id);
+                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
 
-                GetCollection().ReplaceOne(session, filter, entity);
+                GetCollection().ReplaceOne(session, filter, root);
 
-                return (SingleInsert, new List<TEntity> { entity });
+                return (SingleInsert, new List<TEntity> { root });
             });
         }
 
         /// <summary>
-        /// Updates an entity in a collection.
+        /// Updates an root in a collection.
         /// </summary>
-        /// <param name="entity">The entity to update.</param>
+        /// <param name="rootty">The root to update.</param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus UpdateEntity(TEntity entity, ReplaceOptions options)
+        public virtual RapidLaunchStatus UpdateEntity(TEntity root, ReplaceOptions options)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, entity.Id);
+                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
 
-                GetCollection().ReplaceOne(session, filter, entity, options);
+                GetCollection().ReplaceOne(session, filter, root, options);
 
-                return (SingleInsert, new List<TEntity> { entity });
+                return (SingleInsert, new List<TEntity> { root });
             });
         }
 
         /// <inheritdoc />
-        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, entity.Id);
+                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
 
-                    await GetCollection().ReplaceOneAsync(session, filter, entity, default(ReplaceOptions), cancellationToken);
+                    await GetCollection().ReplaceOneAsync(session, filter, root, default(ReplaceOptions), cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { entity });
+                    return (SingleInsert, new List<TEntity> { root });
                 },
                 cancellationToken);
         }
 
         /// <summary>
-        /// Updates an entity in a collection.
+        /// Updates an root in a collection.
         /// </summary>
-        /// <param name="entity">The entity to update.</param>
+        /// <param name="rootty">The root to update.</param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity entity, ReplaceOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity root, ReplaceOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, entity.Id);
+                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
 
-                    await GetCollection().ReplaceOneAsync(session, filter, entity, options, cancellationToken);
+                    await GetCollection().ReplaceOneAsync(session, filter, root, options, cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { entity });
+                    return (SingleInsert, new List<TEntity> { root });
                 },
                 cancellationToken);
         }

@@ -359,11 +359,11 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> entities)
+        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 Context.Set<TEntity>().UpdateRange(aggregateRoots);
 
@@ -374,12 +374,12 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 Context.Set<TEntity>().UpdateRange(aggregateRoots);
 
@@ -391,29 +391,29 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus UpdateEntity(TEntity entity)
+        public virtual RapidLaunchStatus UpdateEntity(TEntity root)
         {
             return ExecuteCommand(() =>
             {
-                Context.Set<TEntity>().Update(entity);
+                Context.Set<TEntity>().Update(root);
 
                 var rowCount = Context.SaveChanges();
 
-                return (rowCount, new List<TEntity> { entity });
+                return (rowCount, new List<TEntity> { root });
             });
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
                 {
-                    Context.Set<TEntity>().Update(entity);
+                    Context.Set<TEntity>().Update(root);
 
                     var rowCount = await Context.SaveChangesAsync(cancellationToken);
 
-                    return (rowCount, new List<TEntity> { entity });
+                    return (rowCount, new List<TEntity> { root });
                 },
                 cancellationToken);
         }
