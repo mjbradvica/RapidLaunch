@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RapidLaunch\RapidLaunch.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GuidPrimary\" />
+    <Folder Include="IntPrimary\" />
+    <Folder Include="LongPrimary\" />
+    <Folder Include="StringPrimary\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+</Project>

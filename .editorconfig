@@ -70,3 +70,6 @@ dotnet_diagnostic.SA1309.severity = silent
 dotnet_diagnostic.SA1402.severity = silent
 dotnet_diagnostic.IDE0270.severity = silent
 dotnet_diagnostic.IDE0063.severity = silent
+dotnet_diagnostic.IDE0090.severity = silent
+dotnet_diagnostic.IDE0290.severity = silent
+dotnet_diagnostic.IDE0057.severity = silent
