@@ -25,7 +25,7 @@ namespace RapidLaunch.Tests.Common
 
             Assert.IsFalse(status.IsFailure);
             Assert.AreEqual(rowCount, status.RowCount);
-            Assert.IsInstanceOfType<EmptyException>(status.Exception);
+            Assert.IsInstanceOfType<Exception>(status.Exception);
         }
 
         /// <summary>

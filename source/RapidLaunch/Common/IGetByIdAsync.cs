@@ -6,12 +6,12 @@ using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
-	/// <summary>
-	/// An interface used to describe a class that can retrieve a single entity by an identifier.
-	/// </summary>
-	/// <typeparam name="TRoot">The type of the entity.</typeparam>
-	/// <typeparam name="TId">The type of the identifier.</typeparam>
-	public interface IGetByIdAsync<TRoot, in TId>
+    /// <summary>
+    /// An interface used to describe a class that can retrieve a single entity by an identifier.
+    /// </summary>
+    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
+    public interface IGetByIdAsync<TRoot, in TId>
         where TRoot : IAggregateRoot<TId>
     {
         /// <summary>

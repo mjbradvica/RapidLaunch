@@ -6,12 +6,12 @@ using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
-	/// <summary>
-	/// An interface used to describe a class that can update an entity.
-	/// </summary>
-	/// <typeparam name="TRoot">The type of the entity.The type of the entity.</typeparam>
-	/// <typeparam name="TId">The type of the identifier.</typeparam>
-	public interface IUpdateEntity<in TRoot, TId>
+    /// <summary>
+    /// An interface used to describe a class that can update an entity.
+    /// </summary>
+    /// <typeparam name="TRoot">The type of the entity.The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
+    public interface IUpdateEntity<in TRoot, TId>
         where TRoot : IAggregateRoot<TId>
     {
         /// <summary>

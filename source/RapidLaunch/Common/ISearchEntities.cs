@@ -6,12 +6,12 @@ using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
-	/// <summary>
-	/// An interface used to describe a class that can perform basic filters and/or joins.
-	/// </summary>
-	/// <typeparam name="TRoot">The type of the entity.</typeparam>
-	/// <typeparam name="TId">The type of the identifier.</typeparam>
-	public interface ISearchEntities<TRoot, TId>
+    /// <summary>
+    /// An interface used to describe a class that can perform basic filters and/or joins.
+    /// </summary>
+    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
+    public interface ISearchEntities<TRoot, TId>
         where TRoot : class, IAggregateRoot<TId>
     {
         /// <summary>

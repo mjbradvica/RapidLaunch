@@ -8,12 +8,12 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.Mongo.Common
 {
-	/// <summary>
-	/// Common functions for all base RapidLaunch repositories.
-	/// </summary>
-	/// <typeparam name="TEntity">The type of the entity.</typeparam>
-	/// <typeparam name="TId">The type of the identifier.</typeparam>
-	public class RapidLaunchRepository<TEntity, TId> :
+    /// <summary>
+    /// Common functions for all base RapidLaunch repositories.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TId">The type of the identifier.</typeparam>
+    public class RapidLaunchRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,
         IAddEntity<TEntity, TId>,
@@ -676,7 +676,7 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Updates an root in a collection.
         /// </summary>
-        /// <param name="rootty">The root to update.</param>
+        /// <param name="root"></param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
         public virtual RapidLaunchStatus UpdateEntity(TEntity root, ReplaceOptions options)
@@ -709,7 +709,7 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Updates an root in a collection.
         /// </summary>
-        /// <param name="rootty">The root to update.</param>
+        /// <param name="root"></param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
