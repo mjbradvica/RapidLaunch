@@ -2,8 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using ClearDomain.IntPrimary;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.Common;

@@ -2,8 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common

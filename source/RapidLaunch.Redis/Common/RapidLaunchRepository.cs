@@ -2,11 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using ClearDomain.Common;
 using NRedisStack.Json.DataTypes;
 using NRedisStack.RedisStackCommands;
@@ -15,12 +10,12 @@ using StackExchange.Redis;
 
 namespace RapidLaunch.Redis.Common
 {
-    /// <summary>
-    /// Common functions for all base RapidLaunch repositories.
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TEntity, TId> :
+	/// <summary>
+	/// Common functions for all base RapidLaunch repositories.
+	/// </summary>
+	/// <typeparam name="TEntity">The type of the entity.</typeparam>
+	/// <typeparam name="TId">The type of the identifier.</typeparam>
+	public abstract class RapidLaunchRepository<TEntity, TId> :
         IAddEntities<TEntity, TId>,
         IAddEntitiesAsync<TEntity, TId>,
         IGetById<TEntity, TId>

@@ -2,8 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -11,10 +9,10 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
 {
-    /// <summary>
-    /// Tests for the <see cref="RapidLaunchPublisher"/> class.
-    /// </summary>
-    [TestClass]
+	/// <summary>
+	/// Tests for the <see cref="RapidLaunchPublisher"/> class.
+	/// </summary>
+	[TestClass]
     public class RapidLaunchPublisherTests
     {
         /// <summary>

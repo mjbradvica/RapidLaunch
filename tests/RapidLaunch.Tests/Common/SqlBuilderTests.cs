@@ -2,16 +2,15 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
 {
-    /// <summary>
-    /// Tests for the <see cref="SqlBuilder{TEntity,TId}"/> class.
-    /// </summary>
-    [TestClass]
+	/// <summary>
+	/// Tests for the <see cref="SqlBuilder{TEntity,TId}"/> class.
+	/// </summary>
+	[TestClass]
     public class SqlBuilderTests
     {
         /// <summary>

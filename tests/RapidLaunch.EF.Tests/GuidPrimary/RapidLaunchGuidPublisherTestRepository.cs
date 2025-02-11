@@ -2,16 +2,14 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 using RapidLaunch.EF.GuidPrimary;
 
 namespace RapidLaunch.EF.Tests.GuidPrimary
 {
-    /// <inheritdoc />
-    public class RapidLaunchGuidPublisherTestRepository : RapidLaunchPublisherRepository<TestGuidEntity>
+	/// <inheritdoc />
+	public class RapidLaunchGuidPublisherTestRepository : RapidLaunchPublisherRepository<TestGuidEntity>
     {
         /// <inheritdoc />
         public RapidLaunchGuidPublisherTestRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>>? includeFunc = default)

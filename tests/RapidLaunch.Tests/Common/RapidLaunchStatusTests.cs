@@ -2,7 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.Common;
 

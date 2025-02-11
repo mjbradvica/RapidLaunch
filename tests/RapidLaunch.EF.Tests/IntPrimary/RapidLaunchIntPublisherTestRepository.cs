@@ -2,16 +2,14 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 using RapidLaunch.EF.IntPrimary;
 
 namespace RapidLaunch.EF.Tests.IntPrimary
 {
-    /// <inheritdoc />
-    public class RapidLaunchIntPublisherTestRepository : RapidLaunchPublisherRepository<TestIntEntity>
+	/// <inheritdoc />
+	public class RapidLaunchIntPublisherTestRepository : RapidLaunchPublisherRepository<TestIntEntity>
     {
         /// <inheritdoc />
         public RapidLaunchIntPublisherTestRepository(DbContext context, IPublishingBus publishingBus)

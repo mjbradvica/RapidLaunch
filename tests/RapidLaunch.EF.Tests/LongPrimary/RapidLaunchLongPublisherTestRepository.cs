@@ -2,16 +2,14 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 using RapidLaunch.EF.LongPrimary;
 
 namespace RapidLaunch.EF.Tests.LongPrimary
 {
-    /// <inheritdoc />
-    public class RapidLaunchLongPublisherTestRepository : RapidLaunchPublisherRepository<TestLongEntity>
+	/// <inheritdoc />
+	public class RapidLaunchLongPublisherTestRepository : RapidLaunchPublisherRepository<TestLongEntity>
     {
         /// <inheritdoc />
         public RapidLaunchLongPublisherTestRepository(DbContext context, IPublishingBus publishingBus)

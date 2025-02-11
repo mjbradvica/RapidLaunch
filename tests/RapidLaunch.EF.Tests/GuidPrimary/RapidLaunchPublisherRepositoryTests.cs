@@ -2,9 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,10 +11,10 @@ using RapidLaunch.EF.Tests.Helpers;
 
 namespace RapidLaunch.EF.Tests.GuidPrimary
 {
-    /// <summary>
-    /// Tests for the <see cref="RapidLaunchPublisherRepository{TEntity}"/>.
-    /// </summary>
-    [TestClass]
+	/// <summary>
+	/// Tests for the <see cref="RapidLaunchPublisherRepository{TEntity}"/>.
+	/// </summary>
+	[TestClass]
     public class RapidLaunchPublisherRepositoryTests : BaseIntegrationTest
     {
         private readonly RapidLaunchPublisher _publisher;

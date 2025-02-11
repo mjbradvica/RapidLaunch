@@ -2,18 +2,16 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Threading;
-using System.Threading.Tasks;
 using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
-    /// <summary>
-    /// An interface that allows a class to add a single entity asynchronously.
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IAddEntityAsync<in TEntity, TId>
+	/// <summary>
+	/// An interface that allows a class to add a single entity asynchronously.
+	/// </summary>
+	/// <typeparam name="TEntity">The type of the entity.</typeparam>
+	/// <typeparam name="TId">The type of the identifier.</typeparam>
+	public interface IAddEntityAsync<in TEntity, TId>
         where TEntity : IAggregateRoot<TId>
     {
         /// <summary>

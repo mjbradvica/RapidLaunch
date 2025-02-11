@@ -2,8 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using ClearDomain.StringPrimary;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
@@ -11,8 +9,8 @@ using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.StringPrimary
 {
-    /// <inheritdoc />
-    public class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, string>
+	/// <inheritdoc />
+	public class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, string>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

@@ -2,23 +2,18 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.EF.Common
 {
-    /// <summary>
-    /// Base publishing repository for EF.
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchPublisherRepository<TEntity, TId> : RapidLaunchRepository<TEntity, TId>
+	/// <summary>
+	/// Base publishing repository for EF.
+	/// </summary>
+	/// <typeparam name="TEntity">The type of the entity.</typeparam>
+	/// <typeparam name="TId">The type of the identifier.</typeparam>
+	public abstract class RapidLaunchPublisherRepository<TEntity, TId> : RapidLaunchRepository<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly IPublishingBus _publishingBus;

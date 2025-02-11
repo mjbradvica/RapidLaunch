@@ -2,16 +2,14 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using ClearDomain.LongPrimary;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.LongPrimary
 {
-    /// <inheritdoc />
-    public class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, long>
+	/// <inheritdoc />
+	public class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, long>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

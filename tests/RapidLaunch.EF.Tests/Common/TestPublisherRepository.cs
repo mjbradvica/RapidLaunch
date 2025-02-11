@@ -2,8 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
@@ -11,10 +9,10 @@ using RapidLaunch.EF.Tests.GuidPrimary;
 
 namespace RapidLaunch.EF.Tests.Common
 {
-    /// <summary>
-    /// Test publisher repository.
-    /// </summary>
-    public class TestPublisherRepository : RapidLaunchPublisherRepository<TestGuidEntity, Guid>
+	/// <summary>
+	/// Test publisher repository.
+	/// </summary>
+	public class TestPublisherRepository : RapidLaunchPublisherRepository<TestGuidEntity, Guid>
     {
         /// <inheritdoc />
         public TestPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>>? includeFunc = default)

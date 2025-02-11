@@ -2,16 +2,14 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Linq;
 using ClearDomain.GuidPrimary;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.GuidPrimary
 {
-    /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, Guid>
+	/// <inheritdoc />
+	public abstract class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, Guid>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

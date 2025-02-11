@@ -2,19 +2,16 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
-    /// <summary>
-    /// SQL Builder for basic queries and commands.
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class SqlBuilder<TEntity, TId>
+	/// <summary>
+	/// SQL Builder for basic queries and commands.
+	/// </summary>
+	/// <typeparam name="TEntity">The type of the entity.</typeparam>
+	/// <typeparam name="TId">The type of the identifier.</typeparam>
+	public abstract class SqlBuilder<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly string _tableName;

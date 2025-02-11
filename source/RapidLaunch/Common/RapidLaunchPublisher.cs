@@ -2,9 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using ClearDomain.Common;
 using Microsoft.Extensions.DependencyInjection;
 

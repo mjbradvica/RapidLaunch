@@ -2,14 +2,13 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System;
 using ClearDomain.GuidPrimary;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
-    /// <inheritdoc />
-    public interface IDeleteEntityAsync<in TEntity> : IDeleteEntityAsync<TEntity, Guid>
+	/// <inheritdoc />
+	public interface IDeleteEntityAsync<in TEntity> : IDeleteEntityAsync<TEntity, Guid>
         where TEntity : IAggregateRoot
     {
     }

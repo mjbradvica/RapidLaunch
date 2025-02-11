@@ -2,17 +2,15 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Threading;
-using System.Threading.Tasks;
 using ClearDomain.Common;
 
 namespace RapidLaunch.Common
 {
-    /// <summary>
-    /// Interface to define a handler class for a domain event.
-    /// </summary>
-    /// <typeparam name="TDomainEvent">The type of the <see cref="IDomainEvent"/>.</typeparam>
-    public interface IDomainEventHandler<in TDomainEvent>
+	/// <summary>
+	/// Interface to define a handler class for a domain event.
+	/// </summary>
+	/// <typeparam name="TDomainEvent">The type of the <see cref="IDomainEvent"/>.</typeparam>
+	public interface IDomainEventHandler<in TDomainEvent>
         where TDomainEvent : IDomainEvent
     {
         /// <summary>
