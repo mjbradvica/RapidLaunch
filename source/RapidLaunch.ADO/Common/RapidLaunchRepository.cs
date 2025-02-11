@@ -1,5 +1,5 @@
-﻿// <copyright file="RapidLaunchRepository.cs" company="Wayne John Whistler LLC">
-// Copyright (c) Wayne John Whistler LLC. All rights reserved.
+﻿// <copyright file="RapidLaunchRepository.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using System.Data;
@@ -18,19 +18,16 @@ namespace RapidLaunch.ADO.Common
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly SqlConnection _sqlConnection;
-        private readonly SqlBuilder<TEntity, TId> _sqlBuilder;
         private readonly Func<SqlDataReader, TEntity> _conversionFunc;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
-        /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> class.</param>
         /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert a <see cref="SqlDataReader"/> to an entity.</param>
-        protected RapidLaunchRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, TId> sqlBuilder, Func<SqlDataReader, TEntity> conversionFunc)
+        protected RapidLaunchRepository(SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
         {
             _sqlConnection = sqlConnection;
-            _sqlBuilder = sqlBuilder;
             _conversionFunc = conversionFunc;
         }
 
@@ -131,7 +128,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="command">The sql command to execute.</param>
         /// <param name="overloadDefaultConversion">An overload to use a custom function.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
-        protected virtual List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default)
+        protected virtual List<TEntity> ExecuteQuery(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = null)
         {
             var sqlQuery = new SqlCommand(command, _sqlConnection);
 
@@ -160,7 +157,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="overloadDefaultConversion">An overload to use a custom conversion function.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="List{TResult}"/> representing the result of the asynchronous operation.</returns>
-        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = default, CancellationToken cancellationToken = default)
+        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(string command, Func<SqlDataReader, TEntity>? overloadDefaultConversion = null, CancellationToken cancellationToken = default)
         {
             var sqlQuery = new SqlCommand(command, _sqlConnection);
 
@@ -192,8 +189,8 @@ namespace RapidLaunch.ADO.Common
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         protected virtual async Task<List<TEntity>> ExecuteStoredProcedureQueryAsync(
             string procedureName,
-            Dictionary<string, object>? parameters = default,
-            Func<SqlDataReader, TEntity>? overloadDefaultConversion = default,
+            Dictionary<string, object>? parameters = null,
+            Func<SqlDataReader, TEntity>? overloadDefaultConversion = null,
             CancellationToken cancellationToken = default)
         {
             var command = new SqlCommand(procedureName, _sqlConnection)

@@ -1,5 +1,5 @@
-﻿// <copyright file="RapidLaunchStatus.cs" company="Wayne John Whistler LLC">
-// Copyright (c) Wayne John Whistler LLC. All rights reserved.
+﻿// <copyright file="RapidLaunchStatus.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 namespace RapidLaunch.Common
@@ -38,7 +38,7 @@ namespace RapidLaunch.Common
         /// <returns>A new instance of a <see cref="RapidLaunchStatus"/>.</returns>
         public static RapidLaunchStatus Success(int rowCount)
         {
-            return new RapidLaunchStatus(false, new EmptyException(), rowCount);
+            return new RapidLaunchStatus(false, new Exception(), rowCount);
         }
 
         /// <summary>

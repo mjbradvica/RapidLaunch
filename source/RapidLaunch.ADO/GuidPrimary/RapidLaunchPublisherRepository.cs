@@ -1,5 +1,5 @@
-﻿// <copyright file="RapidLaunchPublisherRepository.cs" company="Wayne John Whistler LLC">
-// Copyright (c) Wayne John Whistler LLC. All rights reserved.
+﻿// <copyright file="RapidLaunchPublisherRepository.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using ClearDomain.GuidPrimary;
@@ -14,8 +14,8 @@ namespace RapidLaunch.ADO.GuidPrimary
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, Guid> sqlBuilder, IPublishingBus publishingBus, Func<SqlDataReader, TEntity> conversionFunc)
-            : base(sqlConnection, sqlBuilder, publishingBus, conversionFunc)
+        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus publishingBus, Func<SqlDataReader, TEntity> conversionFunc)
+            : base(sqlConnection, publishingBus, conversionFunc)
         {
         }
     }

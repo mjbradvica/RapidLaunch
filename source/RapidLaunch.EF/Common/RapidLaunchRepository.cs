@@ -1,5 +1,5 @@
-﻿// <copyright file="RapidLaunchRepository.cs" company="Wayne John Whistler LLC">
-// Copyright (c) Wayne John Whistler LLC. All rights reserved.
+﻿// <copyright file="RapidLaunchRepository.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using ClearDomain.Common;
@@ -66,11 +66,11 @@ namespace RapidLaunch.EF.Common
         protected DbContext Context { get; }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> entities)
+        public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 Context.Set<TEntity>().AddRange(aggregateRoots);
 
@@ -98,39 +98,39 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus AddEntity(TEntity entity)
+        public virtual RapidLaunchStatus AddEntity(TEntity root)
         {
             return ExecuteCommand(() =>
             {
-                Context.Set<TEntity>().Add(entity);
+                Context.Set<TEntity>().Add(root);
 
                 var rowCount = Context.SaveChanges();
 
-                return (rowCount, new List<TEntity> { entity });
+                return (rowCount, new List<TEntity> { root });
             });
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
                 {
-                    await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
+                    await Context.Set<TEntity>().AddAsync(root, cancellationToken);
 
                     var rowCount = await Context.SaveChangesAsync(cancellationToken);
 
-                    return (rowCount, new List<TEntity> { entity });
+                    return (rowCount, new List<TEntity> { root });
                 },
                 cancellationToken);
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus DeleteEntities(IEnumerable<TEntity> entities)
+        public virtual RapidLaunchStatus DeleteEntities(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 Context.Set<TEntity>().RemoveRange(aggregateRoots);
 
@@ -141,12 +141,12 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> DeleteEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteEntitiesAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 Context.Set<TEntity>().RemoveRange(aggregateRoots);
 
@@ -158,29 +158,29 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus DeleteEntity(TEntity entity)
+        public virtual RapidLaunchStatus DeleteEntity(TEntity root)
         {
             return ExecuteCommand(() =>
             {
-                Context.Set<TEntity>().Remove(entity);
+                Context.Set<TEntity>().Remove(root);
 
                 var rowCount = Context.SaveChanges();
 
-                return (rowCount, new List<TEntity> { entity });
+                return (rowCount, new List<TEntity> { root });
             });
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteEntityAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
                 {
-                    Context.Set<TEntity>().Remove(entity);
+                    Context.Set<TEntity>().Remove(root);
 
                     var rowCount = await Context.SaveChangesAsync(cancellationToken);
 
-                    return (rowCount, new List<TEntity> { entity });
+                    return (rowCount, new List<TEntity> { root });
                 },
                 cancellationToken);
         }

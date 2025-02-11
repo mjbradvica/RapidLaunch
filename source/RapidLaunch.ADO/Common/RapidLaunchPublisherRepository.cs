@@ -1,5 +1,5 @@
-﻿// <copyright file="RapidLaunchPublisherRepository.cs" company="Wayne John Whistler LLC">
-// Copyright (c) Wayne John Whistler LLC. All rights reserved.
+﻿// <copyright file="RapidLaunchPublisherRepository.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using ClearDomain.Common;
@@ -18,11 +18,10 @@ namespace RapidLaunch.ADO.Common
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TEntity, TId}"/> class.
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
-        /// <param name="sqlBuilder">An instance of the <see cref="SqlBuilder{TEntity,TId}"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
         /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert from a <see cref="SqlDataReader"/> to the entity type.</param>
-        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, SqlBuilder<TEntity, TId> sqlBuilder, IPublishingBus publishingBus, Func<SqlDataReader, TEntity> conversionFunc)
-            : base(sqlConnection, sqlBuilder, conversionFunc)
+        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus publishingBus, Func<SqlDataReader, TEntity> conversionFunc)
+            : base(sqlConnection, conversionFunc)
         {
             _publishingBus = publishingBus;
         }

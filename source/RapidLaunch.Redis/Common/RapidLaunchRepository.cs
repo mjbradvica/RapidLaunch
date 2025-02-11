@@ -1,5 +1,5 @@
-﻿// <copyright file="RapidLaunchRepository.cs" company="Wayne John Whistler LLC">
-// Copyright (c) Wayne John Whistler LLC. All rights reserved.
+﻿// <copyright file="RapidLaunchRepository.cs" company="Simplex Software LLC">
+// Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
 using ClearDomain.Common;
@@ -36,11 +36,11 @@ namespace RapidLaunch.Redis.Common
         public IDatabase Database { get; }
 
         /// <inheritdoc />
-        public RapidLaunchStatus AddEntities(IEnumerable<TEntity> entities)
+        public RapidLaunchStatus AddEntities(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
-                var asList = entities.ToList();
+                var asList = roots.ToList();
 
                 var values = asList
                     .Select(entity => new KeyPathValue(entity.Id!.ToString() ?? string.Empty, "$", entity))
