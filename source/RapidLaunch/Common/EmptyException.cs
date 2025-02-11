@@ -4,10 +4,10 @@
 
 namespace RapidLaunch.Common
 {
-	/// <summary>
-	/// Empty exception only to be used as a temporary value.
-	/// </summary>
-	public class EmptyException : Exception
+    /// <summary>
+    /// Empty exception only to be used as a temporary value.
+    /// </summary>
+    public class EmptyException : Exception
     {
     }
 }

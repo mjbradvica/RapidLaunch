@@ -4,10 +4,10 @@
 
 namespace RapidLaunch.Common
 {
-	/// <summary>
-	/// Status class to indicate the result of a persistence operation.
-	/// </summary>
-	public class RapidLaunchStatus
+    /// <summary>
+    /// Status class to indicate the result of a persistence operation.
+    /// </summary>
+    public class RapidLaunchStatus
     {
         private RapidLaunchStatus(bool isFailure, Exception exception, int rowCount)
         {

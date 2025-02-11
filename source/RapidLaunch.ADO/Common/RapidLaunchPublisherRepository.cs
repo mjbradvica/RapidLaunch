@@ -2,8 +2,8 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Data.SqlClient;
 using ClearDomain.Common;
+using Microsoft.Data.SqlClient;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.ADO.Common

@@ -2,9 +2,9 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Data.SqlClient;
 using ClearDomain.Common;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.Dapper.Common
@@ -43,7 +43,7 @@ namespace RapidLaunch.Dapper.Common
         /// <summary>
         /// Gets the <see cref="SqlConnection"/> instance.
         /// </summary>
-        protected SqlConnection Connection { get;  }
+        protected SqlConnection Connection { get; }
 
         /// <summary>
         /// Gets the <see cref="SqlBuilder"/> instance.

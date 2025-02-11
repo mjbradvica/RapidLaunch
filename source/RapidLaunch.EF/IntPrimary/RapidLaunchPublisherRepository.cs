@@ -9,8 +9,8 @@ using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.IntPrimary
 {
-	/// <inheritdoc />
-	public class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, int>
+    /// <inheritdoc />
+    public class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, int>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

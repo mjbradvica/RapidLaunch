@@ -9,10 +9,10 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
 {
-	/// <summary>
-	/// Tests for the <see cref="RapidLaunchPublisher"/> class.
-	/// </summary>
-	[TestClass]
+    /// <summary>
+    /// Tests for the <see cref="RapidLaunchPublisher"/> class.
+    /// </summary>
+    [TestClass]
     public class RapidLaunchPublisherTests
     {
         /// <summary>

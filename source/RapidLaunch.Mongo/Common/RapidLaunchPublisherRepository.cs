@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.Mongo.Common
 {
-	/// <inheritdoc />
-	public class RapidLaunchPublisherRepository<TEntity, TId> : RapidLaunchRepository<TEntity, TId>
+    /// <inheritdoc />
+    public class RapidLaunchPublisherRepository<TEntity, TId> : RapidLaunchRepository<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly IPublishingBus _publishingBus;
@@ -22,7 +22,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="databaseName">The name of the database to use.</param>
         /// <param name="collectionName">Optional collection name.</param>
         /// <param name="useTransactions">A flag to toggle transactions on and off.</param>
-        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName,  string? collectionName = null, bool useTransactions = true)
+        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)
             : base(mongoClient, databaseName, collectionName, useTransactions)
         {
             _publishingBus = publishingBus;

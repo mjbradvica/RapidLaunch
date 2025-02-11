@@ -8,8 +8,8 @@ using RapidLaunch.EF.IntPrimary;
 
 namespace RapidLaunch.EF.Tests.IntPrimary
 {
-	/// <inheritdoc />
-	public class RapidLaunchIntPublisherTestRepository : RapidLaunchPublisherRepository<TestIntEntity>
+    /// <inheritdoc />
+    public class RapidLaunchIntPublisherTestRepository : RapidLaunchPublisherRepository<TestIntEntity>
     {
         /// <inheritdoc />
         public RapidLaunchIntPublisherTestRepository(DbContext context, IPublishingBus publishingBus)

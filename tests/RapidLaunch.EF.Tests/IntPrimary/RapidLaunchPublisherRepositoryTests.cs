@@ -11,10 +11,10 @@ using RapidLaunch.EF.Tests.Helpers;
 
 namespace RapidLaunch.EF.Tests.IntPrimary
 {
-	/// <summary>
-	/// Tests for the <see cref="RapidLaunchPublisherRepository{TEntity}"/> class.
-	/// </summary>
-	[TestClass]
+    /// <summary>
+    /// Tests for the <see cref="RapidLaunchPublisherRepository{TEntity}"/> class.
+    /// </summary>
+    [TestClass]
     public class RapidLaunchPublisherRepositoryTests : BaseIntegrationTest
     {
         private readonly RapidLaunchPublisher _publisher;

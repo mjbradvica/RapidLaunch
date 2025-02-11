@@ -2,7 +2,6 @@
 // Copyright (c) Wayne John Whistler LLC. All rights reserved.
 // </copyright>
 
-using System.Data.SqlClient;
 using ClearDomain.StringPrimary;
 using RapidLaunch.ADO.Common;
 using RapidLaunch.Common;

@@ -9,10 +9,10 @@ using RapidLaunch.EF.Tests.Helpers;
 
 namespace RapidLaunch.EF.Tests.StringPrimary
 {
-	/// <summary>
-	/// Tests for the <see cref="RapidLaunchRepository{TEntity}"/> class.
-	/// </summary>
-	[TestClass]
+    /// <summary>
+    /// Tests for the <see cref="RapidLaunchRepository{TEntity}"/> class.
+    /// </summary>
+    [TestClass]
     public class RapidLaunchRepositoryTests : BaseIntegrationTest
     {
         /// <summary>

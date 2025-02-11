@@ -7,8 +7,8 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
-	/// <inheritdoc />
-	public interface IDeleteEntity<in TEntity> : IDeleteEntity<TEntity, Guid>
+    /// <inheritdoc />
+    public interface IDeleteEntity<in TEntity> : IDeleteEntity<TEntity, Guid>
         where TEntity : IAggregateRoot
     {
     }

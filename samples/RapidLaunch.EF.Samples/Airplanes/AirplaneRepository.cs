@@ -7,10 +7,10 @@ using RapidLaunch.EF.GuidPrimary;
 
 namespace RapidLaunch.EF.Samples.Airplanes
 {
-	/// <summary>
-	/// Persistence class for the <see cref="Airplane"/> class.
-	/// </summary>
-	public class AirplaneRepository : RapidLaunchRepository<Airplane>, IAirplaneRepository
+    /// <summary>
+    /// Persistence class for the <see cref="Airplane"/> class.
+    /// </summary>
+    public class AirplaneRepository : RapidLaunchRepository<Airplane>, IAirplaneRepository
     {
         private static readonly Func<IQueryable<Airplane>, IQueryable<Airplane>> IncludeFunc =
             airplanes => airplanes.Include(airplane => airplane.AircraftType);

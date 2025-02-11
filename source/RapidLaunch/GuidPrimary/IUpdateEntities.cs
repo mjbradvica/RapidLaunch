@@ -7,8 +7,8 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
-	/// <inheritdoc />
-	public interface IUpdateEntities<in TEntity> : IUpdateEntities<TEntity, Guid>
+    /// <inheritdoc />
+    public interface IUpdateEntities<in TEntity> : IUpdateEntities<TEntity, Guid>
         where TEntity : IAggregateRoot
     {
     }

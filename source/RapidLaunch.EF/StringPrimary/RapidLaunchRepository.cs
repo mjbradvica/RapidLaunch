@@ -8,8 +8,8 @@ using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.StringPrimary
 {
-	/// <inheritdoc />
-	public class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, string>
+    /// <inheritdoc />
+    public class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, string>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

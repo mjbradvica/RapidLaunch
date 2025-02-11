@@ -7,8 +7,8 @@ using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
-	/// <inheritdoc />
-	public interface IGetAllEntitiesAsync<TEntity> : IGetAllEntitiesAsync<TEntity, Guid>
+    /// <inheritdoc />
+    public interface IGetAllEntitiesAsync<TEntity> : IGetAllEntitiesAsync<TEntity, Guid>
         where TEntity : IAggregateRoot
     {
     }

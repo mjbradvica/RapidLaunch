@@ -3,8 +3,8 @@
 // </copyright>
 
 using System.Data;
-using System.Data.SqlClient;
 using ClearDomain.Common;
+using Microsoft.Data.SqlClient;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.ADO.Common

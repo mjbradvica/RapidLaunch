@@ -9,8 +9,8 @@ using RapidLaunch.Mongo.Common;
 
 namespace RapidLaunch.Mongo.GuidPrimary
 {
-	/// <inheritdoc />
-	public abstract class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, Guid>
+    /// <inheritdoc />
+    public abstract class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, Guid>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

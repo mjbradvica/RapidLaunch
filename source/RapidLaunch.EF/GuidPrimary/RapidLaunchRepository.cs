@@ -8,8 +8,8 @@ using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.GuidPrimary
 {
-	/// <inheritdoc />
-	public abstract class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, Guid>
+    /// <inheritdoc />
+    public abstract class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, Guid>
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />

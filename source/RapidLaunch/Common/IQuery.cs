@@ -6,11 +6,11 @@ using System.Linq.Expressions;
 
 namespace RapidLaunch.Common
 {
-	/// <summary>
-	/// An interface that describe a class that represents a query object for the entity.
-	/// </summary>
-	/// <typeparam name="TEntity">The type of the entity.</typeparam>
-	public interface IQuery<TEntity>
+    /// <summary>
+    /// An interface that describe a class that represents a query object for the entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    public interface IQuery<TEntity>
         where TEntity : class
     {
         /// <summary>

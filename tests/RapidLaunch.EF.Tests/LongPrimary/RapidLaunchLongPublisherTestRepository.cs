@@ -8,8 +8,8 @@ using RapidLaunch.EF.LongPrimary;
 
 namespace RapidLaunch.EF.Tests.LongPrimary
 {
-	/// <inheritdoc />
-	public class RapidLaunchLongPublisherTestRepository : RapidLaunchPublisherRepository<TestLongEntity>
+    /// <inheritdoc />
+    public class RapidLaunchLongPublisherTestRepository : RapidLaunchPublisherRepository<TestLongEntity>
     {
         /// <inheritdoc />
         public RapidLaunchLongPublisherTestRepository(DbContext context, IPublishingBus publishingBus)
