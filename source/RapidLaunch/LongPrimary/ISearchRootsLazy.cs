@@ -1,4 +1,4 @@
-﻿// <copyright file="ISearchEntitiesLazy.cs" company="Simplex Software LLC">
+// <copyright file="ISearchRootsLazy.cs" company="Simplex Software LLC">
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 

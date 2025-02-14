@@ -1,4 +1,4 @@
-﻿// <copyright file="IGetAllEntitiesLazy.cs" company="Simplex Software LLC">
+﻿// <copyright file="IGetAllRootsLazy.cs" company="Simplex Software LLC">
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 

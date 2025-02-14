@@ -1,4 +1,4 @@
-﻿// <copyright file="IGetAllEntitiesAsync.cs" company="Simplex Software LLC">
+// <copyright file="IGetAllRootsAsync.cs" company="Simplex Software LLC">
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
