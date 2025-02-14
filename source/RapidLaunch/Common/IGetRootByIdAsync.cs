@@ -1,4 +1,4 @@
-﻿// <copyright file="IGetByIdAsync.cs" company="Simplex Software LLC">
+﻿// <copyright file="IGetRootByIdAsync.cs" company="Simplex Software LLC">
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
@@ -11,7 +11,7 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IGetByIdAsync<TRoot, in TId>
+    public interface IGetRootByIdAsync<TRoot, in TId>
         where TRoot : IAggregateRoot<TId>
     {
         /// <summary>
@@ -20,6 +20,6 @@ namespace RapidLaunch.Common
         /// <param name="id">The identifier for the entity.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>The desired entity.</returns>
-        Task<TRoot?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
+        Task<TRoot?> GetRootByIdAsync(TId id, CancellationToken cancellationToken = default);
     }
 }

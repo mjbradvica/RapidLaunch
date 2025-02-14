@@ -276,7 +276,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var toDelete = await repo.GetByIdAsync(entity.Id);
+                var toDelete = await repo.GetRootByIdAsync(entity.Id);
 
                 if (toDelete != null)
                 {
@@ -423,7 +423,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestGuidEntity> results = repo.GetAllEntitiesLazy();
+                IEnumerable<TestGuidEntity> results = repo.GetAllRootsLazy();
 
                 Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
 
@@ -539,7 +539,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var result = await repo.GetByIdAsync(entity.Id);
+                var result = await repo.GetRootByIdAsync(entity.Id);
 
                 Assert.AreEqual(entity, result);
             }
@@ -1068,7 +1068,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                var entity = await repo.GetByIdAsync(testEntity.Id);
+                var entity = await repo.GetRootByIdAsync(testEntity.Id);
 
                 if (entity != null)
                 {
@@ -1084,7 +1084,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                result = await repo.GetByIdAsync(testEntity.Id);
+                result = await repo.GetRootByIdAsync(testEntity.Id);
             }
 
             Assert.IsNull(result?.Relationship);

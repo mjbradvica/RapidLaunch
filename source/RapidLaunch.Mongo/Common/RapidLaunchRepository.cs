@@ -11,30 +11,30 @@ namespace RapidLaunch.Mongo.Common
     /// <summary>
     /// Common functions for all base RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public class RapidLaunchRepository<TEntity, TId> :
-        IAddRoots<TEntity, TId>,
-        IAddRootsAsync<TEntity, TId>,
-        IAddRoot<TEntity, TId>,
-        IAddRootAsync<TEntity, TId>,
-        IDeleteRoots<TEntity, TId>,
-        IDeleteRootsAsync<TEntity, TId>,
-        IDeleteRoot<TEntity, TId>,
-        IDeleteRootAsync<TEntity, TId>,
-        IGetAllRoots<TEntity, TId>,
-        IGetAllRootsAsync<TEntity, TId>,
-        IGetRootById<TEntity, TId>,
-        IGetByIdAsync<TEntity, TId>,
-        IGetRootsById<TEntity, TId>,
-        IGetRootsByIdAsync<TEntity, TId>,
-        ISearchRoots<TEntity, TId>,
-        ISearchRootsAsync<TEntity, TId>,
-        IUpdateRoots<TEntity, TId>,
-        IUpdateRootsAsync<TEntity, TId>,
-        IUpdateRoot<TEntity, TId>,
-        IUpdateRootAsync<TEntity, TId>
-        where TEntity : class, IAggregateRoot<TId>
+    public class RapidLaunchRepository<TRoot, TId> :
+        IAddRoots<TRoot, TId>,
+        IAddRootsAsync<TRoot, TId>,
+        IAddRoot<TRoot, TId>,
+        IAddRootAsync<TRoot, TId>,
+        IDeleteRoots<TRoot, TId>,
+        IDeleteRootsAsync<TRoot, TId>,
+        IDeleteRoot<TRoot, TId>,
+        IDeleteRootAsync<TRoot, TId>,
+        IGetAllRoots<TRoot, TId>,
+        IGetAllRootsAsync<TRoot, TId>,
+        IGetRootById<TRoot, TId>,
+        IGetRootByIdAsync<TRoot, TId>,
+        IGetRootsById<TRoot, TId>,
+        IGetRootsByIdAsync<TRoot, TId>,
+        ISearchRoots<TRoot, TId>,
+        ISearchRootsAsync<TRoot, TId>,
+        IUpdateRoots<TRoot, TId>,
+        IUpdateRootsAsync<TRoot, TId>,
+        IUpdateRoot<TRoot, TId>,
+        IUpdateRootAsync<TRoot, TId>
+        where TRoot : class, IAggregateRoot<TId>
     {
         private const int SingleInsert = 1;
         private readonly MongoClient _mongoClient;
@@ -49,7 +49,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="databaseName">The name of the database to use.</param>
         /// <param name="collectionName">Optional collection name.</param>
         /// <param name="useTransactions">A flag to toggle transactions on and off.</param>
-        public RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
+        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
         {
             _mongoClient = mongoClient;
             _databaseName = databaseName;
@@ -58,7 +58,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus AddRoots(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus AddRoots(IEnumerable<TRoot> roots)
         {
             return ExecuteCommand(session =>
             {
@@ -76,7 +76,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots to insert into a collection.</param>
         /// <param name="options">An <see cref="InsertManyOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> roots, InsertManyOptions options)
+        public virtual RapidLaunchStatus AddEntities(IEnumerable<TRoot> roots, InsertManyOptions options)
         {
             return ExecuteCommand(session =>
             {
@@ -89,7 +89,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
@@ -110,7 +110,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="InsertManyOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> roots, InsertManyOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TRoot> roots, InsertManyOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
@@ -125,13 +125,13 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus AddRoot(TEntity root)
+        public virtual RapidLaunchStatus AddRoot(TRoot root)
         {
             return ExecuteCommand(session =>
             {
                 GetCollection().InsertOne(session, root);
 
-                return (SingleInsert, new List<TEntity> { root });
+                return (SingleInsert, new List<TRoot> { root });
             });
         }
 
@@ -141,25 +141,25 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="root">The root to add to the collection.</param>
         /// <param name="options">A <see cref="InsertOneOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus AddEntity(TEntity root, InsertOneOptions options)
+        public virtual RapidLaunchStatus AddEntity(TRoot root, InsertOneOptions options)
         {
             return ExecuteCommand(session =>
             {
                 GetCollection().InsertOne(session, root, options);
 
-                return (SingleInsert, new List<TEntity> { root });
+                return (SingleInsert, new List<TRoot> { root });
             });
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> AddRootAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddRootAsync(TRoot root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
                     await GetCollection().InsertOneAsync(session, root, null, cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { root });
+                    return (SingleInsert, new List<TRoot> { root });
                 },
                 cancellationToken);
         }
@@ -171,26 +171,26 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="InsertOneOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity root, InsertOneOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TRoot root, InsertOneOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
                     await GetCollection().InsertOneAsync(session, root, options, cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { root });
+                    return (SingleInsert, new List<TRoot> { root });
                 },
                 cancellationToken);
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus DeleteRoots(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus DeleteRoots(IEnumerable<TRoot> roots)
         {
             return ExecuteCommand(session =>
             {
                 var aggregateRoots = roots.ToList();
 
-                var filter = Builders<TEntity>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
 
                 GetCollection().DeleteMany(session, filter);
 
@@ -204,13 +204,13 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots to delete.</param>
         /// <param name="options">A <see cref="DeleteOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus DeleteEntities(IEnumerable<TEntity> roots, DeleteOptions options)
+        public virtual RapidLaunchStatus DeleteEntities(IEnumerable<TRoot> roots, DeleteOptions options)
         {
             return ExecuteCommand(session =>
             {
                 var aggregateRoots = roots.ToList();
 
-                var filter = Builders<TEntity>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
 
                 GetCollection().DeleteMany(session, filter, options);
 
@@ -219,14 +219,14 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> DeleteRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
             {
                 var aggregateRoots = roots.ToList();
 
-                var filter = Builders<TEntity>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
 
                 await GetCollection().DeleteManyAsync(session, filter, null, cancellationToken);
 
@@ -242,14 +242,14 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="DeleteOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> DeleteEntitiesAsync(IEnumerable<TEntity> roots, DeleteOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteEntitiesAsync(IEnumerable<TRoot> roots, DeleteOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
                     var aggregateRoots = roots.ToList();
 
-                    var filter = Builders<TEntity>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                    var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
 
                     await GetCollection().DeleteManyAsync(session, filter, options, cancellationToken);
 
@@ -259,47 +259,47 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus DeleteRoot(TEntity root)
+        public virtual RapidLaunchStatus DeleteRoot(TRoot root)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
+                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
 
                 GetCollection().DeleteOne(session, filter);
 
-                return (SingleInsert, new List<TEntity> { root });
+                return (SingleInsert, new List<TRoot> { root });
             });
         }
 
         /// <summary>
         /// Deletes a single root from the collection.
         /// </summary>
-        /// <param name="root">A <see cref="TEntity"/> to delete.</param>
+        /// <param name="root">A <typeparamref name="TRoot"/> to delete.</param>
         /// <param name="options">A <see cref="DeleteOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus DeleteEntity(TEntity root, DeleteOptions options)
+        public virtual RapidLaunchStatus DeleteEntity(TRoot root, DeleteOptions options)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(entity => entity.Id, root.Id);
+                var filter = Builders<TRoot>.Filter.Eq(aggregateRoot => aggregateRoot.Id, root.Id);
 
                 GetCollection().DeleteOne(session, filter, options);
 
-                return (SingleInsert, new List<TEntity> { root });
+                return (SingleInsert, new List<TRoot> { root });
             });
         }
 
         /// <inheritdoc />
-        public virtual async Task<RapidLaunchStatus> DeleteRootAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteRootAsync(TRoot root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
+                    var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
 
                     await GetCollection().DeleteOneAsync(session, filter, null, cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { root });
+                    return (SingleInsert, new List<TRoot> { root });
                 },
                 cancellationToken);
         }
@@ -311,26 +311,26 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="DeleteOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> DeleteEntityAsync(TEntity root, DeleteOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteEntityAsync(TRoot root, DeleteOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(entity => entity.Id, root.Id);
+                    var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, root.Id);
 
                     await GetCollection().DeleteOneAsync(session, filter, options, cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { root });
+                    return (SingleInsert, new List<TRoot> { root });
                 },
                 cancellationToken);
         }
 
         /// <inheritdoc/>
-        public List<TEntity> GetAllRoots()
+        public List<TRoot> GetAllRoots()
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TEntity>.Filter.Empty;
+                var filter = Builders<TRoot>.Filter.Empty;
 
                 return GetCollection().Find(session, filter).ToCursor();
             });
@@ -341,23 +341,23 @@ namespace RapidLaunch.Mongo.Common
         /// </summary>
         /// <param name="options">An instance of the <see cref="FindOptions"/> class.</param>
         /// <returns>A <see cref="List{TEntity}"/> of entities.</returns>
-        public List<TEntity> GetAllEntities(FindOptions options)
+        public List<TRoot> GetAllEntities(FindOptions options)
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TEntity>.Filter.Empty;
+                var filter = Builders<TRoot>.Filter.Empty;
 
                 return GetCollection().Find(session, filter, options).ToCursor();
             });
         }
 
         /// <inheritdoc/>
-        public virtual async Task<List<TEntity>> GetAllRootsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> GetAllRootsAsync(CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
             {
-                var filter = Builders<TEntity>.Filter.Empty;
+                var filter = Builders<TRoot>.Filter.Empty;
 
                 return await GetCollection().FindAsync(session, filter, null, cancellationToken);
             },
@@ -370,12 +370,12 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="DeleteOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TEntity>> GetAllEntitiesAsync(FindOptions<TEntity> options, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> GetAllEntitiesAsync(FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Empty;
+                    var filter = Builders<TRoot>.Filter.Empty;
 
                     return await GetCollection().FindAsync(session, filter, options, cancellationToken);
                 },
@@ -383,11 +383,11 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual TEntity? GetById(TId id)
+        public virtual TRoot? GetById(TId id)
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(entity => entity.Id, id);
+                var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
 
                 return GetCollection().Find(session, filter).ToCursor();
             }).FirstOrDefault();
@@ -399,23 +399,23 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="id">The identifier of the entity.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <returns>A nullable entity.</returns>
-        public virtual TEntity? GetById(TId id, FindOptions options)
+        public virtual TRoot? GetById(TId id, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(entity => entity.Id, id);
+                var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
 
                 return GetCollection().Find(session, filter, options).ToCursor();
             }).FirstOrDefault();
         }
 
         /// <inheritdoc/>
-        public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        public virtual async Task<TRoot?> GetRootByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(entity => entity.Id, id);
+                    var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
 
                     return await GetCollection().FindAsync(session, filter, null, cancellationToken);
                 },
@@ -430,12 +430,12 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of nullable entity representing the asynchronous operation.</returns>
-        public virtual async Task<TEntity?> GetByIdAsync(TId id, FindOptions<TEntity> options, CancellationToken cancellationToken = default)
+        public virtual async Task<TRoot?> GetByIdAsync(TId id, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(entity => entity.Id, id);
+                    var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
 
                     return await GetCollection().FindAsync(session, filter, options, cancellationToken);
                 },
@@ -444,13 +444,13 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual List<TEntity> GetRootsById(IEnumerable<TId> identifiers)
+        public virtual List<TRoot> GetRootsById(IEnumerable<TId> identifiers)
         {
             return ExecuteQuery(session =>
             {
                 var asList = identifiers.ToList();
 
-                var filter = Builders<TEntity>.Filter.In(entity => entity.Id, asList);
+                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, asList);
 
                 return GetCollection().Find(session, filter).ToCursor();
             });
@@ -462,25 +462,25 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifier to query against.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <returns>A <see cref="List{T}"/> of entities.</returns>
-        public virtual List<TEntity> GetEntitiesById(IEnumerable<TId> identifiers, FindOptions options)
+        public virtual List<TRoot> GetEntitiesById(IEnumerable<TId> identifiers, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
                 var asList = identifiers.ToList();
 
-                var filter = Builders<TEntity>.Filter.In(entity => entity.Id, asList);
+                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, asList);
 
                 return GetCollection().Find(session, filter, options).ToCursor();
             });
         }
 
         /// <inheritdoc />
-        public virtual async Task<List<TEntity>> GetRootsByIdAsync(IEnumerable<TId> identifiers, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> GetRootsByIdAsync(IEnumerable<TId> identifiers, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.In(entity => entity.Id, identifiers);
+                    var filter = Builders<TRoot>.Filter.In(entity => entity.Id, identifiers);
 
                     return await GetCollection().FindAsync(session, filter, null, cancellationToken);
                 },
@@ -494,12 +494,12 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TEntity>> GetEntitiesByIdAsync(IEnumerable<TId> identifiers, FindOptions<TEntity> options, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> GetEntitiesByIdAsync(IEnumerable<TId> identifiers, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.In(entity => entity.Id, identifiers);
+                    var filter = Builders<TRoot>.Filter.In(entity => entity.Id, identifiers);
 
                     return await GetCollection().FindAsync(session, filter, options, cancellationToken);
                 },
@@ -507,11 +507,11 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual List<TEntity> SearchRoots(IQuery<TEntity> queryObject)
+        public virtual List<TRoot> SearchRoots(IQuery<TRoot> queryObject)
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TEntity>.Filter.Where(queryObject.SearchExpression);
+                var filter = Builders<TRoot>.Filter.Where(queryObject.SearchExpression);
 
                 return GetCollection().Find(session, filter).ToCursor();
             });
@@ -523,23 +523,23 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a search expression.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <returns>A <see cref="List{T}"/> containing the result set.</returns>
-        public virtual List<TEntity> SearchEntities(IQuery<TEntity> queryObject, FindOptions options)
+        public virtual List<TRoot> SearchEntities(IQuery<TRoot> queryObject, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TEntity>.Filter.Where(queryObject.SearchExpression);
+                var filter = Builders<TRoot>.Filter.Where(queryObject.SearchExpression);
 
                 return GetCollection().Find(session, filter, options).ToCursor();
             });
         }
 
         /// <inheritdoc />
-        public virtual async Task<List<TEntity>> SearchRootsAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot> queryObject, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
             {
-                var filter = Builders<TEntity>.Filter.Where(queryObject.SearchExpression);
+                var filter = Builders<TRoot>.Filter.Where(queryObject.SearchExpression);
 
                 return await GetCollection().FindAsync(session, filter, null, cancellationToken);
             },
@@ -553,12 +553,12 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="FindOptions{TEntity}"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, FindOptions<TEntity> options, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot> queryObject, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Where(queryObject.SearchExpression);
+                    var filter = Builders<TRoot>.Filter.Where(queryObject.SearchExpression);
 
                     return await GetCollection().FindAsync(session, filter, options, cancellationToken);
                 },
@@ -566,7 +566,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus UpdateRoots(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus UpdateRoots(IEnumerable<TRoot> roots)
         {
             return ExecuteCommand(session =>
             {
@@ -574,9 +574,9 @@ namespace RapidLaunch.Mongo.Common
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
-                    var filter = new ExpressionFilterDefinition<TEntity>(entity => entity.Id!.Equals(replacement.Id));
+                    var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
 
-                    return new ReplaceOneModel<TEntity>(filter, replacement);
+                    return new ReplaceOneModel<TRoot>(filter, replacement);
                 });
 
                 GetCollection().BulkWrite(session, requests);
@@ -591,7 +591,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots to be updated.</param>
         /// <param name="options">A <see cref="BulkWriteOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> roots, BulkWriteOptions options)
+        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TRoot> roots, BulkWriteOptions options)
         {
             return ExecuteCommand(session =>
             {
@@ -599,9 +599,9 @@ namespace RapidLaunch.Mongo.Common
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
-                    var filter = new ExpressionFilterDefinition<TEntity>(entity => entity.Id!.Equals(replacement.Id));
+                    var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
 
-                    return new ReplaceOneModel<TEntity>(filter, replacement);
+                    return new ReplaceOneModel<TRoot>(filter, replacement);
                 });
 
                 GetCollection().BulkWrite(session, requests, options);
@@ -611,7 +611,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> UpdateRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
@@ -620,9 +620,9 @@ namespace RapidLaunch.Mongo.Common
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
-                    var filter = new ExpressionFilterDefinition<TEntity>(entity => entity.Id!.Equals(replacement.Id));
+                    var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
 
-                    return new ReplaceOneModel<TEntity>(filter, replacement);
+                    return new ReplaceOneModel<TRoot>(filter, replacement);
                 });
 
                 await GetCollection().BulkWriteAsync(session, requests, null, cancellationToken);
@@ -639,7 +639,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="options">A <see cref="BulkWriteOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> roots, BulkWriteOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TRoot> roots, BulkWriteOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
@@ -648,9 +648,9 @@ namespace RapidLaunch.Mongo.Common
 
                     var requests = aggregateRoots.Select(replacement =>
                     {
-                        var filter = new ExpressionFilterDefinition<TEntity>(entity => entity.Id!.Equals(replacement.Id));
+                        var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
 
-                        return new ReplaceOneModel<TEntity>(filter, replacement);
+                        return new ReplaceOneModel<TRoot>(filter, replacement);
                     });
 
                     await GetCollection().BulkWriteAsync(session, requests, options, cancellationToken);
@@ -661,68 +661,68 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus UpdateRoot(TEntity root)
+        public virtual RapidLaunchStatus UpdateRoot(TRoot root)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
+                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
 
                 GetCollection().ReplaceOne(session, filter, root);
 
-                return (SingleInsert, new List<TEntity> { root });
+                return (SingleInsert, new List<TRoot> { root });
             });
         }
 
         /// <summary>
-        /// Updates an root in a collection.
+        /// Updates a root in a collection.
         /// </summary>
         /// <param name="root"></param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
-        public virtual RapidLaunchStatus UpdateEntity(TEntity root, ReplaceOptions options)
+        public virtual RapidLaunchStatus UpdateEntity(TRoot root, ReplaceOptions options)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
+                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
 
                 GetCollection().ReplaceOne(session, filter, root, options);
 
-                return (SingleInsert, new List<TEntity> { root });
+                return (SingleInsert, new List<TRoot> { root });
             });
         }
 
         /// <inheritdoc />
-        public virtual async Task<RapidLaunchStatus> UpdateRootAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateRootAsync(TRoot root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
+                    var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
 
                     await GetCollection().ReplaceOneAsync(session, filter, root, default(ReplaceOptions), cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { root });
+                    return (SingleInsert, new List<TRoot> { root });
                 },
                 cancellationToken);
         }
 
         /// <summary>
-        /// Updates an root in a collection.
+        /// Updates a root in a collection.
         /// </summary>
-        /// <param name="root"></param>
+        /// <param name="root">The <typeparamref name="TRoot"/> to update.</param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity root, ReplaceOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TRoot root, ReplaceOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TEntity>.Filter.Eq(root => root.Id, root.Id);
+                    var filter = Builders<TRoot>.Filter.Eq(aggregateRoot => aggregateRoot.Id, root.Id);
 
                     await GetCollection().ReplaceOneAsync(session, filter, root, options, cancellationToken);
 
-                    return (SingleInsert, new List<TEntity> { root });
+                    return (SingleInsert, new List<TRoot> { root });
                 },
                 cancellationToken);
         }
@@ -734,8 +734,8 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         protected virtual RapidLaunchStatus ExecuteCommand(
-            Func<IClientSessionHandle, (int RowCount, IEnumerable<TEntity> Entities)> executionFunc,
-            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+            Func<IClientSessionHandle, (int RowCount, IEnumerable<TRoot> Entities)> executionFunc,
+            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             int rowsAffected;
 
@@ -780,7 +780,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
         {
             int rowsAffected;
 
@@ -826,9 +826,9 @@ namespace RapidLaunch.Mongo.Common
         /// </summary>
         /// <param name="query">A <see cref="Func{TResult}"/> that executes a Mongo operation.</param>
         /// <returns>A <see cref="List{T}"/> of entities.</returns>
-        protected virtual List<TEntity> ExecuteQuery(Func<IClientSessionHandle, IAsyncCursor<TEntity>> query)
+        protected virtual List<TRoot> ExecuteQuery(Func<IClientSessionHandle, IAsyncCursor<TRoot>> query)
         {
-            var results = new List<TEntity>();
+            var results = new List<TRoot>();
 
             using (var session = _mongoClient.StartSession())
             {
@@ -849,9 +849,9 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="query">A <see cref="Func{TResult}"/> that executes a Mongo operation.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(Func<IClientSessionHandle, Task<IAsyncCursor<TEntity>>> query, CancellationToken cancellationToken)
+        protected virtual async Task<List<TRoot>> ExecuteQueryAsync(Func<IClientSessionHandle, Task<IAsyncCursor<TRoot>>> query, CancellationToken cancellationToken)
         {
-            var results = new List<TEntity>();
+            var results = new List<TRoot>();
 
             using (var session = await _mongoClient.StartSessionAsync(cancellationToken: cancellationToken))
             {
@@ -866,9 +866,9 @@ namespace RapidLaunch.Mongo.Common
             return results;
         }
 
-        private IMongoCollection<TEntity> GetCollection()
+        private IMongoCollection<TRoot> GetCollection()
         {
-            return _mongoClient.GetDatabase(_databaseName).GetCollection<TEntity>(_collectionName ?? typeof(TEntity).Name);
+            return _mongoClient.GetDatabase(_databaseName).GetCollection<TRoot>(_collectionName ?? typeof(TRoot).Name);
         }
     }
 }

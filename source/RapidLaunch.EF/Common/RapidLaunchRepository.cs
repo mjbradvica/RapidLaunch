@@ -24,9 +24,9 @@ namespace RapidLaunch.EF.Common
         IDeleteRootAsync<TEntity, TId>,
         IGetAllRoots<TEntity, TId>,
         IGetAllRootsAsync<TEntity, TId>,
-        IGetAllEntitiesLazy<TEntity, TId>,
+        IGetAllRootsLazy<TEntity, TId>,
         IGetRootById<TEntity, TId>,
-        IGetByIdAsync<TEntity, TId>,
+        IGetRootByIdAsync<TEntity, TId>,
         IGetRootsById<TEntity, TId>,
         IGetRootsByIdAsync<TEntity, TId>,
         ISearchRoots<TEntity, TId>,
@@ -219,7 +219,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual IQueryable<TEntity> GetAllEntitiesLazy()
+        public virtual IQueryable<TEntity> GetAllRootsLazy()
         {
             return ExecuteQuery(queryable => queryable);
         }
@@ -252,7 +252,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        public virtual async Task<TEntity?> GetRootByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return await ExecuteQuery(queryable => queryable)
                 .FirstOrDefaultAsync(entity => entity.Id!.Equals(id), cancellationToken);

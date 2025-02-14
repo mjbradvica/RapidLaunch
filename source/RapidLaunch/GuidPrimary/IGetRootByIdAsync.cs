@@ -1,4 +1,4 @@
-﻿// <copyright file="IGetByIdAsync.cs" company="Simplex Software LLC">
+﻿// <copyright file="IGetRootByIdAsync.cs" company="Simplex Software LLC">
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
@@ -8,7 +8,7 @@ using RapidLaunch.Common;
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface IGetByIdAsync<TEntity> : IGetByIdAsync<TEntity, Guid>
+    public interface IGetRootByIdAsync<TEntity> : IGetRootByIdAsync<TEntity, Guid>
         where TEntity : IAggregateRoot
     {
     }

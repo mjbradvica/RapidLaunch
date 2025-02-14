@@ -25,6 +25,15 @@ namespace RapidLaunch.Dapper.Common
             Connection = connection;
         }
 
+        /// <summary>
+        /// Gets the <see cref="SqlConnection"/> instance.
+        /// </summary>
+        protected SqlConnection Connection { get; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IEnumerable<TRoot>> DoSomething()
         {
             return await ExecuteQueryAsync(
@@ -34,10 +43,11 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Gets the <see cref="SqlConnection"/> instance.
+        ///
         /// </summary>
-        protected SqlConnection Connection { get; }
-
+        /// <param name="sql"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         protected async Task<TRoot> QuerySingle(string sql, CancellationToken cancellationToken = default)
         {
             await Connection.OpenAsync(cancellationToken);
@@ -49,14 +59,14 @@ namespace RapidLaunch.Dapper.Common
             return root;
         }
 
-		/// <summary>
-		/// Executes a query against the persistence.
-		/// </summary>
-		/// <param name="queryFunc"></param>
-		/// <param name="sql">The <see cref="string"/> sql to be executed.</param>
-		/// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-		/// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
-		protected virtual async Task<List<TRoot>> ExecuteQueryAsync(Func<SqlConnection, string, Task<IEnumerable<TRoot>>> queryFunc, string sql, CancellationToken cancellationToken)
+        /// <summary>
+        /// Executes a query against the persistence.
+        /// </summary>
+        /// <param name="queryFunc"></param>
+        /// <param name="sql">The <see cref="string"/> sql to be executed.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
+        protected virtual async Task<List<TRoot>> ExecuteQueryAsync(Func<SqlConnection, string, Task<IEnumerable<TRoot>>> queryFunc, string sql, CancellationToken cancellationToken)
         {
             await Connection.OpenAsync(cancellationToken);
 
