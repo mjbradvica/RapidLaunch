@@ -22,20 +22,20 @@ namespace RapidLaunch.EF.Common
         IDeleteRootsAsync<TEntity, TId>,
         IDeleteRoot<TEntity, TId>,
         IDeleteRootAsync<TEntity, TId>,
-        IGetAllEntities<TEntity, TId>,
-        IGetAllEntitiesAsync<TEntity, TId>,
+        IGetAllRoots<TEntity, TId>,
+        IGetAllRootsAsync<TEntity, TId>,
         IGetAllEntitiesLazy<TEntity, TId>,
-        IGetById<TEntity, TId>,
+        IGetRootById<TEntity, TId>,
         IGetByIdAsync<TEntity, TId>,
-        IGetEntitiesById<TEntity, TId>,
-        IGetEntitiesByIdAsync<TEntity, TId>,
-        ISearchEntities<TEntity, TId>,
-        ISearchEntitiesAsync<TEntity, TId>,
-        ISearchEntitiesLazy<TEntity, TId>,
-        IUpdateEntities<TEntity, TId>,
-        IUpdateEntitiesAsync<TEntity, TId>,
-        IUpdateEntity<TEntity, TId>,
-        IUpdateEntityAsync<TEntity, TId>
+        IGetRootsById<TEntity, TId>,
+        IGetRootsByIdAsync<TEntity, TId>,
+        ISearchRoots<TEntity, TId>,
+        ISearchRootsAsync<TEntity, TId>,
+        ISearchRootsLazy<TEntity, TId>,
+        IUpdateRoots<TEntity, TId>,
+        IUpdateRootsAsync<TEntity, TId>,
+        IUpdateRoot<TEntity, TId>,
+        IUpdateRootAsync<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         private readonly Func<IQueryable<TEntity>, IQueryable<TEntity>>? _includeFunc;
@@ -186,7 +186,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual List<TEntity> GetAllEntities()
+        public virtual List<TEntity> GetAllRoots()
         {
             return ExecuteQuery(queryable => queryable).ToList();
         }
@@ -202,7 +202,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<List<TEntity>> GetAllEntitiesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<TEntity>> GetAllRootsAsync(CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.ToListAsync(cancellationToken));
         }
@@ -272,7 +272,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc />
-        public virtual List<TEntity> GetEntitiesById(IEnumerable<TId> identifiers)
+        public virtual List<TEntity> GetRootsById(IEnumerable<TId> identifiers)
         {
             return ExecuteQuery(queryable => queryable.Where(entity => identifiers.Contains(entity.Id))).ToList();
         }
@@ -289,7 +289,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<List<TEntity>> GetEntitiesByIdAsync(IEnumerable<TId> identifiers, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TEntity>> GetRootsByIdAsync(IEnumerable<TId> identifiers, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)).ToListAsync(cancellationToken));
         }
@@ -307,7 +307,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual List<TEntity> SearchEntities(IQuery<TEntity> queryObject)
+        public virtual List<TEntity> SearchRoots(IQuery<TEntity> queryObject)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression)).ToList();
         }
@@ -324,7 +324,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<List<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TEntity>> SearchRootsAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.Where(queryObject.SearchExpression).ToListAsync(cancellationToken));
         }
@@ -342,7 +342,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual IQueryable<TEntity> SearchEntitiesLazy(IQuery<TEntity> queryObject)
+        public virtual IQueryable<TEntity> SearchRootsLazy(IQuery<TEntity> queryObject)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression));
         }
@@ -359,7 +359,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus UpdateEntities(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus UpdateRoots(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
@@ -374,7 +374,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> UpdateEntitiesAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
@@ -391,7 +391,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus UpdateEntity(TEntity root)
+        public virtual RapidLaunchStatus UpdateRoot(TEntity root)
         {
             return ExecuteCommand(() =>
             {
@@ -404,7 +404,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> UpdateEntityAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> UpdateRootAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>

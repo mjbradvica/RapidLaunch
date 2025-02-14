@@ -11,7 +11,7 @@ namespace RapidLaunch.EF.Samples.Airplanes
     /// </summary>
     public interface IAirplaneRepository :
         IAddRootAsync<Airplane>,
-        IGetAllEntitiesAsync<Airplane>
+        IGetAllRootsAsync<Airplane>
     {
     }
 }

@@ -35,7 +35,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringTestRepository(context);
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(1, results.Count);
@@ -61,7 +61,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringTestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(1, results.Count);

@@ -35,7 +35,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(1, results.Count);
@@ -61,7 +61,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(1, results.Count);

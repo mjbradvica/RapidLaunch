@@ -46,7 +46,7 @@ namespace RapidLaunch.Mongo.Samples
             };
 
             var result = await repo.AddRootsAsync(airplanes);
-            var allAirplanes = await repo.GetAllEntitiesAsync();
+            var allAirplanes = await repo.GetAllRootsAsync();
 
             foreach (var airplane in allAirplanes)
             {

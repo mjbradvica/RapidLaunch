@@ -8,7 +8,7 @@ using RapidLaunch.Common;
 namespace RapidLaunch.LongPrimary
 {
     /// <inheritdoc />
-    public interface ISearchEntitiesAsync<TEntity> : ISearchEntitiesAsync<TEntity, long>
+    public interface ISearchRootsAsync<TEntity> : ISearchRootsAsync<TEntity, long>
         where TEntity : class, IAggregateRoot
     {
     }

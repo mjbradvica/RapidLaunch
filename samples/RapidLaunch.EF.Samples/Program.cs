@@ -32,7 +32,7 @@ namespace RapidLaunch.EF.Samples
             var airplaneRepo = provider.GetRequiredService<IAirplaneRepository>();
 
             // await airplaneRepo.AddRootAsync(new Airplane(new AircraftType()));
-            var airplanes = await airplaneRepo.GetAllEntitiesAsync();
+            var airplanes = await airplaneRepo.GetAllRootsAsync();
 
             foreach (var airplane in airplanes)
             {

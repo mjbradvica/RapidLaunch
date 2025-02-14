@@ -18,7 +18,7 @@ namespace RapidLaunch.Redis.Common
     public abstract class RapidLaunchRepository<TEntity, TId> :
         IAddRoots<TEntity, TId>,
         IAddRootsAsync<TEntity, TId>,
-        IGetById<TEntity, TId>
+        IGetRootById<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
         /// <summary>

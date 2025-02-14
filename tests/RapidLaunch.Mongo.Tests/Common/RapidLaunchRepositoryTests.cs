@@ -41,7 +41,7 @@ namespace RapidLaunch.Mongo.Tests.Common
 
             _repository.AddRoots(entities);
 
-            var result = _repository.GetAllEntities();
+            var result = _repository.GetAllRoots();
 
             Assert.AreEqual(entities.Count, result.Count);
         }

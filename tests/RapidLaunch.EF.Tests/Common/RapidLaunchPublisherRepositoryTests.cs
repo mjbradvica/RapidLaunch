@@ -65,7 +65,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus, queryable => queryable.Include(entity => entity.Relationship));
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(2, results.Count);

@@ -35,7 +35,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                var result = repo.GetAllEntities();
+                var result = repo.GetAllRoots();
 
                 Assert.AreEqual(2, result.Count);
                 Assert.IsTrue(result.All(entity => entity.Relationship != null));
@@ -65,7 +65,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var result = repo.GetAllEntities();
+                var result = repo.GetAllRoots();
 
                 Assert.AreEqual(entities.Count, result.Count);
             }
@@ -95,7 +95,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var result = await repo.GetAllEntitiesAsync();
+                var result = await repo.GetAllRootsAsync();
 
                 Assert.AreEqual(entities.Count, result.Count);
             }
@@ -118,7 +118,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var result = repo.GetAllEntities();
+                var result = repo.GetAllRoots();
 
                 Assert.AreEqual(1, result.Count);
             }
@@ -142,7 +142,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var result = await repo.GetAllEntitiesAsync();
+                var result = await repo.GetAllRootsAsync();
 
                 Assert.AreEqual(1, result.Count);
             }
@@ -165,7 +165,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var entities = repo.GetAllEntities();
+                var entities = repo.GetAllRoots();
 
                 repo.DeleteRoots(entities);
             }
@@ -176,7 +176,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                result = repo.GetAllEntities();
+                result = repo.GetAllRoots();
             }
 
             Assert.AreEqual(0, result.Count);
@@ -200,7 +200,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var entities = await repo.GetAllEntitiesAsync();
+                var entities = await repo.GetAllRootsAsync();
 
                 await repo.DeleteRootsAsync(entities);
             }
@@ -211,7 +211,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                result = await repo.GetAllEntitiesAsync();
+                result = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(0, result.Count);
@@ -250,7 +250,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                result = repo.GetAllEntities();
+                result = repo.GetAllRoots();
             }
 
             Assert.AreEqual(0, result.Count);
@@ -290,7 +290,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                result = await repo.GetAllEntitiesAsync();
+                result = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(0, result.Count);
@@ -315,7 +315,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = repo.GetAllEntities();
+                results = repo.GetAllRoots();
             }
 
             Assert.AreEqual(2, results.Count);
@@ -370,7 +370,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(2, results.Count);
@@ -596,7 +596,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = repo.GetEntitiesById(new List<Guid>
+                results = repo.GetRootsById(new List<Guid>
                 {
                     first.Id,
                     second.Id,
@@ -670,7 +670,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = await repo.GetEntitiesByIdAsync(new List<Guid>
+                results = await repo.GetRootsByIdAsync(new List<Guid>
                 {
                     first.Id,
                     second.Id,
@@ -747,7 +747,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = repo.SearchEntities(new TestQuery());
+                results = repo.SearchRoots(new TestQuery());
             }
 
             Assert.AreEqual(first, results.Single());
@@ -814,7 +814,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = await repo.SearchEntitiesAsync(new TestQuery());
+                results = await repo.SearchRootsAsync(new TestQuery());
             }
 
             Assert.AreEqual(first, results.Single());
@@ -879,7 +879,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestGuidEntity> results = repo.SearchEntitiesLazy(new TestQuery());
+                IEnumerable<TestGuidEntity> results = repo.SearchRootsLazy(new TestQuery());
 
                 Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
 
@@ -941,14 +941,14 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                var entities = repo.GetAllEntities();
+                var entities = repo.GetAllRoots();
 
                 foreach (var entity in entities)
                 {
                     entity.Relationship = null;
                 }
 
-                repo.UpdateEntities(entities);
+                repo.UpdateRoots(entities);
             }
 
             List<TestGuidEntity> results;
@@ -957,7 +957,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                results = repo.GetAllEntities();
+                results = repo.GetAllRoots();
             }
 
             Assert.IsTrue(results.All(entity => entity.Relationship == null));
@@ -985,14 +985,14 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                var entities = await repo.GetAllEntitiesAsync();
+                var entities = await repo.GetAllRootsAsync();
 
                 foreach (var entity in entities)
                 {
                     entity.Relationship = null;
                 }
 
-                await repo.UpdateEntitiesAsync(entities);
+                await repo.UpdateRootsAsync(entities);
             }
 
             List<TestGuidEntity> results;
@@ -1001,7 +1001,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.IsTrue(results.All(entity => entity.Relationship == null));
@@ -1032,7 +1032,7 @@ namespace RapidLaunch.EF.Tests.Common
                 {
                     entity.Relationship = null;
 
-                    repo.UpdateEntity(entity);
+                    repo.UpdateRoot(entity);
                 }
             }
 
@@ -1074,7 +1074,7 @@ namespace RapidLaunch.EF.Tests.Common
                 {
                     entity.Relationship = null;
 
-                    await repo.UpdateEntityAsync(entity);
+                    await repo.UpdateRootAsync(entity);
                 }
             }
 
@@ -1113,7 +1113,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = repo.GetAllEntities();
+                results = repo.GetAllRoots();
             }
 
             Assert.AreEqual(0, results.Count);
@@ -1143,7 +1143,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = await repo.GetAllEntitiesAsync();
+                results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(0, results.Count);

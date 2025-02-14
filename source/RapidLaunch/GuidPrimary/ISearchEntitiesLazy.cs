@@ -1,4 +1,4 @@
-﻿// <copyright file="ISearchEntitiesLazy.cs" company="Simplex Software LLC">
+﻿// <copyright file="ISearchRootsLazy.cs" company="Simplex Software LLC">
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
@@ -8,7 +8,7 @@ using RapidLaunch.Common;
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface ISearchEntitiesLazy<TEntity> : ISearchEntitiesLazy<TEntity, Guid>
+    public interface ISearchRootsLazy<TEntity> : ISearchRootsLazy<TEntity, Guid>
         where TEntity : class, IAggregateRoot
     {
     }
