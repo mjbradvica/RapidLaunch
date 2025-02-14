@@ -14,14 +14,14 @@ namespace RapidLaunch.EF.Common
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TEntity, TId> :
-        IAddEntities<TEntity, TId>,
-        IAddEntitiesAsync<TEntity, TId>,
-        IAddEntity<TEntity, TId>,
-        IAddEntityAsync<TEntity, TId>,
-        IDeleteEntities<TEntity, TId>,
-        IDeleteEntitiesAsync<TEntity, TId>,
-        IDeleteEntity<TEntity, TId>,
-        IDeleteEntityAsync<TEntity, TId>,
+        IAddRoots<TEntity, TId>,
+        IAddRootsAsync<TEntity, TId>,
+        IAddRoot<TEntity, TId>,
+        IAddRootAsync<TEntity, TId>,
+        IDeleteRoots<TEntity, TId>,
+        IDeleteRootsAsync<TEntity, TId>,
+        IDeleteRoot<TEntity, TId>,
+        IDeleteRootAsync<TEntity, TId>,
         IGetAllEntities<TEntity, TId>,
         IGetAllEntitiesAsync<TEntity, TId>,
         IGetAllEntitiesLazy<TEntity, TId>,
@@ -66,7 +66,7 @@ namespace RapidLaunch.EF.Common
         protected DbContext Context { get; }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus AddRoots(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
@@ -81,12 +81,12 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
                 {
-                    var aggregateRoots = entities.ToList();
+                    var aggregateRoots = roots.ToList();
 
                     await Context.Set<TEntity>().AddRangeAsync(aggregateRoots, cancellationToken);
 
@@ -98,7 +98,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus AddEntity(TEntity root)
+        public virtual RapidLaunchStatus AddRoot(TEntity root)
         {
             return ExecuteCommand(() =>
             {
@@ -111,7 +111,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddRootAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
@@ -126,7 +126,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus DeleteEntities(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus DeleteRoots(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
@@ -141,7 +141,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> DeleteEntitiesAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>
@@ -158,7 +158,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual RapidLaunchStatus DeleteEntity(TEntity root)
+        public virtual RapidLaunchStatus DeleteRoot(TEntity root)
         {
             return ExecuteCommand(() =>
             {
@@ -171,7 +171,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> DeleteEntityAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteRootAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async () =>

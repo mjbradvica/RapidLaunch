@@ -16,8 +16,8 @@ namespace RapidLaunch.Redis.Common
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TEntity, TId> :
-        IAddEntities<TEntity, TId>,
-        IAddEntitiesAsync<TEntity, TId>,
+        IAddRoots<TEntity, TId>,
+        IAddRootsAsync<TEntity, TId>,
         IGetById<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
     {
@@ -36,7 +36,7 @@ namespace RapidLaunch.Redis.Common
         public IDatabase Database { get; }
 
         /// <inheritdoc />
-        public RapidLaunchStatus AddEntities(IEnumerable<TEntity> roots)
+        public RapidLaunchStatus AddRoots(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(() =>
             {
@@ -53,14 +53,14 @@ namespace RapidLaunch.Redis.Common
         }
 
         /// <inheritdoc/>
-        public async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await Task.Run(
                 async () =>
             {
                 try
                 {
-                    var values = entities
+                    var values = roots
                         .Select(entity => new KeyPathValue(entity.Id!.ToString() ?? string.Empty, "$", entity))
                         .ToArray();
 

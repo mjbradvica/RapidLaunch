@@ -26,7 +26,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
-                await repo.AddEntityAsync(new TestGuidEntity());
+                await repo.AddRootAsync(new TestGuidEntity());
             }
 
             List<TestGuidEntity> results;
@@ -52,7 +52,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
-                await repo.AddEntityAsync(new TestGuidEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestGuidEntity { Relationship = new TestRelationship() });
             }
 
             List<TestGuidEntity> results;

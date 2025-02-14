@@ -39,7 +39,7 @@ namespace RapidLaunch.Mongo.Tests.Common
                 new TestGuidEntity(),
             };
 
-            _repository.AddEntities(entities);
+            _repository.AddRoots(entities);
 
             var result = _repository.GetAllEntities();
 

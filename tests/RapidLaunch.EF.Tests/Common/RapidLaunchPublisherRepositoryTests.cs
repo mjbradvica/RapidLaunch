@@ -52,7 +52,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                await repo.AddEntitiesAsync(new List<TestGuidEntity>
+                await repo.AddRootsAsync(new List<TestGuidEntity>
                 {
                     new TestGuidEntity { Relationship = new TestRelationship() },
                     new TestGuidEntity { Relationship = new TestRelationship() },
@@ -85,7 +85,7 @@ namespace RapidLaunch.EF.Tests.Common
                 var entity = new TestGuidEntity();
                 entity.AddEvent();
 
-                repo.AddEntities(new List<TestGuidEntity> { entity });
+                repo.AddRoots(new List<TestGuidEntity> { entity });
             }
 
             _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -105,7 +105,7 @@ namespace RapidLaunch.EF.Tests.Common
                 var entity = new TestGuidEntity();
                 entity.AddEvent();
 
-                await repo.AddEntitiesAsync(new List<TestGuidEntity> { entity });
+                await repo.AddRootsAsync(new List<TestGuidEntity> { entity });
             }
 
             _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);

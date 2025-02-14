@@ -10,7 +10,7 @@ namespace RapidLaunch.EF.Samples.Airplanes
     /// Interface for airplane persistence.
     /// </summary>
     public interface IAirplaneRepository :
-        IAddEntityAsync<Airplane>,
+        IAddRootAsync<Airplane>,
         IGetAllEntitiesAsync<Airplane>
     {
     }

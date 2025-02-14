@@ -14,14 +14,14 @@ namespace RapidLaunch.Mongo.Common
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public class RapidLaunchRepository<TEntity, TId> :
-        IAddEntities<TEntity, TId>,
-        IAddEntitiesAsync<TEntity, TId>,
-        IAddEntity<TEntity, TId>,
-        IAddEntityAsync<TEntity, TId>,
-        IDeleteEntities<TEntity, TId>,
-        IDeleteEntitiesAsync<TEntity, TId>,
-        IDeleteEntity<TEntity, TId>,
-        IDeleteEntityAsync<TEntity, TId>,
+        IAddRoots<TEntity, TId>,
+        IAddRootsAsync<TEntity, TId>,
+        IAddRoot<TEntity, TId>,
+        IAddRootAsync<TEntity, TId>,
+        IDeleteRoots<TEntity, TId>,
+        IDeleteRootsAsync<TEntity, TId>,
+        IDeleteRoot<TEntity, TId>,
+        IDeleteRootAsync<TEntity, TId>,
         IGetAllEntities<TEntity, TId>,
         IGetAllEntitiesAsync<TEntity, TId>,
         IGetById<TEntity, TId>,
@@ -58,7 +58,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus AddEntities(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus AddRoots(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(session =>
             {
@@ -89,12 +89,12 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
             {
-                var aggregateRoots = entities.ToList();
+                var aggregateRoots = roots.ToList();
 
                 await GetCollection().InsertManyAsync(session, aggregateRoots, null, cancellationToken);
 
@@ -104,18 +104,18 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Adds multiple entities to a collection and accepts an options class.
+        /// Adds multiple roots to a collection and accepts an options class.
         /// </summary>
-        /// <param name="entities">A <see cref="IEnumerable{T}"/> of entities to insert into a collection.</param>
+        /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots to insert into a collection.</param>
         /// <param name="options">A <see cref="InsertManyOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> representing the asynchronous operation.</returns>
-        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> entities, InsertManyOptions options, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddEntitiesAsync(IEnumerable<TEntity> roots, InsertManyOptions options, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var aggregateRoots = entities.ToList();
+                    var aggregateRoots = roots.ToList();
 
                     await GetCollection().InsertManyAsync(session, aggregateRoots, options, cancellationToken);
 
@@ -125,7 +125,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus AddEntity(TEntity root)
+        public virtual RapidLaunchStatus AddRoot(TEntity root)
         {
             return ExecuteCommand(session =>
             {
@@ -152,7 +152,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> AddEntityAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> AddRootAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
@@ -184,7 +184,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus DeleteEntities(IEnumerable<TEntity> roots)
+        public virtual RapidLaunchStatus DeleteRoots(IEnumerable<TEntity> roots)
         {
             return ExecuteCommand(session =>
             {
@@ -219,7 +219,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        public virtual async Task<RapidLaunchStatus> DeleteEntitiesAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>
@@ -259,7 +259,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual RapidLaunchStatus DeleteEntity(TEntity root)
+        public virtual RapidLaunchStatus DeleteRoot(TEntity root)
         {
             return ExecuteCommand(session =>
             {
@@ -290,7 +290,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual async Task<RapidLaunchStatus> DeleteEntityAsync(TEntity root, CancellationToken cancellationToken = default)
+        public virtual async Task<RapidLaunchStatus> DeleteRootAsync(TEntity root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
                 async session =>

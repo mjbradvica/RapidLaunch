@@ -26,7 +26,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringTestRepository(context);
 
-                await repo.AddEntityAsync(new TestStringEntity());
+                await repo.AddRootAsync(new TestStringEntity());
             }
 
             List<TestStringEntity> results;
@@ -52,7 +52,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringTestRepository(context);
 
-                await repo.AddEntityAsync(new TestStringEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestStringEntity { Relationship = new TestRelationship() });
             }
 
             List<TestStringEntity> results;

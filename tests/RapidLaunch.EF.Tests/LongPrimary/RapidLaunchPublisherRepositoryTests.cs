@@ -40,7 +40,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
             {
                 var repo = new RapidLaunchLongPublisherTestRepository(context, _publisher);
 
-                await repo.AddEntityAsync(new TestLongEntity());
+                await repo.AddRootAsync(new TestLongEntity());
             }
 
             List<TestLongEntity> results;
@@ -66,7 +66,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
             {
                 var repo = new RapidLaunchLongPublisherTestRepository(context, _publisher, queryable => queryable.Include(entity => entity.Relationship));
 
-                await repo.AddEntityAsync(new TestLongEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestLongEntity { Relationship = new TestRelationship() });
             }
 
             List<TestLongEntity> results;
