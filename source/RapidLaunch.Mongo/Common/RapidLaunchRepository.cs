@@ -665,7 +665,7 @@ namespace RapidLaunch.Mongo.Common
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
+                var filter = Builders<TRoot>.Filter.Eq(aggregateRoot => aggregateRoot.Id, root.Id);
 
                 GetCollection().ReplaceOne(session, filter, root);
 
@@ -676,14 +676,14 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Updates a root in a collection.
         /// </summary>
-        /// <param name="root"></param>
+        /// <param name="root">A <typeparamref name="TRoot"/>.</param>
         /// <param name="options">A <see cref="ReplaceOptions"/> object.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> representing the operation.</returns>
         public virtual RapidLaunchStatus UpdateEntity(TRoot root, ReplaceOptions options)
         {
             return ExecuteCommand(session =>
             {
-                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
+                var filter = Builders<TRoot>.Filter.Eq(aggregateRoot => aggregateRoot.Id, root.Id);
 
                 GetCollection().ReplaceOne(session, filter, root, options);
 

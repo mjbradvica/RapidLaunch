@@ -31,7 +31,7 @@ namespace RapidLaunch.Dapper.Common
         protected SqlConnection Connection { get; }
 
         /// <summary>
-        ///
+        /// Test function.
         /// </summary>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IEnumerable<TRoot>> DoSomething()
@@ -43,10 +43,10 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        ///
+        /// Queries for single.
         /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="sql">The sql query.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         protected async Task<TRoot> QuerySingle(string sql, CancellationToken cancellationToken = default)
         {
@@ -62,7 +62,7 @@ namespace RapidLaunch.Dapper.Common
         /// <summary>
         /// Executes a query against the persistence.
         /// </summary>
-        /// <param name="queryFunc"></param>
+        /// <param name="queryFunc">A query func to use.</param>
         /// <param name="sql">The <see cref="string"/> sql to be executed.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
