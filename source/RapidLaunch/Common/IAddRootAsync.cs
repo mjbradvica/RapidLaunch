@@ -7,9 +7,9 @@ using ClearDomain.Common;
 namespace RapidLaunch.Common
 {
     /// <summary>
-    /// An interface that allows a class to add a single entity asynchronously.
+    /// An interface that allows a class to add a single root asynchronously.
     /// </summary>
-    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IAddRootAsync<in TRoot, TId>
         where TRoot : IAggregateRoot<TId>

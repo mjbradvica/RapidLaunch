@@ -13,9 +13,9 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<TestIntEntity> builder)
         {
-            builder.HasKey(entity => entity.Id);
-            builder.HasOne(entity => entity.Relationship).WithMany();
-            builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+            builder.HasKey(root => root.Id);
+            builder.HasOne(root => root.Relationship).WithMany();
+            builder.Property(root => root.Id).ValueGeneratedOnAdd();
         }
     }
 }

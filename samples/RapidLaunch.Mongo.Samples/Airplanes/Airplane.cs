@@ -7,7 +7,7 @@ using ClearDomain.GuidPrimary;
 namespace RapidLaunch.Mongo.Samples.Airplanes
 {
     /// <summary>
-    /// Sample persistence entity.
+    /// Sample persistence root.
     /// </summary>
     public class Airplane : AggregateRoot
     {

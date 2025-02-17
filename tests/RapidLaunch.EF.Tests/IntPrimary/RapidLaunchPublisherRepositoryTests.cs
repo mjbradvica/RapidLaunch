@@ -64,7 +64,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         {
             await using (var context = new TestDbContext())
             {
-                var repo = new RapidLaunchIntPublisherTestRepository(context, _publisher, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new RapidLaunchIntPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
                 await repo.AddRootAsync(new TestIntEntity { Relationship = new TestRelationship() });
             }
@@ -73,13 +73,13 @@ namespace RapidLaunch.EF.Tests.IntPrimary
 
             await using (var context = new TestDbContext())
             {
-                var repo = new RapidLaunchIntPublisherTestRepository(context, _publisher, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new RapidLaunchIntPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
                 results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(1, results.Count);
-            Assert.IsTrue(results.All(entity => entity.Relationship != null));
+            Assert.IsTrue(results.All(root => root.Relationship != null));
         }
     }
 }

@@ -30,22 +30,22 @@ namespace RapidLaunch.EF.Tests.Helpers
         }
 
         /// <summary>
-        /// Gets the test guid entity set.
+        /// Gets the test guid root set.
         /// </summary>
         public DbSet<TestGuidEntity> GuidEntities { get; }
 
         /// <summary>
-        /// Gets the test int entity set.
+        /// Gets the test int root set.
         /// </summary>
         public DbSet<TestIntEntity> IntEntities { get; }
 
         /// <summary>
-        /// Gets the test long entity set.
+        /// Gets the test long root set.
         /// </summary>
         public DbSet<TestLongEntity> LongEntities { get; }
 
         /// <summary>
-        /// Gets the test string entity set.
+        /// Gets the test string root set.
         /// </summary>
         public DbSet<TestStringEntity> StringEntities { get; }
 

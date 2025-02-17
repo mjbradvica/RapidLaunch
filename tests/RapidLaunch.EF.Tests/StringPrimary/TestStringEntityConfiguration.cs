@@ -13,8 +13,8 @@ namespace RapidLaunch.EF.Tests.StringPrimary
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<TestStringEntity> builder)
         {
-            builder.HasKey(entity => entity.Id);
-            builder.HasOne(entity => entity.Relationship).WithMany();
+            builder.HasKey(root => root.Id);
+            builder.HasOne(root => root.Relationship).WithMany();
         }
     }
 }

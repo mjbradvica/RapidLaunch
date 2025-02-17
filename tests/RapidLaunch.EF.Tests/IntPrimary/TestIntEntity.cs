@@ -7,7 +7,7 @@ using ClearDomain.IntPrimary;
 namespace RapidLaunch.EF.Tests.IntPrimary
 {
     /// <summary>
-    /// Test int entity.
+    /// Test int root.
     /// </summary>
     public class TestIntEntity : AggregateRoot
     {

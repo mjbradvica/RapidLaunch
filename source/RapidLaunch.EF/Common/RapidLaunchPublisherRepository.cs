@@ -11,7 +11,7 @@ namespace RapidLaunch.EF.Common
     /// <summary>
     /// Base publishing repository for EF.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TEntity">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchPublisherRepository<TEntity, TId> : RapidLaunchRepository<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
@@ -24,7 +24,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> that will return a <see cref="IQueryable{T}"/> used to eagerly load related aggregateRoots.</param>
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
             : base(context, includeFunc)
         {
             _publishingBus = publishingBus;
@@ -42,7 +42,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc />
-        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
             {
@@ -60,7 +60,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
         {
             return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
             {

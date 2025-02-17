@@ -15,7 +15,7 @@ namespace RapidLaunch.EF.Tests.Common
     public class TestPublisherRepository : RapidLaunchPublisherRepository<TestGuidEntity, Guid>
     {
         /// <inheritdoc />
-        public TestPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>>? includeFunc = default)
+        public TestPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestGuidEntity>, IQueryable<TestGuidEntity>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }

@@ -7,7 +7,7 @@ using ClearDomain.GuidPrimary;
 namespace RapidLaunch.EF.Samples.AircraftTypes
 {
     /// <summary>
-    /// Sample entity for aircraft types.
+    /// Sample root for aircraft types.
     /// </summary>
     public class AircraftType : AggregateRoot
     {

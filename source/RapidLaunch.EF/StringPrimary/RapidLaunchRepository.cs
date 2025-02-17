@@ -13,7 +13,7 @@ namespace RapidLaunch.EF.StringPrimary
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />
-        public RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
+        public RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
             : base(context, includeFunc)
         {
         }

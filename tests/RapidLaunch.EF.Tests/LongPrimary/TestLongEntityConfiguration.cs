@@ -13,9 +13,9 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<TestLongEntity> builder)
         {
-            builder.HasKey(entity => entity.Id);
-            builder.HasOne(entity => entity.Relationship).WithMany();
-            builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+            builder.HasKey(root => root.Id);
+            builder.HasOne(root => root.Relationship).WithMany();
+            builder.Property(root => root.Id).ValueGeneratedOnAdd();
         }
     }
 }

@@ -7,7 +7,7 @@ using ClearDomain.GuidPrimary;
 namespace RapidLaunch.Tests.Common
 {
     /// <summary>
-    /// Test entity for sql builder tests.
+    /// Test root for sql builder tests.
     /// </summary>
     public class TestEntity : AggregateRoot
     {

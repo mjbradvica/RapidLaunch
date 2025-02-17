@@ -11,7 +11,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
     public class RapidLaunchLongTestRepository : RapidLaunchRepository<TestLongEntity>
     {
         /// <inheritdoc />
-        public RapidLaunchLongTestRepository(DbContext context, Func<IQueryable<TestLongEntity>, IQueryable<TestLongEntity>>? includeFunc = default)
+        public RapidLaunchLongTestRepository(DbContext context, Func<IQueryable<TestLongEntity>, IQueryable<TestLongEntity>>? includeFunc = null)
             : base(context, includeFunc)
         {
         }

@@ -11,7 +11,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
     public class RapidLaunchStringTestRepository : RapidLaunchRepository<TestStringEntity>
     {
         /// <inheritdoc />
-        public RapidLaunchStringTestRepository(DbContext context, Func<IQueryable<TestStringEntity>, IQueryable<TestStringEntity>>? includeFunc = default)
+        public RapidLaunchStringTestRepository(DbContext context, Func<IQueryable<TestStringEntity>, IQueryable<TestStringEntity>>? includeFunc = null)
             : base(context, includeFunc)
         {
         }

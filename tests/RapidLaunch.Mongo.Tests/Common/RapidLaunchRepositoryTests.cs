@@ -28,22 +28,22 @@ namespace RapidLaunch.Mongo.Tests.Common
         }
 
         /// <summary>
-        /// Can add entities correctly.
+        /// Can add roots correctly.
         /// </summary>
         [TestMethod]
         public void AddEntities_IsCorrect()
         {
-            var entities = new List<TestGuidEntity>
+            var roots = new List<TestGuidEntity>
             {
                 new TestGuidEntity(),
                 new TestGuidEntity(),
             };
 
-            _repository.AddRoots(entities);
+            _repository.AddRoots(roots);
 
             var result = _repository.GetAllRoots();
 
-            Assert.AreEqual(entities.Count, result.Count);
+            Assert.AreEqual(roots.Count, result.Count);
         }
     }
 }

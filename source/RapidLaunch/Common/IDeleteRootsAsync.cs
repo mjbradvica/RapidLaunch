@@ -7,9 +7,9 @@ using ClearDomain.Common;
 namespace RapidLaunch.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can delete multiple entities asynchronously.
+    /// An interface used to describe a class that can delete multiple roots asynchronously.
     /// </summary>
-    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IDeleteRootsAsync<in TRoot, TId>
         where TRoot : IAggregateRoot<TId>

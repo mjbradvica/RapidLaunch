@@ -9,6 +9,7 @@ using RapidLaunch.Common;
 using RapidLaunch.EF.GuidPrimary;
 using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.Helpers;
+using RapidLaunch.GuidPrimary;
 
 namespace RapidLaunch.EF.Tests.Common
 {
@@ -33,22 +34,22 @@ namespace RapidLaunch.EF.Tests.Common
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 var result = repo.GetAllRoots();
 
                 Assert.AreEqual(2, result.Count);
-                Assert.IsTrue(result.All(entity => entity.Relationship != null));
+                Assert.IsTrue(result.All(root => root.Relationship != null));
             }
         }
 
         /// <summary>
-        /// Can add entities correctly.
+        /// Can add roots correctly.
         /// </summary>
         [TestMethod]
         public void AddEntities_IsCorrect()
         {
-            var entities = new List<TestGuidEntity>
+            var roots = new List<TestGuidEntity>
             {
                 new TestGuidEntity(),
                 new TestGuidEntity(),
@@ -58,7 +59,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                repo.AddRoots(entities);
+                repo.AddRoots(roots);
             }
 
             using (var context = new TestDbContext())
@@ -67,18 +68,18 @@ namespace RapidLaunch.EF.Tests.Common
 
                 var result = repo.GetAllRoots();
 
-                Assert.AreEqual(entities.Count, result.Count);
+                Assert.AreEqual(roots.Count, result.Count);
             }
         }
 
         /// <summary>
-        /// Can add entities async correctly.
+        /// Can add roots async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
         public async Task AddEntitiesAsync_IsCorrect()
         {
-            var entities = new List<TestGuidEntity>
+            var roots = new List<TestGuidEntity>
             {
                 new TestGuidEntity(),
                 new TestGuidEntity(),
@@ -88,7 +89,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddRootsAsync(entities);
+                await repo.AddRootsAsync(roots);
             }
 
             await using (var context = new TestDbContext())
@@ -97,12 +98,12 @@ namespace RapidLaunch.EF.Tests.Common
 
                 var result = await repo.GetAllRootsAsync();
 
-                Assert.AreEqual(entities.Count, result.Count);
+                Assert.AreEqual(roots.Count, result.Count);
             }
         }
 
         /// <summary>
-        /// Can add an entity correctly.
+        /// Can add an root correctly.
         /// </summary>
         [TestMethod]
         public void AddEntity_IsCorrect()
@@ -125,7 +126,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can add an entity async correctly.
+        /// Can add an root async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -149,7 +150,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can delete entities is correct.
+        /// Can delete roots is correct.
         /// </summary>
         [TestMethod]
         public void DeleteEntities_IsCorrect()
@@ -165,9 +166,9 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var entities = repo.GetAllRoots();
+                var roots = repo.GetAllRoots();
 
-                repo.DeleteRoots(entities);
+                repo.DeleteRoots(roots);
             }
 
             List<TestGuidEntity> result;
@@ -183,7 +184,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can delete entities is correct.
+        /// Can delete roots is correct.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -200,9 +201,9 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var entities = await repo.GetAllRootsAsync();
+                var roots = await repo.GetAllRootsAsync();
 
-                await repo.DeleteRootsAsync(entities);
+                await repo.DeleteRootsAsync(roots);
             }
 
             List<TestGuidEntity> result;
@@ -218,25 +219,25 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can delete an entity correctly.
+        /// Can delete an root correctly.
         /// </summary>
         [TestMethod]
         public void DeleteEntity_IsCorrect()
         {
-            var entity = new TestGuidEntity();
+            var root = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddRoot(entity);
+                repo.AddRoot(root);
             }
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                var toDelete = repo.GetById(entity.Id);
+                var toDelete = repo.GetById(root.Id);
 
                 if (toDelete != null)
                 {
@@ -257,26 +258,26 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can delete an entity async correctly.
+        /// Can delete an root async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
         public async Task DeleteEntityAsync_IsCorrect()
         {
-            var entity = new TestGuidEntity();
+            var root = new TestGuidEntity();
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddRootAsync(entity);
+                await repo.AddRootAsync(root);
             }
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                var toDelete = await repo.GetRootByIdAsync(entity.Id);
+                var toDelete = await repo.GetRootByIdAsync(root.Id);
 
                 if (toDelete != null)
                 {
@@ -297,7 +298,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can get all entities correctly.
+        /// Can get all roots correctly.
         /// </summary>
         [TestMethod]
         public void GetAllEntities_IsCorrect()
@@ -322,7 +323,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can get all entities with include func correctly.
+        /// Can get all roots with include func correctly.
         /// </summary>
         [TestMethod]
         public void GetAllEntitiesWithIncludeFunc_IsCorrect()
@@ -343,15 +344,15 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = repo.GetAllEntities(queryable => queryable.Include(entity => entity.Relationship));
+                results = repo.GetAllEntities(queryable => queryable.Include(root => root.Relationship));
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.All(entity => entity.Relationship != null));
+            Assert.IsTrue(results.All(root => root.Relationship != null));
         }
 
         /// <summary>
-        /// Can get all entities async correctly.
+        /// Can get all roots async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -377,7 +378,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can get all entities async with include func correctly.
+        /// Can get all roots async with include func correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -399,15 +400,15 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = await repo.GetAllEntitiesAsync(queryable => queryable.Include(entity => entity.Relationship));
+                results = await repo.GetAllEntitiesAsync(queryable => queryable.Include(root => root.Relationship));
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.All(entity => entity.Relationship != null));
+            Assert.IsTrue(results.All(root => root.Relationship != null));
         }
 
         /// <summary>
-        /// Can get entities lazy correctly.
+        /// Can get roots lazy correctly.
         /// </summary>
         [TestMethod]
         public void GetAllEntitiesLazy_IsCorrect()
@@ -434,7 +435,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can get entities lazy with include func correctly.
+        /// Can get roots lazy with include func correctly.
         /// </summary>
         [TestMethod]
         public void GetAllEntitiesLazyWithIncludeFunc_IsCorrect()
@@ -454,13 +455,13 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestGuidEntity> results = repo.GetAllEntitiesLazy(queryable => queryable.Include(entity => entity.Relationship));
+                IEnumerable<TestGuidEntity> results = repo.GetAllEntitiesLazy(queryable => queryable.Include(root => root.Relationship));
 
                 Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
 
                 var asList = results.ToList();
 
-                Assert.IsTrue(asList.All(entity => entity.Relationship != null));
+                Assert.IsTrue(asList.All(root => root.Relationship != null));
                 Assert.AreEqual(2, asList.Count);
             }
         }
@@ -471,23 +472,23 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetById_IsCorrect()
         {
-            var entity = new TestGuidEntity();
+            var root = new TestGuidEntity();
             var incorrect = new TestGuidEntity();
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddRoots(new List<TestGuidEntity> { entity, incorrect });
+                repo.AddRoots(new List<TestGuidEntity> { root, incorrect });
             }
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                var result = repo.GetById(entity.Id);
+                var result = repo.GetById(root.Id);
 
-                Assert.AreEqual(entity, result);
+                Assert.AreEqual(root, result);
             }
         }
 
@@ -497,23 +498,23 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetByIdWithIncludeFunc_IsCorrect()
         {
-            var entity = new TestGuidEntity { Relationship = new TestRelationship() };
+            var root = new TestGuidEntity { Relationship = new TestRelationship() };
             var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                repo.AddRoots(new List<TestGuidEntity> { entity, incorrect });
+                repo.AddRoots(new List<TestGuidEntity> { root, incorrect });
             }
 
             using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                var result = repo.GetById(entity.Id, queryable => queryable.Include(testEntity => testEntity.Relationship));
+                var result = repo.GetById(root.Id, queryable => queryable.Include(testEntity => testEntity.Relationship));
 
-                Assert.AreEqual(entity, result);
+                Assert.AreEqual(root, result);
                 Assert.IsNotNull(result?.Relationship);
             }
         }
@@ -525,23 +526,23 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetByIdAsync_IsCorrectAsync()
         {
-            var entity = new TestGuidEntity();
+            var root = new TestGuidEntity();
             var incorrect = new TestGuidEntity();
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddRootsAsync(new List<TestGuidEntity> { entity, incorrect });
+                await repo.AddRootsAsync(new List<TestGuidEntity> { root, incorrect });
             }
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                var result = await repo.GetRootByIdAsync(entity.Id);
+                var result = await repo.GetRootByIdAsync(root.Id);
 
-                Assert.AreEqual(entity, result);
+                Assert.AreEqual(root, result);
             }
         }
 
@@ -552,29 +553,29 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetByIdWithIncludeFuncAsync_IsCorrect()
         {
-            var entity = new TestGuidEntity { Relationship = new TestRelationship() };
+            var root = new TestGuidEntity { Relationship = new TestRelationship() };
             var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                await repo.AddRootsAsync(new List<TestGuidEntity> { entity, incorrect });
+                await repo.AddRootsAsync(new List<TestGuidEntity> { root, incorrect });
             }
 
             await using (var context = new TestDbContext())
             {
                 var repo = new TestRepository(context);
 
-                var result = await repo.GetByIdAsync(entity.Id, queryable => queryable.Include(testEntity => testEntity.Relationship));
+                var result = await repo.GetByIdAsync(root.Id, queryable => queryable.Include(testEntity => testEntity.Relationship));
 
-                Assert.AreEqual(entity, result);
+                Assert.AreEqual(root, result);
                 Assert.IsNotNull(result?.Relationship);
             }
         }
 
         /// <summary>
-        /// Can get entities by id correctly.
+        /// Can get roots by id correctly.
         /// </summary>
         [TestMethod]
         public void GetEntitiesById_IsCorrect()
@@ -604,12 +605,12 @@ namespace RapidLaunch.EF.Tests.Common
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
-            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
+            Assert.IsTrue(results.Any(root => root.Id == first.Id));
+            Assert.IsTrue(results.Any(root => root.Id == second.Id));
         }
 
         /// <summary>
-        /// Can get entities by id with include func correctly.
+        /// Can get roots by id with include func correctly.
         /// </summary>
         [TestMethod]
         public void GetEntitiesByIdWithIncludeFunc_IsCorrect()
@@ -637,17 +638,17 @@ namespace RapidLaunch.EF.Tests.Common
                     first.Id,
                     second.Id,
                 },
-                    queryable => queryable.Include(entity => entity.Relationship));
+                    queryable => queryable.Include(root => root.Relationship));
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.All(entity => entity.Relationship != null));
-            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
-            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
+            Assert.IsTrue(results.All(root => root.Relationship != null));
+            Assert.IsTrue(results.Any(root => root.Id == first.Id));
+            Assert.IsTrue(results.Any(root => root.Id == second.Id));
         }
 
         /// <summary>
-        /// Can get entities by id async correctly.
+        /// Can get roots by id async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -678,12 +679,12 @@ namespace RapidLaunch.EF.Tests.Common
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
-            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
+            Assert.IsTrue(results.Any(root => root.Id == first.Id));
+            Assert.IsTrue(results.Any(root => root.Id == second.Id));
         }
 
         /// <summary>
-        /// Can get entities by id async with include func correctly.
+        /// Can get roots by id async with include func correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -712,17 +713,17 @@ namespace RapidLaunch.EF.Tests.Common
                         first.Id,
                         second.Id,
                     },
-                    queryable => queryable.Include(entity => entity.Relationship));
+                    queryable => queryable.Include(root => root.Relationship));
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.All(entity => entity.Relationship != null));
-            Assert.IsTrue(results.Any(entity => entity.Id == first.Id));
-            Assert.IsTrue(results.Any(entity => entity.Id == second.Id));
+            Assert.IsTrue(results.All(root => root.Relationship != null));
+            Assert.IsTrue(results.Any(root => root.Id == first.Id));
+            Assert.IsTrue(results.Any(root => root.Id == second.Id));
         }
 
         /// <summary>
-        /// Can search entities correctly.
+        /// Can search roots correctly.
         /// </summary>
         [TestMethod]
         public void SearchEntities_IsCorrect()
@@ -754,7 +755,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can search entities with include func correctly.
+        /// Can search roots with include func correctly.
         /// </summary>
         [TestMethod]
         public void SearchEntitiesWithIncludeFunc_IsCorrect()
@@ -780,7 +781,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = repo.SearchEntities(new TestQuery(), queryable => queryable.Include(entity => entity.Relationship));
+                results = repo.SearchEntities(new TestQuery(), queryable => queryable.Include(root => root.Relationship));
             }
 
             Assert.AreEqual(first, results.Single());
@@ -788,7 +789,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can search entities async correctly.
+        /// Can search roots async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -821,7 +822,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can search entities async with include func correctly.
+        /// Can search roots async with include func correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -848,7 +849,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                results = await repo.SearchEntitiesAsync(new TestQuery(), queryable => queryable.Include(entity => entity.Relationship));
+                results = await repo.SearchEntitiesAsync(new TestQuery(), queryable => queryable.Include(root => root.Relationship));
             }
 
             Assert.AreEqual(first, results.Single());
@@ -856,7 +857,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can search entities lazy correctly.
+        /// Can search roots lazy correctly.
         /// </summary>
         [TestMethod]
         public void SearchEntitiesLazy_IsCorrect()
@@ -888,7 +889,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can search entities lazy with include func correctly.
+        /// Can search roots lazy with include func correctly.
         /// </summary>
         [TestMethod]
         public void SearchEntitiesLazyWithIncludeFunc_IsCorrect()
@@ -912,7 +913,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                IEnumerable<TestGuidEntity> results = repo.SearchEntitiesLazy(new TestQuery(), queryable => queryable.Include(entity => entity.Relationship));
+                IEnumerable<TestGuidEntity> results = repo.SearchEntitiesLazy(new TestQuery(), queryable => queryable.Include(root => root.Relationship));
 
                 Assert.IsInstanceOfType<IQueryable<TestGuidEntity>>(results);
                 Assert.AreEqual(first, results.Single());
@@ -921,14 +922,14 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can update entities correctly.
+        /// Can update roots correctly.
         /// </summary>
         [TestMethod]
         public void UpdateEntities_IsCorrect()
         {
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 repo.AddRoots(new List<TestGuidEntity>
                 {
@@ -939,32 +940,32 @@ namespace RapidLaunch.EF.Tests.Common
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                var entities = repo.GetAllRoots();
+                var roots = repo.GetAllRoots();
 
-                foreach (var entity in entities)
+                foreach (var root in roots)
                 {
-                    entity.Relationship = null;
+                    root.Relationship = null;
                 }
 
-                repo.UpdateRoots(entities);
+                repo.UpdateRoots(roots);
             }
 
             List<TestGuidEntity> results;
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 results = repo.GetAllRoots();
             }
 
-            Assert.IsTrue(results.All(entity => entity.Relationship == null));
+            Assert.IsTrue(results.All(root => root.Relationship == null));
         }
 
         /// <summary>
-        /// Can update entities async correctly.
+        /// Can update roots async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -972,7 +973,7 @@ namespace RapidLaunch.EF.Tests.Common
         {
             await using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 await repo.AddRootsAsync(new List<TestGuidEntity>
                 {
@@ -983,32 +984,32 @@ namespace RapidLaunch.EF.Tests.Common
 
             await using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                var entities = await repo.GetAllRootsAsync();
+                var roots = await repo.GetAllRootsAsync();
 
-                foreach (var entity in entities)
+                foreach (var root in roots)
                 {
-                    entity.Relationship = null;
+                    root.Relationship = null;
                 }
 
-                await repo.UpdateRootsAsync(entities);
+                await repo.UpdateRootsAsync(roots);
             }
 
             List<TestGuidEntity> results;
 
             await using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.IsTrue(results.All(entity => entity.Relationship == null));
+            Assert.IsTrue(results.All(root => root.Relationship == null));
         }
 
         /// <summary>
-        /// Can update entity correctly.
+        /// Can update root correctly.
         /// </summary>
         [TestMethod]
         public void UpdateEntity_IsCorrect()
@@ -1017,22 +1018,22 @@ namespace RapidLaunch.EF.Tests.Common
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 repo.AddRoot(testEntity);
             }
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                var entity = repo.GetById(testEntity.Id);
+                var root = repo.GetById(testEntity.Id);
 
-                if (entity != null)
+                if (root != null)
                 {
-                    entity.Relationship = null;
+                    root.Relationship = null;
 
-                    repo.UpdateRoot(entity);
+                    repo.UpdateRoot(root);
                 }
             }
 
@@ -1040,7 +1041,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 result = repo.GetById(testEntity.Id);
             }
@@ -1049,7 +1050,7 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can update entity async correctly.
+        /// Can update root async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
@@ -1059,22 +1060,22 @@ namespace RapidLaunch.EF.Tests.Common
 
             await using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 await repo.AddRootAsync(testEntity);
             }
 
             await using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                var entity = await repo.GetRootByIdAsync(testEntity.Id);
+                var root = await repo.GetRootByIdAsync(testEntity.Id);
 
-                if (entity != null)
+                if (root != null)
                 {
-                    entity.Relationship = null;
+                    root.Relationship = null;
 
-                    await repo.UpdateRootAsync(entity);
+                    await repo.UpdateRootAsync(root);
                 }
             }
 
@@ -1082,7 +1083,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             await using (var context = new TestDbContext())
             {
-                var repo = new TestRepository(context, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 result = await repo.GetRootByIdAsync(testEntity.Id);
             }
@@ -1152,10 +1153,10 @@ namespace RapidLaunch.EF.Tests.Common
         /// <summary>
         /// Test query.
         /// </summary>
-        internal class TestQuery : IQuery<TestGuidEntity>
+        private class TestQuery : IQuery<TestGuidEntity>
         {
             /// <inheritdoc/>
-            public Expression<Func<TestGuidEntity, bool>> SearchExpression => entity => entity.Id == Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af");
+            public Expression<Func<TestGuidEntity, bool>> SearchExpression => root => root.Id == Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af");
         }
     }
 }

@@ -7,15 +7,15 @@ using ClearDomain.Common;
 namespace RapidLaunch.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can retrieve all entities.
+    /// An interface used to describe a class that can retrieve all roots.
     /// </summary>
-    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IGetAllRoots<TRoot, TId>
         where TRoot : IAggregateRoot<TId>
     {
         /// <summary>
-        /// Retrieves all entities of type from a collection.
+        /// Retrieves all roots of type from a collection.
         /// </summary>
         /// <returns>An of <see cref="List{TEntity}"/>.</returns>
         List<TRoot> GetAllRoots();

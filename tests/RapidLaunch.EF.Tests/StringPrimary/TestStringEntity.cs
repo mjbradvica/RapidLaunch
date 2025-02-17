@@ -7,7 +7,7 @@ using ClearDomain.StringPrimary;
 namespace RapidLaunch.EF.Tests.StringPrimary
 {
     /// <summary>
-    /// Test string entity.
+    /// Test string root.
     /// </summary>
     public class TestStringEntity : AggregateRoot
     {

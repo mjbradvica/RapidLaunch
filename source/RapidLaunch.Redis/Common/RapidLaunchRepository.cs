@@ -13,7 +13,7 @@ namespace RapidLaunch.Redis.Common
     /// <summary>
     /// Common functions for all base RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TEntity">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TEntity, TId> :
         IAddRoots<TEntity, TId>,
@@ -43,7 +43,7 @@ namespace RapidLaunch.Redis.Common
                 var asList = roots.ToList();
 
                 var values = asList
-                    .Select(entity => new KeyPathValue(entity.Id!.ToString() ?? string.Empty, "$", entity))
+                    .Select(root => new KeyPathValue(root.Id!.ToString() ?? string.Empty, "$", root))
                     .ToArray();
 
                 Database.JSON().MSet(values);
@@ -61,7 +61,7 @@ namespace RapidLaunch.Redis.Common
                 try
                 {
                     var values = roots
-                        .Select(entity => new KeyPathValue(entity.Id!.ToString() ?? string.Empty, "$", entity))
+                        .Select(root => new KeyPathValue(root.Id!.ToString() ?? string.Empty, "$", root))
                         .ToArray();
 
                     await Database.JSON().MSetAsync(values);
@@ -85,7 +85,7 @@ namespace RapidLaunch.Redis.Common
             }
             catch
             {
-                return default;
+                return null;
             }
         }
 
@@ -97,17 +97,17 @@ namespace RapidLaunch.Redis.Common
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         protected virtual RapidLaunchStatus ExecuteCommand(
             Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc,
-            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             int rowsAffected;
 
             try
             {
-                var (rowCount, entities) = executionFunc.Invoke();
+                var (rowCount, roots) = executionFunc.Invoke();
 
                 rowsAffected = rowCount;
 
-                postOperationFunc?.Invoke(rowsAffected, entities);
+                postOperationFunc?.Invoke(rowsAffected, roots);
             }
             catch (Exception exception)
             {

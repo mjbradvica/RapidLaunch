@@ -7,18 +7,18 @@ using ClearDomain.Common;
 namespace RapidLaunch.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can retrieve a single entity by an identifier.
+    /// An interface used to describe a class that can retrieve a single root by an identifier.
     /// </summary>
-    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public interface IGetRootById<out TRoot, in TId>
         where TRoot : IAggregateRoot<TId>
     {
         /// <summary>
-        /// Retrieves an entity from a collection by an identifier.
+        /// Retrieves a root from a collection by an identifier.
         /// </summary>
-        /// <param name="id">The identifier for the entity.</param>
-        /// <returns>The entity returned from the query.</returns>
+        /// <param name="id">The identifier for the root.</param>
+        /// <returns>The root returned from the query.</returns>
         TRoot? GetById(TId id);
     }
 }

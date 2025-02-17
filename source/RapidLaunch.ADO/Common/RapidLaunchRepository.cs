@@ -12,7 +12,7 @@ namespace RapidLaunch.ADO.Common
     /// <summary>
     /// Common functions for all base RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TEntity">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>
@@ -24,7 +24,7 @@ namespace RapidLaunch.ADO.Common
         /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
-        /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert a <see cref="SqlDataReader"/> to an entity.</param>
+        /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert a <see cref="SqlDataReader"/> to an root.</param>
         protected RapidLaunchRepository(SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
         {
             _sqlConnection = sqlConnection;
@@ -34,10 +34,10 @@ namespace RapidLaunch.ADO.Common
         /// <summary>
         /// Executes a non-query synchronously.
         /// </summary>
-        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the entities to execute again.</param>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the roots to execute again.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the number of rows affected.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             int result;
 
@@ -49,13 +49,13 @@ namespace RapidLaunch.ADO.Common
 
                 transaction = _sqlConnection.BeginTransaction();
 
-                var (command, entities) = executionFunc.Invoke();
+                var (command, roots) = executionFunc.Invoke();
 
                 var sqlCommand = new SqlCommand(command, _sqlConnection);
 
                 result = sqlCommand.ExecuteNonQuery();
 
-                postOperationFunc?.Invoke(result, entities);
+                postOperationFunc?.Invoke(result, roots);
 
                 transaction.Commit();
             }
@@ -76,11 +76,11 @@ namespace RapidLaunch.ADO.Common
         /// <summary>
         /// Execute a non-query asynchronously.
         /// </summary>
-        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the entities to execute again.</param>
+        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the roots to execute again.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="RapidLaunchStatus"/> representing the result of the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<(string Command, IEnumerable<TEntity> Entities)> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
         {
             int result;
 
@@ -92,7 +92,7 @@ namespace RapidLaunch.ADO.Common
 
                 transaction = _sqlConnection.BeginTransaction();
 
-                var (command, entities) = executionFunc.Invoke();
+                var (command, roots) = executionFunc.Invoke();
 
                 var sqlCommand = new SqlCommand(command, _sqlConnection, transaction);
 
@@ -100,7 +100,7 @@ namespace RapidLaunch.ADO.Common
 
                 if (postOperationFunc != null)
                 {
-                    await postOperationFunc.Invoke(result, entities);
+                    await postOperationFunc.Invoke(result, roots);
                 }
 
                 await transaction.CommitAsync(cancellationToken);

@@ -8,7 +8,7 @@ using RapidLaunch.EF.Samples.AircraftTypes;
 namespace RapidLaunch.EF.Samples.Airplanes
 {
     /// <summary>
-    /// Sample entity for rapid launch.
+    /// Sample root for rapid launch.
     /// </summary>
     public class Airplane : AggregateRoot
     {

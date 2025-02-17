@@ -12,7 +12,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
     public class RapidLaunchStringPublisherTestRepository : RapidLaunchPublisherRepository<TestStringEntity>
     {
         /// <inheritdoc />
-        public RapidLaunchStringPublisherTestRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestStringEntity>, IQueryable<TestStringEntity>>? includeFunc = default)
+        public RapidLaunchStringPublisherTestRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestStringEntity>, IQueryable<TestStringEntity>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }

@@ -11,7 +11,7 @@ namespace RapidLaunch.Dapper.Common
     /// <summary>
     /// Common functions for all base RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TRoot, TId>
         where TRoot : class, IAggregateRoot<TId>
@@ -70,11 +70,11 @@ namespace RapidLaunch.Dapper.Common
         {
             await Connection.OpenAsync(cancellationToken);
 
-            var entities = await queryFunc.Invoke(Connection, sql);
+            var roots = await queryFunc.Invoke(Connection, sql);
 
             await Connection.CloseAsync();
 
-            return entities.ToList();
+            return roots.ToList();
         }
     }
 }

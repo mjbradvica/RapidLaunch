@@ -11,7 +11,7 @@ namespace RapidLaunch.Mongo.Common
     /// <summary>
     /// Common functions for all base RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TRoot">The type of the entity.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public class RapidLaunchRepository<TRoot, TId> :
         IAddRoots<TRoot, TId>,
@@ -190,7 +190,7 @@ namespace RapidLaunch.Mongo.Common
             {
                 var aggregateRoots = roots.ToList();
 
-                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                var filter = Builders<TRoot>.Filter.In(root => root.Id, aggregateRoots.Select(root => root.Id));
 
                 GetCollection().DeleteMany(session, filter);
 
@@ -210,7 +210,7 @@ namespace RapidLaunch.Mongo.Common
             {
                 var aggregateRoots = roots.ToList();
 
-                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                var filter = Builders<TRoot>.Filter.In(root => root.Id, aggregateRoots.Select(root => root.Id));
 
                 GetCollection().DeleteMany(session, filter, options);
 
@@ -226,7 +226,7 @@ namespace RapidLaunch.Mongo.Common
             {
                 var aggregateRoots = roots.ToList();
 
-                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                var filter = Builders<TRoot>.Filter.In(root => root.Id, aggregateRoots.Select(root => root.Id));
 
                 await GetCollection().DeleteManyAsync(session, filter, null, cancellationToken);
 
@@ -249,7 +249,7 @@ namespace RapidLaunch.Mongo.Common
                 {
                     var aggregateRoots = roots.ToList();
 
-                    var filter = Builders<TRoot>.Filter.In(entity => entity.Id, aggregateRoots.Select(entity => entity.Id));
+                    var filter = Builders<TRoot>.Filter.In(root => root.Id, aggregateRoots.Select(root => root.Id));
 
                     await GetCollection().DeleteManyAsync(session, filter, options, cancellationToken);
 
@@ -316,7 +316,7 @@ namespace RapidLaunch.Mongo.Common
             return await ExecuteCommandAsync(
                 async session =>
                 {
-                    var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, root.Id);
+                    var filter = Builders<TRoot>.Filter.Eq(root => root.Id, root.Id);
 
                     await GetCollection().DeleteOneAsync(session, filter, options, cancellationToken);
 
@@ -337,10 +337,10 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Retrieves all entities of type from a collection.
+        /// Retrieves all roots of type from a collection.
         /// </summary>
         /// <param name="options">An instance of the <see cref="FindOptions"/> class.</param>
-        /// <returns>A <see cref="List{TEntity}"/> of entities.</returns>
+        /// <returns>A <see cref="List{TEntity}"/> of roots.</returns>
         public List<TRoot> GetAllEntities(FindOptions options)
         {
             return ExecuteQuery(session =>
@@ -365,7 +365,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Returns all entities from a collection.
+        /// Returns all roots from a collection.
         /// </summary>
         /// <param name="options">A <see cref="DeleteOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
@@ -387,23 +387,23 @@ namespace RapidLaunch.Mongo.Common
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
+                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, id);
 
                 return GetCollection().Find(session, filter).ToCursor();
             }).FirstOrDefault();
         }
 
         /// <summary>
-        /// Retrieves an entity by an identifier.
+        /// Retrieves an root by an identifier.
         /// </summary>
-        /// <param name="id">The identifier of the entity.</param>
+        /// <param name="id">The identifier of the root.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
-        /// <returns>A nullable entity.</returns>
+        /// <returns>A nullable root.</returns>
         public virtual TRoot? GetById(TId id, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
-                var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
+                var filter = Builders<TRoot>.Filter.Eq(root => root.Id, id);
 
                 return GetCollection().Find(session, filter, options).ToCursor();
             }).FirstOrDefault();
@@ -415,7 +415,7 @@ namespace RapidLaunch.Mongo.Common
             return (await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
+                    var filter = Builders<TRoot>.Filter.Eq(root => root.Id, id);
 
                     return await GetCollection().FindAsync(session, filter, null, cancellationToken);
                 },
@@ -424,18 +424,18 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Retrieves an entity by an identifier.
+        /// Retrieves an root by an identifier.
         /// </summary>
-        /// <param name="id">The identifier of the entity.</param>
+        /// <param name="id">The identifier of the root.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of nullable entity representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task"/> of nullable root representing the asynchronous operation.</returns>
         public virtual async Task<TRoot?> GetByIdAsync(TId id, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return (await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TRoot>.Filter.Eq(entity => entity.Id, id);
+                    var filter = Builders<TRoot>.Filter.Eq(root => root.Id, id);
 
                     return await GetCollection().FindAsync(session, filter, options, cancellationToken);
                 },
@@ -450,25 +450,25 @@ namespace RapidLaunch.Mongo.Common
             {
                 var asList = identifiers.ToList();
 
-                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, asList);
+                var filter = Builders<TRoot>.Filter.In(root => root.Id, asList);
 
                 return GetCollection().Find(session, filter).ToCursor();
             });
         }
 
         /// <summary>
-        /// Retrieves a list of entities from a range of identifiers.
+        /// Retrieves a list of roots from a range of identifiers.
         /// </summary>
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifier to query against.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
-        /// <returns>A <see cref="List{T}"/> of entities.</returns>
+        /// <returns>A <see cref="List{T}"/> of roots.</returns>
         public virtual List<TRoot> GetEntitiesById(IEnumerable<TId> identifiers, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
                 var asList = identifiers.ToList();
 
-                var filter = Builders<TRoot>.Filter.In(entity => entity.Id, asList);
+                var filter = Builders<TRoot>.Filter.In(root => root.Id, asList);
 
                 return GetCollection().Find(session, filter, options).ToCursor();
             });
@@ -480,7 +480,7 @@ namespace RapidLaunch.Mongo.Common
             return await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TRoot>.Filter.In(entity => entity.Id, identifiers);
+                    var filter = Builders<TRoot>.Filter.In(root => root.Id, identifiers);
 
                     return await GetCollection().FindAsync(session, filter, null, cancellationToken);
                 },
@@ -488,7 +488,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <summary>
-        /// Retrieves a list of entities from a range of identifiers.
+        /// Retrieves a list of roots from a range of identifiers.
         /// </summary>
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifier to query against.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
@@ -499,7 +499,7 @@ namespace RapidLaunch.Mongo.Common
             return await ExecuteQueryAsync(
                 async session =>
                 {
-                    var filter = Builders<TRoot>.Filter.In(entity => entity.Id, identifiers);
+                    var filter = Builders<TRoot>.Filter.In(root => root.Id, identifiers);
 
                     return await GetCollection().FindAsync(session, filter, options, cancellationToken);
                 },
@@ -507,7 +507,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual List<TRoot> SearchRoots(IQuery<TRoot> queryObject)
+        public virtual List<TRoot> SearchRoots(IQuery<TRoot, TId> queryObject)
         {
             return ExecuteQuery(session =>
             {
@@ -520,10 +520,10 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Performs a series of filters against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a search expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity, TId}"/> that contains a search expression.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <returns>A <see cref="List{T}"/> containing the result set.</returns>
-        public virtual List<TRoot> SearchEntities(IQuery<TRoot> queryObject, FindOptions options)
+        public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId> queryObject, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
@@ -534,7 +534,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId> queryObject, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
@@ -549,11 +549,11 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Performs a series of filters against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity}"/> that contains a search expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TEntity, TId}"/> that contains a search expression.</param>
         /// <param name="options">A <see cref="FindOptions{TEntity}"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot> queryObject, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot, TId> queryObject, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
@@ -574,7 +574,7 @@ namespace RapidLaunch.Mongo.Common
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
-                    var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
+                    var filter = new ExpressionFilterDefinition<TRoot>(root => root.Id!.Equals(replacement.Id));
 
                     return new ReplaceOneModel<TRoot>(filter, replacement);
                 });
@@ -599,7 +599,7 @@ namespace RapidLaunch.Mongo.Common
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
-                    var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
+                    var filter = new ExpressionFilterDefinition<TRoot>(root => root.Id!.Equals(replacement.Id));
 
                     return new ReplaceOneModel<TRoot>(filter, replacement);
                 });
@@ -620,7 +620,7 @@ namespace RapidLaunch.Mongo.Common
 
                 var requests = aggregateRoots.Select(replacement =>
                 {
-                    var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
+                    var filter = new ExpressionFilterDefinition<TRoot>(root => root.Id!.Equals(replacement.Id));
 
                     return new ReplaceOneModel<TRoot>(filter, replacement);
                 });
@@ -648,7 +648,7 @@ namespace RapidLaunch.Mongo.Common
 
                     var requests = aggregateRoots.Select(replacement =>
                     {
-                        var filter = new ExpressionFilterDefinition<TRoot>(entity => entity.Id!.Equals(replacement.Id));
+                        var filter = new ExpressionFilterDefinition<TRoot>(root => root.Id!.Equals(replacement.Id));
 
                         return new ReplaceOneModel<TRoot>(filter, replacement);
                     });
@@ -780,7 +780,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
         {
             int rowsAffected;
 
@@ -825,7 +825,7 @@ namespace RapidLaunch.Mongo.Common
         /// Executes a query against the persistence.
         /// </summary>
         /// <param name="query">A <see cref="Func{TResult}"/> that executes a Mongo operation.</param>
-        /// <returns>A <see cref="List{T}"/> of entities.</returns>
+        /// <returns>A <see cref="List{T}"/> of roots.</returns>
         protected virtual List<TRoot> ExecuteQuery(Func<IClientSessionHandle, IAsyncCursor<TRoot>> query)
         {
             var results = new List<TRoot>();

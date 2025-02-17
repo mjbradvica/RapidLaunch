@@ -63,13 +63,13 @@ namespace RapidLaunch.EF.Tests.Common
 
             await using (var context = new TestDbContext())
             {
-                var repo = new TestPublisherRepository(context, _bus, queryable => queryable.Include(entity => entity.Relationship));
+                var repo = new TestPublisherRepository(context, _bus, queryable => queryable.Include(root => root.Relationship));
 
                 results = await repo.GetAllRootsAsync();
             }
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.All(entity => entity.Relationship != null));
+            Assert.IsTrue(results.All(root => root.Relationship != null));
         }
 
         /// <summary>
@@ -82,10 +82,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                var entity = new TestGuidEntity();
-                entity.AddEvent();
+                var root = new TestGuidEntity();
+                root.AddEvent();
 
-                repo.AddRoots(new List<TestGuidEntity> { entity });
+                repo.AddRoots(new List<TestGuidEntity> { root });
             }
 
             _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -102,10 +102,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                var entity = new TestGuidEntity();
-                entity.AddEvent();
+                var root = new TestGuidEntity();
+                root.AddEvent();
 
-                await repo.AddRootsAsync(new List<TestGuidEntity> { entity });
+                await repo.AddRootsAsync(new List<TestGuidEntity> { root });
             }
 
             _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);

@@ -13,7 +13,7 @@ namespace RapidLaunch.EF.GuidPrimary
         where TEntity : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
+        protected RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
             : base(context, includeFunc)
         {
         }

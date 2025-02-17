@@ -7,7 +7,7 @@ using ClearDomain.LongPrimary;
 namespace RapidLaunch.EF.Tests.LongPrimary
 {
     /// <summary>
-    /// Test long entity.
+    /// Test long root.
     /// </summary>
     public class TestLongEntity : AggregateRoot
     {

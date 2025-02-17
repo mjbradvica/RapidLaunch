@@ -11,7 +11,7 @@ namespace RapidLaunch.EF.Common
     /// <summary>
     /// Common functions for all EF RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TEntity">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
     public abstract class RapidLaunchRepository<TEntity, TId> :
         IAddRoots<TEntity, TId>,
@@ -45,7 +45,7 @@ namespace RapidLaunch.EF.Common
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> that will return a <see cref="IQueryable{T}"/> used to eagerly load related aggregateRoots.</param>
-        protected RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = default)
+        protected RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
         {
             Context = context;
             _includeFunc = includeFunc;
@@ -192,10 +192,10 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Retrieves all entities from a table with an include override.
+        /// Retrieves all roots from a table with an include override.
         /// </summary>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
-        /// <returns>A <see cref="List{T}"/> of entities.</returns>
+        /// <returns>A <see cref="List{T}"/> of roots.</returns>
         public virtual List<TEntity> GetAllEntities(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable, includeFunc).ToList();
@@ -208,7 +208,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Retrieves all entities from a table with an include override.
+        /// Retrieves all roots from a table with an include override.
         /// </summary>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
@@ -225,10 +225,10 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Retrieves all entities from a table lazily with an include override.
+        /// Retrieves all roots from a table lazily with an include override.
         /// </summary>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
-        /// <returns>A <see cref="IQueryable{T}"/> of entities that may be further queried against.</returns>
+        /// <returns>A <see cref="IQueryable{T}"/> of roots that may be further queried against.</returns>
         public virtual IQueryable<TEntity> GetAllEntitiesLazy(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable, includeFunc);
@@ -237,65 +237,65 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc/>
         public virtual TEntity? GetById(TId id)
         {
-            return ExecuteQuery(queryable => queryable).FirstOrDefault(entity => entity.Id!.Equals(id));
+            return ExecuteQuery(queryable => queryable).FirstOrDefault(root => root.Id!.Equals(id));
         }
 
         /// <summary>
-        /// Retrieves an entity by an identifier with an include override.
+        /// Retrieves a root by an identifier with an include override.
         /// </summary>
-        /// <param name="id">The identifier for the entity.</param>
+        /// <param name="id">The identifier for the root.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
-        /// <returns>A nullable entity.</returns>
+        /// <returns>A nullable root.</returns>
         public virtual TEntity? GetById(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
-            return ExecuteQuery(queryable => queryable, includeFunc).FirstOrDefault(entity => entity.Id!.Equals(id));
+            return ExecuteQuery(queryable => queryable, includeFunc).FirstOrDefault(root => root.Id!.Equals(id));
         }
 
         /// <inheritdoc/>
         public virtual async Task<TEntity?> GetRootByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return await ExecuteQuery(queryable => queryable)
-                .FirstOrDefaultAsync(entity => entity.Id!.Equals(id), cancellationToken);
+                .FirstOrDefaultAsync(root => root.Id!.Equals(id), cancellationToken);
         }
 
         /// <summary>
-        /// Retrieves an entity by an identifier with an include override.
+        /// Retrieves a root by an identifier with an include override.
         /// </summary>
-        /// <param name="id">The identifier for the entity.</param>
+        /// <param name="id">The identifier for the root.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of nullable entity representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task"/> of nullable root representing the asynchronous operation.</returns>
         public virtual async Task<TEntity?> GetByIdAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await ExecuteQuery(queryable => queryable, includeFunc)
-                .FirstOrDefaultAsync(entity => entity.Id!.Equals(id), cancellationToken);
+                .FirstOrDefaultAsync(root => root.Id!.Equals(id), cancellationToken);
         }
 
         /// <inheritdoc />
         public virtual List<TEntity> GetRootsById(IEnumerable<TId> identifiers)
         {
-            return ExecuteQuery(queryable => queryable.Where(entity => identifiers.Contains(entity.Id))).ToList();
+            return ExecuteQuery(queryable => queryable.Where(root => identifiers.Contains(root.Id))).ToList();
         }
 
         /// <summary>
-        /// Retrieves a list of entities that match a parameter of identifiers.
+        /// Retrieves a list of roots that match a parameter of identifiers.
         /// </summary>
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifiers.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
-        /// <returns>A <see cref="List{T}"/> of entities.</returns>
+        /// <returns>A <see cref="List{T}"/> of roots.</returns>
         public virtual List<TEntity> GetEntitiesById(IEnumerable<TId> identifiers, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
-            return ExecuteQuery(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)), includeFunc).ToList();
+            return ExecuteQuery(queryable => queryable.Where(root => identifiers.Contains(root.Id)), includeFunc).ToList();
         }
 
         /// <inheritdoc/>
         public virtual async Task<List<TEntity>> GetRootsByIdAsync(IEnumerable<TId> identifiers, CancellationToken cancellationToken = default)
         {
-            return await ExecuteQueryAsync(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)).ToListAsync(cancellationToken));
+            return await ExecuteQueryAsync(queryable => queryable.Where(root => identifiers.Contains(root.Id)).ToListAsync(cancellationToken));
         }
 
         /// <summary>
-        /// Retrieves an entity by an identifier with an include override.
+        /// Retrieves an root by an identifier with an include override.
         /// </summary>
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifiers.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
@@ -303,57 +303,57 @@ namespace RapidLaunch.EF.Common
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task<List<TEntity>> GetEntitiesByIdAsync(IEnumerable<TId> identifiers, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
-            return await ExecuteQueryAsync(queryable => queryable.Where(entity => identifiers.Contains(entity.Id)).ToListAsync(cancellationToken), includeFunc);
+            return await ExecuteQueryAsync(queryable => queryable.Where(root => identifiers.Contains(root.Id)).ToListAsync(cancellationToken), includeFunc);
         }
 
         /// <inheritdoc/>
-        public virtual List<TEntity> SearchRoots(IQuery<TEntity> queryObject)
+        public virtual List<TEntity> SearchRoots(IQuery<TEntity, TId> queryObject)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression)).ToList();
         }
 
         /// <summary>
-        /// Searches all entities that satisfy a <see cref="IQuery{TEntity}"/>.
+        /// Searches all roots that satisfy a <see cref="IQuery{TEntity, TId}"/>.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TEntity}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TEntity, TId}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
-        /// <returns>A <see cref="List{T}"/> of entities that satisfy the query.</returns>
-        public virtual List<TEntity> SearchEntities(IQuery<TEntity> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        /// <returns>A <see cref="List{T}"/> of roots that satisfy the query.</returns>
+        public virtual List<TEntity> SearchEntities(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression), includeFunc).ToList();
         }
 
         /// <inheritdoc/>
-        public virtual async Task<List<TEntity>> SearchRootsAsync(IQuery<TEntity> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TEntity>> SearchRootsAsync(IQuery<TEntity, TId> queryObject, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.Where(queryObject.SearchExpression).ToListAsync(cancellationToken));
         }
 
         /// <summary>
-        /// Searches all entities that satisfy a <see cref="IQuery{TEntity}"/>.
+        /// Searches all roots that satisfy a <see cref="IQuery{TEntity, TId}"/>.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TEntity}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TEntity, TId}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TEntity>> SearchEntitiesAsync(IQuery<TEntity> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TEntity>> SearchEntitiesAsync(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.Where(queryObject.SearchExpression).ToListAsync(cancellationToken), includeFunc);
         }
 
         /// <inheritdoc/>
-        public virtual IQueryable<TEntity> SearchRootsLazy(IQuery<TEntity> queryObject)
+        public virtual IQueryable<TEntity> SearchRootsLazy(IQuery<TEntity, TId> queryObject)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression));
         }
 
         /// <summary>
-        /// Searches all entities that satisfy a <see cref="IQuery{TEntity}"/> and allows for further filtering.
+        /// Searches all roots that satisfy a <see cref="IQuery{TEntity, TId}"/> and allows for further filtering.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TEntity}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TEntity, TId}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <returns>A <see cref="IQueryable{T}"/>.</returns>
-        public virtual IQueryable<TEntity> SearchEntitiesLazy(IQuery<TEntity> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+        public virtual IQueryable<TEntity> SearchEntitiesLazy(IQuery<TEntity, TId> queryObject, Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression), includeFunc);
         }
@@ -424,7 +424,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = default)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             int rowsAffected;
 
@@ -458,7 +458,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = default)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
         {
             int rowsAffected;
 
@@ -494,7 +494,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="query">A <see cref="Func{TResult}"/> that contains the query.</param>
         /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that may override the default include statement.</param>
         /// <returns>A <see cref="List{T}"/> from the query operation.</returns>
-        protected virtual IQueryable<TEntity> ExecuteQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
+        protected virtual IQueryable<TEntity> ExecuteQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = null)
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
@@ -511,7 +511,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="query">A <see cref="Func{TResult}"/> that contains the query.</param>
         /// <param name="overrideFunc">A <see cref="Func{TResult}"/> that may override the default include statement.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> from the query operation.</returns>
-        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(Func<IQueryable<TEntity>, Task<List<TEntity>>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = default)
+        protected virtual async Task<List<TEntity>> ExecuteQueryAsync(Func<IQueryable<TEntity>, Task<List<TEntity>>> query, Func<IQueryable<TEntity>, IQueryable<TEntity>>? overrideFunc = null)
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
