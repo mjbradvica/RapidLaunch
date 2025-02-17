@@ -1,0 +1,40 @@
+name: Build & Test
+
+on:
+  push:
+    branches-ignore:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: | 
+            8.0.x
+            9.0.x
+
+      - name: Install SQL Server
+        uses: Particular/install-sql-server-action@v1.2.0
+        with:
+          connection-string-env-var: TEST_CONNECTION_STRING
+          catalog: RapidLaunch
+          extra-params: "TrustServerCertificate=true;"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Format
+        run: dotnet format --no-restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release
+
+      - name: Test
+        run: dotnet test --no-restore --no-build -v normal -c Release /p:CollectCoverage=true /p:Threshold=100 /p:ThresholdType=branch

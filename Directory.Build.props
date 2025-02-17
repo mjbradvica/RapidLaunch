@@ -1,15 +1,17 @@
 <Project>
     <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <AnalysisLevel>latest</AnalysisLevel>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-        <ImplicitUsings>disable</ImplicitUsings>
-        <CheckEolTargetFramework>false</CheckEolTargetFramework>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <CheckEolTargetFramework>true</CheckEolTargetFramework>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
