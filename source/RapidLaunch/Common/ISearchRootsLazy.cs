@@ -17,8 +17,8 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Performs a series of filters and/or joins on a root against a collection that has not been executed.
         /// </summary>
-        /// <param name="queryObject">A query object of type <see cref="IQuery{TEntity, TId}"/> that contains a query expression.</param>
-        /// <returns>An <see cref="IQueryable{TEntity}"/>.</returns>
+        /// <param name="queryObject">A query object of type <see cref="IQuery{TRoot, TId}"/> that contains a query expression.</param>
+        /// <returns>An <see cref="IQueryable{TRoot}"/>.</returns>
         IQueryable<TRoot> SearchRootsLazy(IQuery<TRoot, TId> queryObject);
     }
 }

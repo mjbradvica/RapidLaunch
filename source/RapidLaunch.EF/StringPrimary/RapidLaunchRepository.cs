@@ -9,11 +9,11 @@ using RapidLaunch.EF.Common;
 namespace RapidLaunch.EF.StringPrimary
 {
     /// <inheritdoc />
-    public class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, string>
-        where TEntity : class, IAggregateRoot
+    public class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, string>
+        where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        public RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
+        public RapidLaunchRepository(DbContext context, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, includeFunc)
         {
         }

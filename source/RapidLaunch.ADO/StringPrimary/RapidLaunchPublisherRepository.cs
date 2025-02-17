@@ -10,11 +10,11 @@ using RapidLaunch.Common;
 namespace RapidLaunch.ADO.StringPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, string>
-        where TEntity : class, IAggregateRoot
+    public abstract class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, string>
+        where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus publishingBus, Func<SqlDataReader, TEntity> conversionFunc)
+        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus publishingBus, Func<SqlDataReader, TRoot> conversionFunc)
             : base(sqlConnection, publishingBus, conversionFunc)
         {
         }

@@ -9,13 +9,13 @@ using RapidLaunch.Common;
 namespace RapidLaunch.Mongo.Common
 {
     /// <inheritdoc />
-    public class RapidLaunchPublisherRepository<TEntity, TId> : RapidLaunchRepository<TEntity, TId>
-        where TEntity : class, IAggregateRoot<TId>
+    public class RapidLaunchPublisherRepository<TRoot, TId> : RapidLaunchRepository<TRoot, TId>
+        where TRoot : class, IAggregateRoot<TId>
     {
         private readonly IPublishingBus _publishingBus;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TEntity, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId}"/> class.
         /// </summary>
         /// <param name="mongoClient">An instance of the <see cref="MongoClient"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
@@ -29,7 +29,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc/>
-        protected override RapidLaunchStatus ExecuteCommand(Func<IClientSessionHandle, (int RowCount, IEnumerable<TEntity> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
+        protected override RapidLaunchStatus ExecuteCommand(Func<IClientSessionHandle, (int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
             {
@@ -47,7 +47,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TEntity> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
         {
             return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
             {

@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Retrieves all roots from a collection that may still be queried against.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{TEntity}"/>.</returns>
+        /// <returns>An <see cref="IEnumerable{TRoot}"/>.</returns>
         IQueryable<TRoot> GetAllRootsLazy();
     }
 }

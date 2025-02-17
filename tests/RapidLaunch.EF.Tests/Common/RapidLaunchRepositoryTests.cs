@@ -14,7 +14,7 @@ using RapidLaunch.GuidPrimary;
 namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchRepository{TEntity}"/> class.
+    /// Tests for the <see cref="RapidLaunchRepository{TRoot}"/> class.
     /// </summary>
     [TestClass]
     public class RapidLaunchRepositoryTests : BaseIntegrationTest

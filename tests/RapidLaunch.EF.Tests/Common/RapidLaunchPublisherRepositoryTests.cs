@@ -15,7 +15,7 @@ using RapidLaunch.EF.Tests.Helpers;
 namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchPublisherRepository{TEntity,TId}"/> class.
+    /// Tests for the <see cref="RapidLaunchPublisherRepository{TRoot,TId}"/> class.
     /// </summary>
     [TestClass]
     public class RapidLaunchPublisherRepositoryTests : BaseIntegrationTest

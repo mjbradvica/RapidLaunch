@@ -18,7 +18,7 @@ namespace RapidLaunch.Common
         /// Retrieves all roots from a collection.
         /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="List{TEntity}"/>.</returns>
+        /// <returns>A <see cref="Task"/> of <see cref="List{TRoot}"/>.</returns>
         Task<List<TRoot>> GetAllRootsAsync(CancellationToken cancellationToken = default);
     }
 }

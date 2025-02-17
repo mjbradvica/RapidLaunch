@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Performs a series of filters and/or joins on a root against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity, TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a query expression.</param>
         /// <returns>A <see cref="List{T}"/>.</returns>
         List<TRoot> SearchRoots(IQuery<TRoot, TId> queryObject);
     }

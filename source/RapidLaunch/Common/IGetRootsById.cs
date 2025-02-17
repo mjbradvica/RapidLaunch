@@ -18,7 +18,7 @@ namespace RapidLaunch.Common
         /// Retrieves a list of roots that match a parameter of identifiers.
         /// </summary>
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifiers.</param>
-        /// <returns>An of <see cref="List{TEntity}"/>.</returns>
+        /// <returns>An of <see cref="List{TRoot}"/>.</returns>
         List<TRoot> GetRootsById(IEnumerable<TId> identifiers);
     }
 }

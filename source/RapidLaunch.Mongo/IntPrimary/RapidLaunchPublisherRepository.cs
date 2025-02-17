@@ -10,8 +10,8 @@ using RapidLaunch.Mongo.Common;
 namespace RapidLaunch.Mongo.IntPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, int>
-        where TEntity : class, IAggregateRoot
+    public abstract class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, int>
+        where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
         protected RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)

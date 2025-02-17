@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 namespace RapidLaunch.IntPrimary
 {
     /// <inheritdoc />
-    public interface IUpdateRootAsync<in TEntity> : IUpdateRootAsync<TEntity, int>
-        where TEntity : IAggregateRoot
+    public interface IUpdateRootAsync<in TRoot> : IUpdateRootAsync<TRoot, int>
+        where TRoot : IAggregateRoot
     {
     }
 }

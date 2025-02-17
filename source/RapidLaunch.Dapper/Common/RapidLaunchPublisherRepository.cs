@@ -15,7 +15,7 @@ namespace RapidLaunch.Dapper.Common
         private readonly IPublishingBus _publishingBus;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TEntity, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId}"/> class.
         /// </summary>
         /// <param name="connection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>

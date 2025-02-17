@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Adds multiple roots to a collection.
         /// </summary>
-        /// <param name="roots">A <see cref="IEnumerable{TEntity}"/> to be added.</param>
+        /// <param name="roots">A <see cref="IEnumerable{TRoot}"/> to be added.</param>
         /// <returns>The result contains the number of state entries written to the database.</returns>
         RapidLaunchStatus AddRoots(IEnumerable<TRoot> roots);
     }

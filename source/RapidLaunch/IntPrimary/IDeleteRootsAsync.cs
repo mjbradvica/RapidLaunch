@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 namespace RapidLaunch.IntPrimary
 {
     /// <inheritdoc />
-    public interface IDeleteRootsAsync<in TEntity> : IDeleteRootsAsync<TEntity, int>
-        where TEntity : IAggregateRoot
+    public interface IDeleteRootsAsync<in TRoot> : IDeleteRootsAsync<TRoot, int>
+        where TRoot : IAggregateRoot
     {
     }
 }

@@ -13,16 +13,16 @@ namespace RapidLaunch.Redis.Common
     /// <summary>
     /// Common functions for all base RapidLaunch repositories.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the root.</typeparam>
+    /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TEntity, TId> :
-        IAddRoots<TEntity, TId>,
-        IAddRootsAsync<TEntity, TId>,
-        IGetRootById<TEntity, TId>
-        where TEntity : class, IAggregateRoot<TId>
+    public abstract class RapidLaunchRepository<TRoot, TId> :
+        IAddRoots<TRoot, TId>,
+        IAddRootsAsync<TRoot, TId>,
+        IGetRootById<TRoot, TId>
+        where TRoot : class, IAggregateRoot<TId>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
         /// </summary>
         /// <param name="database">An instance of the <see cref="IDatabase"/> interface.</param>
         protected RapidLaunchRepository(IDatabase database)
@@ -36,7 +36,7 @@ namespace RapidLaunch.Redis.Common
         public IDatabase Database { get; }
 
         /// <inheritdoc />
-        public RapidLaunchStatus AddRoots(IEnumerable<TEntity> roots)
+        public RapidLaunchStatus AddRoots(IEnumerable<TRoot> roots)
         {
             return ExecuteCommand(() =>
             {
@@ -53,7 +53,7 @@ namespace RapidLaunch.Redis.Common
         }
 
         /// <inheritdoc/>
-        public async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TEntity> roots, CancellationToken cancellationToken = default)
+        public async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await Task.Run(
                 async () =>
@@ -77,11 +77,11 @@ namespace RapidLaunch.Redis.Common
         }
 
         /// <inheritdoc />
-        public TEntity? GetById(TId id)
+        public TRoot? GetById(TId id)
         {
             try
             {
-                return Database.JSON().Get<TEntity>(id!.ToString());
+                return Database.JSON().Get<TRoot>(id!.ToString());
             }
             catch
             {
@@ -96,7 +96,7 @@ namespace RapidLaunch.Redis.Common
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         protected virtual RapidLaunchStatus ExecuteCommand(
-            Func<(int RowCount, IEnumerable<TEntity> Entities)> executionFunc,
+            Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc,
             Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
         {
             int rowsAffected;

@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Updates a range of roots in a collection.
         /// </summary>
-        /// <param name="roots">An <see cref="IEnumerable{TEntity}"/> to be updated.</param>
+        /// <param name="roots">An <see cref="IEnumerable{TRoot}"/> to be updated.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that contains the status of the operation.</returns>
         RapidLaunchStatus UpdateRoots(IEnumerable<TRoot> roots);
     }

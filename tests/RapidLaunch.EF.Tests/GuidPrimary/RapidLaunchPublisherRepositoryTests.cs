@@ -12,7 +12,7 @@ using RapidLaunch.EF.Tests.Helpers;
 namespace RapidLaunch.EF.Tests.GuidPrimary
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchPublisherRepository{TEntity}"/>.
+    /// Tests for the <see cref="RapidLaunchPublisherRepository{TRoot}"/>.
     /// </summary>
     [TestClass]
     public class RapidLaunchPublisherRepositoryTests : BaseIntegrationTest

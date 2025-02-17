@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 namespace RapidLaunch.StringPrimary
 {
     /// <inheritdoc />
-    public interface IGetAllRootsLazy<out TEntity> : IGetAllRootsLazy<TEntity, string>
-        where TEntity : IAggregateRoot
+    public interface IGetAllRootsLazy<out TRoot> : IGetAllRootsLazy<TRoot, string>
+        where TRoot : IAggregateRoot
     {
     }
 }

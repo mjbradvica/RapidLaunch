@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface ISearchRootsLazy<TEntity> : ISearchRootsLazy<TEntity, Guid>
-        where TEntity : class, IAggregateRoot
+    public interface ISearchRootsLazy<TRoot> : ISearchRootsLazy<TRoot, Guid>
+        where TRoot : class, IAggregateRoot
     {
     }
 }

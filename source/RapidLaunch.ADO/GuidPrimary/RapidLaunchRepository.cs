@@ -9,11 +9,11 @@ using RapidLaunch.ADO.Common;
 namespace RapidLaunch.ADO.GuidPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, Guid>
-        where TEntity : class, IAggregateRoot
+    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, Guid>
+        where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchRepository(SqlConnection sqlConnection, Func<SqlDataReader, TEntity> conversionFunc)
+        protected RapidLaunchRepository(SqlConnection sqlConnection, Func<SqlDataReader, TRoot> conversionFunc)
             : base(sqlConnection, conversionFunc)
         {
         }

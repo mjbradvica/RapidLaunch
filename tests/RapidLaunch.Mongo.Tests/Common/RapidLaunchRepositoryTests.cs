@@ -11,7 +11,7 @@ using RapidLaunch.Mongo.Tests.Helpers;
 namespace RapidLaunch.Mongo.Tests.Common
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchRepository{TEntity,TId}"/> class.
+    /// Tests for the <see cref="RapidLaunchRepository{TRoot,TId}"/> class.
     /// </summary>
     [TestClass]
     public class RapidLaunchRepositoryTests : BaseIntegrationTest

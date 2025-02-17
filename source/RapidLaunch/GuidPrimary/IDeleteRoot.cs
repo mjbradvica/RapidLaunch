@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface IDeleteRoot<in TEntity> : IDeleteRoot<TEntity, Guid>
-        where TEntity : IAggregateRoot
+    public interface IDeleteRoot<in TRoot> : IDeleteRoot<TRoot, Guid>
+        where TRoot : IAggregateRoot
     {
     }
 }

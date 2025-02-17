@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Performs a series of filters and/or joins on a root against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity, TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a query expression.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/>.</returns>
         Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId> queryObject, CancellationToken cancellationToken = default);

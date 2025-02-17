@@ -8,8 +8,8 @@ using RapidLaunch.Common;
 namespace RapidLaunch.LongPrimary
 {
     /// <inheritdoc />
-    public interface ISearchRoots<TEntity> : ISearchRoots<TEntity, long>
-        where TEntity : class, IAggregateRoot
+    public interface ISearchRoots<TRoot> : ISearchRoots<TRoot, long>
+        where TRoot : class, IAggregateRoot
     {
     }
 }

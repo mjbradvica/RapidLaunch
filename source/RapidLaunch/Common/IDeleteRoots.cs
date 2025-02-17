@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Removes multiple roots from a collection.
         /// </summary>
-        /// <param name="roots">An <see cref="IEnumerable{TEntity}"/> to be deleted.</param>
+        /// <param name="roots">An <see cref="IEnumerable{TRoot}"/> to be deleted.</param>
         /// <returns>An <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         RapidLaunchStatus DeleteRoots(IEnumerable<TRoot> roots);
     }

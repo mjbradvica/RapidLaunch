@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Updates a range of roots in a collection.
         /// </summary>
-        /// <param name="roots">An <see cref="IEnumerable{TEntity}"/> to be updated.</param>
+        /// <param name="roots">An <see cref="IEnumerable{TRoot}"/> to be updated.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="RapidLaunchStatus"/> that represents the asynchronous operation.</returns>
         Task<RapidLaunchStatus> UpdateRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default);

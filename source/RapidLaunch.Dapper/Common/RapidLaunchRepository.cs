@@ -17,7 +17,7 @@ namespace RapidLaunch.Dapper.Common
         where TRoot : class, IAggregateRoot<TId>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
         /// </summary>
         /// <param name="connection">An instance of the <see cref="SqlConnection"/> class.</param>
         protected RapidLaunchRepository(SqlConnection connection)

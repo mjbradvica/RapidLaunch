@@ -10,7 +10,7 @@ using RapidLaunch.EF.Tests.Helpers;
 namespace RapidLaunch.EF.Tests.LongPrimary
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchRepository{TEntity}"/> class.
+    /// Tests for the <see cref="RapidLaunchRepository{TRoot}"/> class.
     /// </summary>
     [TestClass]
     public class RapidLaunchRepositoryTests : BaseIntegrationTest

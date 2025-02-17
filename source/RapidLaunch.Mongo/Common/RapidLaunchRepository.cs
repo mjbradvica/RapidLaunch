@@ -43,7 +43,7 @@ namespace RapidLaunch.Mongo.Common
         private readonly bool _useTransactions;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TEntity, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
         /// </summary>
         /// <param name="mongoClient">An instance of the <see cref="MongoClient"/> class.</param>
         /// <param name="databaseName">The name of the database to use.</param>
@@ -340,7 +340,7 @@ namespace RapidLaunch.Mongo.Common
         /// Retrieves all roots of type from a collection.
         /// </summary>
         /// <param name="options">An instance of the <see cref="FindOptions"/> class.</param>
-        /// <returns>A <see cref="List{TEntity}"/> of roots.</returns>
+        /// <returns>A <see cref="List{TRoot}"/> of roots.</returns>
         public List<TRoot> GetAllEntities(FindOptions options)
         {
             return ExecuteQuery(session =>
@@ -520,7 +520,7 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Performs a series of filters against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity, TId}"/> that contains a search expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a search expression.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <returns>A <see cref="List{T}"/> containing the result set.</returns>
         public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId> queryObject, FindOptions options)
@@ -549,8 +549,8 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Performs a series of filters against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TEntity, TId}"/> that contains a search expression.</param>
-        /// <param name="options">A <see cref="FindOptions{TEntity}"/> object.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a search expression.</param>
+        /// <param name="options">A <see cref="FindOptions{TRoot}"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/> representing the asynchronous operation.</returns>
         public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot, TId> queryObject, FindOptions<TRoot> options, CancellationToken cancellationToken = default)

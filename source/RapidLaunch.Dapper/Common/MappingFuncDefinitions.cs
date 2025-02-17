@@ -16,10 +16,10 @@ namespace RapidLaunch.Dapper.Common
         /// Dapper mapping function for one object to an root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> FirstMappingFunc<TFirst, TEntity>(Func<TFirst, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> FirstMappingFunc<TFirst, TRoot>(Func<TFirst, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query<TFirst>(sql).Select(mappingFunc);
         }
@@ -28,10 +28,10 @@ namespace RapidLaunch.Dapper.Common
         /// Dapper mapping function for one object to an root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> FirstMappingFuncAsync<TFirst, TEntity>(Func<TFirst, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> FirstMappingFuncAsync<TFirst, TRoot>(Func<TFirst, TRoot> mappingFunc)
         {
             return async (connection, sql) => (await connection.QueryAsync<TFirst>(sql)).Select(mappingFunc);
         }
@@ -41,10 +41,10 @@ namespace RapidLaunch.Dapper.Common
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> SecondMappingFunc<TFirst, TSecond, TEntity>(Func<TFirst, TSecond, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> SecondMappingFunc<TFirst, TSecond, TRoot>(Func<TFirst, TSecond, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query(sql, mappingFunc);
         }
@@ -54,10 +54,10 @@ namespace RapidLaunch.Dapper.Common
         /// </summary>
         /// <typeparam name="TFirst">The type of the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> SecondMappingFuncAsync<TFirst, TSecond, TEntity>(Func<TFirst, TSecond, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> SecondMappingFuncAsync<TFirst, TSecond, TRoot>(Func<TFirst, TSecond, TRoot> mappingFunc)
         {
             return async (connection, sql) => await connection.QueryAsync(sql, mappingFunc);
         }
@@ -68,10 +68,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
         /// <typeparam name="TThird">The type of the third mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> ThirdMappingFunc<TFirst, TSecond, TThird, TEntity>(Func<TFirst, TSecond, TThird, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> ThirdMappingFunc<TFirst, TSecond, TThird, TRoot>(Func<TFirst, TSecond, TThird, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query(sql, mappingFunc);
         }
@@ -82,10 +82,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
         /// <typeparam name="TThird">The type of the third mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> ThirdMappingFuncAsync<TFirst, TSecond, TThird, TEntity>(Func<TFirst, TSecond, TThird, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> ThirdMappingFuncAsync<TFirst, TSecond, TThird, TRoot>(Func<TFirst, TSecond, TThird, TRoot> mappingFunc)
         {
             return async (connection, sql) => await connection.QueryAsync(sql, mappingFunc);
         }
@@ -97,10 +97,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
         /// <typeparam name="TThird">The type of the third mapped object.</typeparam>
         /// <typeparam name="TFourth">The type of the fourth mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> FourthMappingFunc<TFirst, TSecond, TThird, TFourth, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> FourthMappingFunc<TFirst, TSecond, TThird, TFourth, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query(sql, mappingFunc);
         }
@@ -112,10 +112,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
         /// <typeparam name="TThird">The type of the third mapped object.</typeparam>
         /// <typeparam name="TFourth">The type of the fourth mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> FourthMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> FourthMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TRoot> mappingFunc)
         {
             return async (connection, sql) => await connection.QueryAsync(sql, mappingFunc);
         }
@@ -128,10 +128,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TThird">The type of the third mapped object.</typeparam>
         /// <typeparam name="TFourth">The type of the fourth mapped object.</typeparam>
         /// <typeparam name="TFifth">The type of the fifth mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> FifthMappingFunc<TFirst, TSecond, TThird, TFourth, TFifth, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> FifthMappingFunc<TFirst, TSecond, TThird, TFourth, TFifth, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query(sql, mappingFunc);
         }
@@ -144,10 +144,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TThird">The type of the third mapped object.</typeparam>
         /// <typeparam name="TFourth">The type of the fourth mapped object.</typeparam>
         /// <typeparam name="TFifth">The type of the fifth mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> FifthMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TFifth, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> FifthMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TFifth, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TRoot> mappingFunc)
         {
             return async (connection, sql) => await connection.QueryAsync(sql, mappingFunc);
         }
@@ -161,10 +161,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TFourth">The type of the fourth mapped object.</typeparam>
         /// <typeparam name="TFifth">The type of the fifth mapped object.</typeparam>
         /// <typeparam name="TSixth">The type of the sixth mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> SixthMappingFunc<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> SixthMappingFunc<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query(sql, mappingFunc);
         }
@@ -178,10 +178,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TFourth">The type of the fourth mapped object.</typeparam>
         /// <typeparam name="TFifth">The type of the fifth mapped object.</typeparam>
         /// <typeparam name="TSixth">The type of the sixth mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> SixthMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> SixthMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TRoot> mappingFunc)
         {
             return async (connection, sql) => await connection.QueryAsync(sql, mappingFunc);
         }
@@ -196,10 +196,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TFifth">The type of the fifth mapped object.</typeparam>
         /// <typeparam name="TSixth">The type of the sixth mapped object.</typeparam>
         /// <typeparam name="TSeventh">The type of the seventh mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, IEnumerable<TEntity>> SeventhMappingFunc<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, IEnumerable<TRoot>> SeventhMappingFunc<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TRoot> mappingFunc)
         {
             return (connection, sql) => connection.Query(sql, mappingFunc);
         }
@@ -214,10 +214,10 @@ namespace RapidLaunch.Dapper.Common
         /// <typeparam name="TFifth">The type of the fifth mapped object.</typeparam>
         /// <typeparam name="TSixth">The type of the sixth mapped object.</typeparam>
         /// <typeparam name="TSeventh">The type of the seventh mapped object.</typeparam>
-        /// <typeparam name="TEntity">The type of the root being created.</typeparam>
+        /// <typeparam name="TRoot">The type of the root being created.</typeparam>
         /// <param name="mappingFunc">A mapping func to convert dapper objects to the desired root.</param>
         /// <returns>A func that will yield a <see cref="Task"/> of <see cref="IEnumerable{T}"/>.</returns>
-        public static Func<SqlConnection, string, Task<IEnumerable<TEntity>>> SeventhMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEntity> mappingFunc)
+        public static Func<SqlConnection, string, Task<IEnumerable<TRoot>>> SeventhMappingFuncAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TRoot>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TRoot> mappingFunc)
         {
             return async (connection, sql) => await connection.QueryAsync(sql, mappingFunc);
         }

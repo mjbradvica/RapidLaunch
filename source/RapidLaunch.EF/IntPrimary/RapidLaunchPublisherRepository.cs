@@ -10,11 +10,11 @@ using RapidLaunch.EF.Common;
 namespace RapidLaunch.EF.IntPrimary
 {
     /// <inheritdoc />
-    public class RapidLaunchPublisherRepository<TEntity> : RapidLaunchPublisherRepository<TEntity, int>
-        where TEntity : class, IAggregateRoot
+    public class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, int>
+        where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        public RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
+        public RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }

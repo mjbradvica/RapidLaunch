@@ -9,11 +9,11 @@ using RapidLaunch.EF.Common;
 namespace RapidLaunch.EF.GuidPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TEntity> : RapidLaunchRepository<TEntity, Guid>
-        where TEntity : class, IAggregateRoot
+    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, Guid>
+        where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchRepository(DbContext context, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeFunc = null)
+        protected RapidLaunchRepository(DbContext context, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, includeFunc)
         {
         }

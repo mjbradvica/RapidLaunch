@@ -17,7 +17,7 @@ namespace RapidLaunch.Common
         /// <summary>
         /// Retrieves all roots of type from a collection.
         /// </summary>
-        /// <returns>An of <see cref="List{TEntity}"/>.</returns>
+        /// <returns>An of <see cref="List{TRoot}"/>.</returns>
         List<TRoot> GetAllRoots();
     }
 }
