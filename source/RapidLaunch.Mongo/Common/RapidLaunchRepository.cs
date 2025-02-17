@@ -383,7 +383,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual TRoot? GetById(TId id)
+        public virtual TRoot? GetRootById(TId id)
         {
             return ExecuteQuery(session =>
             {

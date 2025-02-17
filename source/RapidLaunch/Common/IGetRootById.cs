@@ -19,6 +19,6 @@ namespace RapidLaunch.Common
         /// </summary>
         /// <param name="id">The identifier for the root.</param>
         /// <returns>The root returned from the query.</returns>
-        TRoot? GetById(TId id);
+        TRoot? GetRootById(TId id);
     }
 }

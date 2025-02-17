@@ -237,7 +237,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var toDelete = repo.GetById(root.Id);
+                var toDelete = repo.GetRootById(root.Id);
 
                 if (toDelete != null)
                 {
@@ -486,7 +486,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context);
 
-                var result = repo.GetById(root.Id);
+                var result = repo.GetRootById(root.Id);
 
                 Assert.AreEqual(root, result);
             }
@@ -1027,7 +1027,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                var root = repo.GetById(testEntity.Id);
+                var root = repo.GetRootById(testEntity.Id);
 
                 if (root != null)
                 {
@@ -1043,7 +1043,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                result = repo.GetById(testEntity.Id);
+                result = repo.GetRootById(testEntity.Id);
             }
 
             Assert.IsNull(result?.Relationship);

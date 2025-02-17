@@ -235,7 +235,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual TRoot? GetById(TId id)
+        public virtual TRoot? GetRootById(TId id)
         {
             return ExecuteQuery(queryable => queryable).FirstOrDefault(root => root.Id!.Equals(id));
         }

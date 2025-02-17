@@ -77,7 +77,7 @@ namespace RapidLaunch.Redis.Common
         }
 
         /// <inheritdoc />
-        public TRoot? GetById(TId id)
+        public TRoot? GetRootById(TId id)
         {
             try
             {

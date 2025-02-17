@@ -5,6 +5,7 @@
     "buildtransitive",
     "contentfiles",
     "msbuild",
+    "nupkg",
     "stylecop"
   ]
 }

@@ -7,7 +7,7 @@ using ClearDomain.Common;
 namespace RapidLaunch.Common
 {
     /// <summary>
-    /// An interface used to describe a class that can update an root asynchronously.
+    /// An interface used to describe a class that can update a root asynchronously.
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
