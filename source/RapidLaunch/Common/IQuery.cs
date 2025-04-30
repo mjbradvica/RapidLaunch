@@ -12,8 +12,9 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IQuery<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    public interface IQuery<TRoot, TId, TEvent>
+        where TRoot : IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
         /// Gets an expression that will be used to perform filtering and/or joins.

@@ -11,8 +11,9 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IDeleteRootAsync<in TRoot, TId>
-        where TRoot : IAggregateRoot<TId>
+    public interface IDeleteRootAsync<in TRoot, TId, TEvent>
+        where TRoot : IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
         /// Removes a root from a collection asynchronously.

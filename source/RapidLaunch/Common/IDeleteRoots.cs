@@ -11,8 +11,9 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IDeleteRoots<in TRoot, TId>
-        where TRoot : IAggregateRoot<TId>
+    public interface IDeleteRoots<in TRoot, TId, TEvent>
+        where TRoot : IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
         /// Removes multiple roots from a collection.

@@ -2,13 +2,14 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
+using ClearDomain.Common;
 using ClearDomain.GuidPrimary;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface ISearchRootsAsync<TRoot> : ISearchRootsAsync<TRoot, Guid>
+    public interface ISearchRootsAsync<TRoot> : ISearchRootsAsync<TRoot, Guid, IDomainEvent>
         where TRoot : class, IAggregateRoot
     {
     }

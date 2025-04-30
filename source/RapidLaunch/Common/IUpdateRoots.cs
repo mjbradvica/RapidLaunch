@@ -11,8 +11,9 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IUpdateRoots<in TRoot, TId>
-        where TRoot : IAggregateRoot<TId>
+    public interface IUpdateRoots<in TRoot, TId, TEvent>
+        where TRoot : IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
         /// Updates a range of roots in a collection.
