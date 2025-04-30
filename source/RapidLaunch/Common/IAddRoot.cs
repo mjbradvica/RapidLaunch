@@ -11,8 +11,10 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IAddRoot<in TRoot, TId>
-        where TRoot : IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the domain event.</typeparam>
+    public interface IAddRoot<in TRoot, TId, TEvent>
+        where TRoot : IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
         /// Adds a single root to a collection.
