@@ -3,12 +3,13 @@
 // </copyright>
 
 using ClearDomain.StringPrimary;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.StringPrimary
 {
     /// <inheritdoc />
-    public interface IAddRootAsync<in TRoot> : IAddRootAsync<TRoot, string>
+    public interface IAddRootAsync<in TRoot> : IAddRootAsync<TRoot, string, IOccurrence>
         where TRoot : IAggregateRoot
     {
     }

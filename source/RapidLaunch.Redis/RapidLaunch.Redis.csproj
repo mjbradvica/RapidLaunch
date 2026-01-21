@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="NRedisStack" Version="0.13.2" />
+    <PackageReference Include="NRedisStack" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

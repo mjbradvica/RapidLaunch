@@ -13,7 +13,7 @@ namespace RapidLaunch.Dapper.Common
     internal static class MappingFuncDefinitions
     {
         /// <summary>
-        /// Dapper mapping function for one object to an root.
+        /// Dapper mapping function for one object to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TRoot">The type of the root being created.</typeparam>
@@ -25,7 +25,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for one object to an root asynchronously.
+        /// Dapper mapping function for one object to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TRoot">The type of the root being created.</typeparam>
@@ -37,7 +37,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for two objects to an root.
+        /// Dapper mapping function for two objects to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -50,7 +50,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for two objects to an root asynchronously.
+        /// Dapper mapping function for two objects to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type of the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -63,7 +63,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for three objects to an root.
+        /// Dapper mapping function for three objects to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -77,7 +77,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for three objects to an root asynchronously.
+        /// Dapper mapping function for three objects to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -91,7 +91,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for four objects to an root.
+        /// Dapper mapping function for four objects to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -106,7 +106,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for four objects to an root asynchronously.
+        /// Dapper mapping function for four objects to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -121,7 +121,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for five objects to an root.
+        /// Dapper mapping function for five objects to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -137,7 +137,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for five objects to an root asynchronously.
+        /// Dapper mapping function for five objects to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -153,7 +153,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for six objects to an root.
+        /// Dapper mapping function for six objects to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -170,7 +170,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for six objects to an root asynchronously.
+        /// Dapper mapping function for six objects to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -187,7 +187,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for seven objects to an root.
+        /// Dapper mapping function for seven objects to a root.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>
@@ -205,7 +205,7 @@ namespace RapidLaunch.Dapper.Common
         }
 
         /// <summary>
-        /// Dapper mapping function for seven objects to an root asynchronously.
+        /// Dapper mapping function for seven objects to a root asynchronously.
         /// </summary>
         /// <typeparam name="TFirst">The type fo the first mapped object.</typeparam>
         /// <typeparam name="TSecond">The type of the second mapped object.</typeparam>

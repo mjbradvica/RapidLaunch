@@ -13,11 +13,13 @@ namespace RapidLaunch.Dapper.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the domain event.</typeparam>
+    public abstract class RapidLaunchRepository<TRoot, TId, TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="connection">An instance of the <see cref="SqlConnection"/> class.</param>
         protected RapidLaunchRepository(SqlConnection connection)

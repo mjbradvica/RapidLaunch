@@ -4,12 +4,13 @@
 
 using ClearDomain.LongPrimary;
 using MongoDB.Driver;
+using NMediation.Abstractions;
 using RapidLaunch.Mongo.Common;
 
 namespace RapidLaunch.Mongo.LongPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, long>
+    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, long, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />

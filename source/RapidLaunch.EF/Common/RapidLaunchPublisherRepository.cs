@@ -13,13 +13,15 @@ namespace RapidLaunch.EF.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchPublisherRepository<TRoot, TId> : RapidLaunchRepository<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the domain event.</typeparam>
+    public abstract class RapidLaunchPublisherRepository<TRoot, TId, TEvent> : RapidLaunchRepository<TRoot, TId, TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         private readonly IPublishingBus _publishingBus;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot,TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
@@ -31,7 +33,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot,TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
@@ -42,7 +44,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc />
-        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
+        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
             return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
             {
@@ -60,7 +62,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
         {
             return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
             {

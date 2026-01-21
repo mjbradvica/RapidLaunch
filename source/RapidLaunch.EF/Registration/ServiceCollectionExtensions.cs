@@ -2,10 +2,11 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
+using System.Reflection;
 
 namespace RapidLaunch.EF.Registration
 {
@@ -26,8 +27,8 @@ namespace RapidLaunch.EF.Registration
 
             foreach (var assembly in assemblies)
             {
-                RegisterRepositories(services, assembly, typeof(RapidLaunchRepository<,>));
-                RegisterRepositories(services, assembly, typeof(RapidLaunchPublisherRepository<,>));
+                RegisterRepositories(services, assembly, typeof(RapidLaunchRepository<,,>));
+                RegisterRepositories(services, assembly, typeof(RapidLaunchPublisherRepository<,,>));
                 RegisterRapidLaunchHandlers(services, assembly);
 
                 RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchPublisherRepository<>));
@@ -57,8 +58,8 @@ namespace RapidLaunch.EF.Registration
 
             foreach (var assembly in assemblies)
             {
-                RegisterRepositories(services, assembly, typeof(RapidLaunchRepository<,>));
-                RegisterRepositories(services, assembly, typeof(RapidLaunchPublisherRepository<,>));
+                RegisterRepositories(services, assembly, typeof(RapidLaunchRepository<,,>));
+                RegisterRepositories(services, assembly, typeof(RapidLaunchPublisherRepository<,,>));
 
                 RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchPublisherRepository<>));
                 RegisterRepositories(services, assembly, typeof(GuidPrimary.RapidLaunchRepository<>));
@@ -91,15 +92,16 @@ namespace RapidLaunch.EF.Registration
                 });
         }
 
+        // TODO: Might not need.
         private static void RegisterRapidLaunchHandlers(IServiceCollection services, Assembly assembly)
         {
             assembly.GetTypes()
                 .Where(type => !type.IsAbstract && !type.IsInterface)
-                .Where(type => type.GetInterfaces().Any(interfaceType => interfaceType == typeof(IDomainEventHandler<>)))
+                .Where(type => type.GetInterfaces().Any(interfaceType => interfaceType == typeof(IOccurrence)))
                 .ToList()
                 .ForEach(concreteType =>
                 {
-                    services.AddTransient(concreteType, typeof(IDomainEventHandler<>));
+                    services.AddTransient(concreteType, typeof(IOccurrenceHandler<>));
                 });
         }
     }

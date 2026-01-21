@@ -4,13 +4,14 @@
 
 using ClearDomain.GuidPrimary;
 using MongoDB.Driver;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 using RapidLaunch.Mongo.Common;
 
 namespace RapidLaunch.Mongo.GuidPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, Guid>
+    public abstract class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, Guid, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />

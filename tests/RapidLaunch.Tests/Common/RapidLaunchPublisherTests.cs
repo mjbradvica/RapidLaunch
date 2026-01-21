@@ -3,9 +3,8 @@
 // </copyright>
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using RapidLaunch.Common;
+using NMediation.Abstractions;
 
 namespace RapidLaunch.Tests.Common
 {
@@ -20,10 +19,10 @@ namespace RapidLaunch.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task PublishDomainEvent_PublishesEvents()
+        public async Task PublishDomainEventPublishesEvents()
         {
-            var handler = new Mock<IDomainEventHandler<TestNotification>>();
-            handler.Setup(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), CancellationToken.None))
+            var handler = new Mock<IOccurrenceHandler<TestNotification>>();
+            handler.Setup(x => x.Handle(It.IsAny<TestNotification>(), CancellationToken.None))
                 .Returns(Task.CompletedTask);
 
             var collection = new ServiceCollection();
@@ -36,7 +35,7 @@ namespace RapidLaunch.Tests.Common
 
             await publisher.PublishDomainEvent(new TestNotification());
 
-            handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), CancellationToken.None), Times.Once);
+            handler.Verify(x => x.Handle(It.IsAny<TestNotification>(), CancellationToken.None), Times.Once);
         }
     }
 }

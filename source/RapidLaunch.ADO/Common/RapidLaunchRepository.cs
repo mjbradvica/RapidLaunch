@@ -2,10 +2,10 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using System.Data;
 using ClearDomain.Common;
 using Microsoft.Data.SqlClient;
 using RapidLaunch.Common;
+using System.Data;
 
 namespace RapidLaunch.ADO.Common
 {
@@ -14,17 +14,19 @@ namespace RapidLaunch.ADO.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the event.</typeparam>
+    public abstract class RapidLaunchRepository<TRoot, TId, TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         private readonly SqlConnection _sqlConnection;
         private readonly Func<SqlDataReader, TRoot> _conversionFunc;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
-        /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert a <see cref="SqlDataReader"/> to an root.</param>
+        /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert a <see cref="SqlDataReader"/> to a root.</param>
         protected RapidLaunchRepository(SqlConnection sqlConnection, Func<SqlDataReader, TRoot> conversionFunc)
         {
             _sqlConnection = sqlConnection;
@@ -37,7 +39,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that yields a SQL statement and the roots to execute again.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> that indicates the number of rows affected.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(string Command, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(string Command, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
             int result;
 
@@ -80,7 +82,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task{TResult}"/> of type <see cref="RapidLaunchStatus"/> representing the result of the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<(string Command, IEnumerable<TRoot> Entities)> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<(string Command, IEnumerable<TRoot> Entities)> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
         {
             int result;
 

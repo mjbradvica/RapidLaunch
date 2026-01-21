@@ -11,15 +11,17 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the aggregate root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface ISearchRootsAsync<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the event.</typeparam>
+    public interface ISearchRootsAsync<TRoot, out TId, in TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
         /// Performs a series of filters and/or joins on a root against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId, TEvent}"/> that contains a query expression.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/>.</returns>
-        Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId> queryObject, CancellationToken cancellationToken = default);
+        Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId, TEvent> queryObject, CancellationToken cancellationToken = default);
     }
 }

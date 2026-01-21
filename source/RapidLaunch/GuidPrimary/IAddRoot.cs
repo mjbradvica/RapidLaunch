@@ -3,12 +3,13 @@
 // </copyright>
 
 using ClearDomain.GuidPrimary;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface IAddRoot<in TRoot> : IAddRoot<TRoot, Guid>
+    public interface IAddRoot<in TRoot> : IAddRoot<TRoot, Guid, IOccurrence>
         where TRoot : IAggregateRoot
     {
     }
