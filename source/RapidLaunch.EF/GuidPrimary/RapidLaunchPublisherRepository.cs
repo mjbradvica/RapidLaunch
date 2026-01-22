@@ -15,13 +15,13 @@ namespace RapidLaunch.EF.GuidPrimary
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }
 
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus)
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus)
             : base(context, publishingBus)
         {
         }

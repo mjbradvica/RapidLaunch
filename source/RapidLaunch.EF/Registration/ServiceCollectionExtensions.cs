@@ -23,7 +23,7 @@ namespace RapidLaunch.EF.Registration
         /// <returns>The service collection.</returns>
         public static IServiceCollection AddRapidLaunch(this IServiceCollection services, params Assembly[] assemblies)
         {
-            services.AddTransient<IPublishingBus, RapidLaunchPublisher>();
+            services.AddTransient<IPublishingBus<IOccurrence>, RapidLaunchPublisher>();
 
             foreach (var assembly in assemblies)
             {
@@ -47,14 +47,15 @@ namespace RapidLaunch.EF.Registration
         /// <summary>
         /// Registers RapidLaunch with the DI container.
         /// </summary>
+        /// <typeparam name="TEvent">The type of the domain event.</typeparam>
         /// <typeparam name="TPublishingBus">The type of the publishing bus.</typeparam>
         /// <param name="services">An instance of the <see cref="IServiceCollection"/>.</param>
         /// <param name="assemblies">A <see cref="IEnumerable{T}"/> of <see cref="Assembly"/> to register from.</param>
         /// <returns>The service collection.</returns>
-        public static IServiceCollection AddRapidLaunch<TPublishingBus>(this IServiceCollection services, params Assembly[] assemblies)
-            where TPublishingBus : class, IPublishingBus
+        public static IServiceCollection AddRapidLaunch<TEvent, TPublishingBus>(this IServiceCollection services, params Assembly[] assemblies)
+            where TPublishingBus : class, IPublishingBus<TEvent>
         {
-            services.AddTransient<IPublishingBus, TPublishingBus>();
+            services.AddTransient<IPublishingBus<TEvent>, TPublishingBus>();
 
             foreach (var assembly in assemblies)
             {

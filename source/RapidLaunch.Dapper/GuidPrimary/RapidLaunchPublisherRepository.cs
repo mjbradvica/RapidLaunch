@@ -15,7 +15,7 @@ namespace RapidLaunch.Dapper.GuidPrimary
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(SqlConnection connection, IPublishingBus publishingBus)
+        protected RapidLaunchPublisherRepository(SqlConnection connection, IPublishingBus<IOccurrence> publishingBus)
             : base(connection, publishingBus)
         {
         }

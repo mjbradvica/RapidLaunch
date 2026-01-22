@@ -2,7 +2,6 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
 using RapidLaunch.Mongo.Common;
 using RapidLaunch.Mongo.Tests.GuidPrimary;
@@ -11,7 +10,7 @@ using RapidLaunch.Mongo.Tests.Helpers;
 namespace RapidLaunch.Mongo.Tests.Common
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchRepository{TRoot,TId}"/> class.
+    /// Tests for the <see cref="RapidLaunchRepository{TRoot,TId, TEvent}"/> class.
     /// </summary>
     [TestClass]
     public class RapidLaunchRepositoryTests : BaseIntegrationTest
@@ -31,7 +30,7 @@ namespace RapidLaunch.Mongo.Tests.Common
         /// Can add roots correctly.
         /// </summary>
         [TestMethod]
-        public void AddEntities_IsCorrect()
+        public void AddEntitiesIsCorrect()
         {
             var roots = new List<TestGuidEntity>
             {
@@ -43,7 +42,7 @@ namespace RapidLaunch.Mongo.Tests.Common
 
             var result = _repository.GetAllRoots();
 
-            Assert.AreEqual(roots.Count, result.Count);
+            Assert.HasCount(roots.Count, result);
         }
     }
 }

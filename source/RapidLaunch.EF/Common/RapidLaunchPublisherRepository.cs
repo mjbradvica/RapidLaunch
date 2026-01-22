@@ -18,15 +18,15 @@ namespace RapidLaunch.EF.Common
         where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
-        private readonly IPublishingBus _publishingBus;
+        private readonly IPublishingBus<TEvent> _publishingBus;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
-        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
+        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus{TEvent}"/> interface.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> that will return a <see cref="IQueryable{T}"/> used to eagerly load related aggregateRoots.</param>
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus<TEvent> publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, includeFunc)
         {
             _publishingBus = publishingBus;
@@ -36,8 +36,8 @@ namespace RapidLaunch.EF.Common
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
-        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus)
+        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus{TEvent}"/> interface.</param>
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus<TEvent> publishingBus)
             : base(context)
         {
             _publishingBus = publishingBus;

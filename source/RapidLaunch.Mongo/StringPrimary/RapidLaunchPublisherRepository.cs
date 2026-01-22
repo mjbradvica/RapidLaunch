@@ -15,7 +15,7 @@ namespace RapidLaunch.Mongo.StringPrimary
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)
+        protected RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus<IOccurrence> publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)
             : base(mongoClient, publishingBus, databaseName, collectionName, useTransactions)
         {
         }

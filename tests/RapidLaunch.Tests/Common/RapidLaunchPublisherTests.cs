@@ -5,6 +5,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NMediation.Abstractions;
+using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
 {
@@ -14,6 +15,11 @@ namespace RapidLaunch.Tests.Common
     [TestClass]
     public class RapidLaunchPublisherTests
     {
+        /// <summary>
+        /// Gets or sets the test context.
+        /// </summary>
+        public TestContext TestContext { get; set; }
+
         /// <summary>
         /// The publisher should publish the correct amount of events.
         /// </summary>
@@ -31,9 +37,11 @@ namespace RapidLaunch.Tests.Common
 
             var provider = collection.BuildServiceProvider();
 
-            var publisher = new RapidLaunchPublisher(provider);
+            var bus = provider.GetRequiredService<IMediation>();
 
-            await publisher.PublishDomainEvent(new TestNotification());
+            var publisher = new RapidLaunchPublisher(bus);
+
+            await publisher.PublishDomainEvent(new TestNotification(), TestContext.CancellationToken);
 
             handler.Verify(x => x.Handle(It.IsAny<TestNotification>(), CancellationToken.None), Times.Once);
         }

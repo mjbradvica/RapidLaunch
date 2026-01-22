@@ -315,9 +315,9 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId}"/>.
+        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId, TEvent}"/>.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId, TEvent}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <returns>A <see cref="List{T}"/> of roots that satisfy the query.</returns>
         public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId, TEvent> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc)
@@ -332,9 +332,9 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId}"/>.
+        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId, TEvent}"/>.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId, TEvent}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
@@ -350,9 +350,9 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId}"/> and allows for further filtering.
+        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId, TEvent}"/> and allows for further filtering.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId, TEvent}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <returns>A <see cref="IQueryable{T}"/>.</returns>
         public virtual IQueryable<TRoot> SearchEntitiesLazy(IQuery<TRoot, TId, TEvent> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc)

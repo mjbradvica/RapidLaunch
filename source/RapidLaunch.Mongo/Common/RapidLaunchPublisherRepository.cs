@@ -13,17 +13,17 @@ namespace RapidLaunch.Mongo.Common
         where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
-        private readonly IPublishingBus _publishingBus;
+        private readonly IPublishingBus<TEvent> _publishingBus;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="mongoClient">An instance of the <see cref="MongoClient"/> class.</param>
-        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
+        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus{TEvent}"/> interface.</param>
         /// <param name="databaseName">The name of the database to use.</param>
         /// <param name="collectionName">Optional collection name.</param>
         /// <param name="useTransactions">A flag to toggle transactions on and off.</param>
-        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)
+        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus<TEvent> publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)
             : base(mongoClient, databaseName, collectionName, useTransactions)
         {
             _publishingBus = publishingBus;

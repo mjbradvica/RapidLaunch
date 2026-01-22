@@ -15,7 +15,7 @@ namespace RapidLaunch.ADO.StringPrimary
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus publishingBus, Func<SqlDataReader, TRoot> conversionFunc)
+        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus<IOccurrence> publishingBus, Func<SqlDataReader, TRoot> conversionFunc)
             : base(sqlConnection, publishingBus, conversionFunc)
         {
         }

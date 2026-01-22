@@ -14,7 +14,7 @@ namespace RapidLaunch.ADO.Common
         where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
-        private readonly IPublishingBus _publishingBus;
+        private readonly IPublishingBus<TEvent> _publishingBus;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
@@ -22,7 +22,7 @@ namespace RapidLaunch.ADO.Common
         /// <param name="sqlConnection">An instance of the <see cref="SqlConnection"/> class.</param>
         /// <param name="publishingBus">An instance of the <see cref="IMediation"/> interface.</param>
         /// <param name="conversionFunc">A <see cref="Func{TResult}"/> to convert from a <see cref="SqlDataReader"/> to the root type.</param>
-        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus publishingBus, Func<SqlDataReader, TRoot> conversionFunc)
+        protected RapidLaunchPublisherRepository(SqlConnection sqlConnection, IPublishingBus<TEvent> publishingBus, Func<SqlDataReader, TRoot> conversionFunc)
             : base(sqlConnection, conversionFunc)
         {
             _publishingBus = publishingBus;

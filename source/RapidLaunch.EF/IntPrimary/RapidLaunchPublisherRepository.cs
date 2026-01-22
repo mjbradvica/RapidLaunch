@@ -15,13 +15,13 @@ namespace RapidLaunch.EF.IntPrimary
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        public RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
+        public RapidLaunchPublisherRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }
 
         /// <inheritdoc />
-        public RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus)
+        public RapidLaunchPublisherRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus)
             : base(context, publishingBus)
         {
         }

@@ -13,16 +13,16 @@ namespace RapidLaunch.Dapper.Common
         where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
-        private readonly IPublishingBus _publishingBus;
+        private readonly IPublishingBus<TEvent> _publishingBus;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="connection">An instance of the <see cref="SqlConnection"/> class.</param>
-        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus"/> interface.</param>
+        /// <param name="publishingBus">An instance of the <see cref="IPublishingBus{TEvent}"/> interface.</param>
         protected RapidLaunchPublisherRepository(
             SqlConnection connection,
-            IPublishingBus publishingBus)
+            IPublishingBus<TEvent> publishingBus)
             : base(connection)
         {
             _publishingBus = publishingBus;
