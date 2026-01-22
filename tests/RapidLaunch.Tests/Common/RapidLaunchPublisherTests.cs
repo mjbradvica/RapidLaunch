@@ -18,7 +18,7 @@ namespace RapidLaunch.Tests.Common
         /// <summary>
         /// Gets or sets the test context.
         /// </summary>
-        public TestContext TestContext { get; set; }
+        public TestContext? TestContext { get; set; }
 
         /// <summary>
         /// The publisher should publish the correct amount of events.
