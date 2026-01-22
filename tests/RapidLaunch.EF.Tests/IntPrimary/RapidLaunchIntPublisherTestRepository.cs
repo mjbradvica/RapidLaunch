@@ -3,6 +3,7 @@
 // </copyright>
 
 using Microsoft.EntityFrameworkCore;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 using RapidLaunch.EF.IntPrimary;
 
@@ -12,13 +13,13 @@ namespace RapidLaunch.EF.Tests.IntPrimary
     public class RapidLaunchIntPublisherTestRepository : RapidLaunchPublisherRepository<TestIntEntity>
     {
         /// <inheritdoc />
-        public RapidLaunchIntPublisherTestRepository(DbContext context, IPublishingBus publishingBus)
+        public RapidLaunchIntPublisherTestRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus)
             : base(context, publishingBus)
         {
         }
 
         /// <inheritdoc />
-        public RapidLaunchIntPublisherTestRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TestIntEntity>, IQueryable<TestIntEntity>>? includeFunc = null)
+        public RapidLaunchIntPublisherTestRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus, Func<IQueryable<TestIntEntity>, IQueryable<TestIntEntity>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }

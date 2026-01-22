@@ -2,8 +2,8 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using System.Linq.Expressions;
 using ClearDomain.Common;
+using System.Linq.Expressions;
 
 namespace RapidLaunch.Common
 {
@@ -12,8 +12,9 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface IQuery<TRoot, TId, TEvent>
-        where TRoot : IAggregateRoot<TId, TEvent>
+    /// <typeparam name="TEvent">The type of the event.</typeparam>
+    public interface IQuery<TRoot, in TId, out TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
         /// <summary>

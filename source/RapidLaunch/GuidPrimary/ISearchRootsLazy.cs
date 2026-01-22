@@ -4,12 +4,13 @@
 
 using ClearDomain.Common;
 using ClearDomain.GuidPrimary;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface ISearchRootsLazy<TRoot> : ISearchRootsLazy<TRoot, Guid, IDomainEvent>
+    public interface ISearchRootsLazy<TRoot> : ISearchRootsLazy<TRoot, Guid, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
     }

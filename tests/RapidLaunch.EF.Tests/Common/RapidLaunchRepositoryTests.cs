@@ -2,7 +2,6 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.Common;
@@ -10,6 +9,7 @@ using RapidLaunch.EF.GuidPrimary;
 using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.Helpers;
 using RapidLaunch.GuidPrimary;
+using System.Linq.Expressions;
 
 namespace RapidLaunch.EF.Tests.Common
 {
@@ -23,7 +23,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can query with default include statement correctly.
         /// </summary>
         [TestMethod]
-        public void Repo_WithDefaultInclude_IsCorrect()
+        public void RepoWithDefaultIncludeIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -47,7 +47,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can add roots correctly.
         /// </summary>
         [TestMethod]
-        public void AddEntities_IsCorrect()
+        public void AddEntitiesIsCorrect()
         {
             var roots = new List<TestGuidEntity>
             {
@@ -77,7 +77,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task AddEntitiesAsync_IsCorrect()
+        public async Task AddEntitiesAsyncIsCorrect()
         {
             var roots = new List<TestGuidEntity>
             {
@@ -106,7 +106,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can add an root correctly.
         /// </summary>
         [TestMethod]
-        public void AddEntity_IsCorrect()
+        public void AddEntityIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -130,7 +130,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task AddEntityAsync_IsCorrect()
+        public async Task AddEntityAsyncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -153,7 +153,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can delete roots is correct.
         /// </summary>
         [TestMethod]
-        public void DeleteEntities_IsCorrect()
+        public void DeleteEntitiesIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -188,7 +188,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task DeleteEntitiesAsync_IsCorrect()
+        public async Task DeleteEntitiesAsyncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -222,7 +222,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can delete an root correctly.
         /// </summary>
         [TestMethod]
-        public void DeleteEntity_IsCorrect()
+        public void DeleteEntityIsCorrect()
         {
             var root = new TestGuidEntity();
 
@@ -262,7 +262,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task DeleteEntityAsync_IsCorrect()
+        public async Task DeleteEntityAsyncIsCorrect()
         {
             var root = new TestGuidEntity();
 
@@ -301,7 +301,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get all roots correctly.
         /// </summary>
         [TestMethod]
-        public void GetAllEntities_IsCorrect()
+        public void GetAllEntitiesIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -326,7 +326,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get all roots with include func correctly.
         /// </summary>
         [TestMethod]
-        public void GetAllEntitiesWithIncludeFunc_IsCorrect()
+        public void GetAllEntitiesWithIncludeFuncIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -356,7 +356,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task GetAllEntitiesAsync_IsCorrect()
+        public async Task GetAllEntitiesAsyncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -382,7 +382,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task GetAllEntitiesWithIncludeFuncAsync_IsCorrect()
+        public async Task GetAllEntitiesWithIncludeFuncAsyncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -411,7 +411,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get roots lazy correctly.
         /// </summary>
         [TestMethod]
-        public void GetAllEntitiesLazy_IsCorrect()
+        public void GetAllEntitiesLazyIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -438,7 +438,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get roots lazy with include func correctly.
         /// </summary>
         [TestMethod]
-        public void GetAllEntitiesLazyWithIncludeFunc_IsCorrect()
+        public void GetAllEntitiesLazyWithIncludeFuncIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -470,7 +470,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get by id correctly.
         /// </summary>
         [TestMethod]
-        public void GetById_IsCorrect()
+        public void GetByIdIsCorrect()
         {
             var root = new TestGuidEntity();
             var incorrect = new TestGuidEntity();
@@ -496,7 +496,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get by id with include func correctly.
         /// </summary>
         [TestMethod]
-        public void GetByIdWithIncludeFunc_IsCorrect()
+        public void GetByIdWithIncludeFuncIsCorrect()
         {
             var root = new TestGuidEntity { Relationship = new TestRelationship() };
             var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
@@ -524,7 +524,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task GetByIdAsync_IsCorrectAsync()
+        public async Task GetByIdAsyncIsCorrectAsync()
         {
             var root = new TestGuidEntity();
             var incorrect = new TestGuidEntity();
@@ -551,7 +551,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task GetByIdWithIncludeFuncAsync_IsCorrect()
+        public async Task GetByIdWithIncludeFuncAsyncIsCorrect()
         {
             var root = new TestGuidEntity { Relationship = new TestRelationship() };
             var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
@@ -578,7 +578,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get roots by id correctly.
         /// </summary>
         [TestMethod]
-        public void GetEntitiesById_IsCorrect()
+        public void GetEntitiesByIdIsCorrect()
         {
             var first = new TestGuidEntity();
             var second = new TestGuidEntity();
@@ -613,7 +613,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can get roots by id with include func correctly.
         /// </summary>
         [TestMethod]
-        public void GetEntitiesByIdWithIncludeFunc_IsCorrect()
+        public void GetEntitiesByIdWithIncludeFuncIsCorrect()
         {
             var first = new TestGuidEntity { Relationship = new TestRelationship() };
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
@@ -652,7 +652,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task GetEntitiesByIdAsync_IsCorrect()
+        public async Task GetEntitiesByIdAsyncIsCorrect()
         {
             var first = new TestGuidEntity();
             var second = new TestGuidEntity();
@@ -688,7 +688,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task GetEntitiesByIdAsyncWithIncludeFunc_IsCorrect()
+        public async Task GetEntitiesByIdAsyncWithIncludeFuncIsCorrect()
         {
             var first = new TestGuidEntity { Relationship = new TestRelationship() };
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
@@ -726,7 +726,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can search roots correctly.
         /// </summary>
         [TestMethod]
-        public void SearchEntities_IsCorrect()
+        public void SearchEntitiesIsCorrect()
         {
             var first = new TestGuidEntity
             {
@@ -758,7 +758,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can search roots with include func correctly.
         /// </summary>
         [TestMethod]
-        public void SearchEntitiesWithIncludeFunc_IsCorrect()
+        public void SearchEntitiesWithIncludeFuncIsCorrect()
         {
             var first = new TestGuidEntity
             {
@@ -793,7 +793,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task SearchEntitiesAsync_IsCorrect()
+        public async Task SearchEntitiesAsyncIsCorrect()
         {
             var first = new TestGuidEntity
             {
@@ -826,7 +826,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task SearchEntitiesAsyncWithIncludeFunc_IsCorrect()
+        public async Task SearchEntitiesAsyncWithIncludeFuncIsCorrect()
         {
             var first = new TestGuidEntity
             {
@@ -860,7 +860,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can search roots lazy correctly.
         /// </summary>
         [TestMethod]
-        public void SearchEntitiesLazy_IsCorrect()
+        public void SearchEntitiesLazyIsCorrect()
         {
             var first = new TestGuidEntity
             {
@@ -892,7 +892,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can search roots lazy with include func correctly.
         /// </summary>
         [TestMethod]
-        public void SearchEntitiesLazyWithIncludeFunc_IsCorrect()
+        public void SearchEntitiesLazyWithIncludeFuncIsCorrect()
         {
             var first = new TestGuidEntity
             {
@@ -925,7 +925,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can update roots correctly.
         /// </summary>
         [TestMethod]
-        public void UpdateEntities_IsCorrect()
+        public void UpdateEntitiesIsCorrect()
         {
             using (var context = new TestDbContext())
             {
@@ -969,7 +969,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task UpdateEntitiesAsync_IsCorrect()
+        public async Task UpdateEntitiesAsyncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -1012,7 +1012,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Can update root correctly.
         /// </summary>
         [TestMethod]
-        public void UpdateEntity_IsCorrect()
+        public void UpdateEntityIsCorrect()
         {
             var testEntity = new TestGuidEntity { Relationship = new TestRelationship() };
 
@@ -1054,7 +1054,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task UpdateEntityAsync_IsCorrect()
+        public async Task UpdateEntityAsyncIsCorrect()
         {
             var testEntity = new TestGuidEntity { Relationship = new TestRelationship() };
 
@@ -1095,7 +1095,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Exception handling is correct.
         /// </summary>
         [TestMethod]
-        public void ExecuteCommand_OnException_IsCorrect()
+        public void ExecuteCommandOnExceptionIsCorrect()
         {
             RapidLaunchStatus status;
 
@@ -1125,7 +1125,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task ExecuteCommandAsync_OnException_IsCorrect()
+        public async Task ExecuteCommandAsyncOnExceptionIsCorrect()
         {
             RapidLaunchStatus status;
 
@@ -1153,7 +1153,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// <summary>
         /// Test query.
         /// </summary>
-        private class TestQuery : IQuery<TestGuidEntity>
+        private sealed class TestQuery : IQuery<TestGuidEntity>
         {
             /// <inheritdoc/>
             public Expression<Func<TestGuidEntity, bool>> SearchExpression => root => root.Id == Guid.Parse("75b974db-5203-49ed-9fb6-d066e71973af");

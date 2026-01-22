@@ -15,14 +15,16 @@ namespace RapidLaunch.Redis.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TRoot, TId> :
-        IAddRoots<TRoot, TId>,
-        IAddRootsAsync<TRoot, TId>,
-        IGetRootById<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the domain event.</typeparam>
+    public abstract class RapidLaunchRepository<TRoot, TId, TEvent> :
+        IAddRoots<TRoot, TId, TEvent>,
+        IAddRootsAsync<TRoot, TId, TEvent>,
+        IGetRootById<TRoot, TId, TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="database">An instance of the <see cref="IDatabase"/> interface.</param>
         protected RapidLaunchRepository(IDatabase database)
@@ -97,7 +99,7 @@ namespace RapidLaunch.Redis.Common
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         protected virtual RapidLaunchStatus ExecuteCommand(
             Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc,
-            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
+            Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
             int rowsAffected;
 

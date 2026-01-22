@@ -2,37 +2,28 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using ClearDomain.Common;
-using Microsoft.Extensions.DependencyInjection;
+using NMediation.Abstractions;
 
 namespace RapidLaunch.Common
 {
-    /// <summary>
-    /// Default publisher for RapidLaunch.
-    /// </summary>
-    public sealed class RapidLaunchPublisher : IPublishingBus
+    /// <inheritdoc />
+    public class RapidLaunchPublisher : IPublishingBus<IOccurrence>
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IMediation _mediation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchPublisher"/> class.
         /// </summary>
-        /// <param name="serviceProvider">An instance of the <see cref="IServiceProvider"/> interface.</param>
-        public RapidLaunchPublisher(IServiceProvider serviceProvider)
+        /// <param name="mediation">An instance of the <see cref="IMediation"/> interface.</param>
+        public RapidLaunchPublisher(IMediation mediation)
         {
-            _serviceProvider = serviceProvider;
+            _mediation = mediation;
         }
 
         /// <inheritdoc/>
-        public async Task PublishDomainEvent<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken = default)
-            where TDomainEvent : IDomainEvent
+        public async Task PublishDomainEvent(IOccurrence domainEvent, CancellationToken cancellationToken = default)
         {
-            var services = _serviceProvider.GetServices<IDomainEventHandler<TDomainEvent>>();
-
-            foreach (var eventHandler in services)
-            {
-                await eventHandler.HandleDomainEvent(domainEvent, cancellationToken);
-            }
+            await _mediation.Publish(domainEvent, cancellationToken);
         }
     }
 }

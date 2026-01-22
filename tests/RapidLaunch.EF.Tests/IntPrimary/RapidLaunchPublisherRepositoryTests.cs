@@ -5,6 +5,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 using RapidLaunch.EF.IntPrimary;
 using RapidLaunch.EF.Tests.Helpers;
@@ -26,7 +27,11 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         {
             var collection = new ServiceCollection();
 
-            _publisher = new RapidLaunchPublisher(collection.BuildServiceProvider());
+            var provider = collection.BuildServiceProvider();
+
+            var mediation = provider.GetRequiredService<IMediation>();
+
+            _publisher = new RapidLaunchPublisher(mediation);
         }
 
         /// <summary>
@@ -34,7 +39,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task DefaultConstructor_IsCorrect()
+        public async Task DefaultConstructorIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -60,7 +65,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task IncludeConstructor_IsCorrect()
+        public async Task IncludeConstructorIsCorrect()
         {
             await using (var context = new TestDbContext())
             {

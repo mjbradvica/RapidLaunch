@@ -38,7 +38,7 @@ namespace RapidLaunch.Common
         /// <returns>A new instance of a <see cref="RapidLaunchStatus"/>.</returns>
         public static RapidLaunchStatus Success(int rowCount)
         {
-            return new RapidLaunchStatus(false, new Exception(), rowCount);
+            return new RapidLaunchStatus(false, null!, rowCount);
         }
 
         /// <summary>

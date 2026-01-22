@@ -11,6 +11,7 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
+    /// <typeparam name="TEvent">The type of the event.</typeparam>
     public interface IGetRootById<out TRoot, in TId, TEvent>
         where TRoot : IAggregateRoot<TId, TEvent>
         where TEvent : class

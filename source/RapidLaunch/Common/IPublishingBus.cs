@@ -2,23 +2,20 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using ClearDomain.Common;
-
 namespace RapidLaunch.Common
 {
     /// <summary>
     /// Placeholder interface for a publishing bus.
     /// </summary>
-    public interface IPublishingBus
+    /// <typeparam name="TDomainEvent">The type of the domain event.</typeparam>
+    public interface IPublishingBus<in TDomainEvent>
     {
         /// <summary>
         /// Publishes a domain event to the application.
         /// </summary>
-        /// <typeparam name="TDomainEvent">The type of the domain event.</typeparam>
-        /// <param name="domainEvent">The <see cref="IDomainEvent"/> to be published.</param>
+        /// <param name="domainEvent">The event to be published.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task PublishDomainEvent<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken = default)
-            where TDomainEvent : IDomainEvent;
+        Task PublishDomainEvent(TDomainEvent domainEvent, CancellationToken cancellationToken = default);
     }
 }

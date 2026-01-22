@@ -3,12 +3,13 @@
 // </copyright>
 
 using MongoDB.Driver;
+using NMediation.Abstractions;
 using RapidLaunch.Mongo.Common;
 
 namespace RapidLaunch.Mongo.Samples.Airplanes
 {
     /// <inheritdoc />
-    public class AirplaneRepository : RapidLaunchRepository<Airplane, Guid>
+    public class AirplaneRepository : RapidLaunchRepository<Airplane, Guid, IOccurrence>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AirplaneRepository"/> class.

@@ -11,14 +11,15 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface ISearchRootsLazy<TRoot, TId, TEvent>
-        where TRoot : IAggregateRoot<TId, TEvent>
+    /// <typeparam name="TEvent">The type of the event.</typeparam>
+    public interface ISearchRootsLazy<TRoot, out TId, in TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
         /// <summary>
         /// Performs a series of filters and/or joins on a root against a collection that has not been executed.
         /// </summary>
-        /// <param name="queryObject">A query object of type <see cref="IQuery{TRoot, TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A query object of type <see cref="IQuery{TRoot, TId, TEvent}"/> that contains a query expression.</param>
         /// <returns>An <see cref="IQueryable{TRoot}"/>.</returns>
         IQueryable<TRoot> SearchRootsLazy(IQuery<TRoot, TId, TEvent> queryObject);
     }

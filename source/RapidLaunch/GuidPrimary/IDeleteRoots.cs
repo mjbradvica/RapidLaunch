@@ -4,12 +4,13 @@
 
 using ClearDomain.Common;
 using ClearDomain.GuidPrimary;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.GuidPrimary
 {
     /// <inheritdoc />
-    public interface IDeleteRoots<in TRoot> : IDeleteRoots<TRoot, Guid, IDomainEvent>
+    public interface IDeleteRoots<in TRoot> : IDeleteRoots<TRoot, Guid, IOccurrence>
         where TRoot : IAggregateRoot
     {
     }

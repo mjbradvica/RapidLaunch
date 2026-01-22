@@ -3,12 +3,13 @@
 // </copyright>
 
 using ClearDomain.StringPrimary;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.StringPrimary
 {
     /// <inheritdoc />
-    public interface IQuery<TRoot> : IQuery<TRoot, string>
+    public interface IQuery<TRoot> : IQuery<TRoot, string, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
     }

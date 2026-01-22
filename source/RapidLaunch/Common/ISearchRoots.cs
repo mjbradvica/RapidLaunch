@@ -11,14 +11,15 @@ namespace RapidLaunch.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public interface ISearchRoots<TRoot, TId, TEvent>
-        where TRoot : IAggregateRoot<TId, TEvent>
+    /// <typeparam name="TEvent">The type of the event.</typeparam>
+    public interface ISearchRoots<TRoot, out TId, in TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
         /// <summary>
         /// Performs a series of filters and/or joins on a root against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a query expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId, TEvent}"/> that contains a query expression.</param>
         /// <returns>A <see cref="List{T}"/>.</returns>
         List<TRoot> SearchRoots(IQuery<TRoot, TId, TEvent> queryObject);
     }

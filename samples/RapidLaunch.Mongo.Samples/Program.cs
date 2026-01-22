@@ -20,7 +20,7 @@ namespace RapidLaunch.Mongo.Samples
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         private static async Task Main()
         {
-            if (BsonSerializer.LookupSerializer(typeof(GuidSerializer)) == null)
+            if (BsonSerializer.LookupSerializer<GuidSerializer>() == null)
             {
                 BsonSerializer.TryRegisterSerializer(new GuidSerializer());
             }

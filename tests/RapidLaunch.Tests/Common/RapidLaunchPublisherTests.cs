@@ -3,8 +3,8 @@
 // </copyright>
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
@@ -16,14 +16,19 @@ namespace RapidLaunch.Tests.Common
     public class RapidLaunchPublisherTests
     {
         /// <summary>
+        /// Gets or sets the test context.
+        /// </summary>
+        public TestContext TestContext { get; set; }
+
+        /// <summary>
         /// The publisher should publish the correct amount of events.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task PublishDomainEvent_PublishesEvents()
+        public async Task PublishDomainEventPublishesEvents()
         {
-            var handler = new Mock<IDomainEventHandler<TestNotification>>();
-            handler.Setup(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), CancellationToken.None))
+            var handler = new Mock<IOccurrenceHandler<TestNotification>>();
+            handler.Setup(x => x.Handle(It.IsAny<TestNotification>(), CancellationToken.None))
                 .Returns(Task.CompletedTask);
 
             var collection = new ServiceCollection();
@@ -32,11 +37,13 @@ namespace RapidLaunch.Tests.Common
 
             var provider = collection.BuildServiceProvider();
 
-            var publisher = new RapidLaunchPublisher(provider);
+            var bus = provider.GetRequiredService<IMediation>();
 
-            await publisher.PublishDomainEvent(new TestNotification());
+            var publisher = new RapidLaunchPublisher(bus);
 
-            handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), CancellationToken.None), Times.Once);
+            await publisher.PublishDomainEvent(new TestNotification(), TestContext.CancellationToken);
+
+            handler.Verify(x => x.Handle(It.IsAny<TestNotification>(), CancellationToken.None), Times.Once);
         }
     }
 }

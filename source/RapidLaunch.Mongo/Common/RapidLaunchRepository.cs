@@ -13,28 +13,30 @@ namespace RapidLaunch.Mongo.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public class RapidLaunchRepository<TRoot, TId> :
-        IAddRoots<TRoot, TId>,
-        IAddRootsAsync<TRoot, TId>,
-        IAddRoot<TRoot, TId>,
-        IAddRootAsync<TRoot, TId>,
-        IDeleteRoots<TRoot, TId>,
-        IDeleteRootsAsync<TRoot, TId>,
-        IDeleteRoot<TRoot, TId>,
-        IDeleteRootAsync<TRoot, TId>,
-        IGetAllRoots<TRoot, TId>,
-        IGetAllRootsAsync<TRoot, TId>,
-        IGetRootById<TRoot, TId>,
-        IGetRootByIdAsync<TRoot, TId>,
-        IGetRootsById<TRoot, TId>,
-        IGetRootsByIdAsync<TRoot, TId>,
-        ISearchRoots<TRoot, TId>,
-        ISearchRootsAsync<TRoot, TId>,
-        IUpdateRoots<TRoot, TId>,
-        IUpdateRootsAsync<TRoot, TId>,
-        IUpdateRoot<TRoot, TId>,
-        IUpdateRootAsync<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the domain event.</typeparam>
+    public class RapidLaunchRepository<TRoot, TId, TEvent> :
+        IAddRoots<TRoot, TId, TEvent>,
+        IAddRootsAsync<TRoot, TId, TEvent>,
+        IAddRoot<TRoot, TId, TEvent>,
+        IAddRootAsync<TRoot, TId, TEvent>,
+        IDeleteRoots<TRoot, TId, TEvent>,
+        IDeleteRootsAsync<TRoot, TId, TEvent>,
+        IDeleteRoot<TRoot, TId, TEvent>,
+        IDeleteRootAsync<TRoot, TId, TEvent>,
+        IGetAllRoots<TRoot, TId, TEvent>,
+        IGetAllRootsAsync<TRoot, TId, TEvent>,
+        IGetRootById<TRoot, TId, TEvent>,
+        IGetRootByIdAsync<TRoot, TId, TEvent>,
+        IGetRootsById<TRoot, TId, TEvent>,
+        IGetRootsByIdAsync<TRoot, TId, TEvent>,
+        ISearchRoots<TRoot, TId, TEvent>,
+        ISearchRootsAsync<TRoot, TId, TEvent>,
+        IUpdateRoots<TRoot, TId, TEvent>,
+        IUpdateRootsAsync<TRoot, TId, TEvent>,
+        IUpdateRoot<TRoot, TId, TEvent>,
+        IUpdateRootAsync<TRoot, TId, TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         private const int SingleInsert = 1;
         private readonly MongoClient _mongoClient;
@@ -43,7 +45,7 @@ namespace RapidLaunch.Mongo.Common
         private readonly bool _useTransactions;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="mongoClient">An instance of the <see cref="MongoClient"/> class.</param>
         /// <param name="databaseName">The name of the database to use.</param>
@@ -507,7 +509,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual List<TRoot> SearchRoots(IQuery<TRoot, TId> queryObject)
+        public virtual List<TRoot> SearchRoots(IQuery<TRoot, TId, TEvent> queryObject)
         {
             return ExecuteQuery(session =>
             {
@@ -520,10 +522,10 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Performs a series of filters against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a search expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId, TEvent}"/> that contains a search expression.</param>
         /// <param name="options">A <see cref="FindOptions"/> object.</param>
         /// <returns>A <see cref="List{T}"/> containing the result set.</returns>
-        public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId> queryObject, FindOptions options)
+        public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId, TEvent> queryObject, FindOptions options)
         {
             return ExecuteQuery(session =>
             {
@@ -534,7 +536,7 @@ namespace RapidLaunch.Mongo.Common
         }
 
         /// <inheritdoc />
-        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId, TEvent> queryObject, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
@@ -549,11 +551,11 @@ namespace RapidLaunch.Mongo.Common
         /// <summary>
         /// Performs a series of filters against a collection.
         /// </summary>
-        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId}"/> that contains a search expression.</param>
+        /// <param name="queryObject">A <see cref="IQuery{TRoot, TId, TEvent}"/> that contains a search expression.</param>
         /// <param name="options">A <see cref="FindOptions{TRoot}"/> object.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot, TId> queryObject, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot, TId, TEvent> queryObject, FindOptions<TRoot> options, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(
                 async session =>
@@ -735,7 +737,7 @@ namespace RapidLaunch.Mongo.Common
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
         protected virtual RapidLaunchStatus ExecuteCommand(
             Func<IClientSessionHandle, (int RowCount, IEnumerable<TRoot> Entities)> executionFunc,
-            Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
+            Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
             int rowsAffected;
 
@@ -780,7 +782,7 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<IClientSessionHandle, Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
         {
             int rowsAffected;
 

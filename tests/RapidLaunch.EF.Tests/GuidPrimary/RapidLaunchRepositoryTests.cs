@@ -20,7 +20,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task DefaultConstructor_IsCorrect()
+        public async Task DefaultConstructorIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -46,7 +46,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task IncludeFunc_IsCorrect()
+        public async Task IncludeFuncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
