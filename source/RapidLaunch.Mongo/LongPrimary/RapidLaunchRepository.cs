@@ -14,8 +14,8 @@ namespace RapidLaunch.Mongo.LongPrimary
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
-            : base(mongoClient, databaseName, collectionName, useTransactions)
+        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null)
+            : base(mongoClient, databaseName, collectionName)
         {
         }
     }

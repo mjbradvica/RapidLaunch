@@ -18,7 +18,7 @@ namespace RapidLaunch.Mongo.Tests.Helpers
         /// <returns>The correct connection string.</returns>
         public static string MongoConnectionString()
         {
-            return "mongodb+srv://mjbradvica:82M5CPj70S6jUL3g@cluster0.anhunbz.mongodb.net/";
+            return "mongodb://localhost:27017/";
         }
 
         /// <summary>

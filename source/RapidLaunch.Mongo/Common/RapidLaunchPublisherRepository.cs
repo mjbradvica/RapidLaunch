@@ -9,7 +9,7 @@ using RapidLaunch.Common;
 namespace RapidLaunch.Mongo.Common
 {
     /// <inheritdoc />
-    public class RapidLaunchPublisherRepository<TRoot, TId, TEvent> : RapidLaunchRepository<TRoot, TId, TEvent>
+    public abstract class RapidLaunchPublisherRepository<TRoot, TId, TEvent> : RapidLaunchRepository<TRoot, TId, TEvent>
         where TRoot : class, IAggregateRoot<TId, TEvent>
         where TEvent : class
     {
@@ -22,9 +22,8 @@ namespace RapidLaunch.Mongo.Common
         /// <param name="publishingBus">An instance of the <see cref="IPublishingBus{TEvent}"/> interface.</param>
         /// <param name="databaseName">The name of the database to use.</param>
         /// <param name="collectionName">Optional collection name.</param>
-        /// <param name="useTransactions">A flag to toggle transactions on and off.</param>
-        public RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus<TEvent> publishingBus, string databaseName, string? collectionName = null, bool useTransactions = true)
-            : base(mongoClient, databaseName, collectionName, useTransactions)
+        protected RapidLaunchPublisherRepository(MongoClient mongoClient, IPublishingBus<TEvent> publishingBus, string databaseName, string? collectionName = null)
+            : base(mongoClient, databaseName, collectionName)
         {
             _publishingBus = publishingBus;
         }

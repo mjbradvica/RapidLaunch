@@ -4,11 +4,12 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMediation.Abstractions;
+using NMediation.Dependencies;
 using RapidLaunch.Common;
 using RapidLaunch.EF.LongPrimary;
 using RapidLaunch.EF.Tests.Helpers;
+using System.Reflection;
 
 namespace RapidLaunch.EF.Tests.LongPrimary
 {
@@ -26,6 +27,8 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         public RapidLaunchPublisherRepositoryTests()
         {
             var collection = new ServiceCollection();
+
+            collection.AddNMediation(Assembly.GetExecutingAssembly());
 
             var provider = collection.BuildServiceProvider();
 
@@ -57,7 +60,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
         }
 
         /// <summary>
@@ -83,7 +86,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
             Assert.IsTrue(results.All(root => root.Relationship != null));
         }
     }
