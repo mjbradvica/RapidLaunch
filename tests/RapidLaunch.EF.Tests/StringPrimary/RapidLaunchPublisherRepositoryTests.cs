@@ -48,7 +48,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher);
 
-                await repo.AddRootAsync(new TestStringEntity());
+                await repo.AddRootAsync(new TestStringEntity(), CancellationToken.None);
             }
 
             List<TestStringEntity> results;
@@ -57,7 +57,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher);
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(1, results);
@@ -74,7 +74,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
-                await repo.AddRootAsync(new TestStringEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestStringEntity { Relationship = new TestRelationship() }, CancellationToken.None);
             }
 
             List<TestStringEntity> results;
@@ -83,7 +83,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(1, results);

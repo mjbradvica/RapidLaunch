@@ -57,11 +57,13 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                await repo.AddRootsAsync(new List<TestGuidEntity>
+                await repo.AddRootsAsync(
+                    new List<TestGuidEntity>
                 {
                     new TestGuidEntity { Relationship = new TestRelationship() },
                     new TestGuidEntity { Relationship = new TestRelationship() },
-                });
+                },
+                    CancellationToken.None);
             }
 
             List<TestGuidEntity> results;
@@ -70,7 +72,7 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(2, results);
@@ -110,7 +112,7 @@ namespace RapidLaunch.EF.Tests.Common
                 var root = new TestGuidEntity();
                 root.AddEvent();
 
-                await repo.AddRootsAsync(new List<TestGuidEntity> { root });
+                await repo.AddRootsAsync(new List<TestGuidEntity> { root }, CancellationToken.None);
             }
 
             _handler.Verify(x => x.Handle(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);

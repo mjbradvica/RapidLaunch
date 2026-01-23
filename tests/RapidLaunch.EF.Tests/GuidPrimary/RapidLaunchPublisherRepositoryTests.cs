@@ -48,7 +48,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidPublisherTestRepository(context, _publisher);
 
-                await repo.AddRootAsync(new TestGuidEntity());
+                await repo.AddRootAsync(new TestGuidEntity(), CancellationToken.None);
             }
 
             List<TestGuidEntity> results;
@@ -57,7 +57,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidPublisherTestRepository(context, _publisher);
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(1, results);
@@ -74,7 +74,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
-                await repo.AddRootAsync(new TestGuidEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestGuidEntity { Relationship = new TestRelationship() }, CancellationToken.None);
             }
 
             List<TestGuidEntity> results;
@@ -83,7 +83,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(1, results);

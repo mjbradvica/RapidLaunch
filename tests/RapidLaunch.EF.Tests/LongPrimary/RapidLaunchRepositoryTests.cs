@@ -38,7 +38,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
             Assert.IsTrue(results.All(root => root.Relationship != null));
         }
     }

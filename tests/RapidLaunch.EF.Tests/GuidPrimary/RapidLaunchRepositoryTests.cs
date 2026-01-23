@@ -3,7 +3,6 @@
 // </copyright>
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.EF.GuidPrimary;
 using RapidLaunch.EF.Tests.Helpers;
 
@@ -26,7 +25,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
-                await repo.AddRootAsync(new TestGuidEntity());
+                await repo.AddRootAsync(new TestGuidEntity(), CancellationToken.None);
             }
 
             List<TestGuidEntity> results;
@@ -35,10 +34,10 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
         }
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
-                await repo.AddRootAsync(new TestGuidEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestGuidEntity { Relationship = new TestRelationship() }, CancellationToken.None);
             }
 
             List<TestGuidEntity> results;
@@ -61,10 +60,10 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
             {
                 var repo = new RapidLaunchGuidTestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
             Assert.IsTrue(results.All(root => root.Relationship != null));
         }
     }
