@@ -4,12 +4,13 @@
 
 using ClearDomain.LongPrimary;
 using Microsoft.EntityFrameworkCore;
+using NMediation.Abstractions;
 using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.LongPrimary
 {
     /// <inheritdoc />
-    public class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, long>
+    public class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, long, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />

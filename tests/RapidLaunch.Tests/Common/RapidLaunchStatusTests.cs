@@ -2,7 +2,6 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
@@ -17,7 +16,7 @@ namespace RapidLaunch.Tests.Common
         /// Success method has correct properties.
         /// </summary>
         [TestMethod]
-        public void Success_HasCorrectProperties()
+        public void SuccessHasCorrectProperties()
         {
             const int rowCount = 1;
 
@@ -25,14 +24,14 @@ namespace RapidLaunch.Tests.Common
 
             Assert.IsFalse(status.IsFailure);
             Assert.AreEqual(rowCount, status.RowCount);
-            Assert.IsInstanceOfType<Exception>(status.Exception);
+            Assert.IsNull(status.Exception);
         }
 
         /// <summary>
         /// Failure method has correct properties.
         /// </summary>
         [TestMethod]
-        public void Failure_HasCorrectProperties()
+        public void FailureHasCorrectProperties()
         {
             var exception = new ArgumentNullException();
 

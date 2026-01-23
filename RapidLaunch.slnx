@@ -1,0 +1,32 @@
+<Solution>
+  <Folder Name="/ADO/">
+    <Project Path="samples/RapidLaunch.ADO.Samples/RapidLaunch.ADO.Samples.csproj" />
+    <Project Path="source/RapidLaunch.ADO/RapidLaunch.ADO.csproj" />
+    <Project Path="tests/RapidLaunch.ADO.Tests/RapidLaunch.ADO.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Base/">
+    <Project Path="source/RapidLaunch/RapidLaunch.csproj" />
+    <Project Path="tests/RapidLaunch.Tests/RapidLaunch.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Dapper/">
+    <Project Path="samples/RapidLaunch.Dapper.Samples/RapidLaunch.Dapper.Samples.csproj" />
+    <Project Path="source/RapidLaunch.Dapper/RapidLaunch.Dapper.csproj" />
+    <Project Path="tests/RapidLaunch.Dapper.Tests/RapidLaunch.Dapper.Tests.csproj" />
+  </Folder>
+  <Folder Name="/EF/">
+    <Project Path="samples/RapidLaunch.EF.Samples/RapidLaunch.EF.Samples.csproj" />
+    <Project Path="source/RapidLaunch.EF/RapidLaunch.EF.csproj" />
+    <Project Path="tests/RapidLaunch.EF.Tests/RapidLaunch.EF.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Mongo/">
+    <Project Path="samples/RapidLaunch.Mongo.Samples/RapidLaunch.Mongo.Samples.csproj" />
+    <Project Path="source/RapidLaunch.Mongo/RapidLaunch.Mongo.csproj" />
+    <Project Path="tests/RapidLaunch.Mongo.Tests/RapidLaunch.Mongo.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Redis/">
+    <Project Path="source/RapidLaunch.Redis/RapidLaunch.Redis.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+</Solution>

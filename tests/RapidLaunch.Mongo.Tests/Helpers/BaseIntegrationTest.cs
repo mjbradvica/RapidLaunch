@@ -2,6 +2,10 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+
 namespace RapidLaunch.Mongo.Tests.Helpers
 {
     /// <summary>
@@ -14,6 +18,8 @@ namespace RapidLaunch.Mongo.Tests.Helpers
         /// </summary>
         protected BaseIntegrationTest()
         {
+            BsonSerializer.TryRegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
             TestHelpers.ClearDatabase();
         }
     }

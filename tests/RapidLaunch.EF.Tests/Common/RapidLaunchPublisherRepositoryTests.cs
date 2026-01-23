@@ -2,43 +2,48 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using ClearDomain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NMediation.Abstractions;
+using NMediation.Dependencies;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
 using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.Helpers;
+using System.Reflection;
 
 namespace RapidLaunch.EF.Tests.Common
 {
     /// <summary>
-    /// Tests for the <see cref="RapidLaunchPublisherRepository{TRoot,TId}"/> class.
+    /// Tests for the <see cref="RapidLaunchPublisherRepository{TRoot, TId, TEvent}"/> class.
     /// </summary>
     [TestClass]
     public class RapidLaunchPublisherRepositoryTests : BaseIntegrationTest
     {
-        private readonly IPublishingBus _bus;
-        private readonly Mock<IDomainEventHandler<IDomainEvent>> _handler;
+        private readonly IPublishingBus<IOccurrence> _bus;
+        private readonly Mock<IOccurrenceHandler<IOccurrence>> _handler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RapidLaunchPublisherRepositoryTests"/> class.
         /// </summary>
         public RapidLaunchPublisherRepositoryTests()
         {
-            _handler = new Mock<IDomainEventHandler<IDomainEvent>>();
-            _handler.Setup(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()))
+            _handler = new Mock<IOccurrenceHandler<IOccurrence>>();
+            _handler.Setup(x => x.Handle(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
             var collection = new ServiceCollection();
 
             collection.AddTransient(_ => _handler.Object);
 
+            collection.AddNMediation(Assembly.GetExecutingAssembly());
+
             var provider = collection.BuildServiceProvider();
 
-            _bus = new RapidLaunchPublisher(provider);
+            var mediation = provider.GetRequiredService<IMediation>();
+
+            _bus = new RapidLaunchPublisher(mediation);
         }
 
         /// <summary>
@@ -46,17 +51,19 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task Constructor_WithIncludeFunc_WorksCorrectly()
+        public async Task ConstructorWithIncludeFuncWorksCorrectly()
         {
             await using (var context = new TestDbContext())
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
-                await repo.AddRootsAsync(new List<TestGuidEntity>
+                await repo.AddRootsAsync(
+                    new List<TestGuidEntity>
                 {
                     new TestGuidEntity { Relationship = new TestRelationship() },
                     new TestGuidEntity { Relationship = new TestRelationship() },
-                });
+                },
+                    CancellationToken.None);
             }
 
             List<TestGuidEntity> results;
@@ -65,10 +72,10 @@ namespace RapidLaunch.EF.Tests.Common
             {
                 var repo = new TestPublisherRepository(context, _bus, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
-            Assert.AreEqual(2, results.Count);
+            Assert.HasCount(2, results);
             Assert.IsTrue(results.All(root => root.Relationship != null));
         }
 
@@ -76,7 +83,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// Publishing of events is correct.
         /// </summary>
         [TestMethod]
-        public void PublishingEvents_WorksCorrectly()
+        public void PublishingEventsWorksCorrectly()
         {
             using (var context = new TestDbContext())
             {
@@ -88,7 +95,7 @@ namespace RapidLaunch.EF.Tests.Common
                 repo.AddRoots(new List<TestGuidEntity> { root });
             }
 
-            _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
+            _handler.Verify(x => x.Handle(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         /// <summary>
@@ -96,7 +103,7 @@ namespace RapidLaunch.EF.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task PublishingEventsAsync_WorksCorrectly()
+        public async Task PublishingEventsAsyncWorksCorrectly()
         {
             await using (var context = new TestDbContext())
             {
@@ -105,10 +112,10 @@ namespace RapidLaunch.EF.Tests.Common
                 var root = new TestGuidEntity();
                 root.AddEvent();
 
-                await repo.AddRootsAsync(new List<TestGuidEntity> { root });
+                await repo.AddRootsAsync(new List<TestGuidEntity> { root }, CancellationToken.None);
             }
 
-            _handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
+            _handler.Verify(x => x.Handle(It.IsAny<TestNotification>(), It.IsAny<CancellationToken>()), Times.Once);
         }
     }
 }

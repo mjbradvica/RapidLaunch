@@ -2,9 +2,8 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.Tests.Common
@@ -20,23 +19,17 @@ namespace RapidLaunch.Tests.Common
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task PublishDomainEvent_PublishesEvents()
+        public async Task PublishDomainEventPublishesEvents()
         {
-            var handler = new Mock<IDomainEventHandler<TestNotification>>();
-            handler.Setup(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), CancellationToken.None))
+            var mediation = new Mock<IMediation>();
+            mediation.Setup(x => x.Publish(It.IsAny<TestNotification>(), CancellationToken.None))
                 .Returns(Task.CompletedTask);
 
-            var collection = new ServiceCollection();
+            var publisher = new RapidLaunchPublisher(mediation.Object);
 
-            collection.AddTransient(_ => handler.Object);
+            await publisher.PublishDomainEvent(new TestNotification(), CancellationToken.None);
 
-            var provider = collection.BuildServiceProvider();
-
-            var publisher = new RapidLaunchPublisher(provider);
-
-            await publisher.PublishDomainEvent(new TestNotification());
-
-            handler.Verify(x => x.HandleDomainEvent(It.IsAny<TestNotification>(), CancellationToken.None), Times.Once);
+            mediation.Verify(x => x.Publish(It.IsAny<IOccurrence>(), CancellationToken.None), Times.Once);
         }
     }
 }

@@ -4,12 +4,13 @@
 
 using ClearDomain.LongPrimary;
 using Microsoft.Data.SqlClient;
+using NMediation.Abstractions;
 using RapidLaunch.ADO.Common;
 
 namespace RapidLaunch.ADO.LongPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, long>
+    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, long, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />

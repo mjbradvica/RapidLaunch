@@ -4,10 +4,12 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NMediation.Abstractions;
+using NMediation.Dependencies;
 using RapidLaunch.Common;
 using RapidLaunch.EF.LongPrimary;
 using RapidLaunch.EF.Tests.Helpers;
+using System.Reflection;
 
 namespace RapidLaunch.EF.Tests.LongPrimary
 {
@@ -26,7 +28,13 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         {
             var collection = new ServiceCollection();
 
-            _publisher = new RapidLaunchPublisher(collection.BuildServiceProvider());
+            collection.AddNMediation(Assembly.GetExecutingAssembly());
+
+            var provider = collection.BuildServiceProvider();
+
+            var mediation = provider.GetRequiredService<IMediation>();
+
+            _publisher = new RapidLaunchPublisher(mediation);
         }
 
         /// <summary>
@@ -34,13 +42,13 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task DefaultConstructor_IsCorrect()
+        public async Task DefaultConstructorIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
                 var repo = new RapidLaunchLongPublisherTestRepository(context, _publisher);
 
-                await repo.AddRootAsync(new TestLongEntity());
+                await repo.AddRootAsync(new TestLongEntity(), CancellationToken.None);
             }
 
             List<TestLongEntity> results;
@@ -49,10 +57,10 @@ namespace RapidLaunch.EF.Tests.LongPrimary
             {
                 var repo = new RapidLaunchLongPublisherTestRepository(context, _publisher);
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
         }
 
         /// <summary>
@@ -60,13 +68,13 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         [TestMethod]
-        public async Task IncludeConstructor_IsCorrect()
+        public async Task IncludeConstructorIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
                 var repo = new RapidLaunchLongPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
-                await repo.AddRootAsync(new TestLongEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestLongEntity { Relationship = new TestRelationship() }, CancellationToken.None);
             }
 
             List<TestLongEntity> results;
@@ -75,10 +83,10 @@ namespace RapidLaunch.EF.Tests.LongPrimary
             {
                 var repo = new RapidLaunchLongPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
             Assert.IsTrue(results.All(root => root.Relationship != null));
         }
     }

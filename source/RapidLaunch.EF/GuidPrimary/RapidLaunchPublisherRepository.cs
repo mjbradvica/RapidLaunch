@@ -4,23 +4,24 @@
 
 using ClearDomain.GuidPrimary;
 using Microsoft.EntityFrameworkCore;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
 
 namespace RapidLaunch.EF.GuidPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, Guid>
+    public abstract class RapidLaunchPublisherRepository<TRoot> : RapidLaunchPublisherRepository<TRoot, Guid, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus, Func<IQueryable<TRoot>, IQueryable<TRoot>>? includeFunc = null)
             : base(context, publishingBus, includeFunc)
         {
         }
 
         /// <inheritdoc />
-        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus publishingBus)
+        protected RapidLaunchPublisherRepository(DbContext context, IPublishingBus<IOccurrence> publishingBus)
             : base(context, publishingBus)
         {
         }

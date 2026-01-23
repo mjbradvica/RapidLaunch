@@ -4,12 +4,13 @@
 
 using ClearDomain.IntPrimary;
 using Microsoft.Data.SqlClient;
+using NMediation.Abstractions;
 using RapidLaunch.Dapper.Common;
 
 namespace RapidLaunch.Dapper.IntPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, int>
+    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, int, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />

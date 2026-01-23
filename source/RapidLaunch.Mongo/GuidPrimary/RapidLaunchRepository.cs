@@ -4,17 +4,18 @@
 
 using ClearDomain.GuidPrimary;
 using MongoDB.Driver;
+using NMediation.Abstractions;
 using RapidLaunch.Mongo.Common;
 
 namespace RapidLaunch.Mongo.GuidPrimary
 {
     /// <inheritdoc />
-    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, Guid>
+    public abstract class RapidLaunchRepository<TRoot> : RapidLaunchRepository<TRoot, Guid, IOccurrence>
         where TRoot : class, IAggregateRoot
     {
         /// <inheritdoc />
-        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
-            : base(mongoClient, databaseName, collectionName, useTransactions)
+        protected RapidLaunchRepository(MongoClient mongoClient, string databaseName, string? collectionName = null)
+            : base(mongoClient, databaseName, collectionName)
         {
         }
     }

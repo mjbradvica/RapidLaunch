@@ -13,35 +13,37 @@ namespace RapidLaunch.EF.Common
     /// </summary>
     /// <typeparam name="TRoot">The type of the root.</typeparam>
     /// <typeparam name="TId">The type of the identifier.</typeparam>
-    public abstract class RapidLaunchRepository<TRoot, TId> :
-        IAddRoots<TRoot, TId>,
-        IAddRootsAsync<TRoot, TId>,
-        IAddRoot<TRoot, TId>,
-        IAddRootAsync<TRoot, TId>,
-        IDeleteRoots<TRoot, TId>,
-        IDeleteRootsAsync<TRoot, TId>,
-        IDeleteRoot<TRoot, TId>,
-        IDeleteRootAsync<TRoot, TId>,
-        IGetAllRoots<TRoot, TId>,
-        IGetAllRootsAsync<TRoot, TId>,
-        IGetAllRootsLazy<TRoot, TId>,
-        IGetRootById<TRoot, TId>,
-        IGetRootByIdAsync<TRoot, TId>,
-        IGetRootsById<TRoot, TId>,
-        IGetRootsByIdAsync<TRoot, TId>,
-        ISearchRoots<TRoot, TId>,
-        ISearchRootsAsync<TRoot, TId>,
-        ISearchRootsLazy<TRoot, TId>,
-        IUpdateRoots<TRoot, TId>,
-        IUpdateRootsAsync<TRoot, TId>,
-        IUpdateRoot<TRoot, TId>,
-        IUpdateRootAsync<TRoot, TId>
-        where TRoot : class, IAggregateRoot<TId>
+    /// <typeparam name="TEvent">The type of the domain event.</typeparam>
+    public abstract class RapidLaunchRepository<TRoot, TId, TEvent> :
+        IAddRoots<TRoot, TId, TEvent>,
+        IAddRootsAsync<TRoot, TId, TEvent>,
+        IAddRoot<TRoot, TId, TEvent>,
+        IAddRootAsync<TRoot, TId, TEvent>,
+        IDeleteRoots<TRoot, TId, TEvent>,
+        IDeleteRootsAsync<TRoot, TId, TEvent>,
+        IDeleteRoot<TRoot, TId, TEvent>,
+        IDeleteRootAsync<TRoot, TId, TEvent>,
+        IGetAllRoots<TRoot, TId, TEvent>,
+        IGetAllRootsAsync<TRoot, TId, TEvent>,
+        IGetAllRootsLazy<TRoot, TId, TEvent>,
+        IGetRootById<TRoot, TId, TEvent>,
+        IGetRootByIdAsync<TRoot, TId, TEvent>,
+        IGetRootsById<TRoot, TId, TEvent>,
+        IGetRootsByIdAsync<TRoot, TId, TEvent>,
+        ISearchRoots<TRoot, TId, TEvent>,
+        ISearchRootsAsync<TRoot, TId, TEvent>,
+        ISearchRootsLazy<TRoot, TId, TEvent>,
+        IUpdateRoots<TRoot, TId, TEvent>,
+        IUpdateRootsAsync<TRoot, TId, TEvent>,
+        IUpdateRoot<TRoot, TId, TEvent>,
+        IUpdateRootAsync<TRoot, TId, TEvent>
+        where TRoot : class, IAggregateRoot<TId, TEvent>
+        where TEvent : class
     {
         private readonly Func<IQueryable<TRoot>, IQueryable<TRoot>>? _includeFunc;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot,TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> that will return a <see cref="IQueryable{T}"/> used to eagerly load related aggregateRoots.</param>
@@ -52,7 +54,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot,TId}"/> class.
+        /// Initializes a new instance of the <see cref="RapidLaunchRepository{TRoot, TId, TEvent}"/> class.
         /// </summary>
         /// <param name="context">An instance of the <see cref="DbContext"/> class.</param>
         protected RapidLaunchRepository(DbContext context)
@@ -307,53 +309,53 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        public virtual List<TRoot> SearchRoots(IQuery<TRoot, TId> queryObject)
+        public virtual List<TRoot> SearchRoots(IQuery<TRoot, TId, TEvent> queryObject)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression)).ToList();
         }
 
         /// <summary>
-        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId}"/>.
+        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId, TEvent}"/>.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId, TEvent}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <returns>A <see cref="List{T}"/> of roots that satisfy the query.</returns>
-        public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc)
+        public virtual List<TRoot> SearchEntities(IQuery<TRoot, TId, TEvent> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression), includeFunc).ToList();
         }
 
         /// <inheritdoc/>
-        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId> queryObject, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchRootsAsync(IQuery<TRoot, TId, TEvent> queryObject, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.Where(queryObject.SearchExpression).ToListAsync(cancellationToken));
         }
 
         /// <summary>
-        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId}"/>.
+        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId, TEvent}"/>.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId, TEvent}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="List{T}"/> representing the asynchronous operation.</returns>
-        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot, TId> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc, CancellationToken cancellationToken = default)
+        public virtual async Task<List<TRoot>> SearchEntitiesAsync(IQuery<TRoot, TId, TEvent> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc, CancellationToken cancellationToken = default)
         {
             return await ExecuteQueryAsync(queryable => queryable.Where(queryObject.SearchExpression).ToListAsync(cancellationToken), includeFunc);
         }
 
         /// <inheritdoc/>
-        public virtual IQueryable<TRoot> SearchRootsLazy(IQuery<TRoot, TId> queryObject)
+        public virtual IQueryable<TRoot> SearchRootsLazy(IQuery<TRoot, TId, TEvent> queryObject)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression));
         }
 
         /// <summary>
-        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId}"/> and allows for further filtering.
+        /// Searches all roots that satisfy a <see cref="IQuery{TRoot, TId, TEvent}"/> and allows for further filtering.
         /// </summary>
-        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId}"/>.</param>
+        /// <param name="queryObject">An instance of a <see cref="IQuery{TRoot, TId, TEvent}"/>.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
         /// <returns>A <see cref="IQueryable{T}"/>.</returns>
-        public virtual IQueryable<TRoot> SearchEntitiesLazy(IQuery<TRoot, TId> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc)
+        public virtual IQueryable<TRoot> SearchEntitiesLazy(IQuery<TRoot, TId, TEvent> queryObject, Func<IQueryable<TRoot>, IQueryable<TRoot>> includeFunc)
         {
             return ExecuteQuery(queryable => queryable.Where(queryObject.SearchExpression), includeFunc);
         }
@@ -424,7 +426,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId>>>? postOperationFunc = null)
+        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
             int rowsAffected;
 
@@ -458,7 +460,7 @@ namespace RapidLaunch.EF.Common
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId>>, Task>? postOperationFunc = null)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
         {
             int rowsAffected;
 

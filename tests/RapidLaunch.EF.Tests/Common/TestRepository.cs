@@ -3,6 +3,7 @@
 // </copyright>
 
 using Microsoft.EntityFrameworkCore;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 using RapidLaunch.EF.Common;
 using RapidLaunch.EF.Tests.GuidPrimary;
@@ -12,7 +13,7 @@ namespace RapidLaunch.EF.Tests.Common
     /// <summary>
     /// Test repository.
     /// </summary>
-    public class TestRepository : RapidLaunchRepository<TestGuidEntity, Guid>
+    public class TestRepository : RapidLaunchRepository<TestGuidEntity, Guid, IOccurrence>
     {
         /// <inheritdoc />
         public TestRepository(DbContext context)
@@ -43,7 +44,7 @@ namespace RapidLaunch.EF.Tests.Common
 
                 return (rowCount, new List<TestGuidEntity> { guidEntity });
             },
-                (_, _) => throw new Exception());
+                (_, _) => throw new ArgumentNullException(nameof(guidEntity)));
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace RapidLaunch.EF.Tests.Common
                     return (rowCount, new List<TestGuidEntity> { guidEntity });
                 },
                 CancellationToken.None,
-                (_, _) => throw new Exception());
+                (_, _) => throw new ArgumentNullException(nameof(guidEntity)));
         }
     }
 }

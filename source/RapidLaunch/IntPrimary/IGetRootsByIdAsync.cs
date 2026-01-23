@@ -2,13 +2,15 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
+using ClearDomain.Common;
 using ClearDomain.IntPrimary;
+using NMediation.Abstractions;
 using RapidLaunch.Common;
 
 namespace RapidLaunch.IntPrimary
 {
     /// <inheritdoc />
-    public interface IGetRootsByIdAsync<TRoot> : IGetRootsByIdAsync<TRoot, int>
+    public interface IGetRootsByIdAsync<TRoot> : IGetRootsByIdAsync<TRoot, int, IOccurrence>
         where TRoot : IAggregateRoot
     {
     }

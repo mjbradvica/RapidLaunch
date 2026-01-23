@@ -3,17 +3,18 @@
 // </copyright>
 
 using MongoDB.Driver;
+using NMediation.Abstractions;
 using RapidLaunch.Mongo.Common;
 using RapidLaunch.Mongo.Tests.GuidPrimary;
 
 namespace RapidLaunch.Mongo.Tests.Common
 {
     /// <inheritdoc />
-    public class TestRepository : RapidLaunchRepository<TestGuidEntity, Guid>
+    public class TestRepository : RapidLaunchRepository<TestGuidEntity, Guid, IOccurrence>
     {
         /// <inheritdoc />
-        public TestRepository(MongoClient mongoClient, string databaseName, string? collectionName = null, bool useTransactions = true)
-            : base(mongoClient, databaseName, collectionName, useTransactions)
+        public TestRepository(MongoClient mongoClient, string databaseName, string? collectionName = null)
+            : base(mongoClient, databaseName, collectionName)
         {
         }
     }

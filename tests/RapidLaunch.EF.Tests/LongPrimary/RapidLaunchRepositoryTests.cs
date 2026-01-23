@@ -20,7 +20,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task DefaultConstructor_IsCorrect()
+        public async Task DefaultConstructorIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -38,7 +38,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
-        public async Task IncludeFunc_IsCorrect()
+        public async Task IncludeFuncIsCorrect()
         {
             await using (var context = new TestDbContext())
             {
@@ -64,7 +64,7 @@ namespace RapidLaunch.EF.Tests.LongPrimary
                 results = await repo.GetAllRootsAsync();
             }
 
-            Assert.AreEqual(1, results.Count);
+            Assert.HasCount(1, results);
             Assert.IsTrue(results.All(root => root.Relationship != null));
         }
     }
