@@ -21,7 +21,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
         [TestMethod]
         public async Task DefaultConstructorIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
@@ -30,7 +30,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
@@ -47,7 +47,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
         [TestMethod]
         public async Task IncludeFuncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchGuidTestRepository(context);
 
@@ -56,7 +56,7 @@ namespace RapidLaunch.EF.Tests.GuidPrimary
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchGuidTestRepository(context, queryable => queryable.Include(root => root.Relationship));
 

@@ -3,7 +3,6 @@
 // </copyright>
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.EF.StringPrimary;
 using RapidLaunch.EF.Tests.Helpers;
 
@@ -22,20 +21,20 @@ namespace RapidLaunch.EF.Tests.StringPrimary
         [TestMethod]
         public async Task DefaultConstructorIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringTestRepository(context);
 
-                await repo.AddRootAsync(new TestStringEntity());
+                await repo.AddRootAsync(new TestStringEntity(), CancellationToken.None);
             }
 
             List<TestStringEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringTestRepository(context);
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(1, results);
@@ -48,20 +47,20 @@ namespace RapidLaunch.EF.Tests.StringPrimary
         [TestMethod]
         public async Task IncludeFuncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringTestRepository(context);
 
-                await repo.AddRootAsync(new TestStringEntity { Relationship = new TestRelationship() });
+                await repo.AddRootAsync(new TestStringEntity { Relationship = new TestRelationship() }, CancellationToken.None);
             }
 
             List<TestStringEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringTestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
-                results = await repo.GetAllRootsAsync();
+                results = await repo.GetAllRootsAsync(CancellationToken.None);
             }
 
             Assert.HasCount(1, results);

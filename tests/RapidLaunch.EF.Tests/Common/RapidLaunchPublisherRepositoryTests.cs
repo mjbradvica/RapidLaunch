@@ -53,7 +53,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task ConstructorWithIncludeFuncWorksCorrectly()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
@@ -68,7 +68,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestPublisherRepository(context, _bus, queryable => queryable.Include(root => root.Relationship));
 
@@ -85,7 +85,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void PublishingEventsWorksCorrectly()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestPublisherRepository(context, _bus);
 
@@ -105,7 +105,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task PublishingEventsAsyncWorksCorrectly()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestPublisherRepository(context, _bus);
 

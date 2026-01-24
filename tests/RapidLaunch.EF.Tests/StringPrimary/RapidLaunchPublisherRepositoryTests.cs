@@ -44,7 +44,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
         [TestMethod]
         public async Task DefaultConstructorIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher);
 
@@ -53,7 +53,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
 
             List<TestStringEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher);
 
@@ -70,7 +70,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
         [TestMethod]
         public async Task IncludeConstructorIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 
@@ -79,7 +79,7 @@ namespace RapidLaunch.EF.Tests.StringPrimary
 
             List<TestStringEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchStringPublisherTestRepository(context, _publisher, queryable => queryable.Include(root => root.Relationship));
 

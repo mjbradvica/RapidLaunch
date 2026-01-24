@@ -24,14 +24,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void RepoWithDefaultIncludeIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { new TestGuidEntity { Relationship = new TestRelationship() }, new TestGuidEntity { Relationship = new TestRelationship() } });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -54,14 +54,14 @@ namespace RapidLaunch.EF.Tests.Common
                 new TestGuidEntity(),
             };
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(roots);
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -84,14 +84,14 @@ namespace RapidLaunch.EF.Tests.Common
                 new TestGuidEntity(),
             };
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 await repo.AddRootsAsync(roots, CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -107,14 +107,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void AddEntityIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoot(new TestGuidEntity());
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -125,20 +125,20 @@ namespace RapidLaunch.EF.Tests.Common
         }
 
         /// <summary>
-        /// Can add an root async correctly.
+        /// Can add a root async correctly.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [TestMethod]
         public async Task AddEntityAsyncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 await repo.AddRootAsync(new TestGuidEntity(), CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -154,14 +154,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void DeleteEntitiesIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -172,7 +172,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> result;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -189,14 +189,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task DeleteEntitiesAsyncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 await repo.AddRootsAsync(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() }, CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -207,7 +207,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> result;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -225,14 +225,14 @@ namespace RapidLaunch.EF.Tests.Common
         {
             var root = new TestGuidEntity();
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoot(root);
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -246,7 +246,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> result;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -265,14 +265,14 @@ namespace RapidLaunch.EF.Tests.Common
         {
             var root = new TestGuidEntity();
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 await repo.AddRootAsync(root, CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -286,7 +286,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> result;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -302,7 +302,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetAllEntitiesIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -311,7 +311,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -327,7 +327,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetAllEntitiesWithIncludeFuncIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -339,7 +339,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -357,7 +357,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetAllEntitiesAsyncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -366,7 +366,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -383,7 +383,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task GetAllEntitiesWithIncludeFuncAsyncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -397,7 +397,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -414,14 +414,14 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetAllEntitiesLazyIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { new TestGuidEntity(), new TestGuidEntity() });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -441,7 +441,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void GetAllEntitiesLazyWithIncludeFuncIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -452,7 +452,7 @@ namespace RapidLaunch.EF.Tests.Common
                 });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -476,14 +476,14 @@ namespace RapidLaunch.EF.Tests.Common
             var root = new TestGuidEntity();
             var incorrect = new TestGuidEntity();
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { root, incorrect });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -502,14 +502,14 @@ namespace RapidLaunch.EF.Tests.Common
             var root = new TestGuidEntity { Relationship = new TestRelationship() };
             var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { root, incorrect });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -530,14 +530,14 @@ namespace RapidLaunch.EF.Tests.Common
             var root = new TestGuidEntity();
             var incorrect = new TestGuidEntity();
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 await repo.AddRootsAsync(new List<TestGuidEntity> { root, incorrect }, CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -557,14 +557,14 @@ namespace RapidLaunch.EF.Tests.Common
             var root = new TestGuidEntity { Relationship = new TestRelationship() };
             var incorrect = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 await repo.AddRootsAsync(new List<TestGuidEntity> { root, incorrect }, CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -585,7 +585,7 @@ namespace RapidLaunch.EF.Tests.Common
             var second = new TestGuidEntity();
             var third = new TestGuidEntity();
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -594,7 +594,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -620,7 +620,7 @@ namespace RapidLaunch.EF.Tests.Common
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
             var third = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -629,7 +629,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -659,7 +659,7 @@ namespace RapidLaunch.EF.Tests.Common
             var second = new TestGuidEntity();
             var third = new TestGuidEntity();
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -668,7 +668,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -697,7 +697,7 @@ namespace RapidLaunch.EF.Tests.Common
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
             var third = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -706,7 +706,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -739,7 +739,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             var second = new TestGuidEntity();
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -748,7 +748,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -772,7 +772,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -781,7 +781,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -806,7 +806,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             var second = new TestGuidEntity();
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -815,7 +815,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -840,7 +840,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -849,7 +849,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -873,14 +873,14 @@ namespace RapidLaunch.EF.Tests.Common
 
             var second = new TestGuidEntity();
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { first, second });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -906,14 +906,14 @@ namespace RapidLaunch.EF.Tests.Common
 
             var second = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
                 repo.AddRoots(new List<TestGuidEntity> { first, second });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -931,7 +931,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public void UpdateEntitiesIsCorrect()
         {
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -942,7 +942,7 @@ namespace RapidLaunch.EF.Tests.Common
                 });
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -958,7 +958,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -975,7 +975,7 @@ namespace RapidLaunch.EF.Tests.Common
         [TestMethod]
         public async Task UpdateEntitiesAsyncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -988,7 +988,7 @@ namespace RapidLaunch.EF.Tests.Common
                     CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -1004,7 +1004,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -1022,14 +1022,14 @@ namespace RapidLaunch.EF.Tests.Common
         {
             var testEntity = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 repo.AddRoot(testEntity);
             }
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -1045,7 +1045,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             TestGuidEntity? result;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -1064,14 +1064,14 @@ namespace RapidLaunch.EF.Tests.Common
         {
             var testEntity = new TestGuidEntity { Relationship = new TestRelationship() };
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
                 await repo.AddRootAsync(testEntity, CancellationToken.None);
             }
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -1087,7 +1087,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             TestGuidEntity? result;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
@@ -1105,7 +1105,7 @@ namespace RapidLaunch.EF.Tests.Common
         {
             RapidLaunchStatus status;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -1116,7 +1116,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            using (var context = new TestDbContext())
+            using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -1135,7 +1135,7 @@ namespace RapidLaunch.EF.Tests.Common
         {
             RapidLaunchStatus status;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 
@@ -1146,7 +1146,7 @@ namespace RapidLaunch.EF.Tests.Common
 
             List<TestGuidEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new TestRepository(context);
 

@@ -14,15 +14,15 @@ namespace RapidLaunch.EF.Tests.Helpers
         /// </summary>
         public static void ClearDatabase()
         {
-            using (var context = new TestDbContext())
-            {
-                context.GuidEntities.RemoveRange(context.GuidEntities);
-                context.IntEntities.RemoveRange(context.IntEntities);
-                context.LongEntities.RemoveRange(context.LongEntities);
-                context.StringEntities.RemoveRange(context.StringEntities);
+            // using (var context = new TestDbContext())
+            // {
+            //    context.GuidEntities.RemoveRange(context.GuidEntities);
+            //    context.IntEntities.RemoveRange(context.IntEntities);
+            //    context.LongEntities.RemoveRange(context.LongEntities);
+            //    context.StringEntities.RemoveRange(context.StringEntities);
 
-                context.SaveChanges();
-            }
+            // context.SaveChanges();
+            // }
         }
 
         /// <summary>

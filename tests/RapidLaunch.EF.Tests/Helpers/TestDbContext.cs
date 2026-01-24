@@ -2,12 +2,12 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using RapidLaunch.EF.Tests.GuidPrimary;
 using RapidLaunch.EF.Tests.IntPrimary;
 using RapidLaunch.EF.Tests.LongPrimary;
 using RapidLaunch.EF.Tests.StringPrimary;
+using System.Reflection;
 
 namespace RapidLaunch.EF.Tests.Helpers
 {
@@ -19,7 +19,9 @@ namespace RapidLaunch.EF.Tests.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="TestDbContext"/> class.
         /// </summary>
-        public TestDbContext()
+        /// <param name="options">An instance of the <see cref="DbContextOptions"/> class.</param>
+        public TestDbContext(DbContextOptions options)
+            : base(options)
         {
             Database.EnsureCreated();
 
@@ -49,11 +51,10 @@ namespace RapidLaunch.EF.Tests.Helpers
         /// </summary>
         public DbSet<TestStringEntity> StringEntities { get; }
 
-        /// <inheritdoc />
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(TestHelpers.ConnectionString());
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //    optionsBuilder.UseSqlServer(TestHelpers.ConnectionString());
+        // }
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -21,7 +21,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         [TestMethod]
         public async Task DefaultConstructorIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchIntTestRepository(context);
 
@@ -30,7 +30,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
 
             List<TestIntEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchIntTestRepository(context);
 
@@ -47,7 +47,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
         [TestMethod]
         public async Task IncludeFuncIsCorrect()
         {
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchIntTestRepository(context);
 
@@ -56,7 +56,7 @@ namespace RapidLaunch.EF.Tests.IntPrimary
 
             List<TestIntEntity> results;
 
-            await using (var context = new TestDbContext())
+            await using (var context = new TestDbContext(ContextOptions))
             {
                 var repo = new RapidLaunchIntTestRepository(context, queryable => queryable.Include(root => root.Relationship));
 
