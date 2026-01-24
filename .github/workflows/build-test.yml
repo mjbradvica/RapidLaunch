@@ -28,6 +28,14 @@ jobs:
           catalog: RapidLaunch
           extra-params: "TrustServerCertificate=true;"
 
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.12.1
+
       - name: Restore
         run: dotnet restore
 
