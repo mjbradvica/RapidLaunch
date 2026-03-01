@@ -2,7 +2,6 @@
 // Copyright (c) Simplex Software LLC. All rights reserved.
 // </copyright>
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidLaunch.EF.Registration;
 
 namespace RapidLaunch.EF.Tests.Registration
