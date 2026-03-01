@@ -297,7 +297,7 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <summary>
-        /// Retrieves an root by an identifier with an include override.
+        /// Retrieves a root by an identifier with an include override.
         /// </summary>
         /// <param name="identifiers">A <see cref="IEnumerable{T}"/> of identifiers.</param>
         /// <param name="includeFunc">A <see cref="Func{TResult}"/> to define an include statement.</param>
@@ -430,24 +430,17 @@ namespace RapidLaunch.EF.Common
         {
             int rowsAffected;
 
-            using (var transaction = Context.Database.BeginTransaction())
+            try
             {
-                try
-                {
-                    var (rowCount, aggregateRoots) = executionFunc.Invoke();
+                var (rowCount, aggregateRoots) = executionFunc.Invoke();
 
-                    rowsAffected = rowCount;
+                rowsAffected = rowCount;
 
-                    postOperationFunc?.Invoke(rowsAffected, aggregateRoots);
-
-                    transaction.Commit();
-                }
-                catch (Exception exception)
-                {
-                    transaction.Rollback();
-
-                    return RapidLaunchStatus.Failed(exception);
-                }
+                postOperationFunc?.Invoke(rowsAffected, aggregateRoots);
+            }
+            catch (Exception exception)
+            {
+                return RapidLaunchStatus.Failed(exception);
             }
 
             return RapidLaunchStatus.Success(rowsAffected);
@@ -464,27 +457,20 @@ namespace RapidLaunch.EF.Common
         {
             int rowsAffected;
 
-            await using (var transaction = await Context.Database.BeginTransactionAsync(cancellationToken))
+            try
             {
-                try
+                var (rowCount, aggregateRoots) = await executionFunc.Invoke();
+
+                rowsAffected = rowCount;
+
+                if (postOperationFunc != null)
                 {
-                    var (rowCount, aggregateRoots) = await executionFunc.Invoke();
-
-                    rowsAffected = rowCount;
-
-                    if (postOperationFunc != null)
-                    {
-                        await postOperationFunc.Invoke(rowsAffected, aggregateRoots);
-                    }
-
-                    await transaction.CommitAsync(cancellationToken);
+                    await postOperationFunc.Invoke(rowsAffected, aggregateRoots);
                 }
-                catch (Exception exception)
-                {
-                    await transaction.RollbackAsync(cancellationToken);
-
-                    return RapidLaunchStatus.Failed(exception);
-                }
+            }
+            catch (Exception exception)
+            {
+                return RapidLaunchStatus.Failed(exception);
             }
 
             return RapidLaunchStatus.Success(rowsAffected);
@@ -500,11 +486,11 @@ namespace RapidLaunch.EF.Common
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
-            var queryable = Context.Set<TRoot>();
+            var dbSet = Context.Set<TRoot>();
 
-            var afterInclude = includeFunc?.Invoke(queryable);
+            var queryable = includeFunc?.Invoke(dbSet);
 
-            return afterInclude != null ? query.Invoke(afterInclude) : query.Invoke(queryable);
+            return queryable != null ? query.Invoke(queryable) : query.Invoke(dbSet);
         }
 
         /// <summary>
@@ -517,11 +503,11 @@ namespace RapidLaunch.EF.Common
         {
             var includeFunc = _includeFunc ?? overrideFunc;
 
-            var queryable = Context.Set<TRoot>();
+            var dbSet = Context.Set<TRoot>();
 
-            var afterInclude = includeFunc?.Invoke(queryable);
+            var queryable = includeFunc?.Invoke(dbSet);
 
-            return afterInclude != null ? await query.Invoke(afterInclude) : await query.Invoke(queryable);
+            return queryable != null ? await query.Invoke(queryable) : await query.Invoke(dbSet);
         }
     }
 }

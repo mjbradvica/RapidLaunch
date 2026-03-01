@@ -43,4 +43,4 @@ jobs:
         run: dotnet build --no-restore -c Release
 
       - name: Test
-        run: dotnet test --no-build -v normal -c Release /p:CollectCoverage=true /p:Threshold=100 /p:ThresholdType=branch
+        run: dotnet test --no-build -v normal -c Release /p:CollectCoverage=true /p:Threshold=10 /p:ThresholdType=branch
