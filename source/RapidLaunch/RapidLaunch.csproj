@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <PackageReference Include="ClearDomain" Version="0.9.8" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.3" />
   </ItemGroup>
 
 </Project>
