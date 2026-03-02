@@ -70,120 +70,96 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc />
         public virtual RapidLaunchStatus AddRoots(IEnumerable<TRoot> roots)
         {
-            return ExecuteCommand(() =>
-            {
-                var aggregateRoots = roots.ToList();
-
-                Context.Set<TRoot>().AddRange(aggregateRoots);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, aggregateRoots);
-            });
+            return ExecuteCommand(
+                set =>
+                {
+                    set.AddRange(roots);
+                },
+                roots);
         }
 
         /// <inheritdoc/>
         public virtual async Task<RapidLaunchStatus> AddRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
-                async () =>
+                async set =>
                 {
-                    var aggregateRoots = roots.ToList();
-
-                    await Context.Set<TRoot>().AddRangeAsync(aggregateRoots, cancellationToken);
-
-                    var rowCount = await Context.SaveChangesAsync(cancellationToken);
-
-                    return (rowCount, aggregateRoots);
+                    await set.AddRangeAsync(roots, cancellationToken);
                 },
+                roots,
                 cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual RapidLaunchStatus AddRoot(TRoot root)
         {
-            return ExecuteCommand(() =>
-            {
-                Context.Set<TRoot>().Add(root);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, new List<TRoot> { root });
-            });
+            return ExecuteCommand(
+                set =>
+                {
+                    set.Add(root);
+                },
+                new List<TRoot> { root });
         }
 
         /// <inheritdoc/>
         public virtual async Task<RapidLaunchStatus> AddRootAsync(TRoot root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
-                async () =>
+                async set =>
                 {
-                    await Context.Set<TRoot>().AddAsync(root, cancellationToken);
-
-                    var rowCount = await Context.SaveChangesAsync(cancellationToken);
-
-                    return (rowCount, new List<TRoot> { root });
+                    await set.AddAsync(root, cancellationToken);
                 },
+                new List<TRoot> { root },
                 cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual RapidLaunchStatus DeleteRoots(IEnumerable<TRoot> roots)
         {
-            return ExecuteCommand(() =>
-            {
-                var aggregateRoots = roots.ToList();
-
-                Context.Set<TRoot>().RemoveRange(aggregateRoots);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, aggregateRoots);
-            });
+            return ExecuteCommand(
+                set =>
+                {
+                    set.RemoveRange(roots);
+                },
+                roots);
         }
 
         /// <inheritdoc/>
         public virtual async Task<RapidLaunchStatus> DeleteRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
-                async () =>
-            {
-                var aggregateRoots = roots.ToList();
+                set =>
+                {
+                    set.RemoveRange(roots);
 
-                Context.Set<TRoot>().RemoveRange(aggregateRoots);
-
-                var rowCount = await Context.SaveChangesAsync(cancellationToken);
-
-                return (rowCount, aggregateRoots);
-            },
+                    return Task.CompletedTask;
+                },
+                roots,
                 cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual RapidLaunchStatus DeleteRoot(TRoot root)
         {
-            return ExecuteCommand(() =>
-            {
-                Context.Set<TRoot>().Remove(root);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, new List<TRoot> { root });
-            });
+            return ExecuteCommand(
+                set =>
+                {
+                    set.Remove(root);
+                },
+                new List<TRoot> { root });
         }
 
         /// <inheritdoc/>
         public virtual async Task<RapidLaunchStatus> DeleteRootAsync(TRoot root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
-                async () =>
+                set =>
                 {
-                    Context.Set<TRoot>().Remove(root);
+                    set.Remove(root);
 
-                    var rowCount = await Context.SaveChangesAsync(cancellationToken);
-
-                    return (rowCount, new List<TRoot> { root });
+                    return Task.CompletedTask;
                 },
+                new List<TRoot> { root },
                 cancellationToken);
         }
 
@@ -363,80 +339,71 @@ namespace RapidLaunch.EF.Common
         /// <inheritdoc/>
         public virtual RapidLaunchStatus UpdateRoots(IEnumerable<TRoot> roots)
         {
-            return ExecuteCommand(() =>
-            {
-                var aggregateRoots = roots.ToList();
-
-                Context.Set<TRoot>().UpdateRange(aggregateRoots);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, aggregateRoots);
-            });
+            return ExecuteCommand(
+                set =>
+                {
+                    set.UpdateRange(roots);
+                },
+                roots);
         }
 
         /// <inheritdoc/>
         public virtual async Task<RapidLaunchStatus> UpdateRootsAsync(IEnumerable<TRoot> roots, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
-                async () =>
-            {
-                var aggregateRoots = roots.ToList();
+                set =>
+                {
+                    set.UpdateRange(roots);
 
-                Context.Set<TRoot>().UpdateRange(aggregateRoots);
-
-                var rowCount = await Context.SaveChangesAsync(cancellationToken);
-
-                return (rowCount, aggregateRoots);
-            },
+                    return Task.CompletedTask;
+                },
+                roots,
                 cancellationToken);
         }
 
         /// <inheritdoc/>
         public virtual RapidLaunchStatus UpdateRoot(TRoot root)
         {
-            return ExecuteCommand(() =>
-            {
-                Context.Set<TRoot>().Update(root);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, new List<TRoot> { root });
-            });
+            return ExecuteCommand(
+                set =>
+                {
+                    set.Update(root);
+                },
+                new List<TRoot> { root });
         }
 
         /// <inheritdoc/>
         public virtual async Task<RapidLaunchStatus> UpdateRootAsync(TRoot root, CancellationToken cancellationToken = default)
         {
             return await ExecuteCommandAsync(
-                async () =>
+                set =>
                 {
-                    Context.Set<TRoot>().Update(root);
+                    set.Update(root);
 
-                    var rowCount = await Context.SaveChangesAsync(cancellationToken);
-
-                    return (rowCount, new List<TRoot> { root });
+                    return Task.CompletedTask;
                 },
+                new List<TRoot> { root },
                 cancellationToken);
         }
 
         /// <summary>
         /// Executes a command against the persistence.
         /// </summary>
-        /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
-        /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
-        /// <returns>A <see cref="RapidLaunchStatus"/> indicating the status of the operation.</returns>
-        protected virtual RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
+        /// <param name="executionFunction">A <see cref="Action"/> that will operate on a db set.</param>
+        /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots for the operation.</param>
+        /// <param name="postOperationFunc">A post-operation action that can process the roots after completion.</param>
+        /// <returns>A <see cref="RapidLaunchStatus"/> that describes the situation.</returns>
+        protected virtual RapidLaunchStatus ExecuteCommand(Action<DbSet<TRoot>> executionFunction, IEnumerable<TRoot> roots, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
             int rowsAffected;
 
             try
             {
-                var (rowCount, aggregateRoots) = executionFunc.Invoke();
+                executionFunction.Invoke(Context.Set<TRoot>());
 
-                rowsAffected = rowCount;
+                rowsAffected = Context.SaveChanges();
 
-                postOperationFunc?.Invoke(rowsAffected, aggregateRoots);
+                postOperationFunc?.Invoke(rowsAffected, roots);
             }
             catch (Exception exception)
             {
@@ -450,22 +417,23 @@ namespace RapidLaunch.EF.Common
         /// Executes a command against the persistence.
         /// </summary>
         /// <param name="executionFunc">A <see cref="Func{TResult}"/> that contains an operation to execute.</param>
+        /// <param name="roots">A <see cref="IEnumerable{T}"/> of roots.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
         /// <param name="postOperationFunc">A <see cref="Func{TResult}"/> to run post operation effects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
+        protected virtual async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<DbSet<TRoot>, Task> executionFunc, IEnumerable<TRoot> roots, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
         {
             int rowsAffected;
 
             try
             {
-                var (rowCount, aggregateRoots) = await executionFunc.Invoke();
+                await executionFunc.Invoke(Context.Set<TRoot>());
 
-                rowsAffected = rowCount;
+                rowsAffected = await Context.SaveChangesAsync(cancellationToken);
 
                 if (postOperationFunc != null)
                 {
-                    await postOperationFunc.Invoke(rowsAffected, aggregateRoots);
+                    await postOperationFunc.Invoke(rowsAffected, roots);
                 }
             }
             catch (Exception exception)

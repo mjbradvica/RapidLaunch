@@ -44,9 +44,9 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc />
-        protected override RapidLaunchStatus ExecuteCommand(Func<(int RowCount, IEnumerable<TRoot> Entities)> executionFunc, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
+        protected override RapidLaunchStatus ExecuteCommand(Action<DbSet<TRoot>> executionFunction, IEnumerable<TRoot> roots, Action<int, IEnumerable<IAggregateRoot<TId, TEvent>>>? postOperationFunc = null)
         {
-            return base.ExecuteCommand(executionFunc, (rowCount, aggregateRoots) =>
+            return base.ExecuteCommand(executionFunction, roots, (rowCount, aggregateRoots) =>
             {
                 if (rowCount > 0)
                 {
@@ -62,9 +62,9 @@ namespace RapidLaunch.EF.Common
         }
 
         /// <inheritdoc/>
-        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<Task<(int RowCount, IEnumerable<TRoot> Entities)>> executionFunc, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
+        protected override async Task<RapidLaunchStatus> ExecuteCommandAsync(Func<DbSet<TRoot>, Task> executionFunc, IEnumerable<TRoot> roots, CancellationToken cancellationToken, Func<int, IEnumerable<IAggregateRoot<TId, TEvent>>, Task>? postOperationFunc = null)
         {
-            return await base.ExecuteCommandAsync(executionFunc, cancellationToken, async (rowCount, aggregateRoots) =>
+            return await base.ExecuteCommandAsync(executionFunc, roots, cancellationToken, async (rowCount, aggregateRoots) =>
             {
                 if (rowCount > 0)
                 {

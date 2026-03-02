@@ -36,14 +36,11 @@ namespace RapidLaunch.EF.Tests.Common
         public RapidLaunchStatus TestExceptionHandler(TestGuidEntity guidEntity)
         {
             return ExecuteCommand(
-                () =>
-            {
-                Context.Set<TestGuidEntity>().Add(guidEntity);
-
-                var rowCount = Context.SaveChanges();
-
-                return (rowCount, new List<TestGuidEntity> { guidEntity });
-            },
+                set =>
+                {
+                    set.Add(guidEntity);
+                },
+                new List<TestGuidEntity> { guidEntity },
                 (_, _) => throw new ArgumentNullException(nameof(guidEntity)));
         }
 
@@ -56,14 +53,11 @@ namespace RapidLaunch.EF.Tests.Common
         public async Task<RapidLaunchStatus> TestExceptionHandlerAsync(TestGuidEntity guidEntity)
         {
             return await ExecuteCommandAsync(
-                async () =>
+                async set =>
                 {
-                    await Context.Set<TestGuidEntity>().AddAsync(guidEntity);
-
-                    var rowCount = await Context.SaveChangesAsync();
-
-                    return (rowCount, new List<TestGuidEntity> { guidEntity });
+                    await set.AddAsync(guidEntity);
                 },
+                new List<TestGuidEntity> { guidEntity },
                 CancellationToken.None,
                 (_, _) => throw new ArgumentNullException(nameof(guidEntity)));
         }
